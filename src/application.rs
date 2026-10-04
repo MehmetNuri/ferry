@@ -240,7 +240,7 @@ impl Application {
             .comments(tr("Browse and manage S3-compatible storage"))
             .website("https://github.com/MehmetNuri/s3_browser")
             .issue_url("https://github.com/MehmetNuri/s3_browser/issues")
-            .license_type(gtk::License::Apache20)
+            .license_type(gtk::License::Gpl30)
             .copyright("© 2026 Mehmet Nuri Öztürk")
             .developers(vec!["Mehmet Nuri Öztürk"])
             .translator_credits(tr("translator-credits"))

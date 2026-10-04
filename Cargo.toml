@@ -1,6 +1,6 @@
 [package]
 name = "ferry"
-license = "Apache-2.0"
+license = "GPL-3.0-or-later"
 description = "Move files between your computer and cloud storage"
 version = "0.1.0"
 edition = "2024"

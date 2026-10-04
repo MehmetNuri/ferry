@@ -2,7 +2,7 @@
 <component type="desktop-application">
   <id>io.github.mehmetnuri.Ferry</id>
   <metadata_license>CC0-1.0</metadata_license>
-  <project_license>Apache-2.0</project_license>
+  <project_license>GPL-3.0-or-later</project_license>
   <name>Ferry</name>
   <summary>Move files between your computer and cloud storage</summary>
   <developer id="io.github.mehmetnuri">
