@@ -13,7 +13,6 @@ mod config;
 mod devtools;
 mod dialogs;
 mod i18n;
-mod migrate;
 mod pages;
 mod profile;
 mod runtime;
@@ -40,10 +39,8 @@ fn main() -> glib::ExitCode {
     let mut args: Vec<String> = std::env::args().collect();
     // A subcommand runs in the terminal and never opens a window.
     if args.get(1).is_some_and(|a| cli::COMMANDS.contains(&a.as_str())) {
-        migrate::run_files_only();
         return glib::ExitCode::from(cli::run(&args[1..]) as u8);
     }
-    migrate::run();
     // "--hidden" starts in the background without a window, as at login.
     if let Some(index) = args.iter().position(|a| a == "--hidden") {
         args.remove(index);

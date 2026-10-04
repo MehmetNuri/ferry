@@ -136,18 +136,7 @@ async fn read_secret(keyring: &oo7::Keyring, id: &str, field: &str) -> Result<St
         let secret = item.secret().await.map_err(|e| e.to_string())?;
         return Ok(String::from_utf8_lossy(secret.as_bytes()).into_owned());
     }
-    // Saved by the application under its earlier name: moved over to the current one.
-    let mut legacy = attributes(id, field);
-    legacy.insert("application", crate::migrate::LEGACY_APP_ID);
-    let items = keyring.search_items(&legacy).await.map_err(|e| e.to_string())?;
-    let Some(item) = items.first() else { return Ok(String::new()) };
-    let secret = item.secret().await.map_err(|e| e.to_string())?;
-    let value = String::from_utf8_lossy(secret.as_bytes()).into_owned();
-    let label = format!("Ferry: {id} ({field})");
-    if keyring.create_item(&label, &attributes(id, field), value.as_bytes(), true).await.is_ok() {
-        let _ = keyring.delete(&legacy).await;
-    }
-    Ok(value)
+    Ok(String::new())
 }
 
 async fn write_secret(keyring: &oo7::Keyring, profile: &Profile, field: &str, value: &str) -> Result<(), String> {

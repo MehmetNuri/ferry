@@ -10,7 +10,7 @@ use crate::i18n::tr;
 use crate::profile::Profile;
 
 pub const FORMAT: &str = "ferry-backup";
-/// Backups written before the application was renamed.
+/// The format name of backups written by earlier versions.
 pub const LEGACY_FORMAT: &str = "s3-browser-encrypted-profiles";
 /// RFC 9106's second recommended setting: 64 MiB, three passes.
 const MEMORY_KIB: u32 = 64 * 1024;

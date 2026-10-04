@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist gettext-domain="ferry">
-  <!-- The keys have no path of their own, so they can also be opened at the path of the
-       earlier application (S3 Browser) once, to move its settings over. -->
-  <schema id="io.github.mehmetnuri.Ferry.Keys">
+  <schema id="io.github.mehmetnuri.Ferry" path="/io/github/mehmetnuri/Ferry/">
     <key name="window-width" type="i">
       <default>1180</default>
       <summary>Width of the main window</summary>
@@ -95,5 +93,4 @@
       <summary>Favorite folders per connection, as JSON</summary>
     </key>
   </schema>
-  <schema id="io.github.mehmetnuri.Ferry" path="/io/github/mehmetnuri/Ferry/" extends="io.github.mehmetnuri.Ferry.Keys"/>
 </schemalist>

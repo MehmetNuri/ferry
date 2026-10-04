@@ -1,11 +1,45 @@
 # Ferry
 
-Ferry moves files between your computer and cloud storage. It is a GNOME application
-written in Rust with GTK 4 and libadwaita, and works with Supabase Storage, AWS S3, MinIO,
-Cloudflare R2 and any other S3-compatible service; more protocols are on the way.
+Ferry is a file transfer client for GNOME. Browse buckets, upload and download files,
+share links and keep folders in sync with cloud storage. Cryptomator vaults open right
+in the window, so files can be encrypted before they leave your computer.
 
-Ferry was called S3 Browser before; its settings, connections and keyring entries move
-over by themselves on the first start.
+It is written in Rust with GTK 4 and libadwaita, and follows the GNOME Human
+Interface Guidelines.
+
+## Supported services
+
+Ferry works with services that offer the S3 API. These come with ready-made settings:
+
+- Amazon S3
+- Cloudflare R2
+- Supabase Storage
+- MinIO
+- Backblaze B2
+- Wasabi
+- DigitalOcean Spaces
+- Hetzner Object Storage
+- Scaleway Object Storage
+- OVHcloud Object Storage
+- Akamai (Linode) Object Storage
+- Exoscale SOS
+- Storj
+- Google Cloud Storage (with HMAC keys)
+
+Other S3-compatible servers, such as Ceph, Garage or SeaweedFS, are added with their
+endpoint address, also when they use a self-signed certificate or a private certificate
+authority. The built-in compatibility test shows which features a server supports.
+
+**Encryption:** Cryptomator vaults (format 8), created by Ferry or by the Cryptomator
+apps, can be unlocked, browsed and written in any bucket.
+
+**Signing in:** access keys kept in the GNOME keyring, AWS CLI profiles including IAM
+Identity Center (single sign-on) and `credential_process`, assumed roles with MFA codes,
+and temporary session tokens.
+
+**Importing connections:** from rclone, s3cmd, Cyberduck bookmarks and the AWS CLI.
+
+SFTP, FTP, WebDAV and further cloud services are planned.
 
 ## Features
 
@@ -74,7 +108,6 @@ src/
   config.rs, i18n.rs           build configuration, gettext helpers
   cli.rs                       the command line (ferry ls/get/put/rm/cat/share)
   profile.rs, settings.rs      saved connections (secrets in the keyring), GSettings
-  migrate.rs                   one-time move of S3 Browser data to Ferry
   backup/                      connection backups: password, age/SSH/YubiKey, GnuPG
   runtime.rs                   the Tokio runtime and the bridge to the GLib main loop
   search.rs                    GNOME Shell search provider
