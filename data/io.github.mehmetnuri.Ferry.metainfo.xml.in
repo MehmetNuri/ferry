@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>io.github.mehmetnuri.Ferry</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>Apache-2.0</project_license>
+  <name>Ferry</name>
+  <summary>Move files between your computer and cloud storage</summary>
+  <developer id="io.github.mehmetnuri">
+    <name>Mehmet Nuri Öztürk</name>
+  </developer>
+  <description>
+    <p>
+      Ferry moves files between your computer and cloud storage: Amazon S3, Supabase
+      Storage, MinIO, Cloudflare R2 and other S3-compatible services.
+    </p>
+    <ul>
+      <li>Browse buckets in a list or a grid with thumbnails; folders open instantly from a cache</li>
+      <li>Quick preview of images, videos, audio and text with the space key</li>
+      <li>A transfer queue with priorities, pausing each transfer, speed limit and retries; interrupted uploads and downloads continue where they stopped</li>
+      <li>Recent objects of every connection, sorting, and downloading folders as one ZIP file</li>
+      <li>Opens s3:// links from anywhere in the desktop; previews highlighted code, CSV tables and ZIP contents</li>
+      <li>Copy in Ferry and paste in GNOME Files; mounted buckets appear among the bookmarks</li>
+      <li>Copy, cut and paste, moving by drag and drop with undo, batch rename</li>
+      <li>Upload by drag and drop or by pasting files copied in GNOME Files, with conflict handling</li>
+      <li>Share links with QR codes, and upload links for people without an account</li>
+      <li>Find objects from the GNOME Shell overview</li>
+      <li>Object versions, permissions, Object Lock, bucket policy, CORS, lifecycle and CloudFront</li>
+      <li>Folder sync, scheduled backup jobs and mounting a bucket as a folder</li>
+      <li>Storage analyzer and a compatibility test for any S3-compatible provider</li>
+      <li>Credentials kept in the system keyring; AWS CLI profiles with single sign-on, assumed roles with MFA codes</li>
+      <li>Connection backups protected with a password, age or SSH keys, a YubiKey or a GnuPG key</li>
+      <li>Servers with self-signed certificates or a private certificate authority, after checking the fingerprint</li>
+      <li>Pauses while offline and keeps the computer awake during transfers</li>
+    </ul>
+  </description>
+  <launchable type="desktop-id">io.github.mehmetnuri.Ferry.desktop</launchable>
+  <url type="homepage">https://github.com/MehmetNuri/s3_browser</url>
+  <url type="bugtracker">https://github.com/MehmetNuri/s3_browser/issues</url>
+  <url type="vcs-browser">https://github.com/MehmetNuri/s3_browser</url>
+  <url type="contribute">https://github.com/MehmetNuri/s3_browser</url>
+  <url type="translate">https://github.com/MehmetNuri/s3_browser/tree/main/po</url>
+  <translation type="gettext">ferry</translation>
+  <provides>
+    <binary>ferry</binary>
+    <dbus type="user">io.github.mehmetnuri.Ferry</dbus>
+  </provides>
+  <branding>
+    <color type="primary" scheme_preference="light">#99c1f1</color>
+    <color type="primary" scheme_preference="dark">#1a5fb4</color>
+  </branding>
+  <supports>
+    <control>pointing</control>
+    <control>keyboard</control>
+    <control>touch</control>
+  </supports>
+  <requires>
+    <display_length compare="ge">360</display_length>
+    <internet>always</internet>
+  </requires>
+  <content_rating type="oars-1.1"/>
+  <releases>
+    <release version="0.1.0" date="2026-10-03">
+      <description>
+        <p>First GNOME edition, rewritten in Rust with GTK 4 and libadwaita.</p>
+      </description>
+    </release>
+  </releases>
+</component>

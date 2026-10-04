@@ -1,0 +1,4481 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"#-#-#-#-#  rs.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-04 21:51+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"#-#-#-#-#  data.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-04 21:51+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/application.rs:173 src/dialogs/bucket.rs:148
+msgid "General"
+msgstr ""
+
+#: src/application.rs:174
+msgid "Behavior"
+msgstr ""
+
+#: src/application.rs:175
+msgid "Run in Background"
+msgstr ""
+
+#: src/application.rs:176
+msgid "Closing the window keeps transfers and scheduled backups running"
+msgstr ""
+
+#: src/application.rs:177
+msgid "Notifications"
+msgstr ""
+
+#: src/application.rs:178
+msgid ""
+"Show a notification when transfers finish while the window is not focused"
+msgstr ""
+
+#: src/application.rs:179
+msgid "Start at Login"
+msgstr ""
+
+#: src/application.rs:180
+msgid ""
+"Runs in the background without a window, so scheduled and watched backups "
+"keep working"
+msgstr ""
+
+#: src/application.rs:184 src/transfers/view.rs:176
+#: data/resources/ui/window.blp:232
+msgid "Transfers"
+msgstr ""
+
+#: src/application.rs:185
+msgid "Simultaneous Transfers"
+msgstr ""
+
+#: src/application.rs:185
+msgid "Files uploaded or downloaded at the same time"
+msgstr ""
+
+#: src/application.rs:188
+msgid "Ask Where to Save Downloads"
+msgstr ""
+
+#: src/application.rs:190
+msgid "Download Folder"
+msgstr ""
+
+#: src/application.rs:191 src/dialogs/bucket.rs:662
+msgid "Choose Folder…"
+msgstr ""
+
+#: src/application.rs:200
+msgid "Download folder"
+msgstr ""
+
+#: src/application.rs:212
+msgid "Leave Out When Uploading Folders"
+msgstr ""
+
+#: src/application.rs:214
+msgid ""
+"Comma-separated names; * and ? are wildcards, for example node_modules, *.tmp"
+msgstr ""
+
+#: src/application.rs:240
+msgid "Browse and manage S3-compatible storage"
+msgstr ""
+
+#: src/application.rs:246
+msgid "translator-credits"
+msgstr ""
+
+#: src/application.rs:249 data/io.github.mehmetnuri.Ferry.metainfo.xml.in:64
+msgid "First GNOME edition, rewritten in Rust with GTK 4 and libadwaita."
+msgstr ""
+
+#: src/application.rs:250
+msgid ""
+"Transfer queue with priorities, pause, speed limit and resume after restart"
+msgstr ""
+
+#: src/application.rs:251
+msgid "Interrupted uploads and downloads continue where they stopped"
+msgstr ""
+
+#: src/application.rs:252
+msgid "Recent objects, sorting, ZIP downloads and s3:// links"
+msgstr ""
+
+#: src/application.rs:253
+msgid ""
+"Previews of CSV tables, ZIP contents and highlighted code; copy and paste "
+"with GNOME Files"
+msgstr ""
+
+#: src/application.rs:254
+msgid "Quick preview of images, videos, audio and text"
+msgstr ""
+
+#: src/application.rs:255
+msgid "Copy, cut and paste, moving by drag and drop, undo"
+msgstr ""
+
+#: src/application.rs:256
+msgid "Search from the GNOME Shell overview"
+msgstr ""
+
+#: src/application.rs:257
+msgid "Share links with QR codes and upload links"
+msgstr ""
+
+#: src/application.rs:258
+msgid "Bucket mounting, permissions, Object Lock, CloudFront"
+msgstr ""
+
+#: src/application.rs:300 src/application.rs:310
+msgid "Scheduled backups run in the background"
+msgstr ""
+
+#: src/application.rs:336
+msgid "Ferry Is Running in the Background"
+msgstr ""
+
+#: src/application.rs:337
+msgid ""
+"Transfers and scheduled backups continue. Open Ferry again to show the "
+"window."
+msgstr ""
+
+#: src/application.rs:340 src/window/mod.rs:195
+msgid "Quit"
+msgstr ""
+
+#: src/application.rs:343
+msgid "Transfers and scheduled backups continue while the window is closed"
+msgstr ""
+
+#: src/application.rs:354 src/transfers/view.rs:156 src/transfers/view.rs:164
+msgid "Idle"
+msgstr ""
+
+#: src/application.rs:368
+msgid "Transfers Failed"
+msgstr ""
+
+#: src/application.rs:368
+msgid "{n} transfers failed, {d} finished"
+msgstr ""
+
+#: src/application.rs:370
+msgid "Transfers Finished"
+msgstr ""
+
+#: src/application.rs:370 src/transfers/view.rs:49
+msgid "{n} transfer finished"
+msgid_plural "{n} transfers finished"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/application.rs:378 src/transfers/view.rs:370 src/transfers/view.rs:512
+msgid "Retry"
+msgstr ""
+
+#: src/application.rs:379
+msgid "Show Transfers"
+msgstr ""
+
+#: src/application.rs:392 src/window/mod.rs:3105 src/window/mod.rs:3175
+msgid "Open Folder"
+msgstr ""
+
+#: src/application.rs:416
+msgid "Backup “{name}” Failed"
+msgstr ""
+
+#: src/backup/age.rs:65
+msgid ""
+"No YubiKey with an age key was found. Set one up with age-plugin-yubikey "
+"first."
+msgstr ""
+
+#: src/backup/age.rs:93
+msgid "“{key}” is not an age or SSH public key"
+msgstr ""
+
+#: src/backup/age.rs:101
+msgid "The age plugin “{name}” is not installed"
+msgstr ""
+
+#: src/backup/age.rs:105
+msgid "Enter at least one public key"
+msgstr ""
+
+#: src/backup/age.rs:128 src/backup/age.rs:185
+msgid "None of your keys can open this backup"
+msgstr ""
+
+#: src/backup/age.rs:129 src/backup/age.rs:133 src/backup/password.rs:63
+msgid "Wrong password, or the file is damaged"
+msgstr ""
+
+#: src/backup/age.rs:185
+msgid "The file is not an age identity or SSH private key"
+msgstr ""
+
+#: src/backup/foreign.rs:36 src/backup/mod.rs:46
+msgid "A connection file cannot be larger than 1 MB"
+msgstr ""
+
+#: src/backup/foreign.rs:38
+msgid "The file is not a text file"
+msgstr ""
+
+#: src/backup/foreign.rs:44
+msgid ""
+"This rclone configuration is encrypted. Decrypt it with “rclone config show” "
+"first."
+msgstr ""
+
+#: src/backup/foreign.rs:53
+msgid "No connections were found in this file"
+msgstr ""
+
+#: src/backup/gpg.rs:78 src/dialogs/backup.rs:123
+msgid "GnuPG is not installed"
+msgstr ""
+
+#: src/backup/gpg.rs:89
+msgid "None of your GnuPG keys can open this backup"
+msgstr ""
+
+#: src/backup/gpg.rs:91 src/pages/backups.rs:206 src/transfers/view.rs:87
+msgid "Cancelled"
+msgstr ""
+
+#: src/backup/mod.rs:39
+msgid "Invalid connection file or unsupported version"
+msgstr ""
+
+#: src/cli.rs:16
+msgid "Usage:"
+msgstr ""
+
+#: src/cli.rs:16
+msgid ""
+"Without a command, Ferry opens its window. Connections are the ones saved in "
+"Ferry; names with spaces need quotes."
+msgstr ""
+
+#: src/cli.rs:35
+msgid "“{name}” is not a saved connection; see “ferry connections”"
+msgstr ""
+
+#: src/cli.rs:40
+msgid "MFA code for “{name}”:"
+msgstr ""
+
+#: src/cli.rs:113
+msgid "Name an object, or use -r for a folder"
+msgstr ""
+
+#: src/cli.rs:153
+msgid "Name a bucket to upload into"
+msgstr ""
+
+#: src/cli.rs:161
+msgid "“{name}” is a folder; use -r to upload it"
+msgstr ""
+
+#: src/cli.rs:188
+msgid ""
+"Name an object or folder to remove; buckets are not removed from the command "
+"line"
+msgstr ""
+
+#: src/cli.rs:198 src/cli.rs:202
+msgid "Use -r to remove a folder"
+msgstr ""
+
+#: src/cli.rs:207
+msgid "{n} removed"
+msgstr ""
+
+#: src/dialogs/access.rs:30 src/dialogs/bucket.rs:166 src/dialogs/bucket.rs:190
+#: src/dialogs/bucket.rs:240 src/dialogs/bucket.rs:268
+#: src/dialogs/bucket.rs:374
+msgid "Settings saved"
+msgstr ""
+
+#: src/dialogs/access.rs:37 src/dialogs/access.rs:51
+msgid "Everyone"
+msgstr ""
+
+#: src/dialogs/access.rs:38 src/dialogs/access.rs:51
+msgid "Authenticated AWS users"
+msgstr ""
+
+#: src/dialogs/access.rs:39 src/dialogs/access.rs:51
+msgid "Log delivery group"
+msgstr ""
+
+#: src/dialogs/access.rs:46
+msgid "Access Control List"
+msgstr ""
+
+#: src/dialogs/access.rs:47
+msgid ""
+"The owner always keeps full control. Public grants are refused while the "
+"public access block is on."
+msgstr ""
+
+#: src/dialogs/access.rs:51
+msgid "Canonical user ID"
+msgstr ""
+
+#: src/dialogs/access.rs:51
+msgid "AWS account e-mail"
+msgstr ""
+
+#: src/dialogs/access.rs:52
+msgid "Grantee"
+msgstr ""
+
+#: src/dialogs/access.rs:53
+msgid "Canonical ID or e-mail address"
+msgstr ""
+
+#: src/dialogs/access.rs:54
+msgid "Permission"
+msgstr ""
+
+#: src/dialogs/access.rs:55
+msgid "Add Permission"
+msgstr ""
+
+#: src/dialogs/access.rs:56
+msgid "Save Permissions"
+msgstr ""
+
+#: src/dialogs/access.rs:68
+msgid "Owner"
+msgstr ""
+
+#: src/dialogs/access.rs:75 src/dialogs/bucket.rs:87 src/pages/analyzer.rs:185
+msgid "Remove"
+msgstr ""
+
+#: src/dialogs/access.rs:100
+msgid "Enter the canonical ID or e-mail address"
+msgstr ""
+
+#: src/dialogs/access.rs:143
+msgid "Permissions"
+msgstr ""
+
+#: src/dialogs/access.rs:144
+msgid "Block Public Access"
+msgstr ""
+
+#: src/dialogs/access.rs:145
+msgid "Block new public ACLs"
+msgstr ""
+
+#: src/dialogs/access.rs:145
+msgid "Ignore existing public ACLs"
+msgstr ""
+
+#: src/dialogs/access.rs:145
+msgid "Block public bucket policies"
+msgstr ""
+
+#: src/dialogs/access.rs:145
+msgid "Restrict access to buckets with public policies"
+msgstr ""
+
+#: src/dialogs/access.rs:148 src/dialogs/access.rs:165
+#: src/dialogs/access.rs:178 src/dialogs/access.rs:185
+#: src/dialogs/bucket.rs:232 src/dialogs/bucket.rs:386 src/window/mod.rs:2295
+#: data/resources/ui/profile-dialog.blp:21
+msgid "Save"
+msgstr ""
+
+#: src/dialogs/access.rs:157 src/dialogs/access.rs:158
+#: src/dialogs/access.rs:403
+msgid "Object Lock"
+msgstr ""
+
+#: src/dialogs/access.rs:159
+msgid ""
+"Locked objects cannot be deleted or overwritten before their retention ends. "
+"Enabling Object Lock requires versioning and cannot be undone."
+msgstr ""
+
+#: src/dialogs/access.rs:160
+msgid "State"
+msgstr ""
+
+#: src/dialogs/access.rs:160 src/dialogs/access.rs:404 src/window/mod.rs:1456
+msgid "Loading…"
+msgstr ""
+
+#: src/dialogs/access.rs:161
+msgid "Default retention"
+msgstr ""
+
+#: src/dialogs/access.rs:161 src/dialogs/bucket.rs:180
+msgid "None"
+msgstr ""
+
+#: src/dialogs/access.rs:162
+msgid "Retention period"
+msgstr ""
+
+#: src/dialogs/access.rs:163
+msgid "Unit"
+msgstr ""
+
+#: src/dialogs/access.rs:163
+msgid "Days"
+msgstr ""
+
+#: src/dialogs/access.rs:163
+msgid "Years"
+msgstr ""
+
+#: src/dialogs/access.rs:164
+msgid "I understand that Object Lock cannot be turned off for this bucket"
+msgstr ""
+
+#: src/dialogs/access.rs:174
+msgid "Hosting"
+msgstr ""
+
+#: src/dialogs/access.rs:175
+msgid "Static Website"
+msgstr ""
+
+#: src/dialogs/access.rs:175
+msgid ""
+"With an index document the bucket is served as a static website; saving an "
+"empty one turns it off."
+msgstr ""
+
+#: src/dialogs/access.rs:176
+msgid "Index document"
+msgstr ""
+
+#: src/dialogs/access.rs:177
+msgid "Error document"
+msgstr ""
+
+#: src/dialogs/access.rs:182
+msgid "Access Logging"
+msgstr ""
+
+#: src/dialogs/access.rs:182
+msgid ""
+"Access logs are written to another bucket; saving an empty target turns "
+"logging off."
+msgstr ""
+
+#: src/dialogs/access.rs:183
+msgid "Target bucket"
+msgstr ""
+
+#: src/dialogs/access.rs:184
+msgid "Prefix"
+msgstr ""
+
+#: src/dialogs/access.rs:190
+msgid "Requester pays"
+msgstr ""
+
+#: src/dialogs/access.rs:190
+msgid ""
+"The requester pays for requests and data transfer instead of the bucket owner"
+msgstr ""
+
+#: src/dialogs/access.rs:216 src/dialogs/access.rs:246
+#: src/dialogs/bucket.rs:157 src/dialogs/bucket.rs:166
+#: src/pages/compatibility.rs:74
+msgid "Enabled"
+msgstr ""
+
+#: src/dialogs/access.rs:216 src/pages/compatibility.rs:74
+msgid "Off"
+msgstr ""
+
+#: src/dialogs/access.rs:237
+msgid "Confirm that Object Lock cannot be turned off before enabling it"
+msgstr ""
+
+#: src/dialogs/access.rs:273
+msgid "CloudFront"
+msgstr ""
+
+#: src/dialogs/access.rs:274
+msgid "Distributions"
+msgstr ""
+
+#: src/dialogs/access.rs:275
+msgid ""
+"CloudFront distributions that use this bucket as their origin. To purge the "
+"cache, enter paths separated by spaces (for example /index.html /images/*)."
+msgstr ""
+
+#: src/dialogs/access.rs:276
+msgid "Paths to invalidate"
+msgstr ""
+
+#: src/dialogs/access.rs:285
+msgid "No distribution uses this bucket."
+msgstr ""
+
+#: src/dialogs/access.rs:288
+msgid "disabled"
+msgstr ""
+
+#: src/dialogs/access.rs:291
+msgid "Invalidate"
+msgstr ""
+
+#: src/dialogs/access.rs:300
+msgid "Invalidation created ({id})"
+msgstr ""
+
+#: src/dialogs/access.rs:315
+msgid "Permissions of {name}"
+msgstr ""
+
+#: src/dialogs/access.rs:320
+msgid "Storage"
+msgstr ""
+
+#: src/dialogs/access.rs:323 src/window/mod.rs:2228
+msgid "Storage class"
+msgstr ""
+
+#: src/dialogs/access.rs:324 src/dialogs/bucket.rs:184 src/window/mod.rs:2401
+#: src/window/mod.rs:2442
+msgid "Apply"
+msgstr ""
+
+#: src/dialogs/access.rs:328
+msgid "Server-side encryption"
+msgstr ""
+
+#: src/dialogs/access.rs:343
+msgid "Restore From Archive"
+msgstr ""
+
+#: src/dialogs/access.rs:343
+msgid "Archived objects need a temporary copy before they can be downloaded"
+msgstr ""
+
+#: src/dialogs/access.rs:344
+msgid "Days the copy stays available"
+msgstr ""
+
+#: src/dialogs/access.rs:345 src/transfers/view.rs:133
+msgid "Speed"
+msgstr ""
+
+#: src/dialogs/access.rs:346
+msgid "Request Restore"
+msgstr ""
+
+#: src/dialogs/access.rs:354
+msgid "Restore in progress…"
+msgstr ""
+
+#: src/dialogs/access.rs:354
+msgid "A restored copy is available"
+msgstr ""
+
+#: src/dialogs/access.rs:362
+msgid "Restore requested"
+msgstr ""
+
+#: src/dialogs/access.rs:371
+msgid "Public Access"
+msgstr ""
+
+#: src/dialogs/access.rs:372
+msgid "Anyone can read this object"
+msgstr ""
+
+#: src/dialogs/access.rs:372
+msgid "Adds or removes the public read grant"
+msgstr ""
+
+#: src/dialogs/access.rs:379
+msgid "This provider does not report object permissions"
+msgstr ""
+
+#: src/dialogs/access.rs:404
+msgid "Retention"
+msgstr ""
+
+#: src/dialogs/access.rs:405
+msgid "Mode"
+msgstr ""
+
+#: src/dialogs/access.rs:406
+msgid "Retain for days"
+msgstr ""
+
+#: src/dialogs/access.rs:407
+msgid "Bypass GOVERNANCE retention"
+msgstr ""
+
+#: src/dialogs/access.rs:407
+msgid "Needs the permission to shorten a retention"
+msgstr ""
+
+#: src/dialogs/access.rs:408
+msgid "Apply Retention"
+msgstr ""
+
+#: src/dialogs/access.rs:409
+msgid "Legal hold"
+msgstr ""
+
+#: src/dialogs/access.rs:409
+msgid "While on, the object cannot be deleted"
+msgstr ""
+
+#: src/dialogs/access.rs:419
+msgid "No retention lock"
+msgstr ""
+
+#: src/dialogs/access.rs:420 src/dialogs/access.rs:433
+msgid "{mode} until {date}"
+msgstr ""
+
+#: src/dialogs/backup.rs:36 src/dialogs/backup.rs:195
+msgid "Export Connections"
+msgstr ""
+
+#: src/dialogs/backup.rs:38 src/dialogs/import_apps.rs:36
+msgid "_Cancel"
+msgstr ""
+
+#: src/dialogs/backup.rs:39
+msgid "_Export…"
+msgstr ""
+
+#: src/dialogs/backup.rs:47 src/dialogs/connection.rs:84
+msgid "Access Keys"
+msgstr ""
+
+#: src/dialogs/backup.rs:48
+msgid ""
+"Connection details are always included. Choose how the access keys are "
+"protected in the file."
+msgstr ""
+
+#: src/dialogs/backup.rs:49 src/dialogs/backup.rs:58 src/dialogs/backup.rs:60
+#: src/dialogs/backup.rs:225 src/window/vault.rs:100
+msgid "Password"
+msgstr ""
+
+#: src/dialogs/backup.rs:49
+msgid "AES-256-GCM, with the key derived from the password by Argon2id"
+msgstr ""
+
+#: src/dialogs/backup.rs:50
+msgid "age or SSH Key"
+msgstr ""
+
+#: src/dialogs/backup.rs:50
+msgid "For age and SSH public keys, and YubiKeys with age-plugin-yubikey"
+msgstr ""
+
+#: src/dialogs/backup.rs:51 src/dialogs/backup.rs:76
+msgid "GnuPG Key"
+msgstr ""
+
+#: src/dialogs/backup.rs:51
+msgid "Looking for keys…"
+msgstr ""
+
+#: src/dialogs/backup.rs:52
+msgid "Leave Out Access Keys"
+msgstr ""
+
+#: src/dialogs/backup.rs:52
+msgid "They have to be entered again after importing"
+msgstr ""
+
+#: src/dialogs/backup.rs:59
+msgid "Use at least 12 characters. A forgotten password cannot be recovered."
+msgstr ""
+
+#: src/dialogs/backup.rs:61 src/window/vault.rs:101
+msgid "Repeat Password"
+msgstr ""
+
+#: src/dialogs/backup.rs:66 src/dialogs/backup.rs:68 src/dialogs/backup.rs:141
+msgid "Public Keys"
+msgstr ""
+
+#: src/dialogs/backup.rs:67
+msgid ""
+"age keys (age1…), SSH keys (ssh-ed25519 …) or YubiKeys (age1yubikey1…). "
+"Separate several keys with commas; any one of them opens the file."
+msgstr ""
+
+#: src/dialogs/backup.rs:69
+msgid "Add Key From File…"
+msgstr ""
+
+#: src/dialogs/backup.rs:72
+msgid "Add Connected YubiKey"
+msgstr ""
+
+#: src/dialogs/backup.rs:77
+msgid ""
+"Only the secret part of this key opens the file, also when it is on a "
+"smartcard."
+msgstr ""
+
+#: src/dialogs/backup.rs:79 src/dialogs/bucket.rs:259 src/dialogs/bucket.rs:429
+#: src/window/mod.rs:2091 src/window/mod.rs:2220
+msgid "Key"
+msgstr ""
+
+#: src/dialogs/backup.rs:128
+msgid "No GnuPG key that can encrypt was found"
+msgstr ""
+
+#: src/dialogs/backup.rs:133
+msgid "Encrypted with a key from your GnuPG keyring"
+msgstr ""
+
+#: src/dialogs/backup.rs:140
+msgid "Add Key From File"
+msgstr ""
+
+#: src/dialogs/backup.rs:151
+msgid ""
+"This is a private key. Choose the public key, usually the file ending in ."
+"pub."
+msgstr ""
+
+#: src/dialogs/backup.rs:191
+msgid "age Files"
+msgstr ""
+
+#: src/dialogs/backup.rs:192
+msgid "OpenPGP Files"
+msgstr ""
+
+#: src/dialogs/backup.rs:193
+msgid "JSON Files"
+msgstr ""
+
+#: src/dialogs/backup.rs:208
+msgid "Connections exported without access keys"
+msgstr ""
+
+#: src/dialogs/backup.rs:210
+msgid "{n} connection exported with its access keys, encrypted"
+msgid_plural "{n} connections exported with their access keys, encrypted"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/dialogs/backup.rs:223
+msgid "Enter Backup Password"
+msgstr ""
+
+#: src/dialogs/backup.rs:228 src/dialogs/backup.rs:255
+#: src/dialogs/backup.rs:267 src/dialogs/backup.rs:318
+#: src/dialogs/batch_rename.rs:44 src/dialogs/bucket.rs:18
+#: src/dialogs/bucket.rs:344 src/dialogs/bucket.rs:662
+#: src/dialogs/bucket.rs:739 src/dialogs/connection.rs:302
+#: src/dialogs/connection.rs:327 src/dialogs/connection.rs:337
+#: src/dialogs/connection.rs:363 src/dialogs/import_apps.rs:124
+#: src/dialogs/share.rs:45 src/pages/analyzer.rs:185 src/pages/backups.rs:157
+#: src/transfers/view.rs:371 src/transfers/view.rs:515 src/window/mod.rs:1416
+#: src/window/mod.rs:1561 src/window/mod.rs:1581 src/window/mod.rs:1595
+#: src/window/mod.rs:2401 src/window/mod.rs:2442 src/window/mod.rs:2868
+#: src/window/mod.rs:3003 src/window/vault.rs:105
+#: data/resources/ui/profile-dialog.blp:16
+msgid "Cancel"
+msgstr ""
+
+#: src/dialogs/backup.rs:228 src/window/vault.rs:105
+msgid "Unlock"
+msgstr ""
+
+#: src/dialogs/backup.rs:267
+msgid "Continue"
+msgstr ""
+
+#: src/dialogs/backup.rs:283
+msgid "Connection Backups"
+msgstr ""
+
+#: src/dialogs/backup.rs:284
+msgid "Import Connections"
+msgstr ""
+
+#: src/dialogs/backup.rs:297
+msgid "This backup contains access keys and is protected with a password."
+msgstr ""
+
+#: src/dialogs/backup.rs:316
+msgid "Choose Key File?"
+msgstr ""
+
+#: src/dialogs/backup.rs:317
+msgid ""
+"Choose the age identity file or SSH private key the backup was made for."
+msgstr ""
+
+#: src/dialogs/backup.rs:318 src/dialogs/import_apps.rs:54
+msgid "_Choose File…"
+msgstr ""
+
+#: src/dialogs/backup.rs:323
+msgid "Choose Key File"
+msgstr ""
+
+#: src/dialogs/backup.rs:346
+msgid "{n} connection imported with its access keys"
+msgid_plural "{n} connections imported with their access keys"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/dialogs/backup.rs:348
+msgid "{n} connection added. Enter its access keys before connecting."
+msgid_plural ""
+"{n} connections added. Enter their access keys before connecting."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/dialogs/batch_rename.rs:42
+msgid "Rename {n} File"
+msgid_plural "Rename {n} Files"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/dialogs/batch_rename.rs:45 src/window/mod.rs:2368
+msgid "Rename"
+msgstr ""
+
+#: src/dialogs/batch_rename.rs:52
+msgid "Method"
+msgstr ""
+
+#: src/dialogs/batch_rename.rs:52
+msgid "Find and Replace"
+msgstr ""
+
+#: src/dialogs/batch_rename.rs:52
+msgid "Template with Numbers"
+msgstr ""
+
+#: src/dialogs/batch_rename.rs:53
+msgid "Find"
+msgstr ""
+
+#: src/dialogs/batch_rename.rs:54
+msgid "Replace With"
+msgstr ""
+
+#: src/dialogs/batch_rename.rs:55
+msgid "Template ({n} is the number, {name} the old name)"
+msgstr ""
+
+#: src/dialogs/batch_rename.rs:55
+msgid "File"
+msgstr ""
+
+#: src/dialogs/batch_rename.rs:56
+msgid "First number"
+msgstr ""
+
+#: src/dialogs/batch_rename.rs:59 src/window/mod.rs:2282
+msgid "Preview"
+msgstr ""
+
+#: src/dialogs/batch_rename.rs:72
+msgid "Showing the first {n} files"
+msgstr ""
+
+#: src/dialogs/batch_rename.rs:119
+msgid "{n} file could not be renamed"
+msgid_plural "{n} files could not be renamed"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/dialogs/batch_rename.rs:119
+msgid "{n} file renamed"
+msgid_plural "{n} files renamed"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/dialogs/bucket.rs:61
+msgid "Add Entry"
+msgstr ""
+
+#: src/dialogs/bucket.rs:82
+msgid "Value"
+msgstr ""
+
+#: src/dialogs/bucket.rs:110
+msgid "No entries"
+msgstr ""
+
+#: src/dialogs/bucket.rs:145
+msgid "Settings of {bucket}"
+msgstr ""
+
+#: src/dialogs/bucket.rs:150 data/resources/ui/profile-dialog.blp:59
+msgid "Region"
+msgstr ""
+
+#: src/dialogs/bucket.rs:153
+msgid "Versioning"
+msgstr ""
+
+#: src/dialogs/bucket.rs:153
+msgid ""
+"Keeps older versions of overwritten and deleted objects, which increases "
+"storage use."
+msgstr ""
+
+#: src/dialogs/bucket.rs:156
+msgid "Keep object versions"
+msgstr ""
+
+#: src/dialogs/bucket.rs:157 src/dialogs/bucket.rs:166
+msgid "Suspended; existing versions are kept"
+msgstr ""
+
+#: src/dialogs/bucket.rs:157
+msgid "Never enabled"
+msgstr ""
+
+#: src/dialogs/bucket.rs:177
+msgid "Default Encryption"
+msgstr ""
+
+#: src/dialogs/bucket.rs:180
+msgid "Algorithm"
+msgstr ""
+
+#: src/dialogs/bucket.rs:182 data/resources/ui/profile-dialog.blp:113
+msgid "KMS key ID or alias (optional)"
+msgstr ""
+
+#: src/dialogs/bucket.rs:214
+msgid "Policy"
+msgstr ""
+
+#: src/dialogs/bucket.rs:214
+msgid "Bucket policy as JSON. Saving an empty document removes the policy."
+msgstr ""
+
+#: src/dialogs/bucket.rs:216
+msgid "CORS"
+msgstr ""
+
+#: src/dialogs/bucket.rs:216
+msgid ""
+"CORS rules as a JSON array (AllowedOrigins, AllowedMethods, AllowedHeaders, "
+"ExposeHeaders, MaxAgeSeconds). An empty document removes the rules."
+msgstr ""
+
+#: src/dialogs/bucket.rs:218
+msgid "Lifecycle"
+msgstr ""
+
+#: src/dialogs/bucket.rs:218
+msgid ""
+"Lifecycle rules as a JSON array (ID, Status, Filter, Expiration, "
+"Transitions, NoncurrentVersionExpiration, AbortIncompleteMultipartUpload). "
+"An empty document removes the rules."
+msgstr ""
+
+#: src/dialogs/bucket.rs:225
+msgid "The provider reported"
+msgstr ""
+
+#: src/dialogs/bucket.rs:230
+msgid "Insert Example"
+msgstr ""
+
+#: src/dialogs/bucket.rs:258 src/dialogs/bucket.rs:429
+msgid "Tags"
+msgstr ""
+
+#: src/dialogs/bucket.rs:259
+msgid "Bucket Tags"
+msgstr ""
+
+#: src/dialogs/bucket.rs:262 src/dialogs/bucket.rs:432
+msgid "Save Tags"
+msgstr ""
+
+#: src/dialogs/bucket.rs:283
+msgid "Versions of {name}"
+msgstr ""
+
+#: src/dialogs/bucket.rs:286
+msgid "Stored Versions"
+msgstr ""
+
+#: src/dialogs/bucket.rs:303
+msgid ""
+"No stored versions for this object. Versioning may be disabled on the bucket."
+msgstr ""
+
+#: src/dialogs/bucket.rs:308
+msgid "Delete marker"
+msgstr ""
+
+#: src/dialogs/bucket.rs:309
+msgid "Current"
+msgstr ""
+
+#: src/dialogs/bucket.rs:319 src/window/mod.rs:2194
+#: data/resources/ui/window.blp:686
+msgid "Download"
+msgstr ""
+
+#: src/dialogs/bucket.rs:323
+msgid "Restore This Version"
+msgstr ""
+
+#: src/dialogs/bucket.rs:329
+msgid "Version restored"
+msgstr ""
+
+#: src/dialogs/bucket.rs:336
+msgid "Delete Version"
+msgstr ""
+
+#: src/dialogs/bucket.rs:343
+msgid "Delete Version?"
+msgstr ""
+
+#: src/dialogs/bucket.rs:343
+msgid "This version will be deleted permanently. This cannot be undone."
+msgstr ""
+
+#: src/dialogs/bucket.rs:344 src/pages/backups.rs:138 src/pages/backups.rs:157
+#: src/window/mod.rs:769 src/window/mod.rs:1386 src/window/mod.rs:1416
+#: src/window/mod.rs:1650 src/window/mod.rs:2204 src/window/mod.rs:2495
+#: data/resources/ui/window.blp:658
+msgid "Delete"
+msgstr ""
+
+#: src/dialogs/bucket.rs:349
+msgid "Version deleted"
+msgstr ""
+
+#: src/dialogs/bucket.rs:369
+msgid "Versioning of this bucket"
+msgstr ""
+
+#: src/dialogs/bucket.rs:386 src/window/mod.rs:2268
+msgid "HTTP Headers"
+msgstr ""
+
+#: src/dialogs/bucket.rs:388
+msgid ""
+"S3 changes headers by copying the object onto itself, so its modified date "
+"is updated. Custom metadata is kept."
+msgstr ""
+
+#: src/dialogs/bucket.rs:413
+msgid "Headers updated"
+msgstr ""
+
+#: src/dialogs/bucket.rs:426 src/window/mod.rs:2269
+msgid "Tags and Metadata"
+msgstr ""
+
+#: src/dialogs/bucket.rs:435
+msgid "User Metadata"
+msgstr ""
+
+#: src/dialogs/bucket.rs:435
+msgid "x-amz-meta-* headers. Saving rewrites the object in place."
+msgstr ""
+
+#: src/dialogs/bucket.rs:435 src/window/mod.rs:687
+#: data/resources/ui/profile-dialog.blp:33
+msgid "Name"
+msgstr ""
+
+#: src/dialogs/bucket.rs:438
+msgid "Save Metadata"
+msgstr ""
+
+#: src/dialogs/bucket.rs:447
+msgid "Tags saved"
+msgstr ""
+
+#: src/dialogs/bucket.rs:454
+msgid ""
+"A metadata name cannot contain spaces or colons, and the value must be one "
+"line"
+msgstr ""
+
+#: src/dialogs/bucket.rs:461
+msgid "Metadata saved"
+msgstr ""
+
+#: src/dialogs/bucket.rs:474
+msgid "Copy to Another Connection"
+msgstr ""
+
+#: src/dialogs/bucket.rs:474 src/dialogs/bucket.rs:490 src/window/mod.rs:755
+msgid "Copy"
+msgstr ""
+
+#: src/dialogs/bucket.rs:476
+msgid ""
+"{n} selected items are copied to the destination. Data is streamed through "
+"this computer, so it also works between different providers and accounts."
+msgstr ""
+
+#: src/dialogs/bucket.rs:477
+msgid "(this connection)"
+msgstr ""
+
+#: src/dialogs/bucket.rs:478
+msgid "Destination connection"
+msgstr ""
+
+#: src/dialogs/bucket.rs:480 src/pages/backups.rs:316
+msgid "Destination bucket"
+msgstr ""
+
+#: src/dialogs/bucket.rs:481 src/pages/backups.rs:317
+msgid "Destination folder (optional)"
+msgstr ""
+
+#: src/dialogs/bucket.rs:482 src/dialogs/bucket.rs:490
+msgid "Move"
+msgstr ""
+
+#: src/dialogs/bucket.rs:482
+msgid "Delete the source objects after they are copied"
+msgstr ""
+
+#: src/dialogs/bucket.rs:498 src/pages/backups.rs:368
+msgid "A destination bucket is required"
+msgstr ""
+
+#: src/dialogs/bucket.rs:502
+msgid "The destination cannot be the same location as the source"
+msgstr ""
+
+#: src/dialogs/bucket.rs:528 src/window/actions.rs:548
+msgid "{n} object could not be copied"
+msgid_plural "{n} objects could not be copied"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/dialogs/bucket.rs:529
+msgid "Objects moved"
+msgstr ""
+
+#: src/dialogs/bucket.rs:529 src/window/actions.rs:551
+msgid "Objects copied"
+msgstr ""
+
+#: src/dialogs/bucket.rs:563 data/resources/ui/window.blp:831
+msgid "Deleted Objects"
+msgstr ""
+
+#: src/dialogs/bucket.rs:566
+msgid "Restore All"
+msgstr ""
+
+#: src/dialogs/bucket.rs:584
+msgid "No Deleted Objects"
+msgstr ""
+
+#: src/dialogs/bucket.rs:585
+msgid ""
+"Deleted objects can be restored only in buckets with versioning turned on."
+msgstr ""
+
+#: src/dialogs/bucket.rs:590
+msgid "Deleted Objects Could Not Be Listed"
+msgstr ""
+
+#: src/dialogs/bucket.rs:597
+msgid "{n} deleted object"
+msgid_plural "{n} deleted objects"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/dialogs/bucket.rs:601
+msgid "Deleted {date}"
+msgstr ""
+
+#: src/dialogs/bucket.rs:602
+msgid "Restore"
+msgstr ""
+
+#: src/dialogs/bucket.rs:609
+msgid "Object restored"
+msgstr ""
+
+#: src/dialogs/bucket.rs:628
+msgid "{n} object restored"
+msgid_plural "{n} objects restored"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/dialogs/bucket.rs:629
+msgid "All Objects Restored"
+msgstr ""
+
+#: src/dialogs/bucket.rs:644
+msgid "Upload new and changed files"
+msgstr ""
+
+#: src/dialogs/bucket.rs:644
+msgid "New and changed files are uploaded; nothing is deleted from the bucket."
+msgstr ""
+
+#: src/dialogs/bucket.rs:645
+msgid "Upload and mirror"
+msgstr ""
+
+#: src/dialogs/bucket.rs:645
+msgid ""
+"New and changed files are uploaded, then objects that are no longer in the "
+"folder are deleted from the bucket. Nothing is deleted if the source folder "
+"is empty."
+msgstr ""
+
+#: src/dialogs/bucket.rs:646
+msgid "Download new and changed objects"
+msgstr ""
+
+#: src/dialogs/bucket.rs:646
+msgid ""
+"New and changed objects are downloaded into the folder; nothing is deleted "
+"locally."
+msgstr ""
+
+#: src/dialogs/bucket.rs:647
+msgid "Download and mirror"
+msgstr ""
+
+#: src/dialogs/bucket.rs:647
+msgid ""
+"New and changed objects are downloaded, then local files that have no object "
+"anymore are deleted from the folder. Nothing is deleted when the location "
+"has no objects."
+msgstr ""
+
+#: src/dialogs/bucket.rs:649
+msgid "Sync a Local Folder"
+msgstr ""
+
+#: src/dialogs/bucket.rs:649
+msgid "You choose the local folder next. Location: {path}"
+msgstr ""
+
+#: src/dialogs/bucket.rs:679
+msgid "Already in sync; {n} file is up to date"
+msgid_plural "Already in sync; {n} files are up to date"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/dialogs/bucket.rs:692
+msgid "{t} transferred, {s} up to date, {d} deleted"
+msgstr ""
+
+#: src/dialogs/bucket.rs:693 src/pages/backups.rs:198 src/window/actions.rs:208
+msgid "{n} file could not be transferred"
+msgid_plural "{n} files could not be transferred"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/dialogs/bucket.rs:707
+msgid "{n} file will be downloaded ({size})."
+msgid_plural "{n} files will be downloaded ({size})."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/dialogs/bucket.rs:709
+msgid "{n} file will be uploaded ({size})."
+msgid_plural "{n} files will be uploaded ({size})."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/dialogs/bucket.rs:714
+msgid "{n} local file will be deleted."
+msgid_plural "{n} local files will be deleted."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/dialogs/bucket.rs:716
+msgid "{n} object will be deleted from the bucket."
+msgid_plural "{n} objects will be deleted from the bucket."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/dialogs/bucket.rs:719
+msgid "Review Changes"
+msgstr ""
+
+#: src/dialogs/bucket.rs:734
+msgid "and {n} more"
+msgstr ""
+
+#: src/dialogs/bucket.rs:739
+msgid "Sync"
+msgstr ""
+
+#: src/dialogs/connection.rs:16
+msgid "Other S3-compatible"
+msgstr ""
+
+#: src/dialogs/connection.rs:58 src/dialogs/connection.rs:61
+msgid "Provider default"
+msgstr ""
+
+#: src/dialogs/connection.rs:66
+msgid "Edit Connection"
+msgstr ""
+
+#: src/dialogs/connection.rs:66 data/resources/ui/window.blp:42
+msgid "New Connection"
+msgstr ""
+
+#: src/dialogs/connection.rs:84 data/resources/ui/profile-dialog.blp:77
+msgid "AWS CLI Profile"
+msgstr ""
+
+#: src/dialogs/connection.rs:115 data/resources/ui/profile-dialog.blp:148
+msgid "System certificates only"
+msgstr ""
+
+#: src/dialogs/connection.rs:144
+msgid "For example"
+msgstr ""
+
+#: src/dialogs/connection.rs:145
+msgid "Endpoint (optional)"
+msgstr ""
+
+#: src/dialogs/connection.rs:145
+msgid "Endpoint (derived from the project ref if empty)"
+msgstr ""
+
+#: src/dialogs/connection.rs:145 data/resources/ui/profile-dialog.blp:54
+msgid "Endpoint"
+msgstr ""
+
+#: src/dialogs/connection.rs:226
+msgid "Certificates"
+msgstr ""
+
+#: src/dialogs/connection.rs:231
+msgid "Choose Certificate"
+msgstr ""
+
+#: src/dialogs/connection.rs:237
+msgid "The file is not a PEM certificate"
+msgstr ""
+
+#: src/dialogs/connection.rs:257
+msgid "Testing…"
+msgstr ""
+
+#: src/dialogs/connection.rs:264
+msgid "An MFA code is needed to test this connection"
+msgstr ""
+
+#: src/dialogs/connection.rs:269 data/resources/ui/profile-dialog.blp:178
+msgid "Test Connection"
+msgstr ""
+
+#: src/dialogs/connection.rs:272
+msgid "Connection works"
+msgstr ""
+
+#: src/dialogs/connection.rs:273
+msgid "Connection failed"
+msgstr ""
+
+#: src/dialogs/connection.rs:298
+msgid "Trust This Certificate?"
+msgstr ""
+
+#: src/dialogs/connection.rs:299
+msgid ""
+"The system does not know the certificate of {host}. Trust it only if this "
+"fingerprint matches the one of your server, for example as shown by its "
+"administrator:"
+msgstr ""
+
+#: src/dialogs/connection.rs:302
+msgid "_Trust"
+msgstr ""
+
+#: src/dialogs/connection.rs:325
+msgid "Unencrypted Connection?"
+msgstr ""
+
+#: src/dialogs/connection.rs:326
+msgid ""
+"This endpoint uses http:// instead of https://. Files, session tokens and "
+"share links can be read or changed on the way. Use https:// unless the "
+"server is in a network you trust."
+msgstr ""
+
+#: src/dialogs/connection.rs:327
+msgid "Save Anyway"
+msgstr ""
+
+#: src/dialogs/connection.rs:335 src/dialogs/import_apps.rs:122
+msgid "Keyring Unavailable"
+msgstr ""
+
+#: src/dialogs/connection.rs:336 src/dialogs/import_apps.rs:123
+msgid ""
+"The system keyring could not be opened, so the secret key cannot be stored "
+"safely. It can be saved in a file only you can read, which is less safe. It "
+"moves to the keyring as soon as one works."
+msgstr ""
+
+#: src/dialogs/connection.rs:337 src/dialogs/import_apps.rs:124
+msgid "Save in File"
+msgstr ""
+
+#: src/dialogs/connection.rs:357
+msgid "Enter MFA Code"
+msgstr ""
+
+#: src/dialogs/connection.rs:358
+msgid "“{name}” assumes a role that needs a code from your MFA device."
+msgstr ""
+
+#: src/dialogs/connection.rs:360 src/window/actions.rs:755
+msgid "Code"
+msgstr ""
+
+#: src/dialogs/connection.rs:363
+msgid "Connect"
+msgstr ""
+
+#: src/dialogs/connection.rs:382
+msgid "MFA Failed"
+msgstr ""
+
+#: src/dialogs/connection.rs:383
+msgid "_Try Again"
+msgstr ""
+
+#: src/dialogs/import_apps.rs:17
+msgid "AWS CLI profile “{name}”"
+msgstr ""
+
+#: src/dialogs/import_apps.rs:23
+msgid "with access keys"
+msgstr ""
+
+#: src/dialogs/import_apps.rs:26
+msgid "a connection with this name exists"
+msgstr ""
+
+#: src/dialogs/import_apps.rs:34
+msgid "Import From Other Apps"
+msgstr ""
+
+#: src/dialogs/import_apps.rs:37
+msgid "_Import"
+msgstr ""
+
+#: src/dialogs/import_apps.rs:44 data/resources/ui/window.blp:72
+msgid "Connections"
+msgstr ""
+
+#: src/dialogs/import_apps.rs:45
+msgid ""
+"From rclone, s3cmd, Cyberduck bookmarks and the AWS CLI. Access keys found "
+"in them are stored in the system keyring; the files stay as they are."
+msgstr ""
+
+#: src/dialogs/import_apps.rs:46
+msgid "Choose File…"
+msgstr ""
+
+#: src/dialogs/import_apps.rs:51
+msgid "No Connections Found"
+msgstr ""
+
+#: src/dialogs/import_apps.rs:52
+msgid ""
+"No settings of rclone, s3cmd, Cyberduck or the AWS CLI were found on this "
+"computer. Choose a file to import from."
+msgstr ""
+
+#: src/dialogs/import_apps.rs:93
+msgid "Choose File"
+msgstr ""
+
+#: src/dialogs/import_apps.rs:100
+msgid "No S3 connections were found in this file"
+msgstr ""
+
+#: src/dialogs/import_apps.rs:138
+msgid "{n} connection imported"
+msgid_plural "{n} connections imported"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/dialogs/preview.rs:31
+msgid "Previous"
+msgstr ""
+
+#: src/dialogs/preview.rs:32 src/window/vault.rs:158
+msgid "Next"
+msgstr ""
+
+#: src/dialogs/preview.rs:36 src/window/mod.rs:748 src/window/mod.rs:2198
+msgid "Open With Default Application"
+msgstr ""
+
+#: src/dialogs/preview.rs:37 src/window/mod.rs:750 src/window/mod.rs:2098
+msgid "Download…"
+msgstr ""
+
+#: src/dialogs/preview.rs:38 src/window/mod.rs:760 src/window/mod.rs:2200
+msgid "Share Link…"
+msgstr ""
+
+#: src/dialogs/preview.rs:40
+msgid "Copy Image"
+msgstr ""
+
+#: src/dialogs/preview.rs:49
+msgid "Image copied"
+msgstr ""
+
+#: src/dialogs/preview.rs:97
+msgid "This image could not be shown"
+msgstr ""
+
+#: src/dialogs/preview.rs:147
+msgid "Showing the first {size} of {total}"
+msgstr ""
+
+#: src/dialogs/preview.rs:159
+msgid "No preview for this file type"
+msgstr ""
+
+#: src/dialogs/preview.rs:240
+msgid "{n} file"
+msgid_plural "{n} files"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/dialogs/preview.rs:241
+msgid "{size} when extracted"
+msgstr ""
+
+#: src/dialogs/preview.rs:309
+msgid "{n} row shown"
+msgid_plural "{n} rows shown"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/dialogs/share.rs:38
+msgid "Share {n} File"
+msgid_plural "Share {n} Files"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/dialogs/share.rs:39
+msgid ""
+"Anyone with a link can download its file until the link expires. The links "
+"are copied as a list."
+msgstr ""
+
+#: src/dialogs/share.rs:40 src/dialogs/share.rs:76 src/dialogs/share.rs:130
+msgid "15 minutes"
+msgstr ""
+
+#: src/dialogs/share.rs:40 src/dialogs/share.rs:76 src/dialogs/share.rs:130
+msgid "1 hour"
+msgstr ""
+
+#: src/dialogs/share.rs:40 src/dialogs/share.rs:76 src/dialogs/share.rs:130
+msgid "1 day"
+msgstr ""
+
+#: src/dialogs/share.rs:40 src/dialogs/share.rs:76 src/dialogs/share.rs:130
+msgid "7 days"
+msgstr ""
+
+#: src/dialogs/share.rs:40 src/dialogs/share.rs:76 src/dialogs/share.rs:130
+msgid "5 minutes"
+msgstr ""
+
+#: src/dialogs/share.rs:41 src/dialogs/share.rs:77 src/dialogs/share.rs:131
+msgid "Valid for"
+msgstr ""
+
+#: src/dialogs/share.rs:45
+msgid "Copy Links"
+msgstr ""
+
+#: src/dialogs/share.rs:61
+msgid "{n} link copied"
+msgid_plural "{n} links copied"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/dialogs/share.rs:70
+msgid "Share {name}"
+msgstr ""
+
+#: src/dialogs/share.rs:75
+msgid ""
+"Anyone with the link can download this object until it expires. No account "
+"is needed."
+msgstr ""
+
+#: src/dialogs/share.rs:78 src/dialogs/share.rs:138
+msgid "Web Address"
+msgstr ""
+
+#: src/dialogs/share.rs:78
+msgid "Creating…"
+msgstr ""
+
+#: src/dialogs/share.rs:79 src/dialogs/share.rs:139
+msgid "Copy Link"
+msgstr ""
+
+#: src/dialogs/share.rs:84
+msgid "QR Code"
+msgstr ""
+
+#: src/dialogs/share.rs:84
+msgid "Scan with a phone camera to open the link"
+msgstr ""
+
+#: src/dialogs/share.rs:116 src/dialogs/share.rs:180
+msgid "Link copied"
+msgstr ""
+
+#: src/dialogs/share.rs:123
+msgid "Upload Link"
+msgstr ""
+
+#: src/dialogs/share.rs:128
+msgid ""
+"Anyone with the link can upload one file to {path} until it expires. The "
+"file gets the name below; uploading again replaces it."
+msgstr ""
+
+#: src/dialogs/share.rs:129
+msgid "File name"
+msgstr ""
+
+#: src/dialogs/share.rs:132
+msgid "Create Link"
+msgstr ""
+
+#: src/dialogs/share.rs:141
+msgid "Command"
+msgstr ""
+
+#: src/dialogs/share.rs:142
+msgid "Copy Command"
+msgstr ""
+
+#: src/dialogs/share.rs:181
+msgid "Command copied"
+msgstr ""
+
+#: src/pages/analyzer.rs:27 src/pages/analyzer.rs:36
+msgid "Storage Analyzer"
+msgstr ""
+
+#: src/pages/analyzer.rs:30 src/window/mod.rs:1497
+msgid "Analyze"
+msgstr ""
+
+#: src/pages/analyzer.rs:37
+msgid ""
+"Scans every object below the open folder and shows which folders, file types "
+"and duplicate copies take up the space. Nothing is changed."
+msgstr ""
+
+#: src/pages/analyzer.rs:88
+msgid "The scan stopped at {n} objects; totals are incomplete."
+msgstr ""
+
+#: src/pages/analyzer.rs:90
+msgid "Summary"
+msgstr ""
+
+#: src/pages/analyzer.rs:92
+msgid "Total size"
+msgstr ""
+
+#: src/pages/analyzer.rs:93 src/window/mod.rs:2088
+msgid "Objects"
+msgstr ""
+
+#: src/pages/analyzer.rs:94
+msgid "Duplicate copies"
+msgstr ""
+
+#: src/pages/analyzer.rs:95
+msgid "Average object"
+msgstr ""
+
+#: src/pages/analyzer.rs:109
+msgid "{n} object"
+msgid_plural "{n} objects"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/pages/analyzer.rs:129
+msgid "(files in this folder)"
+msgstr ""
+
+#: src/pages/analyzer.rs:129 src/pages/analyzer.rs:130
+#: src/pages/analyzer.rs:132
+msgid "Other"
+msgstr ""
+
+#: src/pages/analyzer.rs:130
+msgid "(no extension)"
+msgstr ""
+
+#: src/pages/analyzer.rs:131 src/window/actions.rs:757
+msgid "Last 30 days"
+msgstr ""
+
+#: src/pages/analyzer.rs:131
+msgid "30–90 days"
+msgstr ""
+
+#: src/pages/analyzer.rs:131
+msgid "90 days – 1 year"
+msgstr ""
+
+#: src/pages/analyzer.rs:131
+msgid "Older than 1 year"
+msgstr ""
+
+#: src/pages/analyzer.rs:133
+msgid "By Folder"
+msgstr ""
+
+#: src/pages/analyzer.rs:134
+msgid "By File Type"
+msgstr ""
+
+#: src/pages/analyzer.rs:135
+msgid "By Last Change"
+msgstr ""
+
+#: src/pages/analyzer.rs:136
+msgid "By Storage Class"
+msgstr ""
+
+#: src/pages/analyzer.rs:138
+msgid "Largest Objects"
+msgstr ""
+
+#: src/pages/analyzer.rs:140
+msgid "Show in Browser"
+msgstr ""
+
+#: src/pages/analyzer.rs:148
+msgid "Duplicate Objects"
+msgstr ""
+
+#: src/pages/analyzer.rs:148
+msgid "Same ETag and size"
+msgstr ""
+
+#: src/pages/analyzer.rs:150
+msgid "{n} copy · {size} each"
+msgid_plural "{n} copies · {size} each"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/pages/analyzer.rs:151
+msgid "{size} wasted"
+msgstr ""
+
+#: src/pages/analyzer.rs:161
+msgid "No duplicate objects found."
+msgstr ""
+
+#: src/pages/analyzer.rs:165
+msgid "Incomplete Uploads"
+msgstr ""
+
+#: src/pages/analyzer.rs:165
+msgid "Unfinished multipart uploads; not visible as objects but still stored"
+msgstr ""
+
+#: src/pages/analyzer.rs:167
+msgid "This server does not list incomplete uploads."
+msgstr ""
+
+#: src/pages/analyzer.rs:171
+msgid "recent, kept"
+msgstr ""
+
+#: src/pages/analyzer.rs:175
+msgid "No incomplete uploads."
+msgstr ""
+
+#: src/pages/analyzer.rs:179
+msgid "Clean Up Older Than 1 Day ({n})"
+msgstr ""
+
+#: src/pages/analyzer.rs:184
+msgid "Remove Incomplete Uploads?"
+msgstr ""
+
+#: src/pages/analyzer.rs:184
+msgid "{n} upload will be removed permanently."
+msgid_plural "{n} uploads will be removed permanently."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/pages/analyzer.rs:190
+msgid "{n} incomplete upload removed"
+msgid_plural "{n} incomplete uploads removed"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/pages/backups.rs:58
+msgid "Manual only"
+msgstr ""
+
+#: src/pages/backups.rs:58
+msgid "Every 15 minutes"
+msgstr ""
+
+#: src/pages/backups.rs:58
+msgid "Every hour"
+msgstr ""
+
+#: src/pages/backups.rs:58
+msgid "Every 6 hours"
+msgstr ""
+
+#: src/pages/backups.rs:58
+msgid "Every day"
+msgstr ""
+
+#: src/pages/backups.rs:119
+msgid "No backup jobs yet"
+msgstr ""
+
+#: src/pages/backups.rs:119
+msgid "Link a local folder to a bucket of this connection above."
+msgstr ""
+
+#: src/pages/backups.rs:127
+msgid "never ran"
+msgstr ""
+
+#: src/pages/backups.rs:128
+msgid "Mirror"
+msgstr ""
+
+#: src/pages/backups.rs:128 src/pages/backups.rs:318
+msgid "Add and update only"
+msgstr ""
+
+#: src/pages/backups.rs:129
+msgid "Watching for changes"
+msgstr ""
+
+#: src/pages/backups.rs:137
+msgid "Run Now"
+msgstr ""
+
+#: src/pages/backups.rs:140 src/pages/backups.rs:321
+msgid "Back up changes automatically"
+msgstr ""
+
+#: src/pages/backups.rs:156
+msgid "Delete Backup Job?"
+msgstr ""
+
+#: src/pages/backups.rs:156
+msgid "“{name}” is removed. Files already backed up stay in the bucket."
+msgstr ""
+
+#: src/pages/backups.rs:181
+msgid "The connection of this job was deleted"
+msgstr ""
+
+#: src/pages/backups.rs:197
+msgid "{t} uploaded, {s} up to date, {d} deleted"
+msgstr ""
+
+#: src/pages/backups.rs:303
+msgid ""
+"Metered connection: scheduled and automatic backups wait until it is not"
+msgstr ""
+
+#: src/pages/backups.rs:305
+msgid "Power Saver is on: scheduled and automatic backups wait until it is off"
+msgstr ""
+
+#: src/pages/backups.rs:313
+msgid "New Backup Job"
+msgstr ""
+
+#: src/pages/backups.rs:314
+msgid ""
+"Scheduled backups run only while the application is running, including in "
+"the background."
+msgstr ""
+
+#: src/pages/backups.rs:315
+msgid "Backup name"
+msgstr ""
+
+#: src/pages/backups.rs:318
+msgid "Sync type"
+msgstr ""
+
+#: src/pages/backups.rs:318
+msgid "Mirror: delete extras from the bucket"
+msgstr ""
+
+#: src/pages/backups.rs:320
+msgid "Schedule"
+msgstr ""
+
+#: src/pages/backups.rs:321
+msgid "Changed files are uploaded a few seconds after they are saved"
+msgstr ""
+
+#: src/pages/backups.rs:322
+msgid "Choose Folder and Create…"
+msgstr ""
+
+#: src/pages/backups.rs:324
+msgid ""
+"Objects that are no longer in the folder are deleted from the bucket. "
+"Nothing is deleted if the folder is empty."
+msgstr ""
+
+#: src/pages/backups.rs:330
+msgid "Backup Jobs"
+msgstr ""
+
+#: src/pages/backups.rs:364 src/pages/compatibility.rs:155
+msgid "Connect to a storage service first"
+msgstr ""
+
+#: src/pages/backups.rs:367
+msgid "A backup name is required"
+msgstr ""
+
+#: src/pages/backups.rs:373
+msgid "Folder to Back Up"
+msgstr ""
+
+#: src/pages/backups.rs:383
+msgid "Backup job created"
+msgstr ""
+
+#: src/pages/compatibility.rs:47
+msgid "Needs an earlier step that did not succeed"
+msgstr ""
+
+#: src/pages/compatibility.rs:54
+msgid "{n} bucket"
+msgid_plural "{n} buckets"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/pages/compatibility.rs:61 src/window/mod.rs:700 src/window/mod.rs:1003
+#: src/window/mod.rs:1190
+msgid "{n} item"
+msgid_plural "{n} items"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/pages/compatibility.rs:64
+msgid "never enabled"
+msgstr ""
+
+#: src/pages/compatibility.rs:73 src/pages/compatibility.rs:81
+msgid "{n} grant"
+msgid_plural "{n} grants"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/pages/compatibility.rs:75 src/s3/mod.rs:44 src/s3/mod.rs:49
+msgid "This provider does not support this feature"
+msgstr ""
+
+#: src/pages/compatibility.rs:75
+msgid "{n} upload"
+msgid_plural "{n} uploads"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/pages/compatibility.rs:79 src/window/mod.rs:2224
+msgid "{n} byte"
+msgid_plural "{n} bytes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/pages/compatibility.rs:80
+msgid "{n} tag"
+msgid_plural "{n} tags"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/pages/compatibility.rs:82
+msgid "{n} version"
+msgid_plural "{n} versions"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/pages/compatibility.rs:105
+msgid "{n} deleted"
+msgstr ""
+
+#: src/pages/compatibility.rs:136
+msgid "Compatibility Test"
+msgstr ""
+
+#: src/pages/compatibility.rs:137
+msgid ""
+"Calls every S3 operation this application uses and shows which ones the "
+"provider supports. Write tests create temporary objects under {dir} in the "
+"open bucket and remove them afterwards."
+msgstr ""
+
+#: src/pages/compatibility.rs:138
+msgid "Include write tests"
+msgstr ""
+
+#: src/pages/compatibility.rs:138
+msgid "Uploads, copies and deletes temporary objects"
+msgstr ""
+
+#: src/pages/compatibility.rs:139
+msgid "Run Test"
+msgstr ""
+
+#: src/pages/compatibility.rs:140
+msgid "Copy Report"
+msgstr ""
+
+#: src/pages/compatibility.rs:150
+msgid "Report copied"
+msgstr ""
+
+#: src/pages/compatibility.rs:159
+msgid "Running…"
+msgstr ""
+
+#: src/pages/compatibility.rs:164
+msgid "Testing"
+msgstr ""
+
+#: src/pages/compatibility.rs:165
+msgid "Connecting…"
+msgstr ""
+
+#: src/pages/compatibility.rs:179
+msgid "S3 compatibility report"
+msgstr ""
+
+#: src/pages/compatibility.rs:186
+msgid "Tested {name}"
+msgstr ""
+
+#: src/pages/compatibility.rs:187 src/pages/compatibility.rs:219
+msgid "{n} check done"
+msgid_plural "{n} checks done"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/pages/compatibility.rs:196
+msgid "Supported"
+msgstr ""
+
+#: src/pages/compatibility.rs:197
+msgid "Unsupported"
+msgstr ""
+
+#: src/pages/compatibility.rs:198
+msgid "Access denied"
+msgstr ""
+
+#: src/pages/compatibility.rs:199
+msgid "Skipped"
+msgstr ""
+
+#: src/pages/compatibility.rs:200
+msgid "Error"
+msgstr ""
+
+#: src/pages/compatibility.rs:216
+msgid "Result"
+msgstr ""
+
+#: src/pages/compatibility.rs:217
+msgid ""
+"{ok} supported, {no} unsupported or skipped, {denied} denied, {error} failed"
+msgstr ""
+
+#: src/pages/compatibility.rs:222
+msgid "Run Again"
+msgstr ""
+
+#: src/pages/recent.rs:109
+msgid "Search all connections"
+msgstr ""
+
+#: src/pages/recent.rs:139
+msgid "No Results Found"
+msgstr ""
+
+#: src/pages/recent.rs:140
+msgid ""
+"Only objects in folders opened before are found. Open a bucket to search "
+"inside it completely."
+msgstr ""
+
+#: src/pages/recent.rs:144
+msgid "{n} result"
+msgid_plural "{n} results"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/pages/recent.rs:164 src/pages/recent.rs:170
+msgid "Earlier"
+msgstr ""
+
+#: src/pages/recent.rs:167
+msgid "Today"
+msgstr ""
+
+#: src/pages/recent.rs:168
+msgid "Yesterday"
+msgstr ""
+
+#: src/pages/recent.rs:176
+msgid "Uploaded"
+msgstr ""
+
+#: src/pages/recent.rs:177
+msgid "Downloaded"
+msgstr ""
+
+#: src/pages/recent.rs:178
+msgid "Previewed"
+msgstr ""
+
+#: src/pages/recent.rs:179
+msgid "Opened"
+msgstr ""
+
+#: src/pages/recent.rs:192
+msgid "Objects you open, preview, upload or download appear here."
+msgstr ""
+
+#: src/pages/recent.rs:192
+msgid "File history is turned off in the privacy settings."
+msgstr ""
+
+#: src/pages/recent.rs:193
+msgid "No Recent Objects"
+msgstr ""
+
+#: src/pages/recent.rs:203
+msgid "Clear History"
+msgstr ""
+
+#: src/pages/recent.rs:225
+msgid "Remove from Recent"
+msgstr ""
+
+#: src/pages/recent.rs:233
+msgid "{n} recent object"
+msgid_plural "{n} recent objects"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/profile.rs:181
+msgid "The saved access key could not be read from the keyring"
+msgstr ""
+
+#: src/profile.rs:200
+msgid "The connection needs a name"
+msgstr ""
+
+#: src/profile.rs:261
+msgid "No random numbers are available"
+msgstr ""
+
+#: src/s3/access.rs:92
+msgid "The provider did not report the owner; permissions cannot be edited"
+msgstr ""
+
+#: src/s3/access.rs:95
+msgid "Too many permission entries"
+msgstr ""
+
+#: src/s3/access.rs:100
+msgid ""
+"A permission entry is invalid: the grantee is empty or the permission is "
+"unknown"
+msgstr ""
+
+#: src/s3/access.rs:157
+msgid "The retention mode must be GOVERNANCE or COMPLIANCE"
+msgstr ""
+
+#: src/s3/access.rs:160
+msgid "The retention date must be in the future"
+msgstr ""
+
+#: src/s3/access.rs:181
+msgid "The restore must last between 1 and 365 days"
+msgstr ""
+
+#: src/s3/access.rs:218
+msgid "Give the retention period in days or in years, not both"
+msgstr ""
+
+#: src/s3/access.rs:258
+msgid "The index document must be a file name (for example index.html)"
+msgstr ""
+
+#: src/s3/access.rs:307
+msgid "CloudFront is only available for Amazon S3 connections"
+msgstr ""
+
+#: src/s3/access.rs:331
+msgid "At least one path is needed (at most 100); paths start with /"
+msgstr ""
+
+#: src/s3/connection.rs:118
+msgid "No credentials were found to assume the role with"
+msgstr ""
+
+#: src/s3/connection.rs:146
+msgid "The MFA code is wrong or expired, or the role does not allow you"
+msgstr ""
+
+#: src/s3/connection.rs:149
+msgid "The role gave no credentials"
+msgstr ""
+
+#: src/s3/connection.rs:218
+msgid "Only https:// endpoints have certificates"
+msgstr ""
+
+#: src/s3/connection.rs:221 src/s3/connection.rs:229
+msgid "Invalid endpoint"
+msgstr ""
+
+#: src/s3/connection.rs:231 src/s3/connection.rs:233
+msgid "The server did not answer"
+msgstr ""
+
+#: src/s3/connection.rs:234 src/s3/connection.rs:235
+msgid "The server presented no certificate"
+msgstr ""
+
+#: src/s3/mod.rs:63
+msgid ""
+"The service could not be reached; check the network connection and the "
+"endpoint address"
+msgstr ""
+
+#: src/s3/mod.rs:64
+msgid "The service did not answer in time"
+msgstr ""
+
+#: src/s3/mod.rs:72
+msgid "Access denied: these credentials may not do this here"
+msgstr ""
+
+#: src/s3/mod.rs:73
+msgid ""
+"The service does not know this access key; check the connection settings"
+msgstr ""
+
+#: src/s3/mod.rs:74
+msgid ""
+"The secret key does not match the access key; check the connection settings"
+msgstr ""
+
+#: src/s3/mod.rs:75
+msgid ""
+"The computer’s clock is too far off; turn on automatic date and time in "
+"Settings"
+msgstr ""
+
+#: src/s3/mod.rs:76
+msgid "The bucket does not exist, or it is in another region"
+msgstr ""
+
+#: src/s3/mod.rs:77
+msgid "The object no longer exists"
+msgstr ""
+
+#: src/s3/mod.rs:78
+msgid "The file is larger than the service allows"
+msgstr ""
+
+#: src/s3/mod.rs:79
+msgid "The service asks to slow down; it is tried again shortly"
+msgstr ""
+
+#: src/s3/mod.rs:80
+msgid "The session token has expired; enter new credentials"
+msgstr ""
+
+#: src/s3/mod.rs:81
+msgid "This bucket name is already taken; bucket names are shared by everyone"
+msgstr ""
+
+#: src/s3/mod.rs:82
+msgid "You already have a bucket with this name"
+msgstr ""
+
+#: src/s3/mod.rs:83
+msgid "The bucket is not empty; delete its objects first"
+msgstr ""
+
+#: src/s3/mod.rs:84
+msgid ""
+"The bucket name is not valid: use 3–63 lowercase letters, digits, dots and "
+"hyphens"
+msgstr ""
+
+#: src/s3/mod.rs:85
+msgid "The storage quota of the account is used up"
+msgstr ""
+
+#: src/s3/mod.rs:259
+msgid "The connection of this transfer was deleted"
+msgstr ""
+
+#: src/s3/mod.rs:261
+msgid ""
+"The MFA session of this connection ended. Connect again to enter a new code."
+msgstr ""
+
+#: src/s3/mod.rs:326
+msgid "An endpoint is required for this provider"
+msgstr ""
+
+#: src/s3/mod.rs:360
+msgid "{ms} ms"
+msgstr ""
+
+#: src/s3/mod.rs:362
+msgid "Connection successful: {n} bucket"
+msgid_plural "Connection successful: {n} buckets"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/s3/mod.rs:367
+msgid "Connection successful: bucket “{name}” is reachable"
+msgstr ""
+
+#: src/s3/mod.rs:493
+msgid "The object changed after it was opened. Open it again and retry."
+msgstr ""
+
+#: src/s3/mod.rs:517 src/s3/vault.rs:357 src/s3/vault.rs:439
+msgid "“{name}” already exists"
+msgstr ""
+
+#: src/s3/mod.rs:806
+msgid "The storage class of {n} object could not be changed"
+msgid_plural "The storage class of {n} objects could not be changed"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/s3/mod.rs:836
+msgid ""
+"The uploaded object differs from the file; it was damaged on the way. Upload "
+"it again."
+msgstr ""
+
+#: src/s3/mod.rs:959
+msgid "Part {n} was damaged on the way. Try the upload again."
+msgstr ""
+
+#: src/s3/mod.rs:1086
+msgid "The connection ended before the download was complete"
+msgstr ""
+
+#: src/s3/mod.rs:1173
+msgid ""
+"The checksum of the downloaded file does not match (expected {expected}…, "
+"got {actual}…); the file was not saved"
+msgstr ""
+
+#: src/s3/mod.rs:1564
+msgid "Object name must stay within the selected download directory"
+msgstr ""
+
+#: src/s3/tools.rs:120
+msgid "At most {n} tags can be set"
+msgstr ""
+
+#: src/s3/tools.rs:125
+msgid ""
+"A tag key cannot be empty; keys are limited to 128 and values to 256 "
+"characters"
+msgstr ""
+
+#: src/s3/tools.rs:146
+msgid "The rule text is too large"
+msgstr ""
+
+#: src/s3/tools.rs:153
+msgid "a JSON array is expected"
+msgstr ""
+
+#: src/s3/tools.rs:153 src/s3/tools.rs:154 src/s3/tools.rs:346
+#: src/s3/tools.rs:381
+msgid "The rules could not be read: {error}"
+msgstr ""
+
+#: src/s3/tools.rs:325
+msgid "The policy must be a valid JSON document of at most 20 KB"
+msgstr ""
+
+#: src/s3/tools.rs:554
+msgid ""
+"The source folder is empty or unavailable; deleting {n} objects was prevented"
+msgstr ""
+
+#: src/s3/tools.rs:597
+msgid ""
+"This location has no objects; mirror mode stopped because it would empty the "
+"local folder"
+msgstr ""
+
+#: src/s3/tools.rs:624
+msgid "The folder {path} is not available"
+msgstr ""
+
+#: src/s3/vault.rs:70
+msgid "Wrong password"
+msgstr ""
+
+#: src/s3/vault.rs:71 src/s3/vault.rs:315
+msgid "The encrypted data is damaged or was changed"
+msgstr ""
+
+#: src/s3/vault.rs:77
+msgid "This is not available inside a Cryptomator vault"
+msgstr ""
+
+#: src/s3/vault.rs:84
+msgid "The vault configuration is damaged"
+msgstr ""
+
+#: src/s3/vault.rs:102
+msgid "This folder is a vault already"
+msgstr ""
+
+#: src/s3/vault.rs:140
+msgid "The folder “{name}” was not found in the vault"
+msgstr ""
+
+#: src/s3/vault.rs:394
+msgid "The vault itself cannot be emptied this way; delete its folder instead"
+msgstr ""
+
+#: src/transfers/external.rs:77
+msgid "Open With"
+msgstr ""
+
+#: src/transfers/external.rs:86
+msgid "Default application"
+msgstr ""
+
+#: src/transfers/external.rs:103 src/transfers/external.rs:128
+msgid ""
+"This file type is not opened with an application for safety; download it and "
+"open it yourself"
+msgstr ""
+
+#: src/transfers/external.rs:113
+msgid "At most {n} objects can be open in other applications at the same time"
+msgstr ""
+
+#: src/transfers/external.rs:153
+msgid "Opened in the default application; it is uploaded again when you save"
+msgstr ""
+
+#: src/transfers/external.rs:169
+msgid "{name} changed and was uploaded again"
+msgstr ""
+
+#: src/transfers/external.rs:172
+msgid "{name} could not be uploaded again: {error}"
+msgstr ""
+
+#: src/transfers/mount.rs:499
+msgid "Mounting is not possible inside the Flatpak sandbox"
+msgstr ""
+
+#: src/transfers/mount.rs:502
+msgid "This system has no FUSE support (/dev/fuse)"
+msgstr ""
+
+#: src/transfers/mount.rs:505
+msgid "At most {n} mounts can be active at the same time"
+msgstr ""
+
+#: src/transfers/mount.rs:513
+msgid "The mount folder is not empty: {path}"
+msgstr ""
+
+#: src/transfers/mount.rs:527
+msgid "Mounting failed: {error}"
+msgstr ""
+
+#: src/transfers/mount.rs:553
+msgid "No such mount"
+msgstr ""
+
+#: src/transfers/mount.rs:555
+msgid "Unmounting failed (the folder may be in use): {error}"
+msgstr ""
+
+#: src/transfers/queue.rs:368
+msgid "Connection problem; trying again in {n} s"
+msgstr ""
+
+#: src/transfers/view.rs:16
+msgid "Unlimited"
+msgstr ""
+
+#: src/transfers/view.rs:24
+msgid "{n} s left"
+msgstr ""
+
+#: src/transfers/view.rs:25
+msgid "{n} min left"
+msgstr ""
+
+#: src/transfers/view.rs:26
+msgid "{h} h {m} min left"
+msgstr ""
+
+#: src/transfers/view.rs:34
+msgid "{r} running, {q} queued"
+msgstr ""
+
+#: src/transfers/view.rs:43
+msgid "{n} paused"
+msgstr ""
+
+#: src/transfers/view.rs:46
+msgid "{n} failed"
+msgstr ""
+
+#: src/transfers/view.rs:49
+msgid "Queue is empty"
+msgstr ""
+
+#: src/transfers/view.rs:52 src/transfers/view.rs:89 src/transfers/view.rs:90
+msgid "Paused"
+msgstr ""
+
+#: src/transfers/view.rs:74
+msgid "Queued"
+msgstr ""
+
+#: src/transfers/view.rs:181 src/transfers/view.rs:332
+msgid "Pause the queue: running transfers finish, no new ones start"
+msgstr ""
+
+#: src/transfers/view.rs:182 src/transfers/view.rs:227
+msgid "Find a transfer"
+msgstr ""
+
+#: src/transfers/view.rs:189
+msgid "Simultaneous transfers"
+msgstr ""
+
+#: src/transfers/view.rs:191
+msgid "Speed limit"
+msgstr ""
+
+#: src/transfers/view.rs:196
+msgid "Queue Settings"
+msgstr ""
+
+#: src/transfers/view.rs:202
+msgid "Pause All"
+msgstr ""
+
+#: src/transfers/view.rs:203
+msgid "Resume All"
+msgstr ""
+
+#: src/transfers/view.rs:204
+msgid "Retry Failed"
+msgstr ""
+
+#: src/transfers/view.rs:205
+msgid "Cancel Queued"
+msgstr ""
+
+#: src/transfers/view.rs:206
+msgid "Cancel All"
+msgstr ""
+
+#: src/transfers/view.rs:209
+msgid "Clear Finished"
+msgstr ""
+
+#: src/transfers/view.rs:210
+msgid "Clear All Inactive"
+msgstr ""
+
+#: src/transfers/view.rs:212
+msgid "Queue Menu"
+msgstr ""
+
+#: src/transfers/view.rs:217
+msgid "All"
+msgstr ""
+
+#: src/transfers/view.rs:217
+msgid "Active"
+msgstr ""
+
+#: src/transfers/view.rs:217
+msgid "Failed"
+msgstr ""
+
+#: src/transfers/view.rs:217
+msgid "Done"
+msgstr ""
+
+#: src/transfers/view.rs:290
+msgid "No Transfers"
+msgstr ""
+
+#: src/transfers/view.rs:290
+msgid "Uploads, downloads and copies appear here."
+msgstr ""
+
+#: src/transfers/view.rs:332
+msgid "Resume the queue"
+msgstr ""
+
+#: src/transfers/view.rs:368 src/transfers/view.rs:505
+msgid "Move to Front"
+msgstr ""
+
+#: src/transfers/view.rs:369 src/transfers/view.rs:513
+#: src/transfers/view.rs:561
+msgid "Pause"
+msgstr ""
+
+#: src/transfers/view.rs:372
+msgid "More"
+msgstr ""
+
+#: src/transfers/view.rs:432
+msgid ""
+"This file type is not opened with an application for safety; open it from "
+"GNOME Files if you trust it"
+msgstr ""
+
+#: src/transfers/view.rs:506
+msgid "Move Up"
+msgstr ""
+
+#: src/transfers/view.rs:507
+msgid "Move Down"
+msgstr ""
+
+#: src/transfers/view.rs:508
+msgid "Move to End"
+msgstr ""
+
+#: src/transfers/view.rs:514 src/transfers/view.rs:561
+#: src/window/actions.rs:254
+msgid "Resume"
+msgstr ""
+
+#: src/transfers/view.rs:516
+msgid "Copy Error"
+msgstr ""
+
+#: src/transfers/view.rs:517
+msgid "Show in Bucket"
+msgstr ""
+
+#: src/transfers/view.rs:519 src/window/mod.rs:2096 src/window/mod.rs:3013
+msgid "Open"
+msgstr ""
+
+#: src/transfers/view.rs:520
+msgid "Open Containing Folder"
+msgstr ""
+
+#: src/transfers/view.rs:522
+msgid "Remove from List"
+msgstr ""
+
+#: src/window/actions.rs:50
+msgid "copy"
+msgstr ""
+
+#: src/window/actions.rs:77
+msgid ""
+"Public address copied; it works only when the bucket or object allows public "
+"reading"
+msgstr ""
+
+#: src/window/actions.rs:83
+msgid "Only text files can be copied as text"
+msgstr ""
+
+#: src/window/actions.rs:84
+msgid "The file is too large to copy as text (at most 1 MB)"
+msgstr ""
+
+#: src/window/actions.rs:90
+msgid "Contents of “{name}” copied"
+msgstr ""
+
+#: src/window/actions.rs:91
+msgid "The file is not valid UTF-8 text"
+msgstr ""
+
+#: src/window/actions.rs:119
+msgid "AWS CLI command copied"
+msgstr ""
+
+#: src/window/actions.rs:154 src/window/actions.rs:420
+msgid "Location copied"
+msgstr ""
+
+#: src/window/actions.rs:253
+msgid "{n} unfinished transfer from the last session"
+msgid_plural "{n} unfinished transfers from the last session"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/window/actions.rs:327
+msgid "Go to Location"
+msgstr ""
+
+#: src/window/actions.rs:327
+msgid ""
+"A bucket and path, for example s3://bucket/folder/ or bucket/folder/file.txt"
+msgstr ""
+
+#: src/window/actions.rs:327
+msgid "Go"
+msgstr ""
+
+#: src/window/actions.rs:369
+msgid "No saved connection has a bucket named “{bucket}”"
+msgstr ""
+
+#: src/window/actions.rs:444
+msgid "{n} item cut; paste it into another folder"
+msgid_plural "{n} items cut; paste them into another folder"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/window/actions.rs:444
+msgid "{n} item copied"
+msgid_plural "{n} items copied"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/window/actions.rs:465
+msgid "The picture on the clipboard could not be read"
+msgstr ""
+
+#: src/window/actions.rs:469
+msgid "Pasted image"
+msgstr ""
+
+#: src/window/actions.rs:482 src/window/actions.rs:495
+msgid "Nothing to paste"
+msgstr ""
+
+#: src/window/actions.rs:486
+msgid "Pasted text"
+msgstr ""
+
+#: src/window/actions.rs:489
+msgid "Pasted as “{name}”"
+msgstr ""
+
+#: src/window/actions.rs:517
+msgid "A folder cannot be moved into itself"
+msgstr ""
+
+#: src/window/actions.rs:552
+msgid "{n} object moved"
+msgid_plural "{n} objects moved"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/window/actions.rs:554 src/window/mod.rs:2378 src/window/mod.rs:2508
+msgid "Undo"
+msgstr ""
+
+#: src/window/actions.rs:590
+msgid "{n} object could not be moved back"
+msgid_plural "{n} objects could not be moved back"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/window/actions.rs:590
+msgid "Move undone"
+msgstr ""
+
+#: src/window/actions.rs:693
+msgid "Copying to {bucket}"
+msgstr ""
+
+#: src/window/actions.rs:755
+msgid "Type"
+msgstr ""
+
+#: src/window/actions.rs:755 src/window/actions.rs:756
+msgid "Any"
+msgstr ""
+
+#: src/window/actions.rs:755
+msgid "Folders"
+msgstr ""
+
+#: src/window/actions.rs:755
+msgid "Images"
+msgstr ""
+
+#: src/window/actions.rs:755
+msgid "Videos"
+msgstr ""
+
+#: src/window/actions.rs:755
+msgid "Audio"
+msgstr ""
+
+#: src/window/actions.rs:755
+msgid "Documents"
+msgstr ""
+
+#: src/window/actions.rs:755
+msgid "Archives"
+msgstr ""
+
+#: src/window/actions.rs:756 src/window/mod.rs:704 src/window/mod.rs:2087
+#: src/window/mod.rs:2224 data/resources/ui/window.blp:803
+msgid "Size"
+msgstr ""
+
+#: src/window/actions.rs:756
+msgid "Smaller than 1 MB"
+msgstr ""
+
+#: src/window/actions.rs:756
+msgid "1 MB – 100 MB"
+msgstr ""
+
+#: src/window/actions.rs:756
+msgid "Larger than 100 MB"
+msgstr ""
+
+#: src/window/actions.rs:756 src/window/mod.rs:1672
+msgid "Empty"
+msgstr ""
+
+#: src/window/actions.rs:757 src/window/mod.rs:706 src/window/mod.rs:2226
+msgid "Modified"
+msgstr ""
+
+#: src/window/actions.rs:757
+msgid "Any time"
+msgstr ""
+
+#: src/window/actions.rs:757
+msgid "Last 24 hours"
+msgstr ""
+
+#: src/window/actions.rs:757
+msgid "Last 7 days"
+msgstr ""
+
+#: src/window/actions.rs:757
+msgid "Older than a year"
+msgstr ""
+
+#: src/window/actions.rs:759 data/resources/ui/window.blp:617
+msgid "Clear Filters"
+msgstr ""
+
+#: src/window/actions.rs:807
+msgid "Transfers are running"
+msgstr ""
+
+#: src/window/mod.rs:195
+msgid "Stop Transfers?"
+msgstr ""
+
+#: src/window/mod.rs:195
+msgid ""
+"Transfers are still running. They stop now; uploads and downloads continue "
+"where they stopped the next time Ferry starts."
+msgstr ""
+
+#: src/window/mod.rs:245
+msgid "%-e %B %Y, %-l:%M %p"
+msgstr ""
+
+#: src/window/mod.rs:245
+msgid "%-e %B %Y, %H:%M"
+msgstr ""
+
+#: src/window/mod.rs:472 data/resources/ui/window.blp:310
+msgid "Browser"
+msgstr ""
+
+#: src/window/mod.rs:472 src/window/mod.rs:1777
+#: data/resources/ui/window.blp:707
+msgid "Recent"
+msgstr ""
+
+#: src/window/mod.rs:472 src/window/mod.rs:1776
+#: data/resources/ui/window.blp:715
+msgid "Analyzer"
+msgstr ""
+
+#: src/window/mod.rs:472 src/window/mod.rs:1778
+#: data/resources/ui/window.blp:723
+msgid "Backups"
+msgstr ""
+
+#: src/window/mod.rs:472 src/window/mod.rs:1779
+#: data/resources/ui/window.blp:731
+msgid "Compatibility"
+msgstr ""
+
+#: src/window/mod.rs:733 data/resources/ui/window.blp:246
+msgid "Upload"
+msgstr ""
+
+#: src/window/mod.rs:746
+msgid "Open in New Tab"
+msgstr ""
+
+#: src/window/mod.rs:747
+msgid "Quick Preview"
+msgstr ""
+
+#: src/window/mod.rs:749
+msgid "Open With…"
+msgstr ""
+
+#: src/window/mod.rs:751 src/window/mod.rs:784 data/resources/ui/window.blp:826
+msgid "Download as Archive…"
+msgstr ""
+
+#: src/window/mod.rs:754
+msgid "Cut"
+msgstr ""
+
+#: src/window/mod.rs:756 src/window/mod.rs:779
+msgid "Paste"
+msgstr ""
+
+#: src/window/mod.rs:757
+msgid "Rename…"
+msgstr ""
+
+#: src/window/mod.rs:761
+msgid "Copy Public Address"
+msgstr ""
+
+#: src/window/mod.rs:763
+msgid "S3 Location"
+msgstr ""
+
+#: src/window/mod.rs:764
+msgid "AWS CLI Command"
+msgstr ""
+
+#: src/window/mod.rs:765
+msgid "File Contents"
+msgstr ""
+
+#: src/window/mod.rs:766
+msgid "Copy As"
+msgstr ""
+
+#: src/window/mod.rs:775 data/resources/ui/window.blp:820
+msgid "New Folder…"
+msgstr ""
+
+#: src/window/mod.rs:776 data/resources/ui/window.blp:821
+msgid "New Text File…"
+msgstr ""
+
+#: src/window/mod.rs:780 data/resources/ui/window.blp:771
+msgid "Upload Files…"
+msgstr ""
+
+#: src/window/mod.rs:781 data/resources/ui/window.blp:835
+msgid "Select All"
+msgstr ""
+
+#: src/window/mod.rs:785 src/window/mod.rs:1497
+msgid "Copy Location"
+msgstr ""
+
+#: src/window/mod.rs:926 src/window/mod.rs:936 src/window/mod.rs:1814
+#: data/resources/ui/window.blp:613
+msgid "Empty Folder"
+msgstr ""
+
+#: src/window/mod.rs:927
+msgid "Only hidden files are here. Press Ctrl+H to show them."
+msgstr ""
+
+#: src/window/mod.rs:931
+msgid "No Matches"
+msgstr ""
+
+#: src/window/mod.rs:932
+msgid "No item in this folder matches the filter."
+msgstr ""
+
+#: src/window/mod.rs:938 data/resources/ui/window.blp:614
+msgid "Drag and drop files here to upload them."
+msgstr ""
+
+#: src/window/mod.rs:1012
+msgid "Folder"
+msgstr ""
+
+#: src/window/mod.rs:1147 src/window/mod.rs:1188
+msgid "{n} selected"
+msgstr ""
+
+#: src/window/mod.rs:1380
+msgid "Edit…"
+msgstr ""
+
+#: src/window/mod.rs:1383
+msgid "Duplicate…"
+msgstr ""
+
+#: src/window/mod.rs:1390
+msgid "Connection Menu"
+msgstr ""
+
+#: src/window/mod.rs:1406
+msgid "No usable keyring was found; the access key is stored unencrypted"
+msgstr ""
+
+#: src/window/mod.rs:1415
+msgid "Delete Connection?"
+msgstr ""
+
+#: src/window/mod.rs:1415
+msgid ""
+"“{name}” and its stored credentials will be removed. Buckets are not "
+"affected."
+msgstr ""
+
+#: src/window/mod.rs:1497 data/resources/ui/window.blp:840
+msgid "Bucket Settings"
+msgstr ""
+
+#: src/window/mod.rs:1497 data/resources/ui/window.blp:829
+msgid "Mount as Folder…"
+msgstr ""
+
+#: src/window/mod.rs:1503
+msgid "Empty Bucket…"
+msgstr ""
+
+#: src/window/mod.rs:1508
+msgid "Remove from Connection"
+msgstr ""
+
+#: src/window/mod.rs:1512
+msgid "Delete Bucket…"
+msgstr ""
+
+#: src/window/mod.rs:1520
+msgid "Bucket Menu"
+msgstr ""
+
+#: src/window/mod.rs:1530
+msgid "No buckets"
+msgstr ""
+
+#: src/window/mod.rs:1532
+msgid ""
+"These credentials cannot list buckets. Link a bucket you have access to by "
+"entering its name."
+msgstr ""
+
+#: src/window/mod.rs:1605
+msgid "Link Bucket"
+msgstr ""
+
+#: src/window/mod.rs:1605
+msgid ""
+"Enter the name of an existing bucket you can access. Nothing is created; it "
+"is only added to this connection."
+msgstr ""
+
+#: src/window/mod.rs:1605
+msgid "Link"
+msgstr ""
+
+#: src/window/mod.rs:1636
+msgid "New Bucket"
+msgstr ""
+
+#: src/window/mod.rs:1636 src/window/mod.rs:2013 src/window/mod.rs:2030
+#: src/window/vault.rs:105
+msgid "Create"
+msgstr ""
+
+#: src/window/mod.rs:1639
+msgid "Bucket created"
+msgstr ""
+
+#: src/window/mod.rs:1649
+msgid ""
+"“{name}” and all objects in it will be deleted permanently. Type the bucket "
+"name to confirm."
+msgstr ""
+
+#: src/window/mod.rs:1650
+msgid "Delete Bucket?"
+msgstr ""
+
+#: src/window/mod.rs:1658
+msgid "Bucket deleted"
+msgstr ""
+
+#: src/window/mod.rs:1671
+msgid ""
+"All objects in “{name}” will be deleted permanently; the bucket itself "
+"stays. Type the bucket name to confirm."
+msgstr ""
+
+#: src/window/mod.rs:1672
+msgid "Empty Bucket?"
+msgstr ""
+
+#: src/window/mod.rs:1675
+msgid "Empty {name}"
+msgstr ""
+
+#: src/window/mod.rs:1685
+msgid "{n} object deleted"
+msgid_plural "{n} objects deleted"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/window/mod.rs:1814
+msgid "No Results"
+msgstr ""
+
+#: src/window/mod.rs:1996
+msgid "{n} result for “{q}”"
+msgid_plural "{n} results for “{q}”"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/window/mod.rs:1997
+msgid "Only the first results are shown; narrow the search."
+msgstr ""
+
+#: src/window/mod.rs:2013
+msgid "New Folder"
+msgstr ""
+
+#: src/window/mod.rs:2030
+msgid "New Text File"
+msgstr ""
+
+#: src/window/mod.rs:2030
+msgid "New Document"
+msgstr ""
+
+#: src/window/mod.rs:2059
+msgid "{n} item selected"
+msgid_plural "{n} items selected"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/window/mod.rs:2063
+msgid "{n} folder not counted"
+msgid_plural "{n} folders not counted"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/window/mod.rs:2086 src/window/mod.rs:2213
+#: data/resources/ui/window.blp:531
+msgid "Properties"
+msgstr ""
+
+#: src/window/mod.rs:2087 src/window/mod.rs:2088 src/window/mod.rs:2251
+msgid "Calculating…"
+msgstr ""
+
+#: src/window/mod.rs:2154
+msgid "Details Could Not Be Loaded"
+msgstr ""
+
+#: src/window/mod.rs:2156 data/resources/ui/window.blp:586
+msgid "Try Again"
+msgstr ""
+
+#: src/window/mod.rs:2202
+msgid "Copy Key"
+msgstr ""
+
+#: src/window/mod.rs:2203
+msgid "Key copied"
+msgstr ""
+
+#: src/window/mod.rs:2222
+msgid "Dimensions"
+msgstr ""
+
+#: src/window/mod.rs:2222
+msgid "{w} × {h} pixels"
+msgstr ""
+
+#: src/window/mod.rs:2230
+msgid "Encryption"
+msgstr ""
+
+#: src/window/mod.rs:2231 src/window/mod.rs:2929
+msgid "Version"
+msgstr ""
+
+#: src/window/mod.rs:2235
+msgid "Original file date"
+msgstr ""
+
+#: src/window/mod.rs:2242
+msgid "Not calculated"
+msgstr ""
+
+#: src/window/mod.rs:2243
+msgid "Calculate"
+msgstr ""
+
+#: src/window/mod.rs:2257
+msgid "SHA-256"
+msgstr ""
+
+#: src/window/mod.rs:2267
+msgid "Versions"
+msgstr ""
+
+#: src/window/mod.rs:2270
+msgid "Permissions and Retention"
+msgstr ""
+
+#: src/window/mod.rs:2293
+msgid "Edit"
+msgstr ""
+
+#: src/window/mod.rs:2317
+msgid "Changes saved"
+msgstr ""
+
+#: src/window/mod.rs:2368
+msgid "A name with “/” moves the file into that folder."
+msgstr ""
+
+#: src/window/mod.rs:2378
+msgid "Renamed to “{name}”"
+msgstr ""
+
+#: src/window/mod.rs:2398
+msgid "Change Storage Class"
+msgstr ""
+
+#: src/window/mod.rs:2398
+msgid "{n} object will be copied in place into the new storage class."
+msgid_plural "{n} objects will be copied in place into the new storage class."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/window/mod.rs:2409
+msgid "Storage class of {n} object changed"
+msgid_plural "Storage class of {n} objects changed"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/window/mod.rs:2421 src/window/mod.rs:2455
+msgid "Edit Headers"
+msgstr ""
+
+#: src/window/mod.rs:2422
+msgid "Empty fields keep the current value of the object."
+msgid_plural "Empty fields keep the current value of each of the {n} objects."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/window/mod.rs:2431
+msgid "Common Values"
+msgstr ""
+
+#: src/window/mod.rs:2466
+msgid "{n} objects could not be changed: {error}"
+msgstr ""
+
+#: src/window/mod.rs:2468
+msgid "Headers of {n} object changed"
+msgid_plural "Headers of {n} objects changed"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/window/mod.rs:2484
+msgid "{n} items will be deleted ({f} folders, including their contents)."
+msgstr ""
+
+#: src/window/mod.rs:2486
+msgid "“{name}” will be deleted permanently."
+msgstr ""
+
+#: src/window/mod.rs:2488
+msgid "{n} item will be deleted permanently."
+msgid_plural "{n} items will be deleted permanently."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/window/mod.rs:2494
+msgid "Delete Folder?"
+msgstr ""
+
+#: src/window/mod.rs:2494
+msgid "Delete Items?"
+msgstr ""
+
+#: src/window/mod.rs:2504
+msgid "“{name}” deleted"
+msgstr ""
+
+#: src/window/mod.rs:2506
+msgid "{n} item deleted"
+msgid_plural "{n} items deleted"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/window/mod.rs:2518
+msgid "Delete {n} item"
+msgid_plural "Delete {n} items"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/window/mod.rs:2539
+msgid "Select Items Matching"
+msgstr ""
+
+#: src/window/mod.rs:2539
+msgid "Use * for any characters and ? for one, for example *.jpg"
+msgstr ""
+
+#: src/window/mod.rs:2539
+msgid "Select"
+msgstr ""
+
+#: src/window/mod.rs:2551
+msgid "No item matches “{pattern}”"
+msgstr ""
+
+#: src/window/mod.rs:2560
+msgid "Export List"
+msgstr ""
+
+#: src/window/mod.rs:2566
+msgid "Listing the folder…"
+msgstr ""
+
+#: src/window/mod.rs:2574
+msgid "{n} object exported"
+msgid_plural "{n} objects exported"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/window/mod.rs:2617
+msgid "Nothing to undo"
+msgstr ""
+
+#: src/window/mod.rs:2709
+msgid "{n} transfer running"
+msgid_plural "{n} transfers running"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/window/mod.rs:2711
+msgid "{n} transfer failed"
+msgid_plural "{n} transfers failed"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/window/mod.rs:2713
+msgid "Transfers finished"
+msgstr ""
+
+#: src/window/mod.rs:2717
+msgid "{n} transfer"
+msgid_plural "{n} transfers"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/window/mod.rs:2765
+msgid "Upload Folder"
+msgstr ""
+
+#: src/window/mod.rs:2765 data/resources/ui/window.blp:247
+msgid "Upload Files"
+msgstr ""
+
+#: src/window/mod.rs:2855
+msgid "Replace “{name}”?"
+msgstr ""
+
+#: src/window/mod.rs:2856
+msgid ""
+"An object with this name already exists.\n"
+"\n"
+"In the bucket: {old_size}, {old_date}\n"
+"New file: {new_size}, {new_date}"
+msgstr ""
+
+#: src/window/mod.rs:2860
+msgid ""
+"Objects with the same names are already in the bucket. Replacing them "
+"overwrites their content."
+msgstr ""
+
+#: src/window/mod.rs:2863
+msgid "{n} of the files is newer than its object."
+msgid_plural "{n} of the files are newer than their objects."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/window/mod.rs:2865
+msgid "{n} File Already Exists"
+msgid_plural "{n} Files Already Exist"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/window/mod.rs:2868
+msgid "Skip"
+msgstr ""
+
+#: src/window/mod.rs:2868
+msgid "Keep Both"
+msgstr ""
+
+#: src/window/mod.rs:2870
+msgid "Replace Older"
+msgstr ""
+
+#: src/window/mod.rs:2871
+msgid "Replace"
+msgstr ""
+
+#: src/window/mod.rs:2889
+msgid "{n} file could not be uploaded"
+msgid_plural "{n} files could not be uploaded"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/window/mod.rs:2891
+msgid "{n} file uploaded"
+msgid_plural "{n} files uploaded"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/window/mod.rs:2893
+msgid "Upload cancelled"
+msgstr ""
+
+#: src/window/mod.rs:2911
+msgid "{n} file queued for {path}"
+msgid_plural "{n} files queued for {path}"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/window/mod.rs:2923
+msgid "Save Version"
+msgstr ""
+
+#: src/window/mod.rs:2934 src/window/mod.rs:3105
+msgid "Download finished"
+msgstr ""
+
+#: src/window/mod.rs:2954
+msgid "Mounted"
+msgstr ""
+
+#: src/window/mod.rs:2968
+msgid "read only"
+msgstr ""
+
+#: src/window/mod.rs:2970
+msgid "Unmount"
+msgstr ""
+
+#: src/window/mod.rs:2973
+msgid "Unmounted"
+msgstr ""
+
+#: src/window/mod.rs:2997
+msgid "Mount as Folder"
+msgstr ""
+
+#: src/window/mod.rs:2998
+msgid ""
+"The location appears as a normal folder in GNOME Files. The mount point is "
+"created in the “Ferry” folder of your home directory."
+msgstr ""
+
+#: src/window/mod.rs:3000
+msgid "Allow changes"
+msgstr ""
+
+#: src/window/mod.rs:3000
+msgid ""
+"Saved files are uploaded when closed; deleting and renaming change the bucket"
+msgstr ""
+
+#: src/window/mod.rs:3003
+msgid "Mount"
+msgstr ""
+
+#: src/window/mod.rs:3013
+msgid "Mounted at {path}"
+msgstr ""
+
+#: src/window/mod.rs:3045
+msgid "Remove from Favorites"
+msgstr ""
+
+#: src/window/mod.rs:3045 data/resources/ui/window.blp:480
+msgid "Add to Favorites"
+msgstr ""
+
+#: src/window/mod.rs:3070
+msgid "Download To"
+msgstr ""
+
+#: src/window/mod.rs:3100
+msgid "{n} file could not be downloaded"
+msgid_plural "{n} files could not be downloaded"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/window/mod.rs:3103
+msgid "Download Finished"
+msgstr ""
+
+#: src/window/mod.rs:3103
+msgid "{n} file downloaded"
+msgid_plural "{n} files downloaded"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/window/mod.rs:3141
+msgid "Download as Archive"
+msgstr ""
+
+#: src/window/mod.rs:3166
+msgid "There is nothing to put in the archive"
+msgstr ""
+
+#: src/window/mod.rs:3175
+msgid "“{name}” is ready"
+msgstr ""
+
+#: src/window/mod.rs:3193
+msgid "Files are uploaded to {path}"
+msgstr ""
+
+#: src/window/tabs.rs:133 data/resources/ui/window.blp:382
+msgid "No Bucket Open"
+msgstr ""
+
+#: src/window/vault.rs:48
+msgid ""
+"Cryptomator vault, unlocked. Names and files are decrypted on this computer "
+"only."
+msgstr ""
+
+#: src/window/vault.rs:49
+msgid "_Lock"
+msgstr ""
+
+#: src/window/vault.rs:53
+msgid "This folder is a Cryptomator vault"
+msgstr ""
+
+#: src/window/vault.rs:54
+msgid "_Unlock…"
+msgstr ""
+
+#: src/window/vault.rs:90
+msgid "Vault locked"
+msgstr ""
+
+#: src/window/vault.rs:132
+msgid "Unlock Vault"
+msgstr ""
+
+#: src/window/vault.rs:132
+msgid "Enter the password of the vault “{name}”."
+msgstr ""
+
+#: src/window/vault.rs:144
+msgid "Vault unlocked"
+msgstr ""
+
+#: src/window/vault.rs:152
+msgid "A vault cannot be made inside another vault"
+msgstr ""
+
+#: src/window/vault.rs:158
+msgid "New Vault"
+msgstr ""
+
+#: src/window/vault.rs:158
+msgid ""
+"A Cryptomator vault encrypts names and contents on this computer, before "
+"they are uploaded. The Cryptomator apps open it too."
+msgstr ""
+
+#: src/window/vault.rs:158
+msgid "Vault"
+msgstr ""
+
+#: src/window/vault.rs:161
+msgid "A vault name cannot contain “/”"
+msgstr ""
+
+#: src/window/vault.rs:164
+msgid "Vault Password"
+msgstr ""
+
+#: src/window/vault.rs:165
+msgid ""
+"Use at least 8 characters. Nobody can open the vault without this password, "
+"and it cannot be recovered."
+msgstr ""
+
+#: src/window/vault.rs:173
+msgid "Vault created"
+msgstr ""
+
+#: data/resources/ui/help-overlay.blp:11
+msgctxt "shortcut window"
+msgid "General"
+msgstr ""
+
+#: data/resources/ui/help-overlay.blp:14
+msgctxt "shortcut window"
+msgid "New connection"
+msgstr ""
+
+#: data/resources/ui/help-overlay.blp:19
+msgctxt "shortcut window"
+msgid "Go to location"
+msgstr ""
+
+#: data/resources/ui/help-overlay.blp:24
+msgctxt "shortcut window"
+msgid "Preferences"
+msgstr ""
+
+#: data/resources/ui/help-overlay.blp:29
+msgctxt "shortcut window"
+msgid "Keyboard shortcuts"
+msgstr ""
+
+#: data/resources/ui/help-overlay.blp:34
+msgctxt "shortcut window"
+msgid "Close tab or window"
+msgstr ""
+
+#: data/resources/ui/help-overlay.blp:39
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr ""
+
+#: data/resources/ui/help-overlay.blp:45
+msgctxt "shortcut window"
+msgid "Navigation"
+msgstr ""
+
+#: data/resources/ui/help-overlay.blp:48
+msgctxt "shortcut window"
+msgid "New tab"
+msgstr ""
+
+#: data/resources/ui/help-overlay.blp:53
+msgctxt "shortcut window"
+msgid "Next or previous tab"
+msgstr ""
+
+#: data/resources/ui/help-overlay.blp:58
+msgctxt "shortcut window"
+msgid "Back"
+msgstr ""
+
+#: data/resources/ui/help-overlay.blp:63
+msgctxt "shortcut window"
+msgid "Forward"
+msgstr ""
+
+#: data/resources/ui/help-overlay.blp:68
+msgctxt "shortcut window"
+msgid "Parent folder"
+msgstr ""
+
+#: data/resources/ui/help-overlay.blp:73
+msgctxt "shortcut window"
+msgid "List view"
+msgstr ""
+
+#: data/resources/ui/help-overlay.blp:78
+msgctxt "shortcut window"
+msgid "Grid view"
+msgstr ""
+
+#: data/resources/ui/help-overlay.blp:83
+msgctxt "shortcut window"
+msgid "Show hidden files"
+msgstr ""
+
+#: data/resources/ui/help-overlay.blp:88
+msgctxt "shortcut window"
+msgid "Larger or smaller grid items"
+msgstr ""
+
+#: data/resources/ui/help-overlay.blp:93
+msgctxt "shortcut window"
+msgid "Refresh"
+msgstr ""
+
+#: data/resources/ui/help-overlay.blp:98
+msgctxt "shortcut window"
+msgid "Filter and search"
+msgstr ""
+
+#: data/resources/ui/help-overlay.blp:103
+msgctxt "shortcut window"
+msgid "Search all connections"
+msgstr ""
+
+#: data/resources/ui/help-overlay.blp:109
+msgctxt "shortcut window"
+msgid "Files"
+msgstr ""
+
+#: data/resources/ui/help-overlay.blp:112
+msgctxt "shortcut window"
+msgid "Quick preview"
+msgstr ""
+
+#: data/resources/ui/help-overlay.blp:117
+msgctxt "shortcut window"
+msgid "Show or hide properties"
+msgstr ""
+
+#: data/resources/ui/help-overlay.blp:122
+msgctxt "shortcut window"
+msgid "Upload files"
+msgstr ""
+
+#: data/resources/ui/help-overlay.blp:127
+msgctxt "shortcut window"
+msgid "New folder"
+msgstr ""
+
+#: data/resources/ui/help-overlay.blp:132
+msgctxt "shortcut window"
+msgid "Rename"
+msgstr ""
+
+#: data/resources/ui/help-overlay.blp:137
+msgctxt "shortcut window"
+msgid "Select all"
+msgstr ""
+
+#: data/resources/ui/help-overlay.blp:142
+msgctxt "shortcut window"
+msgid "Select items matching a pattern"
+msgstr ""
+
+#: data/resources/ui/help-overlay.blp:147
+msgctxt "shortcut window"
+msgid "Delete selection"
+msgstr ""
+
+#: data/resources/ui/help-overlay.blp:153
+msgctxt "shortcut window"
+msgid "Clipboard"
+msgstr ""
+
+#: data/resources/ui/help-overlay.blp:156
+msgctxt "shortcut window"
+msgid "Copy"
+msgstr ""
+
+#: data/resources/ui/help-overlay.blp:161
+msgctxt "shortcut window"
+msgid "Cut"
+msgstr ""
+
+#: data/resources/ui/help-overlay.blp:166
+msgctxt "shortcut window"
+msgid "Paste or upload copied files"
+msgstr ""
+
+#: data/resources/ui/help-overlay.blp:171
+msgctxt "shortcut window"
+msgid "Copy location"
+msgstr ""
+
+#: data/resources/ui/help-overlay.blp:176
+msgctxt "shortcut window"
+msgid "Undo the last move, rename or delete"
+msgstr ""
+
+#: data/resources/ui/help-overlay.blp:182
+msgctxt "shortcut window"
+msgid "Quick Preview"
+msgstr ""
+
+#: data/resources/ui/help-overlay.blp:185
+msgctxt "shortcut window"
+msgid "Previous file"
+msgstr ""
+
+#: data/resources/ui/help-overlay.blp:190
+msgctxt "shortcut window"
+msgid "Next file"
+msgstr ""
+
+#: data/resources/ui/help-overlay.blp:195
+msgctxt "shortcut window"
+msgid "Zoom in and out"
+msgstr ""
+
+#: data/resources/ui/help-overlay.blp:200
+msgctxt "shortcut window"
+msgid "Fit to window"
+msgstr ""
+
+#: data/resources/ui/help-overlay.blp:205
+msgctxt "shortcut window"
+msgid "Close"
+msgstr ""
+
+#: data/resources/ui/profile-dialog.blp:37
+msgid "Provider"
+msgstr ""
+
+#: data/resources/ui/profile-dialog.blp:43
+msgid ""
+"Create an access key under Dashboard → Storage → Settings → S3 Connection. "
+"For per-user (RLS) access: Access key = project ref, Secret = anon key, "
+"Session token = user JWT."
+msgstr ""
+
+#: data/resources/ui/profile-dialog.blp:46
+msgid "Project ref"
+msgstr ""
+
+#: data/resources/ui/profile-dialog.blp:51
+msgid "Server"
+msgstr ""
+
+#: data/resources/ui/profile-dialog.blp:63
+msgid "Path-style addressing"
+msgstr ""
+
+#: data/resources/ui/profile-dialog.blp:64
+msgid "Put the bucket name in the path instead of the host name"
+msgstr ""
+
+#: data/resources/ui/profile-dialog.blp:69
+msgid "Credentials"
+msgstr ""
+
+#: data/resources/ui/profile-dialog.blp:70
+msgid "Stored in the system keyring."
+msgstr ""
+
+#: data/resources/ui/profile-dialog.blp:73
+msgid "Sign-In Method"
+msgstr ""
+
+#: data/resources/ui/profile-dialog.blp:78
+msgid "From ~/.aws/config, also with IAM Identity Center (SSO)"
+msgstr ""
+
+#: data/resources/ui/profile-dialog.blp:83
+msgid "Access key ID"
+msgstr ""
+
+#: data/resources/ui/profile-dialog.blp:87
+msgid "Secret access key"
+msgstr ""
+
+#: data/resources/ui/profile-dialog.blp:91
+msgid "Session token (optional)"
+msgstr ""
+
+#: data/resources/ui/profile-dialog.blp:95
+msgid "Buckets (optional, comma separated)"
+msgstr ""
+
+#: data/resources/ui/profile-dialog.blp:96
+msgid ""
+"If your credentials cannot list buckets (s3:ListAllMyBuckets), enter the "
+"bucket names they can access."
+msgstr ""
+
+#: data/resources/ui/profile-dialog.blp:101
+msgid "Upload Defaults"
+msgstr ""
+
+#: data/resources/ui/profile-dialog.blp:102
+msgid ""
+"Applied to new objects written through this connection by uploads, copies "
+"and syncs."
+msgstr ""
+
+#: data/resources/ui/profile-dialog.blp:105
+msgid "Storage class for uploads"
+msgstr ""
+
+#: data/resources/ui/profile-dialog.blp:109
+msgid "Encryption for uploads"
+msgstr ""
+
+#: data/resources/ui/profile-dialog.blp:119
+msgid "Advanced"
+msgstr ""
+
+#: data/resources/ui/profile-dialog.blp:122
+msgid "Assume Role"
+msgstr ""
+
+#: data/resources/ui/profile-dialog.blp:123
+msgid "Act as an IAM role with the credentials above"
+msgstr ""
+
+#: data/resources/ui/profile-dialog.blp:128
+msgid "Role ARN"
+msgstr ""
+
+#: data/resources/ui/profile-dialog.blp:132
+msgid "External ID (optional)"
+msgstr ""
+
+#: data/resources/ui/profile-dialog.blp:136
+msgid "MFA device ARN (optional)"
+msgstr ""
+
+#: data/resources/ui/profile-dialog.blp:137
+msgid "With an MFA device, a code from it is asked for when connecting."
+msgstr ""
+
+#: data/resources/ui/profile-dialog.blp:142
+msgid "Transfer Acceleration"
+msgstr ""
+
+#: data/resources/ui/profile-dialog.blp:143
+msgid ""
+"Faster transfers over long distances through AWS edge locations. It has to "
+"be turned on for the bucket as well."
+msgstr ""
+
+#: data/resources/ui/profile-dialog.blp:147
+msgid "Trusted Certificate"
+msgstr ""
+
+#: data/resources/ui/profile-dialog.blp:154
+msgid "Choose Certificate…"
+msgstr ""
+
+#: data/resources/ui/profile-dialog.blp:165
+msgid "Remove Certificate"
+msgstr ""
+
+#: data/resources/ui/profile-dialog.blp:192
+msgid "Trust Certificate…"
+msgstr ""
+
+#: data/resources/ui/window.blp:49
+msgid "Main Menu"
+msgstr ""
+
+#: data/resources/ui/window.blp:89
+msgid "No connections yet."
+msgstr ""
+
+#: data/resources/ui/window.blp:105
+msgid "Favorites"
+msgstr ""
+
+#: data/resources/ui/window.blp:128
+msgid "Buckets"
+msgstr ""
+
+#: data/resources/ui/window.blp:139 data/resources/ui/window.blp:490
+msgid "Refresh"
+msgstr ""
+
+#: data/resources/ui/window.blp:150
+msgid "Add Bucket"
+msgstr ""
+
+#: data/resources/ui/window.blp:205
+msgid "Back"
+msgstr ""
+
+#: data/resources/ui/window.blp:211
+msgid "Forward"
+msgstr ""
+
+#: data/resources/ui/window.blp:219
+msgid "Filter and Search"
+msgstr ""
+
+#: data/resources/ui/window.blp:226
+msgid "Location Menu"
+msgstr ""
+
+#: data/resources/ui/window.blp:259
+msgid "You are offline. Transfers continue when the connection is back."
+msgstr ""
+
+#: data/resources/ui/window.blp:333
+msgid "Welcome to Ferry"
+msgstr ""
+
+#: data/resources/ui/window.blp:334
+msgid "Choose your storage provider to add a connection."
+msgstr ""
+
+#: data/resources/ui/window.blp:354
+msgid "Other S3-Compatible Service…"
+msgstr ""
+
+#: data/resources/ui/window.blp:383
+msgid "Select a bucket in the sidebar."
+msgstr ""
+
+#: data/resources/ui/window.blp:398
+msgid "Filter this folder"
+msgstr ""
+
+#: data/resources/ui/window.blp:399
+msgid "Type to filter this folder; press Enter to search its subfolders too"
+msgstr ""
+
+#: data/resources/ui/window.blp:406
+msgid "Filter by Type, Size and Date"
+msgstr ""
+
+#: data/resources/ui/window.blp:412
+msgid "Close Search"
+msgstr ""
+
+#: data/resources/ui/window.blp:426
+msgid "Parent Folder"
+msgstr ""
+
+#: data/resources/ui/window.blp:457
+msgid "List View"
+msgstr ""
+
+#: data/resources/ui/window.blp:463
+msgid "Grid View"
+msgstr ""
+
+#: data/resources/ui/window.blp:470
+msgid "Sort"
+msgstr ""
+
+#: data/resources/ui/window.blp:507
+msgid "Drop to Upload"
+msgstr ""
+
+#: data/resources/ui/window.blp:537
+msgid "Close Properties"
+msgstr ""
+
+#: data/resources/ui/window.blp:583
+msgid "Could Not Load This Folder"
+msgstr ""
+
+#: data/resources/ui/window.blp:633
+msgid "Load More"
+msgstr ""
+
+#: data/resources/ui/window.blp:652
+msgid "Clear Selection"
+msgstr ""
+
+#: data/resources/ui/window.blp:668
+msgid "Headers"
+msgstr ""
+
+#: data/resources/ui/window.blp:674
+msgid "Storage Class"
+msgstr ""
+
+#: data/resources/ui/window.blp:680
+msgid "Copy to…"
+msgstr ""
+
+#: data/resources/ui/window.blp:746
+msgid "_Import Connections…"
+msgstr ""
+
+#: data/resources/ui/window.blp:747
+msgid "Import From _Other Apps…"
+msgstr ""
+
+#: data/resources/ui/window.blp:748
+msgid "_Export Connections…"
+msgstr ""
+
+#: data/resources/ui/window.blp:752
+msgid "_Preferences"
+msgstr ""
+
+#: data/resources/ui/window.blp:753
+msgid "_Keyboard Shortcuts"
+msgstr ""
+
+#: data/resources/ui/window.blp:754
+msgid "_About Ferry"
+msgstr ""
+
+#: data/resources/ui/window.blp:758
+msgid "_Quit"
+msgstr ""
+
+#: data/resources/ui/window.blp:764
+msgid "New Bucket…"
+msgstr ""
+
+#: data/resources/ui/window.blp:765
+msgid "Link Existing Bucket…"
+msgstr ""
+
+#: data/resources/ui/window.blp:772
+msgid "Upload Folder…"
+msgstr ""
+
+#: data/resources/ui/window.blp:779
+msgid "A–Z"
+msgstr ""
+
+#: data/resources/ui/window.blp:785
+msgid "Z–A"
+msgstr ""
+
+#: data/resources/ui/window.blp:791
+msgid "Last Modified"
+msgstr ""
+
+#: data/resources/ui/window.blp:797
+msgid "First Modified"
+msgstr ""
+
+#: data/resources/ui/window.blp:810
+msgid "Show Hidden Files"
+msgstr ""
+
+#: data/resources/ui/window.blp:816
+msgid "New Tab"
+msgstr ""
+
+#: data/resources/ui/window.blp:822
+msgid "New Vault…"
+msgstr ""
+
+#: data/resources/ui/window.blp:827
+msgid "Export List as CSV…"
+msgstr ""
+
+#: data/resources/ui/window.blp:828
+msgid "Sync a Local Folder…"
+msgstr ""
+
+#: data/resources/ui/window.blp:830
+msgid "Create Upload Link…"
+msgstr ""
+
+#: data/resources/ui/window.blp:836
+msgid "Select Items Matching…"
+msgstr ""
+
+#: data/io.github.mehmetnuri.Ferry.desktop.in:3
+#: data/io.github.mehmetnuri.Ferry.metainfo.xml.in:6
+msgid "Ferry"
+msgstr ""
+
+#: data/io.github.mehmetnuri.Ferry.desktop.in:4
+#: data/io.github.mehmetnuri.Ferry.metainfo.xml.in:7
+msgid "Move files between your computer and cloud storage"
+msgstr ""
+
+#: data/io.github.mehmetnuri.Ferry.desktop.in:11
+msgid "ferry;s3;storage;bucket;cloud;transfer;upload;minio;r2;supabase;aws;"
+msgstr ""
+
+#: data/io.github.mehmetnuri.Ferry.metainfo.xml.in:9
+msgid "Mehmet Nuri Öztürk"
+msgstr ""
+
+#: data/io.github.mehmetnuri.Ferry.metainfo.xml.in:12
+msgid ""
+"Ferry moves files between your computer and cloud storage: Amazon S3, "
+"Supabase Storage, MinIO, Cloudflare R2 and other S3-compatible services."
+msgstr ""
+
+#: data/io.github.mehmetnuri.Ferry.metainfo.xml.in:17
+msgid ""
+"Browse buckets in a list or a grid with thumbnails; folders open instantly "
+"from a cache"
+msgstr ""
+
+#: data/io.github.mehmetnuri.Ferry.metainfo.xml.in:18
+msgid "Quick preview of images, videos, audio and text with the space key"
+msgstr ""
+
+#: data/io.github.mehmetnuri.Ferry.metainfo.xml.in:19
+msgid ""
+"A transfer queue with priorities, pausing each transfer, speed limit and "
+"retries; interrupted uploads and downloads continue where they stopped"
+msgstr ""
+
+#: data/io.github.mehmetnuri.Ferry.metainfo.xml.in:20
+msgid ""
+"Recent objects of every connection, sorting, and downloading folders as one "
+"ZIP file"
+msgstr ""
+
+#: data/io.github.mehmetnuri.Ferry.metainfo.xml.in:21
+msgid ""
+"Opens s3:// links from anywhere in the desktop; previews highlighted code, "
+"CSV tables and ZIP contents"
+msgstr ""
+
+#: data/io.github.mehmetnuri.Ferry.metainfo.xml.in:22
+msgid ""
+"Copy in Ferry and paste in GNOME Files; mounted buckets appear among the "
+"bookmarks"
+msgstr ""
+
+#: data/io.github.mehmetnuri.Ferry.metainfo.xml.in:23
+msgid "Copy, cut and paste, moving by drag and drop with undo, batch rename"
+msgstr ""
+
+#: data/io.github.mehmetnuri.Ferry.metainfo.xml.in:24
+msgid ""
+"Upload by drag and drop or by pasting files copied in GNOME Files, with "
+"conflict handling"
+msgstr ""
+
+#: data/io.github.mehmetnuri.Ferry.metainfo.xml.in:25
+msgid ""
+"Share links with QR codes, and upload links for people without an account"
+msgstr ""
+
+#: data/io.github.mehmetnuri.Ferry.metainfo.xml.in:26
+msgid "Find objects from the GNOME Shell overview"
+msgstr ""
+
+#: data/io.github.mehmetnuri.Ferry.metainfo.xml.in:27
+msgid ""
+"Object versions, permissions, Object Lock, bucket policy, CORS, lifecycle "
+"and CloudFront"
+msgstr ""
+
+#: data/io.github.mehmetnuri.Ferry.metainfo.xml.in:28
+msgid "Folder sync, scheduled backup jobs and mounting a bucket as a folder"
+msgstr ""
+
+#: data/io.github.mehmetnuri.Ferry.metainfo.xml.in:29
+msgid ""
+"Storage analyzer and a compatibility test for any S3-compatible provider"
+msgstr ""
+
+#: data/io.github.mehmetnuri.Ferry.metainfo.xml.in:30
+msgid ""
+"Credentials kept in the system keyring; AWS CLI profiles with single sign-"
+"on, assumed roles with MFA codes"
+msgstr ""
+
+#: data/io.github.mehmetnuri.Ferry.metainfo.xml.in:31
+msgid ""
+"Connection backups protected with a password, age or SSH keys, a YubiKey or "
+"a GnuPG key"
+msgstr ""
+
+#: data/io.github.mehmetnuri.Ferry.metainfo.xml.in:32
+msgid ""
+"Servers with self-signed certificates or a private certificate authority, "
+"after checking the fingerprint"
+msgstr ""
+
+#: data/io.github.mehmetnuri.Ferry.metainfo.xml.in:33
+msgid "Pauses while offline and keeps the computer awake during transfers"
+msgstr ""
+
+#: data/io.github.mehmetnuri.Ferry.gschema.xml:8
+msgid "Width of the main window"
+msgstr ""
+
+#: data/io.github.mehmetnuri.Ferry.gschema.xml:12
+msgid "Height of the main window"
+msgstr ""
+
+#: data/io.github.mehmetnuri.Ferry.gschema.xml:16
+msgid "Whether the main window is maximized"
+msgstr ""
+
+#: data/io.github.mehmetnuri.Ferry.gschema.xml:20
+msgid "Keep running in the background when the window is closed"
+msgstr ""
+
+#: data/io.github.mehmetnuri.Ferry.gschema.xml:21
+msgid ""
+"Transfers and scheduled backups continue; opening the application again "
+"shows the window."
+msgstr ""
+
+#: data/io.github.mehmetnuri.Ferry.gschema.xml:25
+msgid "Start hidden at login, so backups run"
+msgstr ""
+
+#: data/io.github.mehmetnuri.Ferry.gschema.xml:29
+msgid "Notify when transfers finish while the window is not focused"
+msgstr ""
+
+#: data/io.github.mehmetnuri.Ferry.gschema.xml:34
+msgid "Files transferred at the same time"
+msgstr ""
+
+#: data/io.github.mehmetnuri.Ferry.gschema.xml:39
+msgid "Total transfer rate limit in kilobytes per second, 0 for unlimited"
+msgstr ""
+
+#: data/io.github.mehmetnuri.Ferry.gschema.xml:47
+msgid "How folder contents are shown"
+msgstr ""
+
+#: data/io.github.mehmetnuri.Ferry.gschema.xml:51
+msgid "Ask where to save each download"
+msgstr ""
+
+#: data/io.github.mehmetnuri.Ferry.gschema.xml:55
+msgid ""
+"Folder downloads are saved to when not asking; empty for the Downloads folder"
+msgstr ""
+
+#: data/io.github.mehmetnuri.Ferry.gschema.xml:59
+msgid ""
+"Names of files and folders left out when uploading or syncing folders; * "
+"and ? are wildcards"
+msgstr ""
+
+#: data/io.github.mehmetnuri.Ferry.gschema.xml:63
+msgid "Show objects whose names start with a dot"
+msgstr ""
+
+#: data/io.github.mehmetnuri.Ferry.gschema.xml:68
+msgid "Size of the items in the grid view"
+msgstr ""
+
+#: data/io.github.mehmetnuri.Ferry.gschema.xml:79
+msgid "How folder contents are sorted; folders always come first"
+msgstr ""
+
+#: data/io.github.mehmetnuri.Ferry.gschema.xml:83
+msgid "Connection open when the application last quit"
+msgstr ""
+
+#: data/io.github.mehmetnuri.Ferry.gschema.xml:87
+msgid "Bucket open when the application last quit"
+msgstr ""
+
+#: data/io.github.mehmetnuri.Ferry.gschema.xml:91
+msgid "Folder open when the application last quit"
+msgstr ""
+
+#: data/io.github.mehmetnuri.Ferry.gschema.xml:95
+msgid "Favorite folders per connection, as JSON"
+msgstr ""

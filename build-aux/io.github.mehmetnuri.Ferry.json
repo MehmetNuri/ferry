@@ -1,0 +1,48 @@
+{
+  "id": "io.github.mehmetnuri.Ferry",
+  "runtime": "org.gnome.Platform",
+  "runtime-version": "50",
+  "sdk": "org.gnome.Sdk",
+  "sdk-extensions": [
+    "org.freedesktop.Sdk.Extension.rust-stable"
+  ],
+  "command": "ferry",
+  "finish-args": [
+    "--share=network",
+    "--share=ipc",
+    "--socket=fallback-x11",
+    "--socket=wayland",
+    "--device=dri",
+    "--filesystem=xdg-download"
+  ],
+  "build-options": {
+    "append-path": "/usr/lib/sdk/rust-stable/bin",
+    "build-args": [
+      "--share=network"
+    ],
+    "env": {
+      "CARGO_HOME": "/run/build/ferry/cargo",
+      "RUST_BACKTRACE": "1"
+    },
+    "cflags": "-pipe -g -fstack-protector-strong -fasynchronous-unwind-tables",
+    "cflags-override": true,
+    "cxxflags": "-pipe -g -fstack-protector-strong -fasynchronous-unwind-tables",
+    "cxxflags-override": true
+  },
+  "modules": [
+    {
+      "name": "ferry",
+      "buildsystem": "meson",
+      "config-opts": [
+        "-Dprofile=default",
+        "-Dsourceview=enabled"
+      ],
+      "sources": [
+        {
+          "type": "dir",
+          "path": ".."
+        }
+      ]
+    }
+  ]
+}

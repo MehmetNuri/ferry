@@ -1,0 +1,2 @@
+option('sourceview', type: 'feature', value: 'auto', description: 'Syntax highlighting in text previews with GtkSourceView 5')
+option('profile', type: 'combo', choices: ['default', 'development'], value: 'default', description: 'The build profile')

@@ -1,0 +1,102 @@
+.sidebar-heading {
+  font-size: 0.82em;
+  font-weight: 700;
+  opacity: 0.6;
+  margin: 14px 12px 4px 12px;
+}
+
+.path-bar button {
+  padding: 2px 8px;
+  min-height: 28px;
+}
+
+.path-bar .path-separator {
+  opacity: 0.4;
+}
+
+columnview.object-list > listview > row > cell {
+  padding: 6px 8px;
+}
+
+.status-line {
+  padding: 4px 12px;
+  font-size: 0.86em;
+}
+
+.drop-overlay {
+  background-color: alpha(@window_bg_color, 0.88);
+  border: 2px dashed @accent_color;
+  border-radius: 18px;
+  margin: 12px;
+}
+
+gridview.object-grid {
+  padding: 12px;
+}
+
+gridview.object-grid > child {
+  border-radius: 12px;
+  padding: 10px 6px;
+}
+
+.thumbnail {
+  border-radius: 8px;
+}
+
+.object-grid .file-icon {
+  -gtk-icon-size: 64px;
+}
+
+.transfer-pie {
+  min-width: 16px;
+  min-height: 16px;
+}
+
+.sidebar-avatar {
+  margin: 2px 0;
+}
+
+.preview-text {
+  font-family: monospace;
+  font-size: 0.9em;
+  padding: 8px;
+}
+
+.pill-ok { color: @success_color; }
+.pill-error { color: @error_color; }
+.pill-warning { color: @warning_color; }
+
+.drop-folder {
+  background-color: alpha(@accent_bg_color, 0.25);
+  border-radius: 6px;
+}
+
+.provider-tile {
+  padding: 16px 8px;
+}
+
+.provider-tile label {
+  font-weight: 600;
+}
+
+/* Status badges: a symbolic icon in a tinted circle, as in GNOME Settings. */
+.status-badge {
+  border-radius: 9999px;
+  padding: 8px;
+}
+.status-badge.success {
+  color: var(--success-color);
+  background-color: color-mix(in srgb, var(--success-bg-color) 22%, transparent);
+}
+.status-badge.warning {
+  color: var(--warning-color);
+  background-color: color-mix(in srgb, var(--warning-bg-color) 22%, transparent);
+}
+.status-badge.error {
+  color: var(--error-color);
+  background-color: color-mix(in srgb, var(--error-bg-color) 22%, transparent);
+}
+.status-badge.neutral {
+  color: alpha(currentColor, 0.6);
+  background-color: alpha(currentColor, 0.08);
+}

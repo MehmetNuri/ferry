@@ -1,0 +1,842 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $FerryWindow: Adw.ApplicationWindow {
+  title: "Ferry";
+  default-width: 1180;
+  default-height: 760;
+  width-request: 360;
+  height-request: 420;
+
+  Adw.Breakpoint {
+    condition ("max-width: 1000sp")
+
+    setters {
+      details_split.collapsed: true;
+    }
+  }
+
+  Adw.Breakpoint {
+    condition ("max-width: 760sp")
+
+    setters {
+      split_view.collapsed: true;
+      details_split.collapsed: true;
+    }
+  }
+
+  content: Adw.ToastOverlay toasts {
+    child: Adw.NavigationSplitView split_view {
+      min-sidebar-width: 250;
+      max-sidebar-width: 330;
+
+      sidebar: Adw.NavigationPage {
+        title: "Ferry";
+
+        child: Adw.ToolbarView {
+          [top]
+          Adw.HeaderBar {
+            [start]
+            Button {
+              icon-name: "list-add-symbolic";
+              tooltip-text: _("New Connection");
+              action-name: "win.new-connection";
+            }
+
+            [end]
+            MenuButton {
+              icon-name: "open-menu-symbolic";
+              tooltip-text: _("Main Menu");
+              menu-model: primary_menu;
+              primary: true;
+            }
+          }
+
+          content: ScrolledWindow {
+            hscrollbar-policy: never;
+
+            child: Box {
+              orientation: vertical;
+              margin-bottom: 12;
+
+              ListBox views_list {
+                selection-mode: single;
+                margin-top: 6;
+
+                styles [
+                  "navigation-sidebar",
+                ]
+              }
+
+              Label {
+                label: _("Connections");
+                xalign: 0;
+
+                styles [
+                  "sidebar-heading",
+                ]
+              }
+
+              ListBox profiles_list {
+                selection-mode: single;
+
+                styles [
+                  "navigation-sidebar",
+                ]
+              }
+
+              Label profiles_placeholder {
+                label: _("No connections yet.");
+                xalign: 0;
+                margin-start: 12;
+                margin-end: 12;
+                wrap: true;
+
+                styles [
+                  "dim-label",
+                ]
+              }
+
+              Box favorites_section {
+                orientation: vertical;
+                visible: false;
+
+                Label {
+                  label: _("Favorites");
+                  xalign: 0;
+
+                  styles [
+                    "sidebar-heading",
+                  ]
+                }
+
+                ListBox favorites_list {
+                  selection-mode: none;
+
+                  styles [
+                    "navigation-sidebar",
+                  ]
+                }
+              }
+
+              Box buckets_section {
+                orientation: vertical;
+                visible: false;
+
+                Box {
+                  Label {
+                    label: _("Buckets");
+                    xalign: 0;
+                    hexpand: true;
+
+                    styles [
+                      "sidebar-heading",
+                    ]
+                  }
+
+                  Button {
+                    icon-name: "view-refresh-symbolic";
+                    tooltip-text: _("Refresh");
+                    action-name: "win.reload-buckets";
+                    valign: end;
+
+                    styles [
+                      "flat",
+                    ]
+                  }
+
+                  MenuButton {
+                    icon-name: "list-add-symbolic";
+                    tooltip-text: _("Add Bucket");
+                    menu-model: bucket_add_menu;
+                    valign: end;
+                    margin-end: 6;
+
+                    styles [
+                      "flat",
+                    ]
+                  }
+                }
+
+                ListBox buckets_list {
+                  selection-mode: single;
+
+                  styles [
+                    "navigation-sidebar",
+                  ]
+                }
+
+                Label buckets_placeholder {
+                  xalign: 0;
+                  margin-start: 12;
+                  margin-end: 12;
+                  wrap: true;
+                  selectable: true;
+
+                  styles [
+                    "dim-label",
+                  ]
+                }
+              }
+            };
+          };
+        };
+      };
+
+      content: Adw.NavigationPage content_page {
+        title: "Ferry";
+        tag: "content";
+
+        child: Adw.ToolbarView {
+          [top]
+          Adw.HeaderBar content_header {
+            title-widget: Adw.WindowTitle content_title {
+              title: "Ferry";
+            };
+
+            [start]
+            Box history_box {
+              styles [
+                "linked",
+              ]
+
+              Button back_button {
+                icon-name: "go-previous-symbolic";
+                tooltip-text: _("Back");
+                action-name: "win.back";
+              }
+
+              Button forward_button {
+                icon-name: "go-next-symbolic";
+                tooltip-text: _("Forward");
+                action-name: "win.forward";
+              }
+            }
+
+            [start]
+            ToggleButton search_button {
+              icon-name: "system-search-symbolic";
+              tooltip-text: _("Filter and Search");
+              active: bind search_bar.search-mode-enabled bidirectional;
+            }
+
+            [end]
+            MenuButton location_button {
+              icon-name: "view-more-symbolic";
+              tooltip-text: _("Location Menu");
+              menu-model: location_menu;
+            }
+
+            [end]
+            ToggleButton transfers_button {
+              tooltip-text: _("Transfers");
+              active: bind transfers_sheet.open bidirectional;
+
+              child: Box transfers_content {
+                spacing: 6;
+
+                Image transfers_icon {
+                  icon-name: "folder-download-symbolic";
+                }
+              };
+            }
+
+            [end]
+            Adw.SplitButton upload_button {
+              label: _("Upload");
+              tooltip-text: _("Upload Files");
+              action-name: "win.upload-files";
+              menu-model: upload_menu;
+
+              styles [
+                "suggested-action",
+              ]
+            }
+          }
+
+          [top]
+          Adw.Banner offline_banner {
+            title: _("You are offline. Transfers continue when the connection is back.");
+          }
+
+          content: Adw.BottomSheet transfers_sheet {
+            show-drag-handle: true;
+
+            bottom-bar: Box transfers_bar {
+              spacing: 12;
+              margin-start: 18;
+              margin-end: 18;
+              margin-top: 10;
+              margin-bottom: 10;
+
+              Adw.Bin transfers_bar_pie {}
+
+              Box {
+                orientation: vertical;
+                hexpand: true;
+                valign: center;
+
+                Label transfers_bar_title {
+                  xalign: 0;
+                  ellipsize: end;
+
+                  styles [
+                    "heading",
+                  ]
+                }
+
+                Label transfers_bar_subtitle {
+                  xalign: 0;
+                  ellipsize: end;
+
+                  styles [
+                    "caption",
+                    "dim-label",
+                    "numeric",
+                  ]
+                }
+              }
+
+              Image {
+                icon-name: "pan-up-symbolic";
+              }
+            };
+
+            sheet: Adw.Bin transfers_bin {};
+
+            content: Adw.ViewStack view_stack {
+              Adw.ViewStackPage {
+                name: "browser";
+                title: _("Browser");
+                icon-name: "folder-symbolic";
+
+                child: Box browser_area {
+                  orientation: vertical;
+
+                  Adw.TabBar tab_bar {
+                    view: tab_view;
+                    autohide: true;
+                  }
+
+                  Adw.TabView tab_view {
+                    vexpand: true;
+                  }
+
+                  Stack browser_stack {
+                    transition-type: crossfade;
+
+                    StackPage {
+                      name: "welcome";
+
+                      child: Adw.StatusPage {
+                        icon-name: "io.github.mehmetnuri.Ferry";
+                        title: _("Welcome to Ferry");
+                        description: _("Choose your storage provider to add a connection.");
+
+                        child: Box {
+                          orientation: vertical;
+                          spacing: 24;
+
+                          Adw.Clamp {
+                            maximum-size: 640;
+
+                            child: FlowBox welcome_providers {
+                              selection-mode: none;
+                              homogeneous: true;
+                              max-children-per-line: 4;
+                              min-children-per-line: 2;
+                              column-spacing: 12;
+                              row-spacing: 12;
+                            };
+                          }
+
+                          Button {
+                            label: _("Other S3-Compatible Service…");
+                            halign: center;
+                            action-name: "win.new-connection";
+
+                            styles [
+                              "pill",
+                            ]
+                          }
+                        };
+                      };
+                    }
+
+                    StackPage {
+                      name: "connecting";
+
+                      child: Adw.Spinner {
+                        halign: center;
+                        valign: center;
+                        width-request: 32;
+                        height-request: 32;
+                      };
+                    }
+
+                    StackPage {
+                      name: "nobucket";
+
+                      child: Adw.StatusPage {
+                        icon-name: "folder-symbolic";
+                        title: _("No Bucket Open");
+                        description: _("Select a bucket in the sidebar.");
+                      };
+                    }
+
+                    StackPage {
+                      name: "browser";
+
+                      child: Box {
+                        orientation: vertical;
+
+                        SearchBar search_bar {
+                          child: Box {
+                            spacing: 6;
+
+                            SearchEntry search_entry {
+                              placeholder-text: _("Filter this folder");
+                              tooltip-text: _("Type to filter this folder; press Enter to search its subfolders too");
+                              hexpand: true;
+                              max-width-chars: 60;
+                            }
+
+                            MenuButton filter_button {
+                              icon-name: "funnel-symbolic";
+                              tooltip-text: _("Filter by Type, Size and Date");
+                            }
+                          };
+                        }
+
+                        Adw.Banner search_banner {
+                          button-label: _("Close Search");
+                        }
+
+                        Adw.Banner vault_banner {}
+
+                        Box {
+                          spacing: 6;
+                          margin-start: 6;
+                          margin-end: 6;
+                          margin-top: 6;
+                          margin-bottom: 6;
+
+                          Button {
+                            icon-name: "go-up-symbolic";
+                            tooltip-text: _("Parent Folder");
+                            action-name: "win.go-up";
+
+                            styles [
+                              "flat",
+                            ]
+                          }
+
+                          ScrolledWindow {
+                            hexpand: true;
+                            vscrollbar-policy: never;
+                            hscrollbar-policy: external;
+
+                            child: Box path_box {
+                              spacing: 2;
+
+                              styles [
+                                "path-bar",
+                              ]
+                            };
+                          }
+
+                          Box view_toggle {
+                            margin-end: 6;
+
+                            styles [
+                              "linked",
+                            ]
+
+                            ToggleButton list_toggle {
+                              icon-name: "view-list-symbolic";
+                              tooltip-text: _("List View");
+                              active: true;
+                            }
+
+                            ToggleButton grid_toggle {
+                              icon-name: "view-grid-symbolic";
+                              tooltip-text: _("Grid View");
+                              group: list_toggle;
+                            }
+                          }
+
+                          MenuButton sort_button {
+                            icon-name: "view-sort-ascending-symbolic";
+                            tooltip-text: _("Sort");
+                            menu-model: sort_menu;
+
+                            styles [
+                              "flat",
+                            ]
+                          }
+
+                          Button favorite_button {
+                            icon-name: "non-starred-symbolic";
+                            tooltip-text: _("Add to Favorites");
+                            action-name: "win.toggle-favorite";
+
+                            styles [
+                              "flat",
+                            ]
+                          }
+
+                          Button {
+                            icon-name: "view-refresh-symbolic";
+                            tooltip-text: _("Refresh");
+                            action-name: "win.refresh";
+
+                            styles [
+                              "flat",
+                            ]
+                          }
+                        }
+
+                        Separator {}
+
+                        Overlay {
+                          vexpand: true;
+
+                          [overlay]
+                          Adw.StatusPage drop_overlay {
+                            icon-name: "transfer-upload-symbolic";
+                            title: _("Drop to Upload");
+                            can-target: false;
+                            opacity: 0;
+
+                            styles [
+                              "drop-overlay",
+                            ]
+                          }
+
+                          child: Adw.OverlaySplitView details_split {
+                            vexpand: true;
+                            sidebar-position: end;
+                            show-sidebar: false;
+                            min-sidebar-width: 320;
+                            max-sidebar-width: 440;
+                            sidebar-width-fraction: 0.38;
+
+                            sidebar: Adw.ToolbarView {
+                              [top]
+                              Adw.HeaderBar {
+                                show-start-title-buttons: false;
+                                show-end-title-buttons: false;
+
+                                title-widget: Adw.WindowTitle {
+                                  title: _("Properties");
+                                };
+
+                                [end]
+                                Button details_close {
+                                  icon-name: "window-close-symbolic";
+                                  tooltip-text: _("Close Properties");
+                                }
+                              }
+
+                              content: Adw.Bin details_bin {};
+                            };
+
+                            content: Stack list_stack {
+                              transition-type: crossfade;
+
+                              StackPage {
+                                name: "list";
+
+                                child: ScrolledWindow {
+                                  child: ColumnView column_view {
+                                    show-row-separators: false;
+
+                                    styles [
+                                      "object-list",
+                                    ]
+                                  };
+                                };
+                              }
+
+                              StackPage {
+                                name: "grid";
+
+                                child: ScrolledWindow {
+                                  hscrollbar-policy: never;
+
+                                  child: GridView grid_view {
+                                    min-columns: 2;
+                                    max-columns: 12;
+
+                                    styles [
+                                      "object-grid",
+                                    ]
+                                  };
+                                };
+                              }
+
+                              StackPage {
+                                name: "error";
+
+                                child: Adw.StatusPage error_page {
+                                  icon-name: "network-error-symbolic";
+                                  title: _("Could Not Load This Folder");
+
+                                  child: Button {
+                                    label: _("Try Again");
+                                    halign: center;
+                                    action-name: "win.refresh";
+
+                                    styles [
+                                      "pill",
+                                    ]
+                                  };
+                                };
+                              }
+
+                              StackPage {
+                                name: "loading";
+
+                                child: Adw.Spinner {
+                                  halign: center;
+                                  valign: center;
+                                  width-request: 32;
+                                  height-request: 32;
+                                };
+                              }
+
+                              StackPage {
+                                name: "empty";
+
+                                child: Adw.StatusPage empty_page {
+                                  icon-name: "folder-open-symbolic";
+                                  title: _("Empty Folder");
+                                  description: _("Drag and drop files here to upload them.");
+
+                                  child: Button clear_filters_button {
+                                    label: _("Clear Filters");
+                                    halign: center;
+                                    visible: false;
+
+                                    styles [
+                                      "pill",
+                                    ]
+                                  };
+                                };
+                              }
+                            };
+                          };
+                        }
+
+                        Revealer more_revealer {
+                          child: Button {
+                            label: _("Load More");
+                            halign: center;
+                            margin-top: 6;
+                            margin-bottom: 6;
+                            action-name: "win.load-more";
+                          };
+                        }
+
+                        ActionBar selection_bar {
+                          revealed: false;
+
+                          [start]
+                          Label selection_label {
+                            margin-start: 6;
+                          }
+
+                          [end]
+                          Button {
+                            icon-name: "edit-clear-all-symbolic";
+                            tooltip-text: _("Clear Selection");
+                            action-name: "win.clear-selection";
+                          }
+
+                          [end]
+                          Button {
+                            label: _("Delete");
+                            action-name: "win.delete-selected";
+
+                            styles [
+                              "destructive-action",
+                            ]
+                          }
+
+                          [end]
+                          Button selection_headers {
+                            label: _("Headers");
+                            action-name: "win.headers-selected";
+                          }
+
+                          [end]
+                          Button selection_class {
+                            label: _("Storage Class");
+                            action-name: "win.storage-class-selected";
+                          }
+
+                          [end]
+                          Button selection_copy {
+                            label: _("Copy to…");
+                            action-name: "win.copy-selected";
+                          }
+
+                          [end]
+                          Button {
+                            label: _("Download");
+                            action-name: "win.download-selected";
+                          }
+                        }
+
+                        Label status_label {
+                          xalign: 0;
+
+                          styles [
+                            "status-line",
+                            "dim-label",
+                          ]
+                        }
+                      };
+                    }
+                  }
+                };
+              }
+
+              Adw.ViewStackPage {
+                name: "recent";
+                title: _("Recent");
+                icon-name: "document-open-recent-symbolic";
+
+                child: Adw.Bin recent_bin {};
+              }
+
+              Adw.ViewStackPage {
+                name: "analyzer";
+                title: _("Analyzer");
+                icon-name: "drive-harddisk-symbolic";
+
+                child: Adw.Bin analyzer_bin {};
+              }
+
+              Adw.ViewStackPage {
+                name: "backups";
+                title: _("Backups");
+                icon-name: "document-save-symbolic";
+
+                child: Adw.Bin backups_bin {};
+              }
+
+              Adw.ViewStackPage {
+                name: "compatibility";
+                title: _("Compatibility");
+                icon-name: "emblem-ok-symbolic";
+
+                child: Adw.Bin compatibility_bin {};
+              }
+            };
+          };
+        };
+      };
+    };
+  };
+}
+
+menu primary_menu {
+  section {
+    item (_("_Import Connections…"), "win.import-profiles")
+    item (_("Import From _Other Apps…"), "win.import-other-apps")
+    item (_("_Export Connections…"), "win.export-profiles")
+  }
+
+  section {
+    item (_("_Preferences"), "app.preferences")
+    item (_("_Keyboard Shortcuts"), "win.show-help-overlay")
+    item (_("_About Ferry"), "app.about")
+  }
+
+  section {
+    item (_("_Quit"), "app.quit")
+  }
+}
+
+menu bucket_add_menu {
+  section {
+    item (_("New Bucket…"), "win.new-bucket")
+    item (_("Link Existing Bucket…"), "win.link-bucket")
+  }
+}
+
+menu upload_menu {
+  section {
+    item (_("Upload Files…"), "win.upload-files")
+    item (_("Upload Folder…"), "win.upload-folder")
+  }
+}
+
+menu sort_menu {
+  section {
+    item {
+      label: _("A–Z");
+      action: "win.sort";
+      target: "name-asc";
+    }
+
+    item {
+      label: _("Z–A");
+      action: "win.sort";
+      target: "name-desc";
+    }
+
+    item {
+      label: _("Last Modified");
+      action: "win.sort";
+      target: "modified-desc";
+    }
+
+    item {
+      label: _("First Modified");
+      action: "win.sort";
+      target: "modified-asc";
+    }
+
+    item {
+      label: _("Size");
+      action: "win.sort";
+      target: "size-desc";
+    }
+  }
+
+  section {
+    item (_("Show Hidden Files"), "win.show-hidden")
+  }
+}
+
+menu location_menu {
+  section {
+    item (_("New Tab"), "win.new-tab")
+  }
+
+  section {
+    item (_("New Folder…"), "win.new-folder")
+    item (_("New Text File…"), "win.new-text-file")
+    item (_("New Vault…"), "win.new-vault")
+  }
+
+  section {
+    item (_("Download as Archive…"), "win.download-archive")
+    item (_("Export List as CSV…"), "win.export-listing")
+    item (_("Sync a Local Folder…"), "win.sync")
+    item (_("Mount as Folder…"), "win.mount")
+    item (_("Create Upload Link…"), "win.upload-link")
+    item (_("Deleted Objects"), "win.deleted-objects")
+  }
+
+  section {
+    item (_("Select All"), "win.select-all")
+    item (_("Select Items Matching…"), "win.select-matching")
+  }
+
+  section {
+    item (_("Bucket Settings"), "win.bucket-settings")
+  }
+}

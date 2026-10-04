@@ -1,0 +1,210 @@
+using Gtk 4.0;
+
+ShortcutsWindow help_overlay {
+  modal: true;
+
+  ShortcutsSection {
+    section-name: "shortcuts";
+    max-height: 12;
+
+    ShortcutsGroup {
+      title: C_("shortcut window", "General");
+
+      ShortcutsShortcut {
+        title: C_("shortcut window", "New connection");
+        accelerator: "<Control>n";
+      }
+
+      ShortcutsShortcut {
+        title: C_("shortcut window", "Go to location");
+        accelerator: "<Control>l";
+      }
+
+      ShortcutsShortcut {
+        title: C_("shortcut window", "Preferences");
+        accelerator: "<Control>comma";
+      }
+
+      ShortcutsShortcut {
+        title: C_("shortcut window", "Keyboard shortcuts");
+        accelerator: "<Control>question";
+      }
+
+      ShortcutsShortcut {
+        title: C_("shortcut window", "Close tab or window");
+        accelerator: "<Control>w";
+      }
+
+      ShortcutsShortcut {
+        title: C_("shortcut window", "Quit");
+        accelerator: "<Control>q";
+      }
+    }
+
+    ShortcutsGroup {
+      title: C_("shortcut window", "Navigation");
+
+      ShortcutsShortcut {
+        title: C_("shortcut window", "New tab");
+        accelerator: "<Control>t";
+      }
+
+      ShortcutsShortcut {
+        title: C_("shortcut window", "Next or previous tab");
+        accelerator: "<Control>Page_Down <Control>Page_Up";
+      }
+
+      ShortcutsShortcut {
+        title: C_("shortcut window", "Back");
+        accelerator: "<Alt>Left";
+      }
+
+      ShortcutsShortcut {
+        title: C_("shortcut window", "Forward");
+        accelerator: "<Alt>Right";
+      }
+
+      ShortcutsShortcut {
+        title: C_("shortcut window", "Parent folder");
+        accelerator: "<Alt>Up BackSpace";
+      }
+
+      ShortcutsShortcut {
+        title: C_("shortcut window", "List view");
+        accelerator: "<Control>1";
+      }
+
+      ShortcutsShortcut {
+        title: C_("shortcut window", "Grid view");
+        accelerator: "<Control>2";
+      }
+
+      ShortcutsShortcut {
+        title: C_("shortcut window", "Show hidden files");
+        accelerator: "<Control>h";
+      }
+
+      ShortcutsShortcut {
+        title: C_("shortcut window", "Larger or smaller grid items");
+        accelerator: "<Control>plus <Control>minus";
+      }
+
+      ShortcutsShortcut {
+        title: C_("shortcut window", "Refresh");
+        accelerator: "F5 <Control>r";
+      }
+
+      ShortcutsShortcut {
+        title: C_("shortcut window", "Filter and search");
+        accelerator: "<Control>f";
+      }
+
+      ShortcutsShortcut {
+        title: C_("shortcut window", "Search all connections");
+        accelerator: "<Control><Shift>f";
+      }
+    }
+
+    ShortcutsGroup {
+      title: C_("shortcut window", "Files");
+
+      ShortcutsShortcut {
+        title: C_("shortcut window", "Quick preview");
+        accelerator: "space";
+      }
+
+      ShortcutsShortcut {
+        title: C_("shortcut window", "Show or hide properties");
+        accelerator: "<Alt>Return <Control>i";
+      }
+
+      ShortcutsShortcut {
+        title: C_("shortcut window", "Upload files");
+        accelerator: "<Control>u";
+      }
+
+      ShortcutsShortcut {
+        title: C_("shortcut window", "New folder");
+        accelerator: "<Control><Shift>n";
+      }
+
+      ShortcutsShortcut {
+        title: C_("shortcut window", "Rename");
+        accelerator: "F2";
+      }
+
+      ShortcutsShortcut {
+        title: C_("shortcut window", "Select all");
+        accelerator: "<Control>a";
+      }
+
+      ShortcutsShortcut {
+        title: C_("shortcut window", "Select items matching a pattern");
+        accelerator: "<Control>s";
+      }
+
+      ShortcutsShortcut {
+        title: C_("shortcut window", "Delete selection");
+        accelerator: "Delete";
+      }
+    }
+
+    ShortcutsGroup {
+      title: C_("shortcut window", "Clipboard");
+
+      ShortcutsShortcut {
+        title: C_("shortcut window", "Copy");
+        accelerator: "<Control>c";
+      }
+
+      ShortcutsShortcut {
+        title: C_("shortcut window", "Cut");
+        accelerator: "<Control>x";
+      }
+
+      ShortcutsShortcut {
+        title: C_("shortcut window", "Paste or upload copied files");
+        accelerator: "<Control>v";
+      }
+
+      ShortcutsShortcut {
+        title: C_("shortcut window", "Copy location");
+        accelerator: "<Control><Shift>c";
+      }
+
+      ShortcutsShortcut {
+        title: C_("shortcut window", "Undo the last move, rename or delete");
+        accelerator: "<Control>z";
+      }
+    }
+
+    ShortcutsGroup {
+      title: C_("shortcut window", "Quick Preview");
+
+      ShortcutsShortcut {
+        title: C_("shortcut window", "Previous file");
+        accelerator: "Left";
+      }
+
+      ShortcutsShortcut {
+        title: C_("shortcut window", "Next file");
+        accelerator: "Right";
+      }
+
+      ShortcutsShortcut {
+        title: C_("shortcut window", "Zoom in and out");
+        accelerator: "plus minus";
+      }
+
+      ShortcutsShortcut {
+        title: C_("shortcut window", "Fit to window");
+        accelerator: "0";
+      }
+
+      ShortcutsShortcut {
+        title: C_("shortcut window", "Close");
+        accelerator: "space Escape";
+      }
+    }
+  }
+}

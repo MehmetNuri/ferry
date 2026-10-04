@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist gettext-domain="ferry">
+  <!-- The keys have no path of their own, so they can also be opened at the path of the
+       earlier application (S3 Browser) once, to move its settings over. -->
+  <schema id="io.github.mehmetnuri.Ferry.Keys">
+    <key name="window-width" type="i">
+      <default>1180</default>
+      <summary>Width of the main window</summary>
+    </key>
+    <key name="window-height" type="i">
+      <default>760</default>
+      <summary>Height of the main window</summary>
+    </key>
+    <key name="window-maximized" type="b">
+      <default>false</default>
+      <summary>Whether the main window is maximized</summary>
+    </key>
+    <key name="run-in-background" type="b">
+      <default>true</default>
+      <summary>Keep running in the background when the window is closed</summary>
+      <description>Transfers and scheduled backups continue; opening the application again shows the window.</description>
+    </key>
+    <key name="autostart" type="b">
+      <default>false</default>
+      <summary>Start hidden at login, so backups run</summary>
+    </key>
+    <key name="notify-transfers" type="b">
+      <default>true</default>
+      <summary>Notify when transfers finish while the window is not focused</summary>
+    </key>
+    <key name="transfer-limit" type="i">
+      <range min="1" max="16"/>
+      <default>4</default>
+      <summary>Files transferred at the same time</summary>
+    </key>
+    <key name="bandwidth-kbps" type="i">
+      <range min="0" max="10485760"/>
+      <default>0</default>
+      <summary>Total transfer rate limit in kilobytes per second, 0 for unlimited</summary>
+    </key>
+    <key name="view-mode" type="s">
+      <choices>
+        <choice value="list"/>
+        <choice value="grid"/>
+      </choices>
+      <default>'list'</default>
+      <summary>How folder contents are shown</summary>
+    </key>
+    <key name="ask-download-folder" type="b">
+      <default>true</default>
+      <summary>Ask where to save each download</summary>
+    </key>
+    <key name="download-folder" type="s">
+      <default>''</default>
+      <summary>Folder downloads are saved to when not asking; empty for the Downloads folder</summary>
+    </key>
+    <key name="upload-skip" type="as">
+      <default>['.DS_Store', 'Thumbs.db', 'desktop.ini']</default>
+      <summary>Names of files and folders left out when uploading or syncing folders; * and ? are wildcards</summary>
+    </key>
+    <key name="show-hidden" type="b">
+      <default>false</default>
+      <summary>Show objects whose names start with a dot</summary>
+    </key>
+    <key name="grid-zoom" type="i">
+      <range min="0" max="3"/>
+      <default>1</default>
+      <summary>Size of the items in the grid view</summary>
+    </key>
+    <key name="sort-order" type="s">
+      <choices>
+        <choice value="name-asc"/>
+        <choice value="name-desc"/>
+        <choice value="modified-desc"/>
+        <choice value="modified-asc"/>
+        <choice value="size-desc"/>
+      </choices>
+      <default>'name-asc'</default>
+      <summary>How folder contents are sorted; folders always come first</summary>
+    </key>
+    <key name="last-profile" type="s">
+      <default>''</default>
+      <summary>Connection open when the application last quit</summary>
+    </key>
+    <key name="last-bucket" type="s">
+      <default>''</default>
+      <summary>Bucket open when the application last quit</summary>
+    </key>
+    <key name="last-prefix" type="s">
+      <default>''</default>
+      <summary>Folder open when the application last quit</summary>
+    </key>
+    <key name="favorites" type="s">
+      <default>'{}'</default>
+      <summary>Favorite folders per connection, as JSON</summary>
+    </key>
+  </schema>
+  <schema id="io.github.mehmetnuri.Ferry" path="/io/github/mehmetnuri/Ferry/" extends="io.github.mehmetnuri.Ferry.Keys"/>
+</schemalist>

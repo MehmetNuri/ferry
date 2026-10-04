@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+  <gresource prefix="/io/github/mehmetnuri/Ferry">
+    <file>style.css</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/funnel-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/qr-code-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/transfer-upload-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/transfer-download-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">ui/window.ui</file>
+    <file preprocess="xml-stripblanks">ui/profile-dialog.ui</file>
+    <file preprocess="xml-stripblanks" alias="gtk/help-overlay.ui">ui/help-overlay.ui</file>
+  </gresource>
+</gresources>

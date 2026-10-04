@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <!-- Ferry: a ferry carrying a cloud over the water, in the GNOME palette. -->
+  <defs>
+    <linearGradient id="water" x1="0" y1="90" x2="0" y2="120" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#62a0ea"/>
+      <stop offset="1" stop-color="#1c71d8"/>
+    </linearGradient>
+    <linearGradient id="hull" x1="0" y1="0" x2="128" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#1a5fb4"/>
+      <stop offset="0.6" stop-color="#1c71d8"/>
+      <stop offset="1" stop-color="#1a5fb4"/>
+    </linearGradient>
+    <linearGradient id="white" x1="0" y1="0" x2="128" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#deddda"/>
+      <stop offset="0.35" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#f6f5f4"/>
+    </linearGradient>
+    <linearGradient id="cloudfill" x1="0" y1="37" x2="0" y2="70" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="0.7" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#c0d9f5"/>
+    </linearGradient>
+    <clipPath id="hullshape">
+      <path d="M12 70 H118 L105 95 Q103 99 98 99 H28 Q23 99 21 95 Z"/>
+    </clipPath>
+  </defs>
+  <!-- Water. -->
+  <path d="M6 100 q9 -6 18 0 t18 0 t18 0 t18 0 t18 0 t18 0 t8 0 V112 a8 8 0 0 1 -8 8 H14 a8 8 0 0 1 -8 -8 Z" fill="url(#water)"/>
+  <!-- Hull: white topsides above a blue bottom. -->
+  <g clip-path="url(#hullshape)">
+    <rect x="0" y="66" width="128" height="40" fill="url(#hull)"/>
+    <rect x="0" y="66" width="128" height="16" fill="url(#white)"/>
+    <rect x="0" y="82" width="128" height="3" fill="#99c1f1"/>
+  </g>
+  <!-- Cabin with its windows, and the bridge on top. -->
+  <rect x="22" y="50" width="48" height="21" rx="4" fill="url(#white)"/>
+  <rect x="22" y="68" width="48" height="3" fill="#c0bfbc"/>
+  <g fill="#3584e4">
+    <rect x="27" y="56" width="8" height="7" rx="2"/>
+    <rect x="38" y="56" width="8" height="7" rx="2"/>
+    <rect x="49" y="56" width="8" height="7" rx="2"/>
+    <rect x="60" y="56" width="6" height="7" rx="2"/>
+  </g>
+  <rect x="30" y="38" width="28" height="13" rx="3" fill="url(#white)"/>
+  <rect x="34" y="42" width="20" height="5" rx="2" fill="#1a5fb4"/>
+  <!-- The cargo: a cloud, outlined so it reads on light backgrounds too. -->
+  <g id="cloud">
+    <circle cx="84" cy="60" r="10"/>
+    <circle cx="97" cy="50" r="13"/>
+    <circle cx="109" cy="60" r="9"/>
+    <rect x="84" y="56" width="25" height="14"/>
+  </g>
+  <use href="#cloud" fill="#3584e4" stroke="#3584e4" stroke-width="5" stroke-linejoin="round"/>
+  <use href="#cloud" fill="url(#cloudfill)"/>
+  <!-- Bow wave. -->
+  <path d="M106 99 q6 -2 10 -7" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-opacity="0.8"/>
+</svg>

@@ -1,0 +1,4481 @@
+# Turkish translations for gnome_s package
+# gnome_s paketi için Türkçe çeviriler.
+# Copyright (C) 2026 THE gnome_s'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the gnome_s package.
+# Automatically generated, 2026.
+#
+msgid ""
+msgstr ""
+"#-#-#-#-#  rs.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+"Project-Id-Version: gnome_s 3_browser\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-04 21:51+0300\n"
+"PO-Revision-Date: 2026-10-04 21:51+0300\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: Turkish\n"
+"Language: tr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"#-#-#-#-#  data.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-04 21:51+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/application.rs:173 src/dialogs/bucket.rs:148
+msgid "General"
+msgstr "Genel"
+
+#: src/application.rs:174
+msgid "Behavior"
+msgstr "Davranış"
+
+#: src/application.rs:175
+msgid "Run in Background"
+msgstr "Arka Planda Çalış"
+
+#: src/application.rs:176
+msgid "Closing the window keeps transfers and scheduled backups running"
+msgstr "Pencereyi kapatmak aktarımları ve zamanlanmış yedekleri durdurmaz"
+
+#: src/application.rs:177
+msgid "Notifications"
+msgstr "Bildirimler"
+
+#: src/application.rs:178
+msgid ""
+"Show a notification when transfers finish while the window is not focused"
+msgstr "Pencere odakta değilken aktarımlar bitince bildirim göster"
+
+#: src/application.rs:179
+msgid "Start at Login"
+msgstr "Oturum Açılışında Başlat"
+
+#: src/application.rs:180
+msgid ""
+"Runs in the background without a window, so scheduled and watched backups "
+"keep working"
+msgstr "Pencere açmadan arka planda çalışır; zamanlanmış ve izlenen yedeklemeler sürer"
+
+#: src/application.rs:184 src/transfers/view.rs:176
+#: data/resources/ui/window.blp:232
+msgid "Transfers"
+msgstr "Aktarımlar"
+
+#: src/application.rs:185
+msgid "Simultaneous Transfers"
+msgstr "Eş Zamanlı Aktarımlar"
+
+#: src/application.rs:185
+msgid "Files uploaded or downloaded at the same time"
+msgstr "Aynı anda yüklenen veya indirilen dosya sayısı"
+
+#: src/application.rs:188
+msgid "Ask Where to Save Downloads"
+msgstr "İndirmelerin Nereye Kaydedileceğini Sor"
+
+#: src/application.rs:190
+msgid "Download Folder"
+msgstr "İndirme Klasörü"
+
+#: src/application.rs:191 src/dialogs/bucket.rs:662
+msgid "Choose Folder…"
+msgstr "Klasör Seç…"
+
+#: src/application.rs:200
+msgid "Download folder"
+msgstr "İndirme klasörü"
+
+#: src/application.rs:212
+msgid "Leave Out When Uploading Folders"
+msgstr "Klasör Yüklerken Dışarıda Bırak"
+
+#: src/application.rs:214
+msgid ""
+"Comma-separated names; * and ? are wildcards, for example node_modules, *.tmp"
+msgstr "Virgülle ayrılmış adlar; * ve ? joker karakterdir, örneğin node_modules, *.tmp"
+
+#: src/application.rs:240
+msgid "Browse and manage S3-compatible storage"
+msgstr "S3 uyumlu depolamayı gezin ve yönetin"
+
+#: src/application.rs:246
+msgid "translator-credits"
+msgstr "Mehmet Nuri Öztürk"
+
+#: src/application.rs:249 data/io.github.mehmetnuri.Ferry.metainfo.xml.in:64
+msgid "First GNOME edition, rewritten in Rust with GTK 4 and libadwaita."
+msgstr "Rust, GTK 4 ve libadwaita ile yeniden yazılan ilk GNOME sürümü."
+
+#: src/application.rs:250
+msgid ""
+"Transfer queue with priorities, pause, speed limit and resume after restart"
+msgstr "Öncelik, duraklatma, hız sınırı ve yeniden başlatmadan sonra sürdürme özellikli aktarım kuyruğu"
+
+#: src/application.rs:251
+msgid "Interrupted uploads and downloads continue where they stopped"
+msgstr "Yarıda kalan yüklemeler ve indirmeler kaldığı yerden devam eder"
+
+#: src/application.rs:252
+msgid "Recent objects, sorting, ZIP downloads and s3:// links"
+msgstr "Son kullanılan nesneler, sıralama, ZIP olarak indirme ve s3:// bağlantıları"
+
+#: src/application.rs:253
+msgid ""
+"Previews of CSV tables, ZIP contents and highlighted code; copy and paste "
+"with GNOME Files"
+msgstr "CSV tabloları, ZIP içerikleri ve renklendirilmiş kod önizlemeleri; GNOME Dosyalar ile kopyala-yapıştır"
+
+#: src/application.rs:254
+msgid "Quick preview of images, videos, audio and text"
+msgstr "Görsel, video, ses ve metinlerin hızlı önizlemesi"
+
+#: src/application.rs:255
+msgid "Copy, cut and paste, moving by drag and drop, undo"
+msgstr "Kopyala, kes ve yapıştır, sürükle-bırak ile taşıma, geri alma"
+
+#: src/application.rs:256
+msgid "Search from the GNOME Shell overview"
+msgstr "GNOME Shell genel görünümünden arama"
+
+#: src/application.rs:257
+msgid "Share links with QR codes and upload links"
+msgstr "QR kodlu paylaşım bağlantıları ve yükleme bağlantıları"
+
+#: src/application.rs:258
+msgid "Bucket mounting, permissions, Object Lock, CloudFront"
+msgstr "Bucket bağlama, izinler, Nesne Kilidi, CloudFront"
+
+#: src/application.rs:300 src/application.rs:310
+msgid "Scheduled backups run in the background"
+msgstr "Zamanlanmış yedeklemeler arka planda çalışır"
+
+#: src/application.rs:336
+msgid "Ferry Is Running in the Background"
+msgstr "Ferry Arka Planda Çalışıyor"
+
+#: src/application.rs:337
+msgid ""
+"Transfers and scheduled backups continue. Open Ferry again to show the "
+"window."
+msgstr "Aktarımlar ve zamanlanmış yedekler sürüyor. Pencereyi göstermek için Ferry'ı yeniden açın."
+
+#: src/application.rs:340 src/window/mod.rs:195
+msgid "Quit"
+msgstr "Çık"
+
+#: src/application.rs:343
+msgid "Transfers and scheduled backups continue while the window is closed"
+msgstr "Pencere kapalıyken aktarımlar ve zamanlanmış yedekler sürer"
+
+#: src/application.rs:354 src/transfers/view.rs:156 src/transfers/view.rs:164
+msgid "Idle"
+msgstr "Boşta"
+
+#: src/application.rs:368
+msgid "Transfers Failed"
+msgstr "Aktarımlar Başarısız"
+
+#: src/application.rs:368
+msgid "{n} transfers failed, {d} finished"
+msgstr "{n} aktarım başarısız, {d} tamamlandı"
+
+#: src/application.rs:370
+msgid "Transfers Finished"
+msgstr "Aktarımlar Tamamlandı"
+
+#: src/application.rs:370 src/transfers/view.rs:49
+msgid "{n} transfer finished"
+msgid_plural "{n} transfers finished"
+msgstr[0] "{n} aktarım tamamlandı"
+msgstr[1] "{n} aktarım tamamlandı"
+
+#: src/application.rs:378 src/transfers/view.rs:370 src/transfers/view.rs:512
+msgid "Retry"
+msgstr "Yeniden Dene"
+
+#: src/application.rs:379
+msgid "Show Transfers"
+msgstr "Aktarımları Göster"
+
+#: src/application.rs:392 src/window/mod.rs:3105 src/window/mod.rs:3175
+msgid "Open Folder"
+msgstr "Klasörü Aç"
+
+#: src/application.rs:416
+msgid "Backup “{name}” Failed"
+msgstr "“{name}” Yedeklemesi Başarısız"
+
+#: src/backup/age.rs:65
+msgid ""
+"No YubiKey with an age key was found. Set one up with age-plugin-yubikey "
+"first."
+msgstr "age anahtarı olan bir YubiKey bulunamadı. Önce age-plugin-yubikey ile bir tane kurun."
+
+#: src/backup/age.rs:93
+msgid "“{key}” is not an age or SSH public key"
+msgstr "“{key}” bir age ya da SSH ortak anahtarı değil"
+
+#: src/backup/age.rs:101
+msgid "The age plugin “{name}” is not installed"
+msgstr "“{name}” age eklentisi kurulu değil"
+
+#: src/backup/age.rs:105
+msgid "Enter at least one public key"
+msgstr "En az bir ortak anahtar girin"
+
+#: src/backup/age.rs:128 src/backup/age.rs:185
+msgid "None of your keys can open this backup"
+msgstr "Anahtarlarınızın hiçbiri bu yedeği açamıyor"
+
+#: src/backup/age.rs:129 src/backup/age.rs:133 src/backup/password.rs:63
+msgid "Wrong password, or the file is damaged"
+msgstr "Parola yanlış ya da dosya bozuk"
+
+#: src/backup/age.rs:185
+msgid "The file is not an age identity or SSH private key"
+msgstr "Dosya bir age kimliği ya da SSH özel anahtarı değil"
+
+#: src/backup/foreign.rs:36 src/backup/mod.rs:46
+msgid "A connection file cannot be larger than 1 MB"
+msgstr "Bir bağlantı dosyası 1 MB’tan büyük olamaz"
+
+#: src/backup/foreign.rs:38
+msgid "The file is not a text file"
+msgstr "Dosya bir metin dosyası değil"
+
+#: src/backup/foreign.rs:44
+msgid ""
+"This rclone configuration is encrypted. Decrypt it with “rclone config show” "
+"first."
+msgstr "Bu rclone yapılandırması şifreli. Önce “rclone config show” ile şifresini çözün."
+
+#: src/backup/foreign.rs:53
+msgid "No connections were found in this file"
+msgstr "Bu dosyada bağlantı bulunamadı"
+
+#: src/backup/gpg.rs:78 src/dialogs/backup.rs:123
+msgid "GnuPG is not installed"
+msgstr "GnuPG kurulu değil"
+
+#: src/backup/gpg.rs:89
+msgid "None of your GnuPG keys can open this backup"
+msgstr "GnuPG anahtarlarınızın hiçbiri bu yedeği açamıyor"
+
+#: src/backup/gpg.rs:91 src/pages/backups.rs:206 src/transfers/view.rs:87
+msgid "Cancelled"
+msgstr "İptal edildi"
+
+#: src/backup/mod.rs:39
+msgid "Invalid connection file or unsupported version"
+msgstr "Geçersiz bağlantı dosyası ya da desteklenmeyen sürüm"
+
+#: src/cli.rs:16
+msgid "Usage:"
+msgstr "Kullanım:"
+
+#: src/cli.rs:16
+msgid ""
+"Without a command, Ferry opens its window. Connections are the ones saved in "
+"Ferry; names with spaces need quotes."
+msgstr "Komut verilmezse Ferry penceresini açar. Bağlantılar Ferry’de kayıtlı olanlardır; boşluk içeren adlar tırnak içinde yazılmalıdır."
+
+#: src/cli.rs:35
+msgid "“{name}” is not a saved connection; see “ferry connections”"
+msgstr "“{name}” kayıtlı bir bağlantı değil; “ferry connections” komutuna bakın"
+
+#: src/cli.rs:40
+msgid "MFA code for “{name}”:"
+msgstr "“{name}” için MFA kodu:"
+
+#: src/cli.rs:113
+msgid "Name an object, or use -r for a folder"
+msgstr "Bir nesne adı verin ya da klasör için -r kullanın"
+
+#: src/cli.rs:153
+msgid "Name a bucket to upload into"
+msgstr "Yüklenecek bucket’ı belirtin"
+
+#: src/cli.rs:161
+msgid "“{name}” is a folder; use -r to upload it"
+msgstr "“{name}” bir klasör; yüklemek için -r kullanın"
+
+#: src/cli.rs:188
+msgid ""
+"Name an object or folder to remove; buckets are not removed from the command "
+"line"
+msgstr "Silinecek nesneyi ya da klasörü belirtin; bucket’lar komut satırından silinmez"
+
+#: src/cli.rs:198 src/cli.rs:202
+msgid "Use -r to remove a folder"
+msgstr "Klasör silmek için -r kullanın"
+
+#: src/cli.rs:207
+msgid "{n} removed"
+msgstr "{n} silindi"
+
+#: src/dialogs/access.rs:30 src/dialogs/bucket.rs:166 src/dialogs/bucket.rs:190
+#: src/dialogs/bucket.rs:240 src/dialogs/bucket.rs:268
+#: src/dialogs/bucket.rs:374
+msgid "Settings saved"
+msgstr "Ayarlar kaydedildi"
+
+#: src/dialogs/access.rs:37 src/dialogs/access.rs:51
+msgid "Everyone"
+msgstr "Herkes"
+
+#: src/dialogs/access.rs:38 src/dialogs/access.rs:51
+msgid "Authenticated AWS users"
+msgstr "Kimliği doğrulanmış AWS kullanıcıları"
+
+#: src/dialogs/access.rs:39 src/dialogs/access.rs:51
+msgid "Log delivery group"
+msgstr "Günlük teslim grubu"
+
+#: src/dialogs/access.rs:46
+msgid "Access Control List"
+msgstr "Erişim Denetim Listesi"
+
+#: src/dialogs/access.rs:47
+msgid ""
+"The owner always keeps full control. Public grants are refused while the "
+"public access block is on."
+msgstr "Sahip her zaman tam denetime sahiptir. Genel erişim engeli açıkken herkese açık izinler reddedilir."
+
+#: src/dialogs/access.rs:51
+msgid "Canonical user ID"
+msgstr "Kanonik kullanıcı kimliği"
+
+#: src/dialogs/access.rs:51
+msgid "AWS account e-mail"
+msgstr "AWS hesap e-postası"
+
+#: src/dialogs/access.rs:52
+msgid "Grantee"
+msgstr "İzin verilen"
+
+#: src/dialogs/access.rs:53
+msgid "Canonical ID or e-mail address"
+msgstr "Kanonik kimlik veya e-posta adresi"
+
+#: src/dialogs/access.rs:54
+msgid "Permission"
+msgstr "İzin"
+
+#: src/dialogs/access.rs:55
+msgid "Add Permission"
+msgstr "İzin Ekle"
+
+#: src/dialogs/access.rs:56
+msgid "Save Permissions"
+msgstr "İzinleri Kaydet"
+
+#: src/dialogs/access.rs:68
+msgid "Owner"
+msgstr "Sahip"
+
+#: src/dialogs/access.rs:75 src/dialogs/bucket.rs:87 src/pages/analyzer.rs:185
+msgid "Remove"
+msgstr "Kaldır"
+
+#: src/dialogs/access.rs:100
+msgid "Enter the canonical ID or e-mail address"
+msgstr "Kanonik kimliği veya e-posta adresini girin"
+
+#: src/dialogs/access.rs:143
+msgid "Permissions"
+msgstr "İzinler"
+
+#: src/dialogs/access.rs:144
+msgid "Block Public Access"
+msgstr "Genel Erişimi Engelle"
+
+#: src/dialogs/access.rs:145
+msgid "Block new public ACLs"
+msgstr "Yeni herkese açık ACL'leri engelle"
+
+#: src/dialogs/access.rs:145
+msgid "Ignore existing public ACLs"
+msgstr "Mevcut herkese açık ACL'leri yok say"
+
+#: src/dialogs/access.rs:145
+msgid "Block public bucket policies"
+msgstr "Herkese açık bucket ilkelerini engelle"
+
+#: src/dialogs/access.rs:145
+msgid "Restrict access to buckets with public policies"
+msgstr "Herkese açık ilkesi olan bucket'lara erişimi kısıtla"
+
+#: src/dialogs/access.rs:148 src/dialogs/access.rs:165
+#: src/dialogs/access.rs:178 src/dialogs/access.rs:185
+#: src/dialogs/bucket.rs:232 src/dialogs/bucket.rs:386 src/window/mod.rs:2295
+#: data/resources/ui/profile-dialog.blp:21
+msgid "Save"
+msgstr "Kaydet"
+
+#: src/dialogs/access.rs:157 src/dialogs/access.rs:158
+#: src/dialogs/access.rs:403
+msgid "Object Lock"
+msgstr "Nesne Kilidi"
+
+#: src/dialogs/access.rs:159
+msgid ""
+"Locked objects cannot be deleted or overwritten before their retention ends. "
+"Enabling Object Lock requires versioning and cannot be undone."
+msgstr "Kilitli nesneler saklama süreleri bitmeden silinemez veya üzerine yazılamaz. Nesne Kilidi'ni açmak sürümleme gerektirir ve geri alınamaz."
+
+#: src/dialogs/access.rs:160
+msgid "State"
+msgstr "Durum"
+
+#: src/dialogs/access.rs:160 src/dialogs/access.rs:404 src/window/mod.rs:1456
+msgid "Loading…"
+msgstr "Yükleniyor…"
+
+#: src/dialogs/access.rs:161
+msgid "Default retention"
+msgstr "Varsayılan saklama"
+
+#: src/dialogs/access.rs:161 src/dialogs/bucket.rs:180
+msgid "None"
+msgstr "Yok"
+
+#: src/dialogs/access.rs:162
+msgid "Retention period"
+msgstr "Saklama süresi"
+
+#: src/dialogs/access.rs:163
+msgid "Unit"
+msgstr "Birim"
+
+#: src/dialogs/access.rs:163
+msgid "Days"
+msgstr "Gün"
+
+#: src/dialogs/access.rs:163
+msgid "Years"
+msgstr "Yıl"
+
+#: src/dialogs/access.rs:164
+msgid "I understand that Object Lock cannot be turned off for this bucket"
+msgstr "Bu bucket için Nesne Kilidi'nin kapatılamayacağını anlıyorum"
+
+#: src/dialogs/access.rs:174
+msgid "Hosting"
+msgstr "Barındırma"
+
+#: src/dialogs/access.rs:175
+msgid "Static Website"
+msgstr "Statik Web Sitesi"
+
+#: src/dialogs/access.rs:175
+msgid ""
+"With an index document the bucket is served as a static website; saving an "
+"empty one turns it off."
+msgstr "Dizin belgesi verilirse bucket statik web sitesi olarak sunulur; boş kaydedilirse kapatılır."
+
+#: src/dialogs/access.rs:176
+msgid "Index document"
+msgstr "Dizin belgesi"
+
+#: src/dialogs/access.rs:177
+msgid "Error document"
+msgstr "Hata belgesi"
+
+#: src/dialogs/access.rs:182
+msgid "Access Logging"
+msgstr "Erişim Günlüğü"
+
+#: src/dialogs/access.rs:182
+msgid ""
+"Access logs are written to another bucket; saving an empty target turns "
+"logging off."
+msgstr "Erişim günlükleri başka bir bucket'a yazılır; hedef boş kaydedilirse günlükleme kapanır."
+
+#: src/dialogs/access.rs:183
+msgid "Target bucket"
+msgstr "Hedef bucket"
+
+#: src/dialogs/access.rs:184
+msgid "Prefix"
+msgstr "Önek"
+
+#: src/dialogs/access.rs:190
+msgid "Requester pays"
+msgstr "İsteyen öder"
+
+#: src/dialogs/access.rs:190
+msgid ""
+"The requester pays for requests and data transfer instead of the bucket owner"
+msgstr "İstek ve veri aktarım ücretini bucket sahibi yerine isteyen öder"
+
+#: src/dialogs/access.rs:216 src/dialogs/access.rs:246
+#: src/dialogs/bucket.rs:157 src/dialogs/bucket.rs:166
+#: src/pages/compatibility.rs:74
+msgid "Enabled"
+msgstr "Açık"
+
+#: src/dialogs/access.rs:216 src/pages/compatibility.rs:74
+msgid "Off"
+msgstr "Kapalı"
+
+#: src/dialogs/access.rs:237
+msgid "Confirm that Object Lock cannot be turned off before enabling it"
+msgstr "Açmadan önce Nesne Kilidi'nin kapatılamayacağını onaylayın"
+
+#: src/dialogs/access.rs:273
+msgid "CloudFront"
+msgstr "CloudFront"
+
+#: src/dialogs/access.rs:274
+msgid "Distributions"
+msgstr "Dağıtımlar"
+
+#: src/dialogs/access.rs:275
+msgid ""
+"CloudFront distributions that use this bucket as their origin. To purge the "
+"cache, enter paths separated by spaces (for example /index.html /images/*)."
+msgstr "Bu bucket'ı kaynak olarak kullanan CloudFront dağıtımları. Önbelleği temizlemek için yolları boşlukla ayırarak girin (örneğin /index.html /images/*)."
+
+#: src/dialogs/access.rs:276
+msgid "Paths to invalidate"
+msgstr "Geçersiz kılınacak yollar"
+
+#: src/dialogs/access.rs:285
+msgid "No distribution uses this bucket."
+msgstr "Bu bucket'ı kullanan dağıtım yok."
+
+#: src/dialogs/access.rs:288
+msgid "disabled"
+msgstr "devre dışı"
+
+#: src/dialogs/access.rs:291
+msgid "Invalidate"
+msgstr "Geçersiz Kıl"
+
+#: src/dialogs/access.rs:300
+msgid "Invalidation created ({id})"
+msgstr "Geçersiz kılma oluşturuldu ({id})"
+
+#: src/dialogs/access.rs:315
+msgid "Permissions of {name}"
+msgstr "{name} İzinleri"
+
+#: src/dialogs/access.rs:320
+msgid "Storage"
+msgstr "Depolama"
+
+#: src/dialogs/access.rs:323 src/window/mod.rs:2228
+msgid "Storage class"
+msgstr "Depolama sınıfı"
+
+#: src/dialogs/access.rs:324 src/dialogs/bucket.rs:184 src/window/mod.rs:2401
+#: src/window/mod.rs:2442
+msgid "Apply"
+msgstr "Uygula"
+
+#: src/dialogs/access.rs:328
+msgid "Server-side encryption"
+msgstr "Sunucu taraflı şifreleme"
+
+#: src/dialogs/access.rs:343
+msgid "Restore From Archive"
+msgstr "Arşivden Geri Yükle"
+
+#: src/dialogs/access.rs:343
+msgid "Archived objects need a temporary copy before they can be downloaded"
+msgstr "Arşivlenmiş nesneler indirilmeden önce geçici bir kopyaya ihtiyaç duyar"
+
+#: src/dialogs/access.rs:344
+msgid "Days the copy stays available"
+msgstr "Kopyanın erişilebilir kalacağı gün"
+
+#: src/dialogs/access.rs:345 src/transfers/view.rs:133
+msgid "Speed"
+msgstr "Hız"
+
+#: src/dialogs/access.rs:346
+msgid "Request Restore"
+msgstr "Geri Yükleme İste"
+
+#: src/dialogs/access.rs:354
+msgid "Restore in progress…"
+msgstr "Geri yükleme sürüyor…"
+
+#: src/dialogs/access.rs:354
+msgid "A restored copy is available"
+msgstr "Geri yüklenmiş bir kopya mevcut"
+
+#: src/dialogs/access.rs:362
+msgid "Restore requested"
+msgstr "Geri yükleme istendi"
+
+#: src/dialogs/access.rs:371
+msgid "Public Access"
+msgstr "Genel Erişim"
+
+#: src/dialogs/access.rs:372
+msgid "Anyone can read this object"
+msgstr "Bu nesneyi herkes okuyabilir"
+
+#: src/dialogs/access.rs:372
+msgid "Adds or removes the public read grant"
+msgstr "Herkese açık okuma iznini ekler veya kaldırır"
+
+#: src/dialogs/access.rs:379
+msgid "This provider does not report object permissions"
+msgstr "Bu sağlayıcı nesne izinlerini bildirmiyor"
+
+#: src/dialogs/access.rs:404
+msgid "Retention"
+msgstr "Saklama"
+
+#: src/dialogs/access.rs:405
+msgid "Mode"
+msgstr "Kip"
+
+#: src/dialogs/access.rs:406
+msgid "Retain for days"
+msgstr "Saklanacak gün"
+
+#: src/dialogs/access.rs:407
+msgid "Bypass GOVERNANCE retention"
+msgstr "GOVERNANCE saklamasını atla"
+
+#: src/dialogs/access.rs:407
+msgid "Needs the permission to shorten a retention"
+msgstr "Saklama süresini kısaltma izni gerektirir"
+
+#: src/dialogs/access.rs:408
+msgid "Apply Retention"
+msgstr "Saklamayı Uygula"
+
+#: src/dialogs/access.rs:409
+msgid "Legal hold"
+msgstr "Yasal bekletme"
+
+#: src/dialogs/access.rs:409
+msgid "While on, the object cannot be deleted"
+msgstr "Açıkken nesne silinemez"
+
+#: src/dialogs/access.rs:419
+msgid "No retention lock"
+msgstr "Saklama kilidi yok"
+
+#: src/dialogs/access.rs:420 src/dialogs/access.rs:433
+msgid "{mode} until {date}"
+msgstr "{date} tarihine kadar {mode}"
+
+#: src/dialogs/backup.rs:36 src/dialogs/backup.rs:195
+msgid "Export Connections"
+msgstr "Bağlantıları Dışa Aktar"
+
+#: src/dialogs/backup.rs:38 src/dialogs/import_apps.rs:36
+msgid "_Cancel"
+msgstr "_İptal"
+
+#: src/dialogs/backup.rs:39
+msgid "_Export…"
+msgstr "_Dışa Aktar…"
+
+#: src/dialogs/backup.rs:47 src/dialogs/connection.rs:84
+msgid "Access Keys"
+msgstr "Erişim Anahtarları"
+
+#: src/dialogs/backup.rs:48
+msgid ""
+"Connection details are always included. Choose how the access keys are "
+"protected in the file."
+msgstr "Bağlantı ayrıntıları her zaman eklenir. Dosyadaki erişim anahtarlarının nasıl korunacağını seçin."
+
+#: src/dialogs/backup.rs:49 src/dialogs/backup.rs:58 src/dialogs/backup.rs:60
+#: src/dialogs/backup.rs:225 src/window/vault.rs:100
+msgid "Password"
+msgstr "Parola"
+
+#: src/dialogs/backup.rs:49
+msgid "AES-256-GCM, with the key derived from the password by Argon2id"
+msgstr "AES-256-GCM; anahtar paroladan Argon2id ile türetilir"
+
+#: src/dialogs/backup.rs:50
+msgid "age or SSH Key"
+msgstr "age ya da SSH Anahtarı"
+
+#: src/dialogs/backup.rs:50
+msgid "For age and SSH public keys, and YubiKeys with age-plugin-yubikey"
+msgstr "age ve SSH ortak anahtarları ile age-plugin-yubikey kullanan YubiKey’ler için"
+
+#: src/dialogs/backup.rs:51 src/dialogs/backup.rs:76
+msgid "GnuPG Key"
+msgstr "GnuPG Anahtarı"
+
+#: src/dialogs/backup.rs:51
+msgid "Looking for keys…"
+msgstr "Anahtarlar aranıyor…"
+
+#: src/dialogs/backup.rs:52
+msgid "Leave Out Access Keys"
+msgstr "Erişim Anahtarlarını Dahil Etme"
+
+#: src/dialogs/backup.rs:52
+msgid "They have to be entered again after importing"
+msgstr "İçe aktardıktan sonra yeniden girilmeleri gerekir"
+
+#: src/dialogs/backup.rs:59
+msgid "Use at least 12 characters. A forgotten password cannot be recovered."
+msgstr "En az 12 karakter kullanın. Unutulan parola kurtarılamaz."
+
+#: src/dialogs/backup.rs:61 src/window/vault.rs:101
+msgid "Repeat Password"
+msgstr "Parolayı Yinele"
+
+#: src/dialogs/backup.rs:66 src/dialogs/backup.rs:68 src/dialogs/backup.rs:141
+msgid "Public Keys"
+msgstr "Ortak Anahtarlar"
+
+#: src/dialogs/backup.rs:67
+msgid ""
+"age keys (age1…), SSH keys (ssh-ed25519 …) or YubiKeys (age1yubikey1…). "
+"Separate several keys with commas; any one of them opens the file."
+msgstr "age anahtarları (age1…), SSH anahtarları (ssh-ed25519 …) ya da YubiKey’ler (age1yubikey1…). Birden çok anahtarı virgülle ayırın; herhangi biri dosyayı açar."
+
+#: src/dialogs/backup.rs:69
+msgid "Add Key From File…"
+msgstr "Dosyadan Anahtar Ekle…"
+
+#: src/dialogs/backup.rs:72
+msgid "Add Connected YubiKey"
+msgstr "Takılı YubiKey’i Ekle"
+
+#: src/dialogs/backup.rs:77
+msgid ""
+"Only the secret part of this key opens the file, also when it is on a "
+"smartcard."
+msgstr "Dosyayı yalnızca bu anahtarın gizli kısmı açar; akıllı kartta olsa bile."
+
+#: src/dialogs/backup.rs:79 src/dialogs/bucket.rs:259 src/dialogs/bucket.rs:429
+#: src/window/mod.rs:2091 src/window/mod.rs:2220
+msgid "Key"
+msgstr "Anahtar"
+
+#: src/dialogs/backup.rs:128
+msgid "No GnuPG key that can encrypt was found"
+msgstr "Şifreleyebilen bir GnuPG anahtarı bulunamadı"
+
+#: src/dialogs/backup.rs:133
+msgid "Encrypted with a key from your GnuPG keyring"
+msgstr "GnuPG anahtarlığınızdaki bir anahtarla şifrelenir"
+
+#: src/dialogs/backup.rs:140
+msgid "Add Key From File"
+msgstr "Dosyadan Anahtar Ekle"
+
+#: src/dialogs/backup.rs:151
+msgid ""
+"This is a private key. Choose the public key, usually the file ending in ."
+"pub."
+msgstr "Bu bir özel anahtar. Ortak anahtarı seçin; genellikle .pub ile biten dosyadır."
+
+#: src/dialogs/backup.rs:191
+msgid "age Files"
+msgstr "age Dosyaları"
+
+#: src/dialogs/backup.rs:192
+msgid "OpenPGP Files"
+msgstr "OpenPGP Dosyaları"
+
+#: src/dialogs/backup.rs:193
+msgid "JSON Files"
+msgstr "JSON Dosyaları"
+
+#: src/dialogs/backup.rs:208
+msgid "Connections exported without access keys"
+msgstr "Bağlantılar erişim anahtarları olmadan dışa aktarıldı"
+
+#: src/dialogs/backup.rs:210
+msgid "{n} connection exported with its access keys, encrypted"
+msgid_plural "{n} connections exported with their access keys, encrypted"
+msgstr[0] "{n} bağlantı erişim anahtarlarıyla birlikte şifreli olarak dışa aktarıldı"
+msgstr[1] "{n} bağlantı erişim anahtarlarıyla birlikte şifreli olarak dışa aktarıldı"
+
+#: src/dialogs/backup.rs:223
+msgid "Enter Backup Password"
+msgstr "Yedek Parolasını Girin"
+
+#: src/dialogs/backup.rs:228 src/dialogs/backup.rs:255
+#: src/dialogs/backup.rs:267 src/dialogs/backup.rs:318
+#: src/dialogs/batch_rename.rs:44 src/dialogs/bucket.rs:18
+#: src/dialogs/bucket.rs:344 src/dialogs/bucket.rs:662
+#: src/dialogs/bucket.rs:739 src/dialogs/connection.rs:302
+#: src/dialogs/connection.rs:327 src/dialogs/connection.rs:337
+#: src/dialogs/connection.rs:363 src/dialogs/import_apps.rs:124
+#: src/dialogs/share.rs:45 src/pages/analyzer.rs:185 src/pages/backups.rs:157
+#: src/transfers/view.rs:371 src/transfers/view.rs:515 src/window/mod.rs:1416
+#: src/window/mod.rs:1561 src/window/mod.rs:1581 src/window/mod.rs:1595
+#: src/window/mod.rs:2401 src/window/mod.rs:2442 src/window/mod.rs:2868
+#: src/window/mod.rs:3003 src/window/vault.rs:105
+#: data/resources/ui/profile-dialog.blp:16
+msgid "Cancel"
+msgstr "İptal"
+
+#: src/dialogs/backup.rs:228 src/window/vault.rs:105
+msgid "Unlock"
+msgstr "Kilidi Aç"
+
+#: src/dialogs/backup.rs:267
+msgid "Continue"
+msgstr "Devam"
+
+#: src/dialogs/backup.rs:283
+msgid "Connection Backups"
+msgstr "Bağlantı Yedekleri"
+
+#: src/dialogs/backup.rs:284
+msgid "Import Connections"
+msgstr "Bağlantıları İçe Aktar"
+
+#: src/dialogs/backup.rs:297
+msgid "This backup contains access keys and is protected with a password."
+msgstr "Bu yedek erişim anahtarları içeriyor ve parolayla korunuyor."
+
+#: src/dialogs/backup.rs:316
+msgid "Choose Key File?"
+msgstr "Anahtar Dosyası Seçilsin mi?"
+
+#: src/dialogs/backup.rs:317
+msgid ""
+"Choose the age identity file or SSH private key the backup was made for."
+msgstr "Yedeğin oluşturulduğu age kimlik dosyasını ya da SSH özel anahtarını seçin."
+
+#: src/dialogs/backup.rs:318 src/dialogs/import_apps.rs:54
+msgid "_Choose File…"
+msgstr "Dosya _Seç…"
+
+#: src/dialogs/backup.rs:323
+msgid "Choose Key File"
+msgstr "Anahtar Dosyası Seç"
+
+#: src/dialogs/backup.rs:346
+msgid "{n} connection imported with its access keys"
+msgid_plural "{n} connections imported with their access keys"
+msgstr[0] "{n} bağlantı erişim anahtarlarıyla birlikte içe aktarıldı"
+msgstr[1] "{n} bağlantı erişim anahtarlarıyla birlikte içe aktarıldı"
+
+#: src/dialogs/backup.rs:348
+msgid "{n} connection added. Enter its access keys before connecting."
+msgid_plural ""
+"{n} connections added. Enter their access keys before connecting."
+msgstr[0] "{n} bağlantı eklendi. Bağlanmadan önce erişim anahtarlarını girin."
+msgstr[1] "{n} bağlantı eklendi. Bağlanmadan önce erişim anahtarlarını girin."
+
+#: src/dialogs/batch_rename.rs:42
+msgid "Rename {n} File"
+msgid_plural "Rename {n} Files"
+msgstr[0] "{n} Dosyayı Yeniden Adlandır"
+msgstr[1] "{n} Dosyayı Yeniden Adlandır"
+
+#: src/dialogs/batch_rename.rs:45 src/window/mod.rs:2368
+msgid "Rename"
+msgstr "Yeniden Adlandır"
+
+#: src/dialogs/batch_rename.rs:52
+msgid "Method"
+msgstr "Yöntem"
+
+#: src/dialogs/batch_rename.rs:52
+msgid "Find and Replace"
+msgstr "Bul ve Değiştir"
+
+#: src/dialogs/batch_rename.rs:52
+msgid "Template with Numbers"
+msgstr "Numaralı Şablon"
+
+#: src/dialogs/batch_rename.rs:53
+msgid "Find"
+msgstr "Bul"
+
+#: src/dialogs/batch_rename.rs:54
+msgid "Replace With"
+msgstr "Şununla Değiştir"
+
+#: src/dialogs/batch_rename.rs:55
+msgid "Template ({n} is the number, {name} the old name)"
+msgstr "Şablon ({n} numara, {name} eski ad)"
+
+#: src/dialogs/batch_rename.rs:55
+msgid "File"
+msgstr "Dosya"
+
+#: src/dialogs/batch_rename.rs:56
+msgid "First number"
+msgstr "İlk numara"
+
+#: src/dialogs/batch_rename.rs:59 src/window/mod.rs:2282
+msgid "Preview"
+msgstr "Önizleme"
+
+#: src/dialogs/batch_rename.rs:72
+msgid "Showing the first {n} files"
+msgstr "İlk {n} dosya gösteriliyor"
+
+#: src/dialogs/batch_rename.rs:119
+msgid "{n} file could not be renamed"
+msgid_plural "{n} files could not be renamed"
+msgstr[0] "{n} dosya yeniden adlandırılamadı"
+msgstr[1] "{n} dosya yeniden adlandırılamadı"
+
+#: src/dialogs/batch_rename.rs:119
+msgid "{n} file renamed"
+msgid_plural "{n} files renamed"
+msgstr[0] "{n} dosya yeniden adlandırıldı"
+msgstr[1] "{n} dosya yeniden adlandırıldı"
+
+#: src/dialogs/bucket.rs:61
+msgid "Add Entry"
+msgstr "Kayıt Ekle"
+
+#: src/dialogs/bucket.rs:82
+msgid "Value"
+msgstr "Değer"
+
+#: src/dialogs/bucket.rs:110
+msgid "No entries"
+msgstr "Kayıt yok"
+
+#: src/dialogs/bucket.rs:145
+msgid "Settings of {bucket}"
+msgstr "{bucket} Ayarları"
+
+#: src/dialogs/bucket.rs:150 data/resources/ui/profile-dialog.blp:59
+msgid "Region"
+msgstr "Bölge"
+
+#: src/dialogs/bucket.rs:153
+msgid "Versioning"
+msgstr "Sürümleme"
+
+#: src/dialogs/bucket.rs:153
+msgid ""
+"Keeps older versions of overwritten and deleted objects, which increases "
+"storage use."
+msgstr "Üzerine yazılan ve silinen nesnelerin eski sürümlerini saklar; bu depolama kullanımını artırır."
+
+#: src/dialogs/bucket.rs:156
+msgid "Keep object versions"
+msgstr "Nesne sürümlerini sakla"
+
+#: src/dialogs/bucket.rs:157 src/dialogs/bucket.rs:166
+msgid "Suspended; existing versions are kept"
+msgstr "Askıya alındı; mevcut sürümler korunuyor"
+
+#: src/dialogs/bucket.rs:157
+msgid "Never enabled"
+msgstr "Hiç açılmadı"
+
+#: src/dialogs/bucket.rs:177
+msgid "Default Encryption"
+msgstr "Varsayılan Şifreleme"
+
+#: src/dialogs/bucket.rs:180
+msgid "Algorithm"
+msgstr "Algoritma"
+
+#: src/dialogs/bucket.rs:182 data/resources/ui/profile-dialog.blp:113
+msgid "KMS key ID or alias (optional)"
+msgstr "KMS anahtar kimliği veya takma adı (isteğe bağlı)"
+
+#: src/dialogs/bucket.rs:214
+msgid "Policy"
+msgstr "İlke"
+
+#: src/dialogs/bucket.rs:214
+msgid "Bucket policy as JSON. Saving an empty document removes the policy."
+msgstr "JSON biçiminde bucket ilkesi. Boş belge kaydedilirse ilke kaldırılır."
+
+#: src/dialogs/bucket.rs:216
+msgid "CORS"
+msgstr "CORS"
+
+#: src/dialogs/bucket.rs:216
+msgid ""
+"CORS rules as a JSON array (AllowedOrigins, AllowedMethods, AllowedHeaders, "
+"ExposeHeaders, MaxAgeSeconds). An empty document removes the rules."
+msgstr "JSON dizisi olarak CORS kuralları (AllowedOrigins, AllowedMethods, AllowedHeaders, ExposeHeaders, MaxAgeSeconds). Boş belge kuralları kaldırır."
+
+#: src/dialogs/bucket.rs:218
+msgid "Lifecycle"
+msgstr "Yaşam Döngüsü"
+
+#: src/dialogs/bucket.rs:218
+msgid ""
+"Lifecycle rules as a JSON array (ID, Status, Filter, Expiration, "
+"Transitions, NoncurrentVersionExpiration, AbortIncompleteMultipartUpload). "
+"An empty document removes the rules."
+msgstr "JSON dizisi olarak yaşam döngüsü kuralları (ID, Status, Filter, Expiration, Transitions, NoncurrentVersionExpiration, AbortIncompleteMultipartUpload). Boş belge kuralları kaldırır."
+
+#: src/dialogs/bucket.rs:225
+msgid "The provider reported"
+msgstr "Sağlayıcının yanıtı"
+
+#: src/dialogs/bucket.rs:230
+msgid "Insert Example"
+msgstr "Örnek Ekle"
+
+#: src/dialogs/bucket.rs:258 src/dialogs/bucket.rs:429
+msgid "Tags"
+msgstr "Etiketler"
+
+#: src/dialogs/bucket.rs:259
+msgid "Bucket Tags"
+msgstr "Bucket Etiketleri"
+
+#: src/dialogs/bucket.rs:262 src/dialogs/bucket.rs:432
+msgid "Save Tags"
+msgstr "Etiketleri Kaydet"
+
+#: src/dialogs/bucket.rs:283
+msgid "Versions of {name}"
+msgstr "{name} Sürümleri"
+
+#: src/dialogs/bucket.rs:286
+msgid "Stored Versions"
+msgstr "Saklanan Sürümler"
+
+#: src/dialogs/bucket.rs:303
+msgid ""
+"No stored versions for this object. Versioning may be disabled on the bucket."
+msgstr "Bu nesnenin saklanan sürümü yok. Bucket'ta sürümleme kapalı olabilir."
+
+#: src/dialogs/bucket.rs:308
+msgid "Delete marker"
+msgstr "Silme işareti"
+
+#: src/dialogs/bucket.rs:309
+msgid "Current"
+msgstr "Güncel"
+
+#: src/dialogs/bucket.rs:319 src/window/mod.rs:2194
+#: data/resources/ui/window.blp:686
+msgid "Download"
+msgstr "İndir"
+
+#: src/dialogs/bucket.rs:323
+msgid "Restore This Version"
+msgstr "Bu Sürümü Geri Yükle"
+
+#: src/dialogs/bucket.rs:329
+msgid "Version restored"
+msgstr "Sürüm geri yüklendi"
+
+#: src/dialogs/bucket.rs:336
+msgid "Delete Version"
+msgstr "Sürümü Sil"
+
+#: src/dialogs/bucket.rs:343
+msgid "Delete Version?"
+msgstr "Sürüm Silinsin mi?"
+
+#: src/dialogs/bucket.rs:343
+msgid "This version will be deleted permanently. This cannot be undone."
+msgstr "Bu sürüm kalıcı olarak silinecek. Bu işlem geri alınamaz."
+
+#: src/dialogs/bucket.rs:344 src/pages/backups.rs:138 src/pages/backups.rs:157
+#: src/window/mod.rs:769 src/window/mod.rs:1386 src/window/mod.rs:1416
+#: src/window/mod.rs:1650 src/window/mod.rs:2204 src/window/mod.rs:2495
+#: data/resources/ui/window.blp:658
+msgid "Delete"
+msgstr "Sil"
+
+#: src/dialogs/bucket.rs:349
+msgid "Version deleted"
+msgstr "Sürüm silindi"
+
+#: src/dialogs/bucket.rs:369
+msgid "Versioning of this bucket"
+msgstr "Bu bucket'ın sürümlemesi"
+
+#: src/dialogs/bucket.rs:386 src/window/mod.rs:2268
+msgid "HTTP Headers"
+msgstr "HTTP Başlıkları"
+
+#: src/dialogs/bucket.rs:388
+msgid ""
+"S3 changes headers by copying the object onto itself, so its modified date "
+"is updated. Custom metadata is kept."
+msgstr "S3 başlıkları nesneyi kendi üzerine kopyalayarak değiştirir, bu yüzden değiştirilme tarihi güncellenir. Özel meta veriler korunur."
+
+#: src/dialogs/bucket.rs:413
+msgid "Headers updated"
+msgstr "Başlıklar güncellendi"
+
+#: src/dialogs/bucket.rs:426 src/window/mod.rs:2269
+msgid "Tags and Metadata"
+msgstr "Etiketler ve Meta Veriler"
+
+#: src/dialogs/bucket.rs:435
+msgid "User Metadata"
+msgstr "Kullanıcı Meta Verileri"
+
+#: src/dialogs/bucket.rs:435
+msgid "x-amz-meta-* headers. Saving rewrites the object in place."
+msgstr "x-amz-meta-* başlıkları. Kaydetmek nesneyi yerinde yeniden yazar."
+
+#: src/dialogs/bucket.rs:435 src/window/mod.rs:687
+#: data/resources/ui/profile-dialog.blp:33
+msgid "Name"
+msgstr "Ad"
+
+#: src/dialogs/bucket.rs:438
+msgid "Save Metadata"
+msgstr "Meta Verileri Kaydet"
+
+#: src/dialogs/bucket.rs:447
+msgid "Tags saved"
+msgstr "Etiketler kaydedildi"
+
+#: src/dialogs/bucket.rs:454
+msgid ""
+"A metadata name cannot contain spaces or colons, and the value must be one "
+"line"
+msgstr "Meta veri adı boşluk veya iki nokta içeremez, değer tek satır olmalı"
+
+#: src/dialogs/bucket.rs:461
+msgid "Metadata saved"
+msgstr "Meta veriler kaydedildi"
+
+#: src/dialogs/bucket.rs:474
+msgid "Copy to Another Connection"
+msgstr "Başka Bağlantıya Kopyala"
+
+#: src/dialogs/bucket.rs:474 src/dialogs/bucket.rs:490 src/window/mod.rs:755
+msgid "Copy"
+msgstr "Kopyala"
+
+#: src/dialogs/bucket.rs:476
+msgid ""
+"{n} selected items are copied to the destination. Data is streamed through "
+"this computer, so it also works between different providers and accounts."
+msgstr "Seçili {n} öğe hedefe kopyalanır. Veri bu bilgisayar üzerinden aktarılır, bu yüzden farklı sağlayıcılar ve hesaplar arasında da çalışır."
+
+#: src/dialogs/bucket.rs:477
+msgid "(this connection)"
+msgstr "(bu bağlantı)"
+
+#: src/dialogs/bucket.rs:478
+msgid "Destination connection"
+msgstr "Hedef bağlantı"
+
+#: src/dialogs/bucket.rs:480 src/pages/backups.rs:316
+msgid "Destination bucket"
+msgstr "Hedef bucket"
+
+#: src/dialogs/bucket.rs:481 src/pages/backups.rs:317
+msgid "Destination folder (optional)"
+msgstr "Hedef klasör (isteğe bağlı)"
+
+#: src/dialogs/bucket.rs:482 src/dialogs/bucket.rs:490
+msgid "Move"
+msgstr "Taşı"
+
+#: src/dialogs/bucket.rs:482
+msgid "Delete the source objects after they are copied"
+msgstr "Kopyalandıktan sonra kaynak nesneleri sil"
+
+#: src/dialogs/bucket.rs:498 src/pages/backups.rs:368
+msgid "A destination bucket is required"
+msgstr "Hedef bucket gerekli"
+
+#: src/dialogs/bucket.rs:502
+msgid "The destination cannot be the same location as the source"
+msgstr "Hedef, kaynakla aynı konum olamaz"
+
+#: src/dialogs/bucket.rs:528 src/window/actions.rs:548
+msgid "{n} object could not be copied"
+msgid_plural "{n} objects could not be copied"
+msgstr[0] "{n} nesne kopyalanamadı"
+msgstr[1] "{n} nesne kopyalanamadı"
+
+#: src/dialogs/bucket.rs:529
+msgid "Objects moved"
+msgstr "Nesneler taşındı"
+
+#: src/dialogs/bucket.rs:529 src/window/actions.rs:551
+msgid "Objects copied"
+msgstr "Nesneler kopyalandı"
+
+#: src/dialogs/bucket.rs:563 data/resources/ui/window.blp:831
+msgid "Deleted Objects"
+msgstr "Silinen Nesneler"
+
+#: src/dialogs/bucket.rs:566
+msgid "Restore All"
+msgstr "Tümünü Geri Yükle"
+
+#: src/dialogs/bucket.rs:584
+msgid "No Deleted Objects"
+msgstr "Silinen Nesne Yok"
+
+#: src/dialogs/bucket.rs:585
+msgid ""
+"Deleted objects can be restored only in buckets with versioning turned on."
+msgstr "Silinen nesneler yalnızca sürümlemesi açık bucket’larda geri yüklenebilir."
+
+#: src/dialogs/bucket.rs:590
+msgid "Deleted Objects Could Not Be Listed"
+msgstr "Silinen Nesneler Listelenemedi"
+
+#: src/dialogs/bucket.rs:597
+msgid "{n} deleted object"
+msgid_plural "{n} deleted objects"
+msgstr[0] "{n} silinmiş nesne"
+msgstr[1] "{n} silinmiş nesne"
+
+#: src/dialogs/bucket.rs:601
+msgid "Deleted {date}"
+msgstr "Silinme: {date}"
+
+#: src/dialogs/bucket.rs:602
+msgid "Restore"
+msgstr "Geri Yükle"
+
+#: src/dialogs/bucket.rs:609
+msgid "Object restored"
+msgstr "Nesne geri yüklendi"
+
+#: src/dialogs/bucket.rs:628
+msgid "{n} object restored"
+msgid_plural "{n} objects restored"
+msgstr[0] "{n} nesne geri yüklendi"
+msgstr[1] "{n} nesne geri yüklendi"
+
+#: src/dialogs/bucket.rs:629
+msgid "All Objects Restored"
+msgstr "Tüm Nesneler Geri Yüklendi"
+
+#: src/dialogs/bucket.rs:644
+msgid "Upload new and changed files"
+msgstr "Yeni ve değişen dosyaları yükle"
+
+#: src/dialogs/bucket.rs:644
+msgid "New and changed files are uploaded; nothing is deleted from the bucket."
+msgstr "Yeni ve değişen dosyalar yüklenir; bucket'tan hiçbir şey silinmez."
+
+#: src/dialogs/bucket.rs:645
+msgid "Upload and mirror"
+msgstr "Yükle ve aynala"
+
+#: src/dialogs/bucket.rs:645
+msgid ""
+"New and changed files are uploaded, then objects that are no longer in the "
+"folder are deleted from the bucket. Nothing is deleted if the source folder "
+"is empty."
+msgstr "Yeni ve değişen dosyalar yüklenir, ardından artık klasörde olmayan nesneler bucket’tan silinir. Kaynak klasör boşsa hiçbir şey silinmez."
+
+#: src/dialogs/bucket.rs:646
+msgid "Download new and changed objects"
+msgstr "Yeni ve değişen nesneleri indir"
+
+#: src/dialogs/bucket.rs:646
+msgid ""
+"New and changed objects are downloaded into the folder; nothing is deleted "
+"locally."
+msgstr "Yeni ve değişen nesneler klasöre indirilir; yerelde hiçbir şey silinmez."
+
+#: src/dialogs/bucket.rs:647
+msgid "Download and mirror"
+msgstr "İndir ve aynala"
+
+#: src/dialogs/bucket.rs:647
+msgid ""
+"New and changed objects are downloaded, then local files that have no object "
+"anymore are deleted from the folder. Nothing is deleted when the location "
+"has no objects."
+msgstr "Yeni ve değişen nesneler indirilir, ardından artık nesnesi olmayan yerel dosyalar klasörden silinir. Konumda hiç nesne yoksa hiçbir şey silinmez."
+
+#: src/dialogs/bucket.rs:649
+msgid "Sync a Local Folder"
+msgstr "Yerel Klasörü Eşitle"
+
+#: src/dialogs/bucket.rs:649
+msgid "You choose the local folder next. Location: {path}"
+msgstr "Sonraki adımda yerel klasörü seçeceksiniz. Konum: {path}"
+
+#: src/dialogs/bucket.rs:679
+msgid "Already in sync; {n} file is up to date"
+msgid_plural "Already in sync; {n} files are up to date"
+msgstr[0] "Zaten eşit; {n} dosya güncel"
+msgstr[1] "Zaten eşit; {n} dosya güncel"
+
+#: src/dialogs/bucket.rs:692
+msgid "{t} transferred, {s} up to date, {d} deleted"
+msgstr "{t} aktarıldı, {s} güncel, {d} silindi"
+
+#: src/dialogs/bucket.rs:693 src/pages/backups.rs:198 src/window/actions.rs:208
+msgid "{n} file could not be transferred"
+msgid_plural "{n} files could not be transferred"
+msgstr[0] "{n} dosya aktarılamadı"
+msgstr[1] "{n} dosya aktarılamadı"
+
+#: src/dialogs/bucket.rs:707
+msgid "{n} file will be downloaded ({size})."
+msgid_plural "{n} files will be downloaded ({size})."
+msgstr[0] "{n} dosya indirilecek ({size})."
+msgstr[1] "{n} dosya indirilecek ({size})."
+
+#: src/dialogs/bucket.rs:709
+msgid "{n} file will be uploaded ({size})."
+msgid_plural "{n} files will be uploaded ({size})."
+msgstr[0] "{n} dosya yüklenecek ({size})."
+msgstr[1] "{n} dosya yüklenecek ({size})."
+
+#: src/dialogs/bucket.rs:714
+msgid "{n} local file will be deleted."
+msgid_plural "{n} local files will be deleted."
+msgstr[0] "{n} yerel dosya SİLİNECEK."
+msgstr[1] "{n} yerel dosya SİLİNECEK."
+
+#: src/dialogs/bucket.rs:716
+msgid "{n} object will be deleted from the bucket."
+msgid_plural "{n} objects will be deleted from the bucket."
+msgstr[0] "{n} nesne bucket’tan SİLİNECEK."
+msgstr[1] "{n} nesne bucket’tan SİLİNECEK."
+
+#: src/dialogs/bucket.rs:719
+msgid "Review Changes"
+msgstr "Değişiklikleri Gözden Geçir"
+
+#: src/dialogs/bucket.rs:734
+msgid "and {n} more"
+msgstr "ve {n} tane daha"
+
+#: src/dialogs/bucket.rs:739
+msgid "Sync"
+msgstr "Eşitle"
+
+#: src/dialogs/connection.rs:16
+msgid "Other S3-compatible"
+msgstr "Diğer S3 uyumlu"
+
+#: src/dialogs/connection.rs:58 src/dialogs/connection.rs:61
+msgid "Provider default"
+msgstr "Sağlayıcı varsayılanı"
+
+#: src/dialogs/connection.rs:66
+msgid "Edit Connection"
+msgstr "Bağlantıyı Düzenle"
+
+#: src/dialogs/connection.rs:66 data/resources/ui/window.blp:42
+msgid "New Connection"
+msgstr "Yeni Bağlantı"
+
+#: src/dialogs/connection.rs:84 data/resources/ui/profile-dialog.blp:77
+msgid "AWS CLI Profile"
+msgstr "AWS CLI Profili"
+
+#: src/dialogs/connection.rs:115 data/resources/ui/profile-dialog.blp:148
+msgid "System certificates only"
+msgstr "Yalnızca sistem sertifikaları"
+
+#: src/dialogs/connection.rs:144
+msgid "For example"
+msgstr "Örneğin"
+
+#: src/dialogs/connection.rs:145
+msgid "Endpoint (optional)"
+msgstr "Uç nokta (isteğe bağlı)"
+
+#: src/dialogs/connection.rs:145
+msgid "Endpoint (derived from the project ref if empty)"
+msgstr "Uç nokta (boşsa proje kimliğinden türetilir)"
+
+#: src/dialogs/connection.rs:145 data/resources/ui/profile-dialog.blp:54
+msgid "Endpoint"
+msgstr "Uç nokta"
+
+#: src/dialogs/connection.rs:226
+msgid "Certificates"
+msgstr "Sertifikalar"
+
+#: src/dialogs/connection.rs:231
+msgid "Choose Certificate"
+msgstr "Sertifika Seç"
+
+#: src/dialogs/connection.rs:237
+msgid "The file is not a PEM certificate"
+msgstr "Dosya bir PEM sertifikası değil"
+
+#: src/dialogs/connection.rs:257
+msgid "Testing…"
+msgstr "Test ediliyor…"
+
+#: src/dialogs/connection.rs:264
+msgid "An MFA code is needed to test this connection"
+msgstr "Bu bağlantıyı denemek için bir MFA kodu gerekiyor"
+
+#: src/dialogs/connection.rs:269 data/resources/ui/profile-dialog.blp:178
+msgid "Test Connection"
+msgstr "Bağlantıyı Test Et"
+
+#: src/dialogs/connection.rs:272
+msgid "Connection works"
+msgstr "Bağlantı çalışıyor"
+
+#: src/dialogs/connection.rs:273
+msgid "Connection failed"
+msgstr "Bağlantı başarısız"
+
+#: src/dialogs/connection.rs:298
+msgid "Trust This Certificate?"
+msgstr "Bu Sertifikaya Güvenilsin mi?"
+
+#: src/dialogs/connection.rs:299
+msgid ""
+"The system does not know the certificate of {host}. Trust it only if this "
+"fingerprint matches the one of your server, for example as shown by its "
+"administrator:"
+msgstr "Sistem {host} sunucusunun sertifikasını tanımıyor. Yalnızca bu parmak izi sunucunuzunkiyle, örneğin yöneticisinin gösterdiğiyle eşleşiyorsa güvenin:"
+
+#: src/dialogs/connection.rs:302
+msgid "_Trust"
+msgstr "_Güven"
+
+#: src/dialogs/connection.rs:325
+msgid "Unencrypted Connection?"
+msgstr "Şifresiz Bağlantı mı?"
+
+#: src/dialogs/connection.rs:326
+msgid ""
+"This endpoint uses http:// instead of https://. Files, session tokens and "
+"share links can be read or changed on the way. Use https:// unless the "
+"server is in a network you trust."
+msgstr "Bu uç nokta https:// yerine http:// kullanıyor. Dosyalar, oturum belirteçleri ve paylaşım bağlantıları yolda okunabilir ya da değiştirilebilir. Sunucu güvendiğiniz bir ağda değilse https:// kullanın."
+
+#: src/dialogs/connection.rs:327
+msgid "Save Anyway"
+msgstr "Yine de Kaydet"
+
+#: src/dialogs/connection.rs:335 src/dialogs/import_apps.rs:122
+msgid "Keyring Unavailable"
+msgstr "Anahtarlık Kullanılamıyor"
+
+#: src/dialogs/connection.rs:336 src/dialogs/import_apps.rs:123
+msgid ""
+"The system keyring could not be opened, so the secret key cannot be stored "
+"safely. It can be saved in a file only you can read, which is less safe. It "
+"moves to the keyring as soon as one works."
+msgstr "Sistem anahtarlığı açılamadı, bu yüzden gizli anahtar güvenle saklanamıyor. Yalnızca sizin okuyabileceğiniz bir dosyaya kaydedilebilir; bu daha az güvenlidir. Anahtarlık çalışır çalışmaz oraya taşınır."
+
+#: src/dialogs/connection.rs:337 src/dialogs/import_apps.rs:124
+msgid "Save in File"
+msgstr "Dosyaya Kaydet"
+
+#: src/dialogs/connection.rs:357
+msgid "Enter MFA Code"
+msgstr "MFA Kodunu Girin"
+
+#: src/dialogs/connection.rs:358
+msgid "“{name}” assumes a role that needs a code from your MFA device."
+msgstr "“{name}”, MFA cihazınızdan kod isteyen bir rolü üstleniyor."
+
+#: src/dialogs/connection.rs:360 src/window/actions.rs:755
+msgid "Code"
+msgstr "Kod"
+
+#: src/dialogs/connection.rs:363
+msgid "Connect"
+msgstr "Bağlan"
+
+#: src/dialogs/connection.rs:382
+msgid "MFA Failed"
+msgstr "MFA Başarısız"
+
+#: src/dialogs/connection.rs:383
+msgid "_Try Again"
+msgstr "_Yeniden Dene"
+
+#: src/dialogs/import_apps.rs:17
+msgid "AWS CLI profile “{name}”"
+msgstr "“{name}” AWS CLI profili"
+
+#: src/dialogs/import_apps.rs:23
+msgid "with access keys"
+msgstr "erişim anahtarlarıyla"
+
+#: src/dialogs/import_apps.rs:26
+msgid "a connection with this name exists"
+msgstr "bu adda bir bağlantı var"
+
+#: src/dialogs/import_apps.rs:34
+msgid "Import From Other Apps"
+msgstr "Diğer Uygulamalardan İçe Aktar"
+
+#: src/dialogs/import_apps.rs:37
+msgid "_Import"
+msgstr "_İçe Aktar"
+
+#: src/dialogs/import_apps.rs:44 data/resources/ui/window.blp:72
+msgid "Connections"
+msgstr "Bağlantılar"
+
+#: src/dialogs/import_apps.rs:45
+msgid ""
+"From rclone, s3cmd, Cyberduck bookmarks and the AWS CLI. Access keys found "
+"in them are stored in the system keyring; the files stay as they are."
+msgstr "rclone, s3cmd, Cyberduck yer imleri ve AWS CLI’dan. İçlerinde bulunan erişim anahtarları sistem anahtarlığında saklanır; dosyalar olduğu gibi kalır."
+
+#: src/dialogs/import_apps.rs:46
+msgid "Choose File…"
+msgstr "Dosya Seç…"
+
+#: src/dialogs/import_apps.rs:51
+msgid "No Connections Found"
+msgstr "Bağlantı Bulunamadı"
+
+#: src/dialogs/import_apps.rs:52
+msgid ""
+"No settings of rclone, s3cmd, Cyberduck or the AWS CLI were found on this "
+"computer. Choose a file to import from."
+msgstr "Bu bilgisayarda rclone, s3cmd, Cyberduck ya da AWS CLI ayarı bulunamadı. İçe aktarılacak bir dosya seçin."
+
+#: src/dialogs/import_apps.rs:93
+msgid "Choose File"
+msgstr "Dosya Seç"
+
+#: src/dialogs/import_apps.rs:100
+msgid "No S3 connections were found in this file"
+msgstr "Bu dosyada S3 bağlantısı bulunamadı"
+
+#: src/dialogs/import_apps.rs:138
+msgid "{n} connection imported"
+msgid_plural "{n} connections imported"
+msgstr[0] "{n} bağlantı içe aktarıldı"
+msgstr[1] "{n} bağlantı içe aktarıldı"
+
+#: src/dialogs/preview.rs:31
+msgid "Previous"
+msgstr "Önceki"
+
+#: src/dialogs/preview.rs:32 src/window/vault.rs:158
+msgid "Next"
+msgstr "Sonraki"
+
+#: src/dialogs/preview.rs:36 src/window/mod.rs:748 src/window/mod.rs:2198
+msgid "Open With Default Application"
+msgstr "Varsayılan Uygulamayla Aç"
+
+#: src/dialogs/preview.rs:37 src/window/mod.rs:750 src/window/mod.rs:2098
+msgid "Download…"
+msgstr "İndir…"
+
+#: src/dialogs/preview.rs:38 src/window/mod.rs:760 src/window/mod.rs:2200
+msgid "Share Link…"
+msgstr "Bağlantı Paylaş…"
+
+#: src/dialogs/preview.rs:40
+msgid "Copy Image"
+msgstr "Görseli Kopyala"
+
+#: src/dialogs/preview.rs:49
+msgid "Image copied"
+msgstr "Görsel kopyalandı"
+
+#: src/dialogs/preview.rs:97
+msgid "This image could not be shown"
+msgstr "Bu görsel gösterilemedi"
+
+#: src/dialogs/preview.rs:147
+msgid "Showing the first {size} of {total}"
+msgstr "{total} dosyanın ilk {size} kısmı gösteriliyor"
+
+#: src/dialogs/preview.rs:159
+msgid "No preview for this file type"
+msgstr "Bu dosya türü için önizleme yok"
+
+#: src/dialogs/preview.rs:240
+msgid "{n} file"
+msgid_plural "{n} files"
+msgstr[0] "{n} dosya"
+msgstr[1] "{n} dosya"
+
+#: src/dialogs/preview.rs:241
+msgid "{size} when extracted"
+msgstr "Açıldığında {size}"
+
+#: src/dialogs/preview.rs:309
+msgid "{n} row shown"
+msgid_plural "{n} rows shown"
+msgstr[0] "{n} satır gösteriliyor"
+msgstr[1] "{n} satır gösteriliyor"
+
+#: src/dialogs/share.rs:38
+msgid "Share {n} File"
+msgid_plural "Share {n} Files"
+msgstr[0] "{n} Dosyayı Paylaş"
+msgstr[1] "{n} Dosyayı Paylaş"
+
+#: src/dialogs/share.rs:39
+msgid ""
+"Anyone with a link can download its file until the link expires. The links "
+"are copied as a list."
+msgstr "Bağlantıya sahip olan herkes, bağlantının süresi dolana kadar dosyasını indirebilir. Bağlantılar liste olarak kopyalanır."
+
+#: src/dialogs/share.rs:40 src/dialogs/share.rs:76 src/dialogs/share.rs:130
+msgid "15 minutes"
+msgstr "15 dakika"
+
+#: src/dialogs/share.rs:40 src/dialogs/share.rs:76 src/dialogs/share.rs:130
+msgid "1 hour"
+msgstr "1 saat"
+
+#: src/dialogs/share.rs:40 src/dialogs/share.rs:76 src/dialogs/share.rs:130
+msgid "1 day"
+msgstr "1 gün"
+
+#: src/dialogs/share.rs:40 src/dialogs/share.rs:76 src/dialogs/share.rs:130
+msgid "7 days"
+msgstr "7 gün"
+
+#: src/dialogs/share.rs:40 src/dialogs/share.rs:76 src/dialogs/share.rs:130
+msgid "5 minutes"
+msgstr "5 dakika"
+
+#: src/dialogs/share.rs:41 src/dialogs/share.rs:77 src/dialogs/share.rs:131
+msgid "Valid for"
+msgstr "Geçerlilik süresi"
+
+#: src/dialogs/share.rs:45
+msgid "Copy Links"
+msgstr "Bağlantıları Kopyala"
+
+#: src/dialogs/share.rs:61
+msgid "{n} link copied"
+msgid_plural "{n} links copied"
+msgstr[0] "{n} bağlantı kopyalandı"
+msgstr[1] "{n} bağlantı kopyalandı"
+
+#: src/dialogs/share.rs:70
+msgid "Share {name}"
+msgstr "{name} Paylaş"
+
+#: src/dialogs/share.rs:75
+msgid ""
+"Anyone with the link can download this object until it expires. No account "
+"is needed."
+msgstr "Bağlantıya sahip olan herkes, süresi dolana kadar bu nesneyi indirebilir. Hesap gerekmez."
+
+#: src/dialogs/share.rs:78 src/dialogs/share.rs:138
+msgid "Web Address"
+msgstr "Web adresi"
+
+#: src/dialogs/share.rs:78
+msgid "Creating…"
+msgstr "Oluşturuluyor…"
+
+#: src/dialogs/share.rs:79 src/dialogs/share.rs:139
+msgid "Copy Link"
+msgstr "Bağlantıyı Kopyala"
+
+#: src/dialogs/share.rs:84
+msgid "QR Code"
+msgstr "QR Kodu"
+
+#: src/dialogs/share.rs:84
+msgid "Scan with a phone camera to open the link"
+msgstr "Bağlantıyı açmak için telefon kamerasıyla okutun"
+
+#: src/dialogs/share.rs:116 src/dialogs/share.rs:180
+msgid "Link copied"
+msgstr "Bağlantı kopyalandı"
+
+#: src/dialogs/share.rs:123
+msgid "Upload Link"
+msgstr "Yükleme Bağlantısı"
+
+#: src/dialogs/share.rs:128
+msgid ""
+"Anyone with the link can upload one file to {path} until it expires. The "
+"file gets the name below; uploading again replaces it."
+msgstr "Bağlantıya sahip olan herkes, süresi dolana kadar {path} konumuna bir dosya yükleyebilir. Dosya aşağıdaki adı alır; yeniden yüklemek öncekinin yerine geçer."
+
+#: src/dialogs/share.rs:129
+msgid "File name"
+msgstr "Dosya adı"
+
+#: src/dialogs/share.rs:132
+msgid "Create Link"
+msgstr "Bağlantı Oluştur"
+
+#: src/dialogs/share.rs:141
+msgid "Command"
+msgstr "Komut"
+
+#: src/dialogs/share.rs:142
+msgid "Copy Command"
+msgstr "Komutu Kopyala"
+
+#: src/dialogs/share.rs:181
+msgid "Command copied"
+msgstr "Komut kopyalandı"
+
+#: src/pages/analyzer.rs:27 src/pages/analyzer.rs:36
+msgid "Storage Analyzer"
+msgstr "Depolama Analizi"
+
+#: src/pages/analyzer.rs:30 src/window/mod.rs:1497
+msgid "Analyze"
+msgstr "Analiz Et"
+
+#: src/pages/analyzer.rs:37
+msgid ""
+"Scans every object below the open folder and shows which folders, file types "
+"and duplicate copies take up the space. Nothing is changed."
+msgstr "Açık klasörün altındaki tüm nesneleri tarar ve alanı hangi klasörlerin, dosya türlerinin ve kopyaların kapladığını gösterir. Hiçbir şey değiştirilmez."
+
+#: src/pages/analyzer.rs:88
+msgid "The scan stopped at {n} objects; totals are incomplete."
+msgstr "Tarama {n} nesnede durdu; toplamlar eksik."
+
+#: src/pages/analyzer.rs:90
+msgid "Summary"
+msgstr "Özet"
+
+#: src/pages/analyzer.rs:92
+msgid "Total size"
+msgstr "Toplam boyut"
+
+#: src/pages/analyzer.rs:93 src/window/mod.rs:2088
+msgid "Objects"
+msgstr "Nesneler"
+
+#: src/pages/analyzer.rs:94
+msgid "Duplicate copies"
+msgstr "Yinelenen kopyalar"
+
+#: src/pages/analyzer.rs:95
+msgid "Average object"
+msgstr "Ortalama nesne"
+
+#: src/pages/analyzer.rs:109
+msgid "{n} object"
+msgid_plural "{n} objects"
+msgstr[0] "{n} nesne"
+msgstr[1] "{n} nesne"
+
+#: src/pages/analyzer.rs:129
+msgid "(files in this folder)"
+msgstr "(bu klasördeki dosyalar)"
+
+#: src/pages/analyzer.rs:129 src/pages/analyzer.rs:130
+#: src/pages/analyzer.rs:132
+msgid "Other"
+msgstr "Diğer"
+
+#: src/pages/analyzer.rs:130
+msgid "(no extension)"
+msgstr "(uzantısız)"
+
+#: src/pages/analyzer.rs:131 src/window/actions.rs:757
+msgid "Last 30 days"
+msgstr "Son 30 gün"
+
+#: src/pages/analyzer.rs:131
+msgid "30–90 days"
+msgstr "30–90 gün"
+
+#: src/pages/analyzer.rs:131
+msgid "90 days – 1 year"
+msgstr "90 gün – 1 yıl"
+
+#: src/pages/analyzer.rs:131
+msgid "Older than 1 year"
+msgstr "1 yıldan eski"
+
+#: src/pages/analyzer.rs:133
+msgid "By Folder"
+msgstr "Klasöre Göre"
+
+#: src/pages/analyzer.rs:134
+msgid "By File Type"
+msgstr "Dosya Türüne Göre"
+
+#: src/pages/analyzer.rs:135
+msgid "By Last Change"
+msgstr "Son Değişikliğe Göre"
+
+#: src/pages/analyzer.rs:136
+msgid "By Storage Class"
+msgstr "Depolama Sınıfına Göre"
+
+#: src/pages/analyzer.rs:138
+msgid "Largest Objects"
+msgstr "En Büyük Nesneler"
+
+#: src/pages/analyzer.rs:140
+msgid "Show in Browser"
+msgstr "Tarayıcıda Göster"
+
+#: src/pages/analyzer.rs:148
+msgid "Duplicate Objects"
+msgstr "Yinelenen Nesneler"
+
+#: src/pages/analyzer.rs:148
+msgid "Same ETag and size"
+msgstr "Aynı ETag ve boyut"
+
+#: src/pages/analyzer.rs:150
+msgid "{n} copy · {size} each"
+msgid_plural "{n} copies · {size} each"
+msgstr[0] "{n} kopya · her biri {size}"
+msgstr[1] "{n} kopya · her biri {size}"
+
+#: src/pages/analyzer.rs:151
+msgid "{size} wasted"
+msgstr "{size} boşa gidiyor"
+
+#: src/pages/analyzer.rs:161
+msgid "No duplicate objects found."
+msgstr "Yinelenen nesne bulunamadı."
+
+#: src/pages/analyzer.rs:165
+msgid "Incomplete Uploads"
+msgstr "Tamamlanmamış Yüklemeler"
+
+#: src/pages/analyzer.rs:165
+msgid "Unfinished multipart uploads; not visible as objects but still stored"
+msgstr "Bitmemiş çok parçalı yüklemeler; nesne olarak görünmez ama yer kaplar"
+
+#: src/pages/analyzer.rs:167
+msgid "This server does not list incomplete uploads."
+msgstr "Bu sunucu tamamlanmamış yüklemeleri listelemiyor."
+
+#: src/pages/analyzer.rs:171
+msgid "recent, kept"
+msgstr "yeni, korunuyor"
+
+#: src/pages/analyzer.rs:175
+msgid "No incomplete uploads."
+msgstr "Tamamlanmamış yükleme yok."
+
+#: src/pages/analyzer.rs:179
+msgid "Clean Up Older Than 1 Day ({n})"
+msgstr "1 Günden Eskileri Temizle ({n})"
+
+#: src/pages/analyzer.rs:184
+msgid "Remove Incomplete Uploads?"
+msgstr "Tamamlanmamış Yüklemeler Kaldırılsın mı?"
+
+#: src/pages/analyzer.rs:184
+msgid "{n} upload will be removed permanently."
+msgid_plural "{n} uploads will be removed permanently."
+msgstr[0] "{n} yükleme kalıcı olarak kaldırılacak."
+msgstr[1] "{n} yükleme kalıcı olarak kaldırılacak."
+
+#: src/pages/analyzer.rs:190
+msgid "{n} incomplete upload removed"
+msgid_plural "{n} incomplete uploads removed"
+msgstr[0] "{n} tamamlanmamış yükleme kaldırıldı"
+msgstr[1] "{n} tamamlanmamış yükleme kaldırıldı"
+
+#: src/pages/backups.rs:58
+msgid "Manual only"
+msgstr "Yalnızca elle"
+
+#: src/pages/backups.rs:58
+msgid "Every 15 minutes"
+msgstr "15 dakikada bir"
+
+#: src/pages/backups.rs:58
+msgid "Every hour"
+msgstr "Saatte bir"
+
+#: src/pages/backups.rs:58
+msgid "Every 6 hours"
+msgstr "6 saatte bir"
+
+#: src/pages/backups.rs:58
+msgid "Every day"
+msgstr "Her gün"
+
+#: src/pages/backups.rs:119
+msgid "No backup jobs yet"
+msgstr "Henüz yedekleme işi yok"
+
+#: src/pages/backups.rs:119
+msgid "Link a local folder to a bucket of this connection above."
+msgstr "Yukarıdan yerel bir klasörü bu bağlantının bir bucket'ına bağlayın."
+
+#: src/pages/backups.rs:127
+msgid "never ran"
+msgstr "hiç çalışmadı"
+
+#: src/pages/backups.rs:128
+msgid "Mirror"
+msgstr "Ayna"
+
+#: src/pages/backups.rs:128 src/pages/backups.rs:318
+msgid "Add and update only"
+msgstr "Yalnızca ekle ve güncelle"
+
+#: src/pages/backups.rs:129
+msgid "Watching for changes"
+msgstr "Değişiklikler izleniyor"
+
+#: src/pages/backups.rs:137
+msgid "Run Now"
+msgstr "Şimdi Çalıştır"
+
+#: src/pages/backups.rs:140 src/pages/backups.rs:321
+msgid "Back up changes automatically"
+msgstr "Değişiklikleri kendiliğinden yedekle"
+
+#: src/pages/backups.rs:156
+msgid "Delete Backup Job?"
+msgstr "Yedekleme İşi Silinsin mi?"
+
+#: src/pages/backups.rs:156
+msgid "“{name}” is removed. Files already backed up stay in the bucket."
+msgstr "“{name}” kaldırılacak. Daha önce yedeklenen dosyalar bucket'ta kalır."
+
+#: src/pages/backups.rs:181
+msgid "The connection of this job was deleted"
+msgstr "Bu işin bağlantısı silinmiş"
+
+#: src/pages/backups.rs:197
+msgid "{t} uploaded, {s} up to date, {d} deleted"
+msgstr "{t} yüklendi, {s} güncel, {d} silindi"
+
+#: src/pages/backups.rs:303
+msgid ""
+"Metered connection: scheduled and automatic backups wait until it is not"
+msgstr "Ölçülü bağlantı: zamanlanmış ve otomatik yedeklemeler bağlantı ölçülü olmaktan çıkana kadar bekler"
+
+#: src/pages/backups.rs:305
+msgid "Power Saver is on: scheduled and automatic backups wait until it is off"
+msgstr "Güç Tasarrufu açık: zamanlanmış ve otomatik yedeklemeler kapanana kadar bekler"
+
+#: src/pages/backups.rs:313
+msgid "New Backup Job"
+msgstr "Yeni Yedekleme İşi"
+
+#: src/pages/backups.rs:314
+msgid ""
+"Scheduled backups run only while the application is running, including in "
+"the background."
+msgstr "Zamanlanmış yedekler yalnızca uygulama çalışırken (arka plan dahil) yapılır."
+
+#: src/pages/backups.rs:315
+msgid "Backup name"
+msgstr "Yedek adı"
+
+#: src/pages/backups.rs:318
+msgid "Sync type"
+msgstr "Eşitleme türü"
+
+#: src/pages/backups.rs:318
+msgid "Mirror: delete extras from the bucket"
+msgstr "Ayna: fazlalıkları bucket'tan sil"
+
+#: src/pages/backups.rs:320
+msgid "Schedule"
+msgstr "Zamanlama"
+
+#: src/pages/backups.rs:321
+msgid "Changed files are uploaded a few seconds after they are saved"
+msgstr "Değişen dosyalar kaydedildikten birkaç saniye sonra yüklenir"
+
+#: src/pages/backups.rs:322
+msgid "Choose Folder and Create…"
+msgstr "Klasör Seç ve Oluştur…"
+
+#: src/pages/backups.rs:324
+msgid ""
+"Objects that are no longer in the folder are deleted from the bucket. "
+"Nothing is deleted if the folder is empty."
+msgstr "Artık klasörde olmayan nesneler bucket’tan silinir. Klasör boşsa hiçbir şey silinmez."
+
+#: src/pages/backups.rs:330
+msgid "Backup Jobs"
+msgstr "Yedekleme İşleri"
+
+#: src/pages/backups.rs:364 src/pages/compatibility.rs:155
+msgid "Connect to a storage service first"
+msgstr "Önce bir depolama servisine bağlanın"
+
+#: src/pages/backups.rs:367
+msgid "A backup name is required"
+msgstr "Yedek adı gerekli"
+
+#: src/pages/backups.rs:373
+msgid "Folder to Back Up"
+msgstr "Yedeklenecek Klasör"
+
+#: src/pages/backups.rs:383
+msgid "Backup job created"
+msgstr "Yedekleme işi oluşturuldu"
+
+#: src/pages/compatibility.rs:47
+msgid "Needs an earlier step that did not succeed"
+msgstr "Başarısız olan önceki bir adıma bağlı"
+
+#: src/pages/compatibility.rs:54
+msgid "{n} bucket"
+msgid_plural "{n} buckets"
+msgstr[0] "{n} bucket"
+msgstr[1] "{n} bucket"
+
+#: src/pages/compatibility.rs:61 src/window/mod.rs:700 src/window/mod.rs:1003
+#: src/window/mod.rs:1190
+msgid "{n} item"
+msgid_plural "{n} items"
+msgstr[0] "{n} öğe"
+msgstr[1] "{n} öğe"
+
+#: src/pages/compatibility.rs:64
+msgid "never enabled"
+msgstr "hiç açılmadı"
+
+#: src/pages/compatibility.rs:73 src/pages/compatibility.rs:81
+msgid "{n} grant"
+msgid_plural "{n} grants"
+msgstr[0] "{n} izin"
+msgstr[1] "{n} izin"
+
+#: src/pages/compatibility.rs:75 src/s3/mod.rs:44 src/s3/mod.rs:49
+msgid "This provider does not support this feature"
+msgstr "Bu sağlayıcı bu özelliği desteklemiyor"
+
+#: src/pages/compatibility.rs:75
+msgid "{n} upload"
+msgid_plural "{n} uploads"
+msgstr[0] "{n} yükleme"
+msgstr[1] "{n} yükleme"
+
+#: src/pages/compatibility.rs:79 src/window/mod.rs:2224
+msgid "{n} byte"
+msgid_plural "{n} bytes"
+msgstr[0] "{n} bayt"
+msgstr[1] "{n} bayt"
+
+#: src/pages/compatibility.rs:80
+msgid "{n} tag"
+msgid_plural "{n} tags"
+msgstr[0] "{n} etiket"
+msgstr[1] "{n} etiket"
+
+#: src/pages/compatibility.rs:82
+msgid "{n} version"
+msgid_plural "{n} versions"
+msgstr[0] "{n} sürüm"
+msgstr[1] "{n} sürüm"
+
+#: src/pages/compatibility.rs:105
+msgid "{n} deleted"
+msgstr "{n} silindi"
+
+#: src/pages/compatibility.rs:136
+msgid "Compatibility Test"
+msgstr "Uyumluluk Testi"
+
+#: src/pages/compatibility.rs:137
+msgid ""
+"Calls every S3 operation this application uses and shows which ones the "
+"provider supports. Write tests create temporary objects under {dir} in the "
+"open bucket and remove them afterwards."
+msgstr "Bu uygulamanın kullandığı tüm S3 işlemlerini çağırır ve sağlayıcının hangilerini desteklediğini gösterir. Yazma testleri açık bucket'ta {dir} altında geçici nesneler oluşturur ve sonra kaldırır."
+
+#: src/pages/compatibility.rs:138
+msgid "Include write tests"
+msgstr "Yazma testlerini dahil et"
+
+#: src/pages/compatibility.rs:138
+msgid "Uploads, copies and deletes temporary objects"
+msgstr "Geçici nesneleri yükler, kopyalar ve siler"
+
+#: src/pages/compatibility.rs:139
+msgid "Run Test"
+msgstr "Testi Çalıştır"
+
+#: src/pages/compatibility.rs:140
+msgid "Copy Report"
+msgstr "Raporu Kopyala"
+
+#: src/pages/compatibility.rs:150
+msgid "Report copied"
+msgstr "Rapor kopyalandı"
+
+#: src/pages/compatibility.rs:159
+msgid "Running…"
+msgstr "Çalışıyor…"
+
+#: src/pages/compatibility.rs:164
+msgid "Testing"
+msgstr "Deneniyor"
+
+#: src/pages/compatibility.rs:165
+msgid "Connecting…"
+msgstr "Bağlanılıyor…"
+
+#: src/pages/compatibility.rs:179
+msgid "S3 compatibility report"
+msgstr "S3 uyumluluk raporu"
+
+#: src/pages/compatibility.rs:186
+msgid "Tested {name}"
+msgstr "{name} denendi"
+
+#: src/pages/compatibility.rs:187 src/pages/compatibility.rs:219
+msgid "{n} check done"
+msgid_plural "{n} checks done"
+msgstr[0] "{n} denetim yapıldı"
+msgstr[1] "{n} denetim yapıldı"
+
+#: src/pages/compatibility.rs:196
+msgid "Supported"
+msgstr "Destekleniyor"
+
+#: src/pages/compatibility.rs:197
+msgid "Unsupported"
+msgstr "Desteklenmiyor"
+
+#: src/pages/compatibility.rs:198
+msgid "Access denied"
+msgstr "Erişim reddedildi"
+
+#: src/pages/compatibility.rs:199
+msgid "Skipped"
+msgstr "Atlandı"
+
+#: src/pages/compatibility.rs:200
+msgid "Error"
+msgstr "Hata"
+
+#: src/pages/compatibility.rs:216
+msgid "Result"
+msgstr "Sonuç"
+
+#: src/pages/compatibility.rs:217
+msgid ""
+"{ok} supported, {no} unsupported or skipped, {denied} denied, {error} failed"
+msgstr "{ok} destekleniyor, {no} desteklenmiyor ya da atlandı, {denied} reddedildi, {error} başarısız"
+
+#: src/pages/compatibility.rs:222
+msgid "Run Again"
+msgstr "Yeniden Çalıştır"
+
+#: src/pages/recent.rs:109
+msgid "Search all connections"
+msgstr "Tüm bağlantılarda ara"
+
+#: src/pages/recent.rs:139
+msgid "No Results Found"
+msgstr "Sonuç Bulunamadı"
+
+#: src/pages/recent.rs:140
+msgid ""
+"Only objects in folders opened before are found. Open a bucket to search "
+"inside it completely."
+msgstr "Yalnızca daha önce açılmış klasörlerdeki nesneler bulunur. Bir bucket’ın içinde tamamen aramak için onu açın."
+
+#: src/pages/recent.rs:144
+msgid "{n} result"
+msgid_plural "{n} results"
+msgstr[0] "{n} sonuç"
+msgstr[1] "{n} sonuç"
+
+#: src/pages/recent.rs:164 src/pages/recent.rs:170
+msgid "Earlier"
+msgstr "Daha Önce"
+
+#: src/pages/recent.rs:167
+msgid "Today"
+msgstr "Bugün"
+
+#: src/pages/recent.rs:168
+msgid "Yesterday"
+msgstr "Dün"
+
+#: src/pages/recent.rs:176
+msgid "Uploaded"
+msgstr "Yüklendi"
+
+#: src/pages/recent.rs:177
+msgid "Downloaded"
+msgstr "İndirildi"
+
+#: src/pages/recent.rs:178
+msgid "Previewed"
+msgstr "Önizlendi"
+
+#: src/pages/recent.rs:179
+msgid "Opened"
+msgstr "Açıldı"
+
+#: src/pages/recent.rs:192
+msgid "Objects you open, preview, upload or download appear here."
+msgstr "Açtığınız, önizlediğiniz, yüklediğiniz ya da indirdiğiniz nesneler burada görünür."
+
+#: src/pages/recent.rs:192
+msgid "File history is turned off in the privacy settings."
+msgstr "Dosya geçmişi gizlilik ayarlarında kapalı."
+
+#: src/pages/recent.rs:193
+msgid "No Recent Objects"
+msgstr "Son Kullanılan Nesne Yok"
+
+#: src/pages/recent.rs:203
+msgid "Clear History"
+msgstr "Geçmişi Temizle"
+
+#: src/pages/recent.rs:225
+msgid "Remove from Recent"
+msgstr "Son Kullanılanlardan Kaldır"
+
+#: src/pages/recent.rs:233
+msgid "{n} recent object"
+msgid_plural "{n} recent objects"
+msgstr[0] "{n} son kullanılan nesne"
+msgstr[1] "{n} son kullanılan nesne"
+
+#: src/profile.rs:181
+msgid "The saved access key could not be read from the keyring"
+msgstr "Kayıtlı erişim anahtarı anahtarlıktan okunamadı"
+
+#: src/profile.rs:200
+msgid "The connection needs a name"
+msgstr "Bağlantının bir adı olmalı"
+
+#: src/profile.rs:261
+msgid "No random numbers are available"
+msgstr "Rastgele sayı üretilemiyor"
+
+#: src/s3/access.rs:92
+msgid "The provider did not report the owner; permissions cannot be edited"
+msgstr "Sağlayıcı sahibi bildirmedi; izinler düzenlenemiyor"
+
+#: src/s3/access.rs:95
+msgid "Too many permission entries"
+msgstr "Çok fazla izin kaydı var"
+
+#: src/s3/access.rs:100
+msgid ""
+"A permission entry is invalid: the grantee is empty or the permission is "
+"unknown"
+msgstr "Bir izin kaydı geçersiz: izin verilen boş veya izin türü tanınmıyor"
+
+#: src/s3/access.rs:157
+msgid "The retention mode must be GOVERNANCE or COMPLIANCE"
+msgstr "Saklama kipi GOVERNANCE veya COMPLIANCE olmalı"
+
+#: src/s3/access.rs:160
+msgid "The retention date must be in the future"
+msgstr "Saklama tarihi gelecekte olmalı"
+
+#: src/s3/access.rs:181
+msgid "The restore must last between 1 and 365 days"
+msgstr "Geri yükleme 1 ile 365 gün arasında sürmeli"
+
+#: src/s3/access.rs:218
+msgid "Give the retention period in days or in years, not both"
+msgstr "Saklama süresini gün veya yıl olarak verin, ikisini birden değil"
+
+#: src/s3/access.rs:258
+msgid "The index document must be a file name (for example index.html)"
+msgstr "Dizin belgesi bir dosya adı olmalı (örneğin index.html)"
+
+#: src/s3/access.rs:307
+msgid "CloudFront is only available for Amazon S3 connections"
+msgstr "CloudFront yalnızca Amazon S3 bağlantılarında kullanılabilir"
+
+#: src/s3/access.rs:331
+msgid "At least one path is needed (at most 100); paths start with /"
+msgstr "En az bir yol gerekli (en fazla 100); yollar / ile başlar"
+
+#: src/s3/connection.rs:118
+msgid "No credentials were found to assume the role with"
+msgstr "Rolü üstlenmek için kimlik bilgisi bulunamadı"
+
+#: src/s3/connection.rs:146
+msgid "The MFA code is wrong or expired, or the role does not allow you"
+msgstr "MFA kodu yanlış ya da süresi dolmuş, veya rol size izin vermiyor"
+
+#: src/s3/connection.rs:149
+msgid "The role gave no credentials"
+msgstr "Rol kimlik bilgisi vermedi"
+
+#: src/s3/connection.rs:218
+msgid "Only https:// endpoints have certificates"
+msgstr "Yalnızca https:// uç noktalarının sertifikası olur"
+
+#: src/s3/connection.rs:221 src/s3/connection.rs:229
+msgid "Invalid endpoint"
+msgstr "Geçersiz uç nokta"
+
+#: src/s3/connection.rs:231 src/s3/connection.rs:233
+msgid "The server did not answer"
+msgstr "Sunucu yanıt vermedi"
+
+#: src/s3/connection.rs:234 src/s3/connection.rs:235
+msgid "The server presented no certificate"
+msgstr "Sunucu sertifika sunmadı"
+
+#: src/s3/mod.rs:63
+msgid ""
+"The service could not be reached; check the network connection and the "
+"endpoint address"
+msgstr "Hizmete ulaşılamadı; ağ bağlantısını ve uç nokta adresini denetleyin"
+
+#: src/s3/mod.rs:64
+msgid "The service did not answer in time"
+msgstr "Hizmet zamanında yanıt vermedi"
+
+#: src/s3/mod.rs:72
+msgid "Access denied: these credentials may not do this here"
+msgstr "Erişim reddedildi: bu kimlik bilgilerinin burada bunu yapma izni yok"
+
+#: src/s3/mod.rs:73
+msgid ""
+"The service does not know this access key; check the connection settings"
+msgstr "Hizmet bu erişim anahtarını tanımıyor; bağlantı ayarlarını denetleyin"
+
+#: src/s3/mod.rs:74
+msgid ""
+"The secret key does not match the access key; check the connection settings"
+msgstr "Gizli anahtar erişim anahtarıyla eşleşmiyor; bağlantı ayarlarını denetleyin"
+
+#: src/s3/mod.rs:75
+msgid ""
+"The computer’s clock is too far off; turn on automatic date and time in "
+"Settings"
+msgstr "Bilgisayarın saati çok sapmış; Ayarlar’da otomatik tarih ve saati açın"
+
+#: src/s3/mod.rs:76
+msgid "The bucket does not exist, or it is in another region"
+msgstr "Bucket yok ya da başka bir bölgede"
+
+#: src/s3/mod.rs:77
+msgid "The object no longer exists"
+msgstr "Nesne artık yok"
+
+#: src/s3/mod.rs:78
+msgid "The file is larger than the service allows"
+msgstr "Dosya, hizmetin izin verdiğinden büyük"
+
+#: src/s3/mod.rs:79
+msgid "The service asks to slow down; it is tried again shortly"
+msgstr "Hizmet yavaşlamayı istiyor; kısa süre sonra yeniden denenecek"
+
+#: src/s3/mod.rs:80
+msgid "The session token has expired; enter new credentials"
+msgstr "Oturum belirtecinin süresi doldu; yeni kimlik bilgileri girin"
+
+#: src/s3/mod.rs:81
+msgid "This bucket name is already taken; bucket names are shared by everyone"
+msgstr "Bu bucket adı alınmış; bucket adları herkes için ortaktır"
+
+#: src/s3/mod.rs:82
+msgid "You already have a bucket with this name"
+msgstr "Bu adla zaten bir bucket’ınız var"
+
+#: src/s3/mod.rs:83
+msgid "The bucket is not empty; delete its objects first"
+msgstr "Bucket boş değil; önce nesnelerini silin"
+
+#: src/s3/mod.rs:84
+msgid ""
+"The bucket name is not valid: use 3–63 lowercase letters, digits, dots and "
+"hyphens"
+msgstr "Bucket adı geçersiz: 3–63 küçük harf, rakam, nokta ve kısa çizgi kullanın"
+
+#: src/s3/mod.rs:85
+msgid "The storage quota of the account is used up"
+msgstr "Hesabın depolama kotası doldu"
+
+#: src/s3/mod.rs:259
+msgid "The connection of this transfer was deleted"
+msgstr "Bu aktarımın bağlantısı silinmiş"
+
+#: src/s3/mod.rs:261
+msgid ""
+"The MFA session of this connection ended. Connect again to enter a new code."
+msgstr "Bu bağlantının MFA oturumu sona erdi. Yeni bir kod girmek için yeniden bağlanın."
+
+#: src/s3/mod.rs:326
+msgid "An endpoint is required for this provider"
+msgstr "Bu sağlayıcı için uç nokta gerekli"
+
+#: src/s3/mod.rs:360
+msgid "{ms} ms"
+msgstr "{ms} ms"
+
+#: src/s3/mod.rs:362
+msgid "Connection successful: {n} bucket"
+msgid_plural "Connection successful: {n} buckets"
+msgstr[0] "Bağlantı başarılı: {n} bucket"
+msgstr[1] "Bağlantı başarılı: {n} bucket"
+
+#: src/s3/mod.rs:367
+msgid "Connection successful: bucket “{name}” is reachable"
+msgstr "Bağlantı başarılı: “{name}” bucket'ına erişilebiliyor"
+
+#: src/s3/mod.rs:493
+msgid "The object changed after it was opened. Open it again and retry."
+msgstr "Nesne açıldıktan sonra değişti. Yeniden açıp tekrar deneyin."
+
+#: src/s3/mod.rs:517 src/s3/vault.rs:357 src/s3/vault.rs:439
+msgid "“{name}” already exists"
+msgstr "“{name}” zaten var"
+
+#: src/s3/mod.rs:806
+msgid "The storage class of {n} object could not be changed"
+msgid_plural "The storage class of {n} objects could not be changed"
+msgstr[0] "{n} nesnenin depolama sınıfı değiştirilemedi"
+msgstr[1] "{n} nesnenin depolama sınıfı değiştirilemedi"
+
+#: src/s3/mod.rs:836
+msgid ""
+"The uploaded object differs from the file; it was damaged on the way. Upload "
+"it again."
+msgstr "Yüklenen nesne dosyadan farklı; yolda bozulmuş. Yeniden yükleyin."
+
+#: src/s3/mod.rs:959
+msgid "Part {n} was damaged on the way. Try the upload again."
+msgstr "{n}. parça yolda bozuldu. Yüklemeyi yeniden deneyin."
+
+#: src/s3/mod.rs:1086
+msgid "The connection ended before the download was complete"
+msgstr "Bağlantı, indirme tamamlanmadan sona erdi"
+
+#: src/s3/mod.rs:1173
+msgid ""
+"The checksum of the downloaded file does not match (expected {expected}…, "
+"got {actual}…); the file was not saved"
+msgstr "İndirilen dosyanın sağlama toplamı tutmuyor ({expected}… bekleniyordu, {actual}… geldi); dosya kaydedilmedi"
+
+#: src/s3/mod.rs:1564
+msgid "Object name must stay within the selected download directory"
+msgstr "Nesne adı seçilen indirme klasörünün dışına çıkamaz"
+
+#: src/s3/tools.rs:120
+msgid "At most {n} tags can be set"
+msgstr "En fazla {n} etiket eklenebilir"
+
+#: src/s3/tools.rs:125
+msgid ""
+"A tag key cannot be empty; keys are limited to 128 and values to 256 "
+"characters"
+msgstr "Etiket anahtarı boş olamaz; anahtar 128, değer 256 karakteri geçemez"
+
+#: src/s3/tools.rs:146
+msgid "The rule text is too large"
+msgstr "Kural metni çok büyük"
+
+#: src/s3/tools.rs:153
+msgid "a JSON array is expected"
+msgstr "JSON dizisi bekleniyor"
+
+#: src/s3/tools.rs:153 src/s3/tools.rs:154 src/s3/tools.rs:346
+#: src/s3/tools.rs:381
+msgid "The rules could not be read: {error}"
+msgstr "Kurallar okunamadı: {error}"
+
+#: src/s3/tools.rs:325
+msgid "The policy must be a valid JSON document of at most 20 KB"
+msgstr "İlke geçerli bir JSON belgesi olmalı ve 20 KB'ı geçmemeli"
+
+#: src/s3/tools.rs:554
+msgid ""
+"The source folder is empty or unavailable; deleting {n} objects was prevented"
+msgstr "Kaynak klasör boş veya erişilemiyor; {n} nesnenin silinmesi engellendi"
+
+#: src/s3/tools.rs:597
+msgid ""
+"This location has no objects; mirror mode stopped because it would empty the "
+"local folder"
+msgstr "Bu konumda nesne yok; ayna kipi yerel klasörü boşaltacağı için durduruldu"
+
+#: src/s3/tools.rs:624
+msgid "The folder {path} is not available"
+msgstr "{path} klasörüne erişilemiyor"
+
+#: src/s3/vault.rs:70
+msgid "Wrong password"
+msgstr "Parola yanlış"
+
+#: src/s3/vault.rs:71 src/s3/vault.rs:315
+msgid "The encrypted data is damaged or was changed"
+msgstr "Şifreli veri bozuk ya da değiştirilmiş"
+
+#: src/s3/vault.rs:77
+msgid "This is not available inside a Cryptomator vault"
+msgstr "Bu, Cryptomator kasası içinde kullanılamaz"
+
+#: src/s3/vault.rs:84
+msgid "The vault configuration is damaged"
+msgstr "Kasa yapılandırması bozuk"
+
+#: src/s3/vault.rs:102
+msgid "This folder is a vault already"
+msgstr "Bu klasör zaten bir kasa"
+
+#: src/s3/vault.rs:140
+msgid "The folder “{name}” was not found in the vault"
+msgstr "“{name}” klasörü kasada bulunamadı"
+
+#: src/s3/vault.rs:394
+msgid "The vault itself cannot be emptied this way; delete its folder instead"
+msgstr "Kasanın kendisi bu yolla boşaltılamaz; bunun yerine klasörünü silin"
+
+#: src/transfers/external.rs:77
+msgid "Open With"
+msgstr "Birlikte Aç"
+
+#: src/transfers/external.rs:86
+msgid "Default application"
+msgstr "Varsayılan uygulama"
+
+#: src/transfers/external.rs:103 src/transfers/external.rs:128
+msgid ""
+"This file type is not opened with an application for safety; download it and "
+"open it yourself"
+msgstr "Bu dosya türü güvenlik nedeniyle bir uygulamayla açılmaz; indirip kendiniz açın"
+
+#: src/transfers/external.rs:113
+msgid "At most {n} objects can be open in other applications at the same time"
+msgstr "Aynı anda en fazla {n} nesne başka uygulamalarda açık olabilir"
+
+#: src/transfers/external.rs:153
+msgid "Opened in the default application; it is uploaded again when you save"
+msgstr "Varsayılan uygulamada açıldı; kaydettiğinizde yeniden yüklenir"
+
+#: src/transfers/external.rs:169
+msgid "{name} changed and was uploaded again"
+msgstr "{name} değişti ve yeniden yüklendi"
+
+#: src/transfers/external.rs:172
+msgid "{name} could not be uploaded again: {error}"
+msgstr "{name} yeniden yüklenemedi: {error}"
+
+#: src/transfers/mount.rs:499
+msgid "Mounting is not possible inside the Flatpak sandbox"
+msgstr "Flatpak korumalı alanında bağlama yapılamaz"
+
+#: src/transfers/mount.rs:502
+msgid "This system has no FUSE support (/dev/fuse)"
+msgstr "Bu sistemde FUSE desteği yok (/dev/fuse)"
+
+#: src/transfers/mount.rs:505
+msgid "At most {n} mounts can be active at the same time"
+msgstr "Aynı anda en fazla {n} bağlama olabilir"
+
+#: src/transfers/mount.rs:513
+msgid "The mount folder is not empty: {path}"
+msgstr "Bağlama klasörü boş değil: {path}"
+
+#: src/transfers/mount.rs:527
+msgid "Mounting failed: {error}"
+msgstr "Bağlama başarısız: {error}"
+
+#: src/transfers/mount.rs:553
+msgid "No such mount"
+msgstr "Böyle bir bağlama yok"
+
+#: src/transfers/mount.rs:555
+msgid "Unmounting failed (the folder may be in use): {error}"
+msgstr "Ayırma başarısız (klasör kullanımda olabilir): {error}"
+
+#: src/transfers/queue.rs:368
+msgid "Connection problem; trying again in {n} s"
+msgstr "Bağlantı sorunu; {n} sn sonra yeniden denenecek"
+
+#: src/transfers/view.rs:16
+msgid "Unlimited"
+msgstr "Sınırsız"
+
+#: src/transfers/view.rs:24
+msgid "{n} s left"
+msgstr "{n} sn kaldı"
+
+#: src/transfers/view.rs:25
+msgid "{n} min left"
+msgstr "{n} dk kaldı"
+
+#: src/transfers/view.rs:26
+msgid "{h} h {m} min left"
+msgstr "{h} sa {m} dk kaldı"
+
+#: src/transfers/view.rs:34
+msgid "{r} running, {q} queued"
+msgstr "{r} çalışıyor, {q} sırada"
+
+#: src/transfers/view.rs:43
+msgid "{n} paused"
+msgstr "{n} duraklatıldı"
+
+#: src/transfers/view.rs:46
+msgid "{n} failed"
+msgstr "{n} başarısız"
+
+#: src/transfers/view.rs:49
+msgid "Queue is empty"
+msgstr "Kuyruk boş"
+
+#: src/transfers/view.rs:52 src/transfers/view.rs:89 src/transfers/view.rs:90
+msgid "Paused"
+msgstr "Duraklatıldı"
+
+#: src/transfers/view.rs:74
+msgid "Queued"
+msgstr "Sırada"
+
+#: src/transfers/view.rs:181 src/transfers/view.rs:332
+msgid "Pause the queue: running transfers finish, no new ones start"
+msgstr "Kuyruğu duraklat: süren aktarımlar biter, yenileri başlamaz"
+
+#: src/transfers/view.rs:182 src/transfers/view.rs:227
+msgid "Find a transfer"
+msgstr "Aktarım bul"
+
+#: src/transfers/view.rs:189
+msgid "Simultaneous transfers"
+msgstr "Eşzamanlı aktarımlar"
+
+#: src/transfers/view.rs:191
+msgid "Speed limit"
+msgstr "Hız sınırı"
+
+#: src/transfers/view.rs:196
+msgid "Queue Settings"
+msgstr "Kuyruk Ayarları"
+
+#: src/transfers/view.rs:202
+msgid "Pause All"
+msgstr "Tümünü Duraklat"
+
+#: src/transfers/view.rs:203
+msgid "Resume All"
+msgstr "Tümünü Sürdür"
+
+#: src/transfers/view.rs:204
+msgid "Retry Failed"
+msgstr "Başarısızları Yeniden Dene"
+
+#: src/transfers/view.rs:205
+msgid "Cancel Queued"
+msgstr "Sıradakileri İptal Et"
+
+#: src/transfers/view.rs:206
+msgid "Cancel All"
+msgstr "Tümünü İptal Et"
+
+#: src/transfers/view.rs:209
+msgid "Clear Finished"
+msgstr "Bitenleri Temizle"
+
+#: src/transfers/view.rs:210
+msgid "Clear All Inactive"
+msgstr "Etkin Olmayanların Hepsini Temizle"
+
+#: src/transfers/view.rs:212
+msgid "Queue Menu"
+msgstr "Kuyruk Menüsü"
+
+#: src/transfers/view.rs:217
+msgid "All"
+msgstr "Tümü"
+
+#: src/transfers/view.rs:217
+msgid "Active"
+msgstr "Etkin"
+
+#: src/transfers/view.rs:217
+msgid "Failed"
+msgstr "Başarısız"
+
+#: src/transfers/view.rs:217
+msgid "Done"
+msgstr "Tamamlanan"
+
+#: src/transfers/view.rs:290
+msgid "No Transfers"
+msgstr "Aktarım Yok"
+
+#: src/transfers/view.rs:290
+msgid "Uploads, downloads and copies appear here."
+msgstr "Yüklemeler, indirmeler ve kopyalamalar burada görünür."
+
+#: src/transfers/view.rs:332
+msgid "Resume the queue"
+msgstr "Kuyruğu sürdür"
+
+#: src/transfers/view.rs:368 src/transfers/view.rs:505
+msgid "Move to Front"
+msgstr "En Öne Al"
+
+#: src/transfers/view.rs:369 src/transfers/view.rs:513
+#: src/transfers/view.rs:561
+msgid "Pause"
+msgstr "Duraklat"
+
+#: src/transfers/view.rs:372
+msgid "More"
+msgstr "Daha Fazla"
+
+#: src/transfers/view.rs:432
+msgid ""
+"This file type is not opened with an application for safety; open it from "
+"GNOME Files if you trust it"
+msgstr "Bu dosya türü güvenlik için bir uygulamayla açılmaz; güveniyorsanız GNOME Dosyalar’dan açın"
+
+#: src/transfers/view.rs:506
+msgid "Move Up"
+msgstr "Yukarı Taşı"
+
+#: src/transfers/view.rs:507
+msgid "Move Down"
+msgstr "Aşağı Taşı"
+
+#: src/transfers/view.rs:508
+msgid "Move to End"
+msgstr "En Sona Taşı"
+
+#: src/transfers/view.rs:514 src/transfers/view.rs:561
+#: src/window/actions.rs:254
+msgid "Resume"
+msgstr "Sürdür"
+
+#: src/transfers/view.rs:516
+msgid "Copy Error"
+msgstr "Hatayı Kopyala"
+
+#: src/transfers/view.rs:517
+msgid "Show in Bucket"
+msgstr "Bucket’ta Göster"
+
+#: src/transfers/view.rs:519 src/window/mod.rs:2096 src/window/mod.rs:3013
+msgid "Open"
+msgstr "Aç"
+
+#: src/transfers/view.rs:520
+msgid "Open Containing Folder"
+msgstr "Bulunduğu Klasörü Aç"
+
+#: src/transfers/view.rs:522
+msgid "Remove from List"
+msgstr "Listeden Kaldır"
+
+#: src/window/actions.rs:50
+msgid "copy"
+msgstr "kopya"
+
+#: src/window/actions.rs:77
+msgid ""
+"Public address copied; it works only when the bucket or object allows public "
+"reading"
+msgstr "Herkese açık adres kopyalandı; yalnızca bucket ya da nesne herkese açık okumaya izin veriyorsa çalışır"
+
+#: src/window/actions.rs:83
+msgid "Only text files can be copied as text"
+msgstr "Yalnızca metin dosyaları metin olarak kopyalanabilir"
+
+#: src/window/actions.rs:84
+msgid "The file is too large to copy as text (at most 1 MB)"
+msgstr "Dosya metin olarak kopyalamak için çok büyük (en fazla 1 MB)"
+
+#: src/window/actions.rs:90
+msgid "Contents of “{name}” copied"
+msgstr "“{name}” içeriği kopyalandı"
+
+#: src/window/actions.rs:91
+msgid "The file is not valid UTF-8 text"
+msgstr "Dosya geçerli bir UTF-8 metni değil"
+
+#: src/window/actions.rs:119
+msgid "AWS CLI command copied"
+msgstr "AWS CLI komutu kopyalandı"
+
+#: src/window/actions.rs:154 src/window/actions.rs:420
+msgid "Location copied"
+msgstr "Konum kopyalandı"
+
+#: src/window/actions.rs:253
+msgid "{n} unfinished transfer from the last session"
+msgid_plural "{n} unfinished transfers from the last session"
+msgstr[0] "Geçen oturumdan {n} bitmemiş aktarım"
+msgstr[1] "Geçen oturumdan {n} bitmemiş aktarım"
+
+#: src/window/actions.rs:327
+msgid "Go to Location"
+msgstr "Konuma Git"
+
+#: src/window/actions.rs:327
+msgid ""
+"A bucket and path, for example s3://bucket/folder/ or bucket/folder/file.txt"
+msgstr "Bucket ve yol, örneğin s3://bucket/klasor/ veya bucket/klasor/dosya.txt"
+
+#: src/window/actions.rs:327
+msgid "Go"
+msgstr "Git"
+
+#: src/window/actions.rs:369
+msgid "No saved connection has a bucket named “{bucket}”"
+msgstr "Kayıtlı hiçbir bağlantıda “{bucket}” adlı bir bucket yok"
+
+#: src/window/actions.rs:444
+msgid "{n} item cut; paste it into another folder"
+msgid_plural "{n} items cut; paste them into another folder"
+msgstr[0] "{n} öğe kesildi; başka bir klasöre yapıştırın"
+msgstr[1] "{n} öğe kesildi; başka bir klasöre yapıştırın"
+
+#: src/window/actions.rs:444
+msgid "{n} item copied"
+msgid_plural "{n} items copied"
+msgstr[0] "{n} öğe kopyalandı"
+msgstr[1] "{n} öğe kopyalandı"
+
+#: src/window/actions.rs:465
+msgid "The picture on the clipboard could not be read"
+msgstr "Panodaki görsel okunamadı"
+
+#: src/window/actions.rs:469
+msgid "Pasted image"
+msgstr "Yapıştırılan görsel"
+
+#: src/window/actions.rs:482 src/window/actions.rs:495
+msgid "Nothing to paste"
+msgstr "Yapıştırılacak bir şey yok"
+
+#: src/window/actions.rs:486
+msgid "Pasted text"
+msgstr "Yapıştırılan metin"
+
+#: src/window/actions.rs:489
+msgid "Pasted as “{name}”"
+msgstr "“{name}” olarak yapıştırıldı"
+
+#: src/window/actions.rs:517
+msgid "A folder cannot be moved into itself"
+msgstr "Bir klasör kendi içine taşınamaz"
+
+#: src/window/actions.rs:552
+msgid "{n} object moved"
+msgid_plural "{n} objects moved"
+msgstr[0] "{n} nesne taşındı"
+msgstr[1] "{n} nesne taşındı"
+
+#: src/window/actions.rs:554 src/window/mod.rs:2378 src/window/mod.rs:2508
+msgid "Undo"
+msgstr "Geri Al"
+
+#: src/window/actions.rs:590
+msgid "{n} object could not be moved back"
+msgid_plural "{n} objects could not be moved back"
+msgstr[0] "{n} nesne geri taşınamadı"
+msgstr[1] "{n} nesne geri taşınamadı"
+
+#: src/window/actions.rs:590
+msgid "Move undone"
+msgstr "Taşıma geri alındı"
+
+#: src/window/actions.rs:693
+msgid "Copying to {bucket}"
+msgstr "{bucket} bucket’ına kopyalanıyor"
+
+#: src/window/actions.rs:755
+msgid "Type"
+msgstr "Tür"
+
+#: src/window/actions.rs:755 src/window/actions.rs:756
+msgid "Any"
+msgstr "Hepsi"
+
+#: src/window/actions.rs:755
+msgid "Folders"
+msgstr "Klasörler"
+
+#: src/window/actions.rs:755
+msgid "Images"
+msgstr "Görseller"
+
+#: src/window/actions.rs:755
+msgid "Videos"
+msgstr "Videolar"
+
+#: src/window/actions.rs:755
+msgid "Audio"
+msgstr "Ses"
+
+#: src/window/actions.rs:755
+msgid "Documents"
+msgstr "Belgeler"
+
+#: src/window/actions.rs:755
+msgid "Archives"
+msgstr "Arşivler"
+
+#: src/window/actions.rs:756 src/window/mod.rs:704 src/window/mod.rs:2087
+#: src/window/mod.rs:2224 data/resources/ui/window.blp:803
+msgid "Size"
+msgstr "Boyut"
+
+#: src/window/actions.rs:756
+msgid "Smaller than 1 MB"
+msgstr "1 MB'tan küçük"
+
+#: src/window/actions.rs:756
+msgid "1 MB – 100 MB"
+msgstr "1 MB – 100 MB"
+
+#: src/window/actions.rs:756
+msgid "Larger than 100 MB"
+msgstr "100 MB'tan büyük"
+
+#: src/window/actions.rs:756 src/window/mod.rs:1672
+msgid "Empty"
+msgstr "Boşalt"
+
+#: src/window/actions.rs:757 src/window/mod.rs:706 src/window/mod.rs:2226
+msgid "Modified"
+msgstr "Değiştirilme"
+
+#: src/window/actions.rs:757
+msgid "Any time"
+msgstr "Her zaman"
+
+#: src/window/actions.rs:757
+msgid "Last 24 hours"
+msgstr "Son 24 saat"
+
+#: src/window/actions.rs:757
+msgid "Last 7 days"
+msgstr "Son 7 gün"
+
+#: src/window/actions.rs:757
+msgid "Older than a year"
+msgstr "Bir yıldan eski"
+
+#: src/window/actions.rs:759 data/resources/ui/window.blp:617
+msgid "Clear Filters"
+msgstr "Süzgeçleri Temizle"
+
+#: src/window/actions.rs:807
+msgid "Transfers are running"
+msgstr "Aktarımlar sürüyor"
+
+#: src/window/mod.rs:195
+msgid "Stop Transfers?"
+msgstr "Aktarımlar Durdurulsun mu?"
+
+#: src/window/mod.rs:195
+msgid ""
+"Transfers are still running. They stop now; uploads and downloads continue "
+"where they stopped the next time Ferry starts."
+msgstr "Aktarımlar hâlâ sürüyor. Şimdi dururlar; yüklemeler ve indirmeler Ferry bir sonraki açılışında kaldıkları yerden devam eder."
+
+#: src/window/mod.rs:245
+msgid "%-e %B %Y, %-l:%M %p"
+msgstr "%-e %B %Y, %-l:%M %p"
+
+#: src/window/mod.rs:245
+msgid "%-e %B %Y, %H:%M"
+msgstr "%-e %B %Y, %H:%M"
+
+#: src/window/mod.rs:472 data/resources/ui/window.blp:310
+msgid "Browser"
+msgstr "Tarayıcı"
+
+#: src/window/mod.rs:472 src/window/mod.rs:1777
+#: data/resources/ui/window.blp:707
+msgid "Recent"
+msgstr "Son Kullanılanlar"
+
+#: src/window/mod.rs:472 src/window/mod.rs:1776
+#: data/resources/ui/window.blp:715
+msgid "Analyzer"
+msgstr "Analiz"
+
+#: src/window/mod.rs:472 src/window/mod.rs:1778
+#: data/resources/ui/window.blp:723
+msgid "Backups"
+msgstr "Yedekler"
+
+#: src/window/mod.rs:472 src/window/mod.rs:1779
+#: data/resources/ui/window.blp:731
+msgid "Compatibility"
+msgstr "Uyumluluk"
+
+#: src/window/mod.rs:733 data/resources/ui/window.blp:246
+msgid "Upload"
+msgstr "Yükle"
+
+#: src/window/mod.rs:746
+msgid "Open in New Tab"
+msgstr "Yeni Sekmede Aç"
+
+#: src/window/mod.rs:747
+msgid "Quick Preview"
+msgstr "Hızlı Önizleme"
+
+#: src/window/mod.rs:749
+msgid "Open With…"
+msgstr "Birlikte Aç…"
+
+#: src/window/mod.rs:751 src/window/mod.rs:784 data/resources/ui/window.blp:826
+msgid "Download as Archive…"
+msgstr "Arşiv Olarak İndir…"
+
+#: src/window/mod.rs:754
+msgid "Cut"
+msgstr "Kes"
+
+#: src/window/mod.rs:756 src/window/mod.rs:779
+msgid "Paste"
+msgstr "Yapıştır"
+
+#: src/window/mod.rs:757
+msgid "Rename…"
+msgstr "Yeniden Adlandır…"
+
+#: src/window/mod.rs:761
+msgid "Copy Public Address"
+msgstr "Herkese Açık Adresi Kopyala"
+
+#: src/window/mod.rs:763
+msgid "S3 Location"
+msgstr "S3 Konumu"
+
+#: src/window/mod.rs:764
+msgid "AWS CLI Command"
+msgstr "AWS CLI Komutu"
+
+#: src/window/mod.rs:765
+msgid "File Contents"
+msgstr "Dosya İçeriği"
+
+#: src/window/mod.rs:766
+msgid "Copy As"
+msgstr "Farklı Kopyala"
+
+#: src/window/mod.rs:775 data/resources/ui/window.blp:820
+msgid "New Folder…"
+msgstr "Yeni Klasör…"
+
+#: src/window/mod.rs:776 data/resources/ui/window.blp:821
+msgid "New Text File…"
+msgstr "Yeni Metin Dosyası…"
+
+#: src/window/mod.rs:780 data/resources/ui/window.blp:771
+msgid "Upload Files…"
+msgstr "Dosya Yükle…"
+
+#: src/window/mod.rs:781 data/resources/ui/window.blp:835
+msgid "Select All"
+msgstr "Tümünü Seç"
+
+#: src/window/mod.rs:785 src/window/mod.rs:1497
+msgid "Copy Location"
+msgstr "Konumu Kopyala"
+
+#: src/window/mod.rs:926 src/window/mod.rs:936 src/window/mod.rs:1814
+#: data/resources/ui/window.blp:613
+msgid "Empty Folder"
+msgstr "Boş Klasör"
+
+#: src/window/mod.rs:927
+msgid "Only hidden files are here. Press Ctrl+H to show them."
+msgstr "Burada yalnızca gizli dosyalar var. Göstermek için Ctrl+H tuşlarına basın."
+
+#: src/window/mod.rs:931
+msgid "No Matches"
+msgstr "Eşleşme Yok"
+
+#: src/window/mod.rs:932
+msgid "No item in this folder matches the filter."
+msgstr "Bu klasörde süzgece uyan öğe yok."
+
+#: src/window/mod.rs:938 data/resources/ui/window.blp:614
+msgid "Drag and drop files here to upload them."
+msgstr "Yüklemek için dosyaları buraya sürükleyip bırakın."
+
+#: src/window/mod.rs:1012
+msgid "Folder"
+msgstr "Klasör"
+
+#: src/window/mod.rs:1147 src/window/mod.rs:1188
+msgid "{n} selected"
+msgstr "{n} seçili"
+
+#: src/window/mod.rs:1380
+msgid "Edit…"
+msgstr "Düzenle…"
+
+#: src/window/mod.rs:1383
+msgid "Duplicate…"
+msgstr "Çoğalt…"
+
+#: src/window/mod.rs:1390
+msgid "Connection Menu"
+msgstr "Bağlantı Menüsü"
+
+#: src/window/mod.rs:1406
+msgid "No usable keyring was found; the access key is stored unencrypted"
+msgstr "Kullanılabilir anahtarlık bulunamadı; erişim anahtarı şifrelenmeden saklanıyor"
+
+#: src/window/mod.rs:1415
+msgid "Delete Connection?"
+msgstr "Bağlantı Silinsin mi?"
+
+#: src/window/mod.rs:1415
+msgid ""
+"“{name}” and its stored credentials will be removed. Buckets are not "
+"affected."
+msgstr "“{name}” ve kayıtlı kimlik bilgileri kaldırılacak. Bucket'lar etkilenmez."
+
+#: src/window/mod.rs:1497 data/resources/ui/window.blp:840
+msgid "Bucket Settings"
+msgstr "Bucket Ayarları"
+
+#: src/window/mod.rs:1497 data/resources/ui/window.blp:829
+msgid "Mount as Folder…"
+msgstr "Klasör Olarak Bağla…"
+
+#: src/window/mod.rs:1503
+msgid "Empty Bucket…"
+msgstr "Bucket’ı Boşalt…"
+
+#: src/window/mod.rs:1508
+msgid "Remove from Connection"
+msgstr "Bağlantıdan Kaldır"
+
+#: src/window/mod.rs:1512
+msgid "Delete Bucket…"
+msgstr "Bucket'ı Sil…"
+
+#: src/window/mod.rs:1520
+msgid "Bucket Menu"
+msgstr "Bucket Menüsü"
+
+#: src/window/mod.rs:1530
+msgid "No buckets"
+msgstr "Bucket yok"
+
+#: src/window/mod.rs:1532
+msgid ""
+"These credentials cannot list buckets. Link a bucket you have access to by "
+"entering its name."
+msgstr "Bu kimlik bilgileri bucket'ları listeleyemiyor. Erişiminiz olan bir bucket'ı adını girerek bağlayın."
+
+#: src/window/mod.rs:1605
+msgid "Link Bucket"
+msgstr "Bucket Bağla"
+
+#: src/window/mod.rs:1605
+msgid ""
+"Enter the name of an existing bucket you can access. Nothing is created; it "
+"is only added to this connection."
+msgstr "Erişebildiğiniz mevcut bir bucket'ın adını girin. Hiçbir şey oluşturulmaz; yalnızca bu bağlantıya eklenir."
+
+#: src/window/mod.rs:1605
+msgid "Link"
+msgstr "Bağla"
+
+#: src/window/mod.rs:1636
+msgid "New Bucket"
+msgstr "Yeni Bucket"
+
+#: src/window/mod.rs:1636 src/window/mod.rs:2013 src/window/mod.rs:2030
+#: src/window/vault.rs:105
+msgid "Create"
+msgstr "Oluştur"
+
+#: src/window/mod.rs:1639
+msgid "Bucket created"
+msgstr "Bucket oluşturuldu"
+
+#: src/window/mod.rs:1649
+msgid ""
+"“{name}” and all objects in it will be deleted permanently. Type the bucket "
+"name to confirm."
+msgstr "“{name}” ve içindeki tüm nesneler kalıcı olarak silinecek. Onaylamak için bucket adını yazın."
+
+#: src/window/mod.rs:1650
+msgid "Delete Bucket?"
+msgstr "Bucket Silinsin mi?"
+
+#: src/window/mod.rs:1658
+msgid "Bucket deleted"
+msgstr "Bucket silindi"
+
+#: src/window/mod.rs:1671
+msgid ""
+"All objects in “{name}” will be deleted permanently; the bucket itself "
+"stays. Type the bucket name to confirm."
+msgstr "“{name}” içindeki tüm nesneler kalıcı olarak silinecek; bucket’ın kendisi kalır. Onaylamak için bucket adını yazın."
+
+#: src/window/mod.rs:1672
+msgid "Empty Bucket?"
+msgstr "Bucket Boşaltılsın mı?"
+
+#: src/window/mod.rs:1675
+msgid "Empty {name}"
+msgstr "{name} boşaltılıyor"
+
+#: src/window/mod.rs:1685
+msgid "{n} object deleted"
+msgid_plural "{n} objects deleted"
+msgstr[0] "{n} nesne silindi"
+msgstr[1] "{n} nesne silindi"
+
+#: src/window/mod.rs:1814
+msgid "No Results"
+msgstr "Sonuç Yok"
+
+#: src/window/mod.rs:1996
+msgid "{n} result for “{q}”"
+msgid_plural "{n} results for “{q}”"
+msgstr[0] "“{q}” için {n} sonuç"
+msgstr[1] "“{q}” için {n} sonuç"
+
+#: src/window/mod.rs:1997
+msgid "Only the first results are shown; narrow the search."
+msgstr "Yalnızca ilk sonuçlar gösteriliyor; aramayı daraltın."
+
+#: src/window/mod.rs:2013
+msgid "New Folder"
+msgstr "Yeni Klasör"
+
+#: src/window/mod.rs:2030
+msgid "New Text File"
+msgstr "Yeni Metin Dosyası"
+
+#: src/window/mod.rs:2030
+msgid "New Document"
+msgstr "Yeni Belge"
+
+#: src/window/mod.rs:2059
+msgid "{n} item selected"
+msgid_plural "{n} items selected"
+msgstr[0] "{n} öğe seçildi"
+msgstr[1] "{n} öğe seçildi"
+
+#: src/window/mod.rs:2063
+msgid "{n} folder not counted"
+msgid_plural "{n} folders not counted"
+msgstr[0] "{n} klasör sayılmadı"
+msgstr[1] "{n} klasör sayılmadı"
+
+#: src/window/mod.rs:2086 src/window/mod.rs:2213
+#: data/resources/ui/window.blp:531
+msgid "Properties"
+msgstr "Özellikler"
+
+#: src/window/mod.rs:2087 src/window/mod.rs:2088 src/window/mod.rs:2251
+msgid "Calculating…"
+msgstr "Hesaplanıyor…"
+
+#: src/window/mod.rs:2154
+msgid "Details Could Not Be Loaded"
+msgstr "Ayrıntılar Yüklenemedi"
+
+#: src/window/mod.rs:2156 data/resources/ui/window.blp:586
+msgid "Try Again"
+msgstr "Tekrar Dene"
+
+#: src/window/mod.rs:2202
+msgid "Copy Key"
+msgstr "Anahtarı Kopyala"
+
+#: src/window/mod.rs:2203
+msgid "Key copied"
+msgstr "Anahtar kopyalandı"
+
+#: src/window/mod.rs:2222
+msgid "Dimensions"
+msgstr "Boyutlar"
+
+#: src/window/mod.rs:2222
+msgid "{w} × {h} pixels"
+msgstr "{w} × {h} piksel"
+
+#: src/window/mod.rs:2230
+msgid "Encryption"
+msgstr "Şifreleme"
+
+#: src/window/mod.rs:2231 src/window/mod.rs:2929
+msgid "Version"
+msgstr "Sürüm"
+
+#: src/window/mod.rs:2235
+msgid "Original file date"
+msgstr "Özgün dosya tarihi"
+
+#: src/window/mod.rs:2242
+msgid "Not calculated"
+msgstr "Hesaplanmadı"
+
+#: src/window/mod.rs:2243
+msgid "Calculate"
+msgstr "Hesapla"
+
+#: src/window/mod.rs:2257
+msgid "SHA-256"
+msgstr "SHA-256"
+
+#: src/window/mod.rs:2267
+msgid "Versions"
+msgstr "Sürümler"
+
+#: src/window/mod.rs:2270
+msgid "Permissions and Retention"
+msgstr "İzinler ve Saklama"
+
+#: src/window/mod.rs:2293
+msgid "Edit"
+msgstr "Düzenle"
+
+#: src/window/mod.rs:2317
+msgid "Changes saved"
+msgstr "Değişiklikler kaydedildi"
+
+#: src/window/mod.rs:2368
+msgid "A name with “/” moves the file into that folder."
+msgstr "“/” içeren bir ad dosyayı o klasöre taşır."
+
+#: src/window/mod.rs:2378
+msgid "Renamed to “{name}”"
+msgstr "Yeni adı “{name}”"
+
+#: src/window/mod.rs:2398
+msgid "Change Storage Class"
+msgstr "Depolama Sınıfını Değiştir"
+
+#: src/window/mod.rs:2398
+msgid "{n} object will be copied in place into the new storage class."
+msgid_plural "{n} objects will be copied in place into the new storage class."
+msgstr[0] "{n} nesne yerinde yeni depolama sınıfına kopyalanacak."
+msgstr[1] "{n} nesne yerinde yeni depolama sınıfına kopyalanacak."
+
+#: src/window/mod.rs:2409
+msgid "Storage class of {n} object changed"
+msgid_plural "Storage class of {n} objects changed"
+msgstr[0] "{n} nesnenin depolama sınıfı değiştirildi"
+msgstr[1] "{n} nesnenin depolama sınıfı değiştirildi"
+
+#: src/window/mod.rs:2421 src/window/mod.rs:2455
+msgid "Edit Headers"
+msgstr "Başlıkları Düzenle"
+
+#: src/window/mod.rs:2422
+msgid "Empty fields keep the current value of the object."
+msgid_plural "Empty fields keep the current value of each of the {n} objects."
+msgstr[0] "Boş alanlar nesnenin mevcut değerini korur."
+msgstr[1] "Boş alanlar, {n} nesnenin her birinin mevcut değerini korur."
+
+#: src/window/mod.rs:2431
+msgid "Common Values"
+msgstr "Yaygın Değerler"
+
+#: src/window/mod.rs:2466
+msgid "{n} objects could not be changed: {error}"
+msgstr "{n} nesne değiştirilemedi: {error}"
+
+#: src/window/mod.rs:2468
+msgid "Headers of {n} object changed"
+msgid_plural "Headers of {n} objects changed"
+msgstr[0] "{n} nesnenin başlıkları değiştirildi"
+msgstr[1] "{n} nesnenin başlıkları değiştirildi"
+
+#: src/window/mod.rs:2484
+msgid "{n} items will be deleted ({f} folders, including their contents)."
+msgstr "{n} öğe silinecek ({f} klasör, içerikleriyle birlikte)."
+
+#: src/window/mod.rs:2486
+msgid "“{name}” will be deleted permanently."
+msgstr "“{name}” kalıcı olarak silinecek."
+
+#: src/window/mod.rs:2488
+msgid "{n} item will be deleted permanently."
+msgid_plural "{n} items will be deleted permanently."
+msgstr[0] "{n} öğe kalıcı olarak silinecek."
+msgstr[1] "{n} öğe kalıcı olarak silinecek."
+
+#: src/window/mod.rs:2494
+msgid "Delete Folder?"
+msgstr "Klasör Silinsin mi?"
+
+#: src/window/mod.rs:2494
+msgid "Delete Items?"
+msgstr "Ögeler Silinsin mi?"
+
+#: src/window/mod.rs:2504
+msgid "“{name}” deleted"
+msgstr "“{name}” silindi"
+
+#: src/window/mod.rs:2506
+msgid "{n} item deleted"
+msgid_plural "{n} items deleted"
+msgstr[0] "{n} öğe silindi"
+msgstr[1] "{n} öğe silindi"
+
+#: src/window/mod.rs:2518
+msgid "Delete {n} item"
+msgid_plural "Delete {n} items"
+msgstr[0] "{n} öğeyi sil"
+msgstr[1] "{n} öğeyi sil"
+
+#: src/window/mod.rs:2539
+msgid "Select Items Matching"
+msgstr "Eşleşen Öğeleri Seç"
+
+#: src/window/mod.rs:2539
+msgid "Use * for any characters and ? for one, for example *.jpg"
+msgstr "Herhangi karakterler için *, tek karakter için ? kullanın; örneğin *.jpg"
+
+#: src/window/mod.rs:2539
+msgid "Select"
+msgstr "Seç"
+
+#: src/window/mod.rs:2551
+msgid "No item matches “{pattern}”"
+msgstr "“{pattern}” ile eşleşen öğe yok"
+
+#: src/window/mod.rs:2560
+msgid "Export List"
+msgstr "Listeyi Dışa Aktar"
+
+#: src/window/mod.rs:2566
+msgid "Listing the folder…"
+msgstr "Klasör listeleniyor…"
+
+#: src/window/mod.rs:2574
+msgid "{n} object exported"
+msgid_plural "{n} objects exported"
+msgstr[0] "{n} nesne dışa aktarıldı"
+msgstr[1] "{n} nesne dışa aktarıldı"
+
+#: src/window/mod.rs:2617
+msgid "Nothing to undo"
+msgstr "Geri alınacak bir şey yok"
+
+#: src/window/mod.rs:2709
+msgid "{n} transfer running"
+msgid_plural "{n} transfers running"
+msgstr[0] "{n} aktarım sürüyor"
+msgstr[1] "{n} aktarım sürüyor"
+
+#: src/window/mod.rs:2711
+msgid "{n} transfer failed"
+msgid_plural "{n} transfers failed"
+msgstr[0] "{n} aktarım başarısız"
+msgstr[1] "{n} aktarım başarısız"
+
+#: src/window/mod.rs:2713
+msgid "Transfers finished"
+msgstr "Aktarımlar tamamlandı"
+
+#: src/window/mod.rs:2717
+msgid "{n} transfer"
+msgid_plural "{n} transfers"
+msgstr[0] "{n} aktarım"
+msgstr[1] "{n} aktarım"
+
+#: src/window/mod.rs:2765
+msgid "Upload Folder"
+msgstr "Klasör Yükle"
+
+#: src/window/mod.rs:2765 data/resources/ui/window.blp:247
+msgid "Upload Files"
+msgstr "Dosya Yükle"
+
+#: src/window/mod.rs:2855
+msgid "Replace “{name}”?"
+msgstr "“{name}” Değiştirilsin mi?"
+
+#: src/window/mod.rs:2856
+msgid ""
+"An object with this name already exists.\n"
+"\n"
+"In the bucket: {old_size}, {old_date}\n"
+"New file: {new_size}, {new_date}"
+msgstr "Bu adda bir nesne zaten var.\n\nBucket'taki: {old_size}, {old_date}\nYeni dosya: {new_size}, {new_date}"
+
+#: src/window/mod.rs:2860
+msgid ""
+"Objects with the same names are already in the bucket. Replacing them "
+"overwrites their content."
+msgstr "Aynı adlı nesneler bucket'ta zaten var. Değiştirmek içeriklerinin üzerine yazar."
+
+#: src/window/mod.rs:2863
+msgid "{n} of the files is newer than its object."
+msgid_plural "{n} of the files are newer than their objects."
+msgstr[0] "Dosyalardan {n} tanesi nesnesinden daha yeni."
+msgstr[1] "Dosyalardan {n} tanesi nesnesinden daha yeni."
+
+#: src/window/mod.rs:2865
+msgid "{n} File Already Exists"
+msgid_plural "{n} Files Already Exist"
+msgstr[0] "{n} Dosya Zaten Var"
+msgstr[1] "{n} Dosya Zaten Var"
+
+#: src/window/mod.rs:2868
+msgid "Skip"
+msgstr "Atla"
+
+#: src/window/mod.rs:2868
+msgid "Keep Both"
+msgstr "İkisini de Koru"
+
+#: src/window/mod.rs:2870
+msgid "Replace Older"
+msgstr "Eskileri Değiştir"
+
+#: src/window/mod.rs:2871
+msgid "Replace"
+msgstr "Değiştir"
+
+#: src/window/mod.rs:2889
+msgid "{n} file could not be uploaded"
+msgid_plural "{n} files could not be uploaded"
+msgstr[0] "{n} dosya yüklenemedi"
+msgstr[1] "{n} dosya yüklenemedi"
+
+#: src/window/mod.rs:2891
+msgid "{n} file uploaded"
+msgid_plural "{n} files uploaded"
+msgstr[0] "{n} dosya yüklendi"
+msgstr[1] "{n} dosya yüklendi"
+
+#: src/window/mod.rs:2893
+msgid "Upload cancelled"
+msgstr "Yükleme iptal edildi"
+
+#: src/window/mod.rs:2911
+msgid "{n} file queued for {path}"
+msgid_plural "{n} files queued for {path}"
+msgstr[0] "{n} dosya {path} için sıraya alındı"
+msgstr[1] "{n} dosya {path} için sıraya alındı"
+
+#: src/window/mod.rs:2923
+msgid "Save Version"
+msgstr "Sürümü Kaydet"
+
+#: src/window/mod.rs:2934 src/window/mod.rs:3105
+msgid "Download finished"
+msgstr "İndirme tamamlandı"
+
+#: src/window/mod.rs:2954
+msgid "Mounted"
+msgstr "Bağlı"
+
+#: src/window/mod.rs:2968
+msgid "read only"
+msgstr "salt okunur"
+
+#: src/window/mod.rs:2970
+msgid "Unmount"
+msgstr "Ayır"
+
+#: src/window/mod.rs:2973
+msgid "Unmounted"
+msgstr "Ayrıldı"
+
+#: src/window/mod.rs:2997
+msgid "Mount as Folder"
+msgstr "Klasör Olarak Bağla"
+
+#: src/window/mod.rs:2998
+msgid ""
+"The location appears as a normal folder in GNOME Files. The mount point is "
+"created in the “Ferry” folder of your home directory."
+msgstr "Konum, GNOME Dosyalar'da normal bir klasör olarak görünür. Bağlama noktası ev dizininizdeki “Ferry” klasöründe oluşturulur."
+
+#: src/window/mod.rs:3000
+msgid "Allow changes"
+msgstr "Değişikliklere izin ver"
+
+#: src/window/mod.rs:3000
+msgid ""
+"Saved files are uploaded when closed; deleting and renaming change the bucket"
+msgstr "Kaydedilen dosyalar kapatılınca yüklenir; silme ve yeniden adlandırma bucket'ı değiştirir"
+
+#: src/window/mod.rs:3003
+msgid "Mount"
+msgstr "Bağla"
+
+#: src/window/mod.rs:3013
+msgid "Mounted at {path}"
+msgstr "{path} konumuna bağlandı"
+
+#: src/window/mod.rs:3045
+msgid "Remove from Favorites"
+msgstr "Sık Kullanılanlardan Kaldır"
+
+#: src/window/mod.rs:3045 data/resources/ui/window.blp:480
+msgid "Add to Favorites"
+msgstr "Sık Kullanılanlara Ekle"
+
+#: src/window/mod.rs:3070
+msgid "Download To"
+msgstr "Şuraya İndir"
+
+#: src/window/mod.rs:3100
+msgid "{n} file could not be downloaded"
+msgid_plural "{n} files could not be downloaded"
+msgstr[0] "{n} dosya indirilemedi"
+msgstr[1] "{n} dosya indirilemedi"
+
+#: src/window/mod.rs:3103
+msgid "Download Finished"
+msgstr "İndirme Tamamlandı"
+
+#: src/window/mod.rs:3103
+msgid "{n} file downloaded"
+msgid_plural "{n} files downloaded"
+msgstr[0] "{n} dosya indirildi"
+msgstr[1] "{n} dosya indirildi"
+
+#: src/window/mod.rs:3141
+msgid "Download as Archive"
+msgstr "Arşiv Olarak İndir"
+
+#: src/window/mod.rs:3166
+msgid "There is nothing to put in the archive"
+msgstr "Arşive konacak bir şey yok"
+
+#: src/window/mod.rs:3175
+msgid "“{name}” is ready"
+msgstr "“{name}” hazır"
+
+#: src/window/mod.rs:3193
+msgid "Files are uploaded to {path}"
+msgstr "Dosyalar {path} konumuna yüklenecek"
+
+#: src/window/tabs.rs:133 data/resources/ui/window.blp:382
+msgid "No Bucket Open"
+msgstr "Açık Bucket Yok"
+
+#: src/window/vault.rs:48
+msgid ""
+"Cryptomator vault, unlocked. Names and files are decrypted on this computer "
+"only."
+msgstr "Cryptomator kasası açık. Adlar ve dosyalar yalnızca bu bilgisayarda çözülür."
+
+#: src/window/vault.rs:49
+msgid "_Lock"
+msgstr "_Kilitle"
+
+#: src/window/vault.rs:53
+msgid "This folder is a Cryptomator vault"
+msgstr "Bu klasör bir Cryptomator kasası"
+
+#: src/window/vault.rs:54
+msgid "_Unlock…"
+msgstr "_Kilidi Aç…"
+
+#: src/window/vault.rs:90
+msgid "Vault locked"
+msgstr "Kasa kilitlendi"
+
+#: src/window/vault.rs:132
+msgid "Unlock Vault"
+msgstr "Kasanın Kilidini Aç"
+
+#: src/window/vault.rs:132
+msgid "Enter the password of the vault “{name}”."
+msgstr "“{name}” kasasının parolasını girin."
+
+#: src/window/vault.rs:144
+msgid "Vault unlocked"
+msgstr "Kasanın kilidi açıldı"
+
+#: src/window/vault.rs:152
+msgid "A vault cannot be made inside another vault"
+msgstr "Bir kasa başka bir kasanın içinde oluşturulamaz"
+
+#: src/window/vault.rs:158
+msgid "New Vault"
+msgstr "Yeni Kasa"
+
+#: src/window/vault.rs:158
+msgid ""
+"A Cryptomator vault encrypts names and contents on this computer, before "
+"they are uploaded. The Cryptomator apps open it too."
+msgstr "Cryptomator kasası, adları ve içerikleri yüklenmeden önce bu bilgisayarda şifreler. Cryptomator uygulamaları da onu açabilir."
+
+#: src/window/vault.rs:158
+msgid "Vault"
+msgstr "Kasa"
+
+#: src/window/vault.rs:161
+msgid "A vault name cannot contain “/”"
+msgstr "Kasa adı “/” içeremez"
+
+#: src/window/vault.rs:164
+msgid "Vault Password"
+msgstr "Kasa Parolası"
+
+#: src/window/vault.rs:165
+msgid ""
+"Use at least 8 characters. Nobody can open the vault without this password, "
+"and it cannot be recovered."
+msgstr "En az 8 karakter kullanın. Bu parola olmadan kasayı kimse açamaz ve parola kurtarılamaz."
+
+#: src/window/vault.rs:173
+msgid "Vault created"
+msgstr "Kasa oluşturuldu"
+
+#: data/resources/ui/help-overlay.blp:11
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Genel"
+
+#: data/resources/ui/help-overlay.blp:14
+msgctxt "shortcut window"
+msgid "New connection"
+msgstr "Yeni bağlantı"
+
+#: data/resources/ui/help-overlay.blp:19
+msgctxt "shortcut window"
+msgid "Go to location"
+msgstr "Konuma git"
+
+#: data/resources/ui/help-overlay.blp:24
+msgctxt "shortcut window"
+msgid "Preferences"
+msgstr "Tercihler"
+
+#: data/resources/ui/help-overlay.blp:29
+msgctxt "shortcut window"
+msgid "Keyboard shortcuts"
+msgstr "Klavye kısayolları"
+
+#: data/resources/ui/help-overlay.blp:34
+msgctxt "shortcut window"
+msgid "Close tab or window"
+msgstr "Sekmeyi ya da pencereyi kapat"
+
+#: data/resources/ui/help-overlay.blp:39
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "Çık"
+
+#: data/resources/ui/help-overlay.blp:45
+msgctxt "shortcut window"
+msgid "Navigation"
+msgstr "Gezinme"
+
+#: data/resources/ui/help-overlay.blp:48
+msgctxt "shortcut window"
+msgid "New tab"
+msgstr "Yeni sekme"
+
+#: data/resources/ui/help-overlay.blp:53
+msgctxt "shortcut window"
+msgid "Next or previous tab"
+msgstr "Sonraki ya da önceki sekme"
+
+#: data/resources/ui/help-overlay.blp:58
+msgctxt "shortcut window"
+msgid "Back"
+msgstr "Geri"
+
+#: data/resources/ui/help-overlay.blp:63
+msgctxt "shortcut window"
+msgid "Forward"
+msgstr "İleri"
+
+#: data/resources/ui/help-overlay.blp:68
+msgctxt "shortcut window"
+msgid "Parent folder"
+msgstr "Üst klasör"
+
+#: data/resources/ui/help-overlay.blp:73
+msgctxt "shortcut window"
+msgid "List view"
+msgstr "Liste görünümü"
+
+#: data/resources/ui/help-overlay.blp:78
+msgctxt "shortcut window"
+msgid "Grid view"
+msgstr "Izgara görünümü"
+
+#: data/resources/ui/help-overlay.blp:83
+msgctxt "shortcut window"
+msgid "Show hidden files"
+msgstr "Gizli dosyaları göster"
+
+#: data/resources/ui/help-overlay.blp:88
+msgctxt "shortcut window"
+msgid "Larger or smaller grid items"
+msgstr "Izgara öğelerini büyüt ya da küçült"
+
+#: data/resources/ui/help-overlay.blp:93
+msgctxt "shortcut window"
+msgid "Refresh"
+msgstr "Yenile"
+
+#: data/resources/ui/help-overlay.blp:98
+msgctxt "shortcut window"
+msgid "Filter and search"
+msgstr "Süz ve ara"
+
+#: data/resources/ui/help-overlay.blp:103
+msgctxt "shortcut window"
+msgid "Search all connections"
+msgstr "Tüm bağlantılarda ara"
+
+#: data/resources/ui/help-overlay.blp:109
+msgctxt "shortcut window"
+msgid "Files"
+msgstr "Dosyalar"
+
+#: data/resources/ui/help-overlay.blp:112
+msgctxt "shortcut window"
+msgid "Quick preview"
+msgstr "Hızlı önizleme"
+
+#: data/resources/ui/help-overlay.blp:117
+msgctxt "shortcut window"
+msgid "Show or hide properties"
+msgstr "Özellikleri göster ya da gizle"
+
+#: data/resources/ui/help-overlay.blp:122
+msgctxt "shortcut window"
+msgid "Upload files"
+msgstr "Dosya yükle"
+
+#: data/resources/ui/help-overlay.blp:127
+msgctxt "shortcut window"
+msgid "New folder"
+msgstr "Yeni klasör"
+
+#: data/resources/ui/help-overlay.blp:132
+msgctxt "shortcut window"
+msgid "Rename"
+msgstr "Yeniden adlandır"
+
+#: data/resources/ui/help-overlay.blp:137
+msgctxt "shortcut window"
+msgid "Select all"
+msgstr "Tümünü seç"
+
+#: data/resources/ui/help-overlay.blp:142
+msgctxt "shortcut window"
+msgid "Select items matching a pattern"
+msgstr "Bir desenle eşleşen öğeleri seç"
+
+#: data/resources/ui/help-overlay.blp:147
+msgctxt "shortcut window"
+msgid "Delete selection"
+msgstr "Seçimi sil"
+
+#: data/resources/ui/help-overlay.blp:153
+msgctxt "shortcut window"
+msgid "Clipboard"
+msgstr "Pano"
+
+#: data/resources/ui/help-overlay.blp:156
+msgctxt "shortcut window"
+msgid "Copy"
+msgstr "Kopyala"
+
+#: data/resources/ui/help-overlay.blp:161
+msgctxt "shortcut window"
+msgid "Cut"
+msgstr "Kes"
+
+#: data/resources/ui/help-overlay.blp:166
+msgctxt "shortcut window"
+msgid "Paste or upload copied files"
+msgstr "Yapıştır veya kopyalanan dosyaları yükle"
+
+#: data/resources/ui/help-overlay.blp:171
+msgctxt "shortcut window"
+msgid "Copy location"
+msgstr "Konumu kopyala"
+
+#: data/resources/ui/help-overlay.blp:176
+msgctxt "shortcut window"
+msgid "Undo the last move, rename or delete"
+msgstr "Son taşımayı, yeniden adlandırmayı ya da silmeyi geri al"
+
+#: data/resources/ui/help-overlay.blp:182
+msgctxt "shortcut window"
+msgid "Quick Preview"
+msgstr "Hızlı Önizleme"
+
+#: data/resources/ui/help-overlay.blp:185
+msgctxt "shortcut window"
+msgid "Previous file"
+msgstr "Önceki dosya"
+
+#: data/resources/ui/help-overlay.blp:190
+msgctxt "shortcut window"
+msgid "Next file"
+msgstr "Sonraki dosya"
+
+#: data/resources/ui/help-overlay.blp:195
+msgctxt "shortcut window"
+msgid "Zoom in and out"
+msgstr "Yakınlaştır ve uzaklaştır"
+
+#: data/resources/ui/help-overlay.blp:200
+msgctxt "shortcut window"
+msgid "Fit to window"
+msgstr "Pencereye sığdır"
+
+#: data/resources/ui/help-overlay.blp:205
+msgctxt "shortcut window"
+msgid "Close"
+msgstr "Kapat"
+
+#: data/resources/ui/profile-dialog.blp:37
+msgid "Provider"
+msgstr "Sağlayıcı"
+
+#: data/resources/ui/profile-dialog.blp:43
+msgid ""
+"Create an access key under Dashboard → Storage → Settings → S3 Connection. "
+"For per-user (RLS) access: Access key = project ref, Secret = anon key, "
+"Session token = user JWT."
+msgstr "Erişim anahtarını Dashboard → Storage → Settings → S3 Connection altında oluşturun. Kullanıcı bazlı (RLS) erişim için: Erişim anahtarı = proje kimliği, Gizli anahtar = anon key, Oturum belirteci = kullanıcı JWT'si."
+
+#: data/resources/ui/profile-dialog.blp:46
+msgid "Project ref"
+msgstr "Proje kimliği"
+
+#: data/resources/ui/profile-dialog.blp:51
+msgid "Server"
+msgstr "Sunucu"
+
+#: data/resources/ui/profile-dialog.blp:63
+msgid "Path-style addressing"
+msgstr "Yol tarzı adresleme"
+
+#: data/resources/ui/profile-dialog.blp:64
+msgid "Put the bucket name in the path instead of the host name"
+msgstr "Bucket adını sunucu adı yerine yola koy"
+
+#: data/resources/ui/profile-dialog.blp:69
+msgid "Credentials"
+msgstr "Kimlik Bilgileri"
+
+#: data/resources/ui/profile-dialog.blp:70
+msgid "Stored in the system keyring."
+msgstr "Sistem anahtarlığında saklanır."
+
+#: data/resources/ui/profile-dialog.blp:73
+msgid "Sign-In Method"
+msgstr "Oturum Açma Yöntemi"
+
+#: data/resources/ui/profile-dialog.blp:78
+msgid "From ~/.aws/config, also with IAM Identity Center (SSO)"
+msgstr "~/.aws/config dosyasından; IAM Identity Center (SSO) ile de"
+
+#: data/resources/ui/profile-dialog.blp:83
+msgid "Access key ID"
+msgstr "Erişim anahtarı kimliği"
+
+#: data/resources/ui/profile-dialog.blp:87
+msgid "Secret access key"
+msgstr "Gizli erişim anahtarı"
+
+#: data/resources/ui/profile-dialog.blp:91
+msgid "Session token (optional)"
+msgstr "Oturum belirteci (isteğe bağlı)"
+
+#: data/resources/ui/profile-dialog.blp:95
+msgid "Buckets (optional, comma separated)"
+msgstr "Bucket'lar (isteğe bağlı, virgülle ayrılmış)"
+
+#: data/resources/ui/profile-dialog.blp:96
+msgid ""
+"If your credentials cannot list buckets (s3:ListAllMyBuckets), enter the "
+"bucket names they can access."
+msgstr "Kimlik bilgileriniz bucket'ları listeleyemiyorsa (s3:ListAllMyBuckets), erişebildikleri bucket adlarını girin."
+
+#: data/resources/ui/profile-dialog.blp:101
+msgid "Upload Defaults"
+msgstr "Yükleme Varsayılanları"
+
+#: data/resources/ui/profile-dialog.blp:102
+msgid ""
+"Applied to new objects written through this connection by uploads, copies "
+"and syncs."
+msgstr "Bu bağlantı üzerinden yükleme, kopyalama ve eşitlemeyle yazılan yeni nesnelere uygulanır."
+
+#: data/resources/ui/profile-dialog.blp:105
+msgid "Storage class for uploads"
+msgstr "Yüklemeler için depolama sınıfı"
+
+#: data/resources/ui/profile-dialog.blp:109
+msgid "Encryption for uploads"
+msgstr "Yüklemeler için şifreleme"
+
+#: data/resources/ui/profile-dialog.blp:119
+msgid "Advanced"
+msgstr "Gelişmiş"
+
+#: data/resources/ui/profile-dialog.blp:122
+msgid "Assume Role"
+msgstr "Rol Üstlen"
+
+#: data/resources/ui/profile-dialog.blp:123
+msgid "Act as an IAM role with the credentials above"
+msgstr "Yukarıdaki kimlik bilgileriyle bir IAM rolü olarak davran"
+
+#: data/resources/ui/profile-dialog.blp:128
+msgid "Role ARN"
+msgstr "Rol ARN"
+
+#: data/resources/ui/profile-dialog.blp:132
+msgid "External ID (optional)"
+msgstr "Harici kimlik (isteğe bağlı)"
+
+#: data/resources/ui/profile-dialog.blp:136
+msgid "MFA device ARN (optional)"
+msgstr "MFA cihazı ARN (isteğe bağlı)"
+
+#: data/resources/ui/profile-dialog.blp:137
+msgid "With an MFA device, a code from it is asked for when connecting."
+msgstr "MFA cihazı verilirse bağlanırken ondan bir kod istenir."
+
+#: data/resources/ui/profile-dialog.blp:142
+msgid "Transfer Acceleration"
+msgstr "Aktarım Hızlandırma"
+
+#: data/resources/ui/profile-dialog.blp:143
+msgid ""
+"Faster transfers over long distances through AWS edge locations. It has to "
+"be turned on for the bucket as well."
+msgstr "AWS uç konumları üzerinden uzak mesafelerde daha hızlı aktarım. Bucket için de açılmış olmalıdır."
+
+#: data/resources/ui/profile-dialog.blp:147
+msgid "Trusted Certificate"
+msgstr "Güvenilen Sertifika"
+
+#: data/resources/ui/profile-dialog.blp:154
+msgid "Choose Certificate…"
+msgstr "Sertifika Seç…"
+
+#: data/resources/ui/profile-dialog.blp:165
+msgid "Remove Certificate"
+msgstr "Sertifikayı Kaldır"
+
+#: data/resources/ui/profile-dialog.blp:192
+msgid "Trust Certificate…"
+msgstr "Sertifikaya Güven…"
+
+#: data/resources/ui/window.blp:49
+msgid "Main Menu"
+msgstr "Ana Menü"
+
+#: data/resources/ui/window.blp:89
+msgid "No connections yet."
+msgstr "Henüz bağlantı yok."
+
+#: data/resources/ui/window.blp:105
+msgid "Favorites"
+msgstr "Sık Kullanılanlar"
+
+#: data/resources/ui/window.blp:128
+msgid "Buckets"
+msgstr "Bucket'lar"
+
+#: data/resources/ui/window.blp:139 data/resources/ui/window.blp:490
+msgid "Refresh"
+msgstr "Yenile"
+
+#: data/resources/ui/window.blp:150
+msgid "Add Bucket"
+msgstr "Bucket Ekle"
+
+#: data/resources/ui/window.blp:205
+msgid "Back"
+msgstr "Geri"
+
+#: data/resources/ui/window.blp:211
+msgid "Forward"
+msgstr "İleri"
+
+#: data/resources/ui/window.blp:219
+msgid "Filter and Search"
+msgstr "Süz ve Ara"
+
+#: data/resources/ui/window.blp:226
+msgid "Location Menu"
+msgstr "Konum Menüsü"
+
+#: data/resources/ui/window.blp:259
+msgid "You are offline. Transfers continue when the connection is back."
+msgstr "Çevrimdışısınız. Bağlantı gelince aktarımlar devam eder."
+
+#: data/resources/ui/window.blp:333
+msgid "Welcome to Ferry"
+msgstr "Ferry'a Hoş Geldiniz"
+
+#: data/resources/ui/window.blp:334
+msgid "Choose your storage provider to add a connection."
+msgstr "Bağlantı eklemek için depolama sağlayıcınızı seçin."
+
+#: data/resources/ui/window.blp:354
+msgid "Other S3-Compatible Service…"
+msgstr "Diğer S3 Uyumlu Servis…"
+
+#: data/resources/ui/window.blp:383
+msgid "Select a bucket in the sidebar."
+msgstr "Kenar çubuğundan bir bucket seçin."
+
+#: data/resources/ui/window.blp:398
+msgid "Filter this folder"
+msgstr "Bu klasörü süz"
+
+#: data/resources/ui/window.blp:399
+msgid "Type to filter this folder; press Enter to search its subfolders too"
+msgstr "Bu klasörü süzmek için yazın; alt klasörlerde de aramak için Enter’a basın"
+
+#: data/resources/ui/window.blp:406
+msgid "Filter by Type, Size and Date"
+msgstr "Tür, Boyut ve Tarihe Göre Süz"
+
+#: data/resources/ui/window.blp:412
+msgid "Close Search"
+msgstr "Aramayı Kapat"
+
+#: data/resources/ui/window.blp:426
+msgid "Parent Folder"
+msgstr "Üst Klasör"
+
+#: data/resources/ui/window.blp:457
+msgid "List View"
+msgstr "Liste Görünümü"
+
+#: data/resources/ui/window.blp:463
+msgid "Grid View"
+msgstr "Izgara Görünümü"
+
+#: data/resources/ui/window.blp:470
+msgid "Sort"
+msgstr "Sırala"
+
+#: data/resources/ui/window.blp:507
+msgid "Drop to Upload"
+msgstr "Yüklemek İçin Bırakın"
+
+#: data/resources/ui/window.blp:537
+msgid "Close Properties"
+msgstr "Özellikleri Kapat"
+
+#: data/resources/ui/window.blp:583
+msgid "Could Not Load This Folder"
+msgstr "Bu Klasör Yüklenemedi"
+
+#: data/resources/ui/window.blp:633
+msgid "Load More"
+msgstr "Daha Fazla Yükle"
+
+#: data/resources/ui/window.blp:652
+msgid "Clear Selection"
+msgstr "Seçimi Temizle"
+
+#: data/resources/ui/window.blp:668
+msgid "Headers"
+msgstr "Başlıklar"
+
+#: data/resources/ui/window.blp:674
+msgid "Storage Class"
+msgstr "Depolama Sınıfı"
+
+#: data/resources/ui/window.blp:680
+msgid "Copy to…"
+msgstr "Kopyala…"
+
+#: data/resources/ui/window.blp:746
+msgid "_Import Connections…"
+msgstr "Bağlantıları _İçe Aktar…"
+
+#: data/resources/ui/window.blp:747
+msgid "Import From _Other Apps…"
+msgstr "_Diğer Uygulamalardan İçe Aktar…"
+
+#: data/resources/ui/window.blp:748
+msgid "_Export Connections…"
+msgstr "Bağlantıları _Dışa Aktar…"
+
+#: data/resources/ui/window.blp:752
+msgid "_Preferences"
+msgstr "_Tercihler"
+
+#: data/resources/ui/window.blp:753
+msgid "_Keyboard Shortcuts"
+msgstr "_Klavye Kısayolları"
+
+#: data/resources/ui/window.blp:754
+msgid "_About Ferry"
+msgstr "Ferry _Hakkında"
+
+#: data/resources/ui/window.blp:758
+msgid "_Quit"
+msgstr "_Çık"
+
+#: data/resources/ui/window.blp:764
+msgid "New Bucket…"
+msgstr "Yeni Bucket…"
+
+#: data/resources/ui/window.blp:765
+msgid "Link Existing Bucket…"
+msgstr "Mevcut Bucket'ı Bağla…"
+
+#: data/resources/ui/window.blp:772
+msgid "Upload Folder…"
+msgstr "Klasör Yükle…"
+
+#: data/resources/ui/window.blp:779
+msgid "A–Z"
+msgstr "A–Z"
+
+#: data/resources/ui/window.blp:785
+msgid "Z–A"
+msgstr "Z–A"
+
+#: data/resources/ui/window.blp:791
+msgid "Last Modified"
+msgstr "Son Değiştirilen"
+
+#: data/resources/ui/window.blp:797
+msgid "First Modified"
+msgstr "İlk Değiştirilen"
+
+#: data/resources/ui/window.blp:810
+msgid "Show Hidden Files"
+msgstr "Gizli Dosyaları Göster"
+
+#: data/resources/ui/window.blp:816
+msgid "New Tab"
+msgstr "Yeni Sekme"
+
+#: data/resources/ui/window.blp:822
+msgid "New Vault…"
+msgstr "Yeni Kasa…"
+
+#: data/resources/ui/window.blp:827
+msgid "Export List as CSV…"
+msgstr "Listeyi CSV Olarak Dışa Aktar…"
+
+#: data/resources/ui/window.blp:828
+msgid "Sync a Local Folder…"
+msgstr "Yerel Klasörü Eşitle…"
+
+#: data/resources/ui/window.blp:830
+msgid "Create Upload Link…"
+msgstr "Yükleme Bağlantısı Oluştur…"
+
+#: data/resources/ui/window.blp:836
+msgid "Select Items Matching…"
+msgstr "Eşleşen Öğeleri Seç…"
+
+#: data/io.github.mehmetnuri.Ferry.desktop.in:3
+#: data/io.github.mehmetnuri.Ferry.metainfo.xml.in:6
+msgid "Ferry"
+msgstr "Ferry"
+
+#: data/io.github.mehmetnuri.Ferry.desktop.in:4
+#: data/io.github.mehmetnuri.Ferry.metainfo.xml.in:7
+msgid "Move files between your computer and cloud storage"
+msgstr "Bilgisayarınızla bulut depolama arasında dosya taşıyın"
+
+#: data/io.github.mehmetnuri.Ferry.desktop.in:11
+msgid "ferry;s3;storage;bucket;cloud;transfer;upload;minio;r2;supabase;aws;"
+msgstr "ferry;s3;depolama;storage;bucket;bulut;cloud;aktarım;transfer;yükle;minio;r2;supabase;aws;"
+
+#: data/io.github.mehmetnuri.Ferry.metainfo.xml.in:9
+msgid "Mehmet Nuri Öztürk"
+msgstr "Mehmet Nuri Öztürk"
+
+#: data/io.github.mehmetnuri.Ferry.metainfo.xml.in:12
+msgid ""
+"Ferry moves files between your computer and cloud storage: Amazon S3, "
+"Supabase Storage, MinIO, Cloudflare R2 and other S3-compatible services."
+msgstr "Ferry, dosyaları bilgisayarınızla bulut depolama arasında taşır: Amazon S3, Supabase Storage, MinIO, Cloudflare R2 ve diğer S3 uyumlu servisler."
+
+#: data/io.github.mehmetnuri.Ferry.metainfo.xml.in:17
+msgid ""
+"Browse buckets in a list or a grid with thumbnails; folders open instantly "
+"from a cache"
+msgstr "Bucket'ları liste veya küçük resimli ızgara görünümünde gezin; klasörler önbellekten anında açılır"
+
+#: data/io.github.mehmetnuri.Ferry.metainfo.xml.in:18
+msgid "Quick preview of images, videos, audio and text with the space key"
+msgstr "Boşluk tuşuyla görsel, video, ses ve metinlerin hızlı önizlemesi"
+
+#: data/io.github.mehmetnuri.Ferry.metainfo.xml.in:19
+msgid ""
+"A transfer queue with priorities, pausing each transfer, speed limit and "
+"retries; interrupted uploads and downloads continue where they stopped"
+msgstr "Öncelikli, her aktarımı ayrı duraklatabilen, hız sınırlı ve yeniden denemeli aktarım kuyruğu; yarıda kalan yüklemeler ve indirmeler kaldığı yerden devam eder"
+
+#: data/io.github.mehmetnuri.Ferry.metainfo.xml.in:20
+msgid ""
+"Recent objects of every connection, sorting, and downloading folders as one "
+"ZIP file"
+msgstr "Tüm bağlantıların son kullanılan nesneleri, sıralama ve klasörleri tek bir ZIP dosyası olarak indirme"
+
+#: data/io.github.mehmetnuri.Ferry.metainfo.xml.in:21
+msgid ""
+"Opens s3:// links from anywhere in the desktop; previews highlighted code, "
+"CSV tables and ZIP contents"
+msgstr "s3:// bağlantılarını masaüstünün her yerinden açar; renklendirilmiş kodu, CSV tablolarını ve ZIP içeriklerini önizler"
+
+#: data/io.github.mehmetnuri.Ferry.metainfo.xml.in:22
+msgid ""
+"Copy in Ferry and paste in GNOME Files; mounted buckets appear among the "
+"bookmarks"
+msgstr "Ferry’da kopyalayıp GNOME Dosyalar’a yapıştırma; bağlanan bucket’lar yer imlerinde görünür"
+
+#: data/io.github.mehmetnuri.Ferry.metainfo.xml.in:23
+msgid "Copy, cut and paste, moving by drag and drop with undo, batch rename"
+msgstr "Kopyala, kes ve yapıştır, geri alınabilir sürükle-bırak taşıma, toplu yeniden adlandırma"
+
+#: data/io.github.mehmetnuri.Ferry.metainfo.xml.in:24
+msgid ""
+"Upload by drag and drop or by pasting files copied in GNOME Files, with "
+"conflict handling"
+msgstr "Sürükle-bırak ile veya GNOME Dosyalar'da kopyalanan dosyaları yapıştırarak, çakışma yönetimiyle yükleme"
+
+#: data/io.github.mehmetnuri.Ferry.metainfo.xml.in:25
+msgid ""
+"Share links with QR codes, and upload links for people without an account"
+msgstr "QR kodlu paylaşım bağlantıları ve hesabı olmayanlar için yükleme bağlantıları"
+
+#: data/io.github.mehmetnuri.Ferry.metainfo.xml.in:26
+msgid "Find objects from the GNOME Shell overview"
+msgstr "Nesneleri GNOME Shell genel görünümünden bulun"
+
+#: data/io.github.mehmetnuri.Ferry.metainfo.xml.in:27
+msgid ""
+"Object versions, permissions, Object Lock, bucket policy, CORS, lifecycle "
+"and CloudFront"
+msgstr "Nesne sürümleri, izinler, Nesne Kilidi, bucket ilkesi, CORS, yaşam döngüsü ve CloudFront"
+
+#: data/io.github.mehmetnuri.Ferry.metainfo.xml.in:28
+msgid "Folder sync, scheduled backup jobs and mounting a bucket as a folder"
+msgstr "Klasör eşitleme, zamanlanmış yedekleme işleri ve bucket'ı klasör olarak bağlama"
+
+#: data/io.github.mehmetnuri.Ferry.metainfo.xml.in:29
+msgid ""
+"Storage analyzer and a compatibility test for any S3-compatible provider"
+msgstr "Depolama analizi ve her S3 uyumlu sağlayıcı için uyumluluk testi"
+
+#: data/io.github.mehmetnuri.Ferry.metainfo.xml.in:30
+msgid ""
+"Credentials kept in the system keyring; AWS CLI profiles with single sign-"
+"on, assumed roles with MFA codes"
+msgstr "Kimlik bilgileri sistem anahtarlığında; tek oturum açmalı AWS CLI profilleri, MFA kodlu üstlenilen roller"
+
+#: data/io.github.mehmetnuri.Ferry.metainfo.xml.in:31
+msgid ""
+"Connection backups protected with a password, age or SSH keys, a YubiKey or "
+"a GnuPG key"
+msgstr "Parola, age ya da SSH anahtarları, YubiKey veya GnuPG anahtarıyla korunan bağlantı yedekleri"
+
+#: data/io.github.mehmetnuri.Ferry.metainfo.xml.in:32
+msgid ""
+"Servers with self-signed certificates or a private certificate authority, "
+"after checking the fingerprint"
+msgstr "Parmak izi denetlendikten sonra kendinden imzalı sertifikalı ya da özel sertifika yetkilili sunucular"
+
+#: data/io.github.mehmetnuri.Ferry.metainfo.xml.in:33
+msgid "Pauses while offline and keeps the computer awake during transfers"
+msgstr "Çevrim dışıyken duraklar ve aktarımlar sırasında bilgisayarı uyanık tutar"
+
+#: data/io.github.mehmetnuri.Ferry.gschema.xml:8
+msgid "Width of the main window"
+msgstr "Ana pencerenin genişliği"
+
+#: data/io.github.mehmetnuri.Ferry.gschema.xml:12
+msgid "Height of the main window"
+msgstr "Ana pencerenin yüksekliği"
+
+#: data/io.github.mehmetnuri.Ferry.gschema.xml:16
+msgid "Whether the main window is maximized"
+msgstr "Ana pencerenin ekranı kaplayıp kaplamadığı"
+
+#: data/io.github.mehmetnuri.Ferry.gschema.xml:20
+msgid "Keep running in the background when the window is closed"
+msgstr "Pencere kapatıldığında arka planda çalışmaya devam et"
+
+#: data/io.github.mehmetnuri.Ferry.gschema.xml:21
+msgid ""
+"Transfers and scheduled backups continue; opening the application again "
+"shows the window."
+msgstr "Aktarımlar ve zamanlanmış yedekler sürer; uygulamayı yeniden açmak pencereyi gösterir."
+
+#: data/io.github.mehmetnuri.Ferry.gschema.xml:25
+msgid "Start hidden at login, so backups run"
+msgstr "Yedeklemeler çalışsın diye oturum açılınca gizli başlat"
+
+#: data/io.github.mehmetnuri.Ferry.gschema.xml:29
+msgid "Notify when transfers finish while the window is not focused"
+msgstr "Pencere odakta değilken aktarımlar bitince bildir"
+
+#: data/io.github.mehmetnuri.Ferry.gschema.xml:34
+msgid "Files transferred at the same time"
+msgstr "Aynı anda aktarılan dosya sayısı"
+
+#: data/io.github.mehmetnuri.Ferry.gschema.xml:39
+msgid "Total transfer rate limit in kilobytes per second, 0 for unlimited"
+msgstr "Kilobayt/saniye cinsinden toplam aktarım hızı sınırı, sınırsız için 0"
+
+#: data/io.github.mehmetnuri.Ferry.gschema.xml:47
+msgid "How folder contents are shown"
+msgstr "Klasör içeriğinin nasıl gösterileceği"
+
+#: data/io.github.mehmetnuri.Ferry.gschema.xml:51
+msgid "Ask where to save each download"
+msgstr "Her indirmede nereye kaydedileceğini sor"
+
+#: data/io.github.mehmetnuri.Ferry.gschema.xml:55
+msgid ""
+"Folder downloads are saved to when not asking; empty for the Downloads folder"
+msgstr "Sorulmadığında indirmelerin kaydedildiği klasör; boşsa İndirilenler klasörü"
+
+#: data/io.github.mehmetnuri.Ferry.gschema.xml:59
+msgid ""
+"Names of files and folders left out when uploading or syncing folders; * "
+"and ? are wildcards"
+msgstr "Klasör yüklerken ya da eşitlerken atlanan dosya ve klasör adları; * ve ? joker karakterdir"
+
+#: data/io.github.mehmetnuri.Ferry.gschema.xml:63
+msgid "Show objects whose names start with a dot"
+msgstr "Adı nokta ile başlayan nesneleri göster"
+
+#: data/io.github.mehmetnuri.Ferry.gschema.xml:68
+msgid "Size of the items in the grid view"
+msgstr "Izgara görünümündeki öğelerin boyutu"
+
+#: data/io.github.mehmetnuri.Ferry.gschema.xml:79
+msgid "How folder contents are sorted; folders always come first"
+msgstr "Klasör içeriğinin nasıl sıralandığı; klasörler her zaman önce gelir"
+
+#: data/io.github.mehmetnuri.Ferry.gschema.xml:83
+msgid "Connection open when the application last quit"
+msgstr "Uygulamadan son çıkıldığında açık olan bağlantı"
+
+#: data/io.github.mehmetnuri.Ferry.gschema.xml:87
+msgid "Bucket open when the application last quit"
+msgstr "Uygulamadan son çıkıldığında açık olan bucket"
+
+#: data/io.github.mehmetnuri.Ferry.gschema.xml:91
+msgid "Folder open when the application last quit"
+msgstr "Uygulamadan son çıkıldığında açık olan klasör"
+
+#: data/io.github.mehmetnuri.Ferry.gschema.xml:95
+msgid "Favorite folders per connection, as JSON"
+msgstr "Bağlantı başına sık kullanılan klasörler, JSON olarak"

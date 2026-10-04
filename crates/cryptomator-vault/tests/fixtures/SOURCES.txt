@@ -1,0 +1,56 @@
+Test fixture sources
+====================
+
+siv-mode-testcases.txt
+  First 400 lines with 256-bit keys (and <= 8 associated data items) of
+  src/test/resources/testcases.txt from https://github.com/cryptomator/siv-mode
+  (Cryptomator's own AES-SIV implementation, used by cryptolib).
+  Line format: ctrKey;macKey;plaintext;adCount;ad_1;...;ad_n;ciphertext (hex).
+  License: MIT, Copyright (c) 2015-2017 Cryptomator.
+
+vault-siv-gcm/
+  tests/test-vault from https://github.com/ChrSchu90/CryptomatorVaultSync
+  (unchanged). A format 8, SIV_GCM vault. The IMPORTANT.rtf file and the
+  masterkey.cryptomator.*.bkup / vault.cryptomator.*.bkup files are what the
+  Cryptomator desktop app writes when it creates a vault, so it was very
+  likely created by Cryptomator itself. Password: cryptomator-vault-sync
+  (from tests/test.sh of that repository).
+  License: MIT, Copyright (c) 2026 ChrSchu.
+
+vault-ctrmac-1/
+  test/decryptionTest/vault1 from https://github.com/MangoCubes/cryptomator-ts
+  (vault-valid.cryptomator renamed to vault.cryptomator; the 21 MB file
+  d/OR/N6ES4UOUAYQQAJVCVOAEX623N6PBU5/O4oOlkPubcD-Z2wkofAKs-bQmqMznUo5ICdJcyBZWiINDUH7Ww==.c9r
+  removed to keep the crate small). Format 8, SIV_CTRMAC. Contains the
+  WELCOME.rtf the Cryptomator desktop app creates in new vaults.
+  Password: qq11@@11.
+  vault-corrupted.cryptomator is the same repository's tampered config.
+vault-ctrmac-2/
+  test/decryptionTest/vault2 from the same repository: format 8, SIV_CTRMAC,
+  with shortened (.c9s) long names. Password: 12341234.
+  License: MIT, Copyright (c) 2023 MangoCubes.
+
+Known-answer values embedded in tests/reference_vectors.rs come from the unit
+tests of https://github.com/cryptomator/cryptolib (v1 = SIV_CTRMAC, v2 = SIV_GCM,
+MasterkeyFileAccessTest, ScryptTest) and RFC 7914.
+
+MIT License text (applies to the MIT-licensed files above, with the respective
+copyright holders):
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

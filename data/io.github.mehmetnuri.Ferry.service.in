@@ -1,0 +1,3 @@
+[D-BUS Service]
+Name=io.github.mehmetnuri.Ferry
+Exec=@bindir@/ferry --gapplication-service
