@@ -63,6 +63,17 @@ Adw.Dialog dialog {
             title: _("Path-style addressing");
             subtitle: _("Put the bucket name in the path instead of the host name");
           }
+
+          Adw.EntryRow remote_path_row {
+            title: _("Folder (optional)");
+            tooltip-text: _("The folder the connection opens in. Without one, it opens in your home folder.");
+            visible: false;
+          }
+
+          Adw.ComboRow ftp_security_row {
+            title: _("Encryption");
+            visible: false;
+          }
         }
 
         Adw.PreferencesGroup {
@@ -91,13 +102,49 @@ Adw.Dialog dialog {
             title: _("Session token (optional)");
           }
 
+          Adw.ActionRow key_row {
+            title: _("Private Key");
+            subtitle: _("Optional: the SSH agent and the keys in ~/.ssh are tried first");
+            subtitle-selectable: true;
+            visible: false;
+
+            [suffix]
+            Button key_choose {
+              icon-name: "document-open-symbolic";
+              tooltip-text: _("Choose Private Key…");
+              valign: center;
+
+              styles [
+                "flat",
+              ]
+            }
+
+            [suffix]
+            Button key_clear {
+              icon-name: "edit-clear-symbolic";
+              tooltip-text: _("Remove Private Key");
+              valign: center;
+              visible: false;
+
+              styles [
+                "flat",
+              ]
+            }
+          }
+
+          Adw.EntryRow jump_row {
+            title: _("Jump host (optional)");
+            tooltip-text: _("A server to connect through, as user@host:port, like ssh -J. Signing in to it uses the SSH agent or your keys.");
+            visible: false;
+          }
+
           Adw.EntryRow buckets_row {
             title: _("Buckets (optional, comma separated)");
             tooltip-text: _("If your credentials cannot list buckets (s3:ListAllMyBuckets), enter the bucket names they can access.");
           }
         }
 
-        Adw.PreferencesGroup {
+        Adw.PreferencesGroup upload_group {
           title: _("Upload Defaults");
           description: _("Applied to new objects written through this connection by uploads, copies and syncs.");
 

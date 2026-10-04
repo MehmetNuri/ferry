@@ -15,6 +15,7 @@ mod dialogs;
 mod i18n;
 mod pages;
 mod profile;
+mod remote;
 mod runtime;
 mod s3;
 mod search;

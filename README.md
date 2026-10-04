@@ -1,13 +1,23 @@
 # Ferry
 
-Ferry is a file transfer client for GNOME. Browse buckets, upload and download files,
-share links and keep folders in sync with cloud storage. Cryptomator vaults open right
+Ferry is a file transfer client for GNOME. Browse cloud storage and file servers, upload
+and download files, share links and keep folders in sync. Cryptomator vaults open right
 in the window, so files can be encrypted before they leave your computer.
 
 It is written in Rust with GTK 4 and libadwaita, and follows the GNOME Human
 Interface Guidelines.
 
 ## Supported services
+
+**File servers**
+
+- SFTP (SSH), also through a jump host as with `ssh -J`; signing in with the SSH agent
+  (including keys on smartcards and YubiKeys), a key file or a password, and server keys
+  checked against `~/.ssh/known_hosts` or confirmed by their fingerprint
+- FTP over TLS (explicit or implicit), and plain FTP where you choose it
+- WebDAV, and Nextcloud and ownCloud by their server address
+
+**Cloud storage**
 
 Ferry works with services that offer the S3 API. These come with ready-made settings:
 
@@ -31,7 +41,7 @@ endpoint address, also when they use a self-signed certificate or a private cert
 authority. The built-in compatibility test shows which features a server supports.
 
 **Encryption:** Cryptomator vaults (format 8), created by Ferry or by the Cryptomator
-apps, can be unlocked, browsed and written in any bucket.
+apps, can be unlocked, browsed and written in any bucket and on any file server.
 
 **Signing in:** access keys kept in the GNOME keyring, AWS CLI profiles including IAM
 Identity Center (single sign-on) and `credential_process`, assumed roles with MFA codes,
@@ -39,7 +49,8 @@ and temporary session tokens.
 
 **Importing connections:** from rclone, s3cmd, Cyberduck bookmarks and the AWS CLI.
 
-SFTP, FTP, WebDAV and further cloud services are planned.
+Further cloud services, such as Azure Blob Storage, Google Drive, OneDrive and Dropbox,
+are planned.
 
 ## Features
 
@@ -112,6 +123,7 @@ src/
   runtime.rs                   the Tokio runtime and the bridge to the GLib main loop
   search.rs                    GNOME Shell search provider
   window/                      the main window: browsing, actions, tabs
+  remote/                      file servers: SFTP (with jump hosts), FTP over TLS, WebDAV
   s3/                          S3 operations: objects, bucket tools, access settings,
                                connections (proxy, certificates, AWS profiles, roles)
   transfers/                   transfer queue and its panel, mounts, drags, external editors

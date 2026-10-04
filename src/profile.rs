@@ -39,6 +39,17 @@ pub struct Profile {
     /// CAs and self-signed servers.
     #[serde(skip_serializing_if = "String::is_empty")]
     pub ca_certificate: String,
+    /// File servers: the folder the connection starts in (empty: the home folder).
+    pub remote_path: String,
+    /// SFTP: a private key file; its passphrase is the password.
+    pub private_key: String,
+    /// SFTP: the server key fingerprint (SHA256:…) the user approved.
+    pub host_key: String,
+    /// SFTP: a jump host as user@host:port, and its approved key fingerprint.
+    pub jump_host: String,
+    pub jump_host_key: String,
+    /// FTP: "explicit" (TLS, the default), "implicit" or "none".
+    pub ftp_security: String,
 }
 
 pub struct Preset {
@@ -65,6 +76,10 @@ pub const PRESETS: &[Preset] = &[
     Preset { id: "exoscale", label: "Exoscale SOS", endpoint: "https://sos-{region}.exo.io", region: "", region_hint: "ch-gva-2", path_style: false },
     Preset { id: "storj", label: "Storj", endpoint: "https://gateway.storjshare.io", region: "us-1", region_hint: "us-1", path_style: true },
     Preset { id: "gcs", label: "Google Cloud Storage (HMAC)", endpoint: "https://storage.googleapis.com", region: "auto", region_hint: "auto", path_style: true },
+    Preset { id: "sftp", label: "SFTP (SSH)", endpoint: "", region: "", region_hint: "", path_style: false },
+    Preset { id: "ftp", label: "FTP", endpoint: "", region: "", region_hint: "", path_style: false },
+    Preset { id: "webdav", label: "WebDAV", endpoint: "", region: "", region_hint: "", path_style: false },
+    Preset { id: "nextcloud", label: "Nextcloud / ownCloud", endpoint: "", region: "", region_hint: "", path_style: false },
     Preset { id: "custom", label: "", endpoint: "", region: "", region_hint: "us-east-1", path_style: true },
 ];
 

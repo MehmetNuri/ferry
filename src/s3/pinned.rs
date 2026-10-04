@@ -50,8 +50,14 @@ type Inner = hyper_util::client::legacy::Client<hyper_rustls::HttpsConnector<hyp
 #[derive(Clone, Debug)]
 pub struct PinnedClient(Inner);
 
-impl PinnedClient {
-    pub fn new(pem: &str) -> Result<Self, String> {
+/// A TLS configuration that trusts the system's authorities, those in `pem`, and a
+/// server presenting exactly a certificate in `pem`. Also used for FTP over TLS.
+pub fn client_config(pem: &str) -> Result<rustls::ClientConfig, String> {
+    client_config_with(pem, rustls::DEFAULT_VERSIONS)
+}
+
+/// The same, limited to some TLS versions.
+pub fn client_config_with(pem: &str, versions: &[&'static rustls::SupportedProtocolVersion]) -> Result<rustls::ClientConfig, String> {
         let provider = Arc::new(rustls::crypto::aws_lc_rs::default_provider());
         let mut roots = rustls::RootCertStore::empty();
         for cert in rustls_native_certs::load_native_certs().certs {
@@ -65,9 +71,15 @@ impl PinnedClient {
         }
         let usual = WebPkiServerVerifier::builder_with_provider(Arc::new(roots), provider.clone()).build().map_err(|e| e.to_string())?;
         let config = rustls::ClientConfig::builder_with_provider(provider.clone())
-            .with_safe_default_protocol_versions().map_err(|e| e.to_string())?
+            .with_protocol_versions(versions).map_err(|e| e.to_string())?
             .dangerous().with_custom_certificate_verifier(Arc::new(Verifier { usual, pins, provider }))
             .with_no_client_auth();
+        Ok(config)
+}
+
+impl PinnedClient {
+    pub fn new(pem: &str) -> Result<Self, String> {
+        let config = client_config(pem)?;
         let mut http = hyper_util::client::legacy::connect::HttpConnector::new();
         http.enforce_http(false);
         http.set_connect_timeout(Some(Duration::from_secs(10)));

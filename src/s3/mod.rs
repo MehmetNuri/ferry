@@ -2,7 +2,7 @@
 //! runtime and returns plain data, so results can cross to the interface thread.
 pub mod access;
 pub mod connection;
-mod pinned;
+pub mod pinned;
 pub mod tools;
 pub mod vault;
 
@@ -162,14 +162,14 @@ pub struct Progress {
 }
 
 impl Progress {
-    fn add(&self, bytes: u64) {
+    pub(crate) fn add(&self, bytes: u64) {
         self.done.fetch_add(bytes, Ordering::Relaxed);
     }
-    fn check(&self) -> Res<()> {
+    pub(crate) fn check(&self) -> Res<()> {
         if self.cancel.load(Ordering::Relaxed) { Err(CANCELLED.to_string()) } else { Ok(()) }
     }
     /// Waits as long as the bandwidth limit asks for, then counts the bytes.
-    async fn advance(&self, bytes: u64) -> Res<()> {
+    pub(crate) async fn advance(&self, bytes: u64) -> Res<()> {
         throttle(bytes).await;
         self.check()?;
         self.add(bytes);
@@ -210,6 +210,8 @@ pub struct S3 {
     pub profile: Profile,
     /// Set for the vault layer's own requests, which work on the encrypted objects.
     raw: bool,
+    /// A file server (SFTP, FTP, WebDAV) instead of an S3 service.
+    pub remote: Option<Arc<crate::remote::Remote>>,
 }
 
 /// The unsigned address of an object, which works when the bucket or object is publicly readable.
@@ -301,6 +303,7 @@ impl S3 {
     }
 
     pub(super) async fn put_bytes_plain(&self, bucket: &str, key: &str, data: Vec<u8>) -> Res<()> {
+        if let Some(r) = &self.remote { return r.write(key, data).await; }
         self.client.put_object().bucket(bucket).key(key).body(ByteStream::from(data)).send().await.map_err(describe)?;
         Ok(())
     }
@@ -311,6 +314,7 @@ impl S3 {
             && Arc::ptr_eq(&v, &w) {
             return v.rename(&self.raw(), &rel_from, &rel_to).await;
         }
+        if let Some(r) = &self.remote { return r.rename(from, to).await; }
         let (items, _) = self.list_all(bucket, from, usize::MAX).await?;
         for item in items {
             let target = format!("{to}{}", item.key.strip_prefix(from).unwrap_or(&item.key));
@@ -319,7 +323,22 @@ impl S3 {
         Ok(())
     }
 
+    /// Whether this is an S3 service, with buckets and their settings.
+    pub fn is_s3(&self) -> bool {
+        self.remote.is_none()
+    }
+
+    fn s3_only(&self) -> Res<()> {
+        if self.remote.is_some() { Err(tr("File servers do not offer this")) } else { Ok(()) }
+    }
+
     pub async fn connect(profile: Profile) -> Res<S3> {
+        if crate::remote::is_remote(&profile.provider) {
+            let remote = crate::remote::Remote::connect(&profile).await?;
+            // No S3 requests are made; the SDK client only fills the field.
+            let config = aws_sdk_s3::Config::builder().behavior_version(aws_sdk_s3::config::BehaviorVersion::latest()).region(Region::new("us-east-1")).build();
+            return Ok(S3 { client: Client::from_conf(config), profile, raw: false, remote: Some(Arc::new(remote)) });
+        }
         let region = if profile.region.trim().is_empty() { "us-east-1".to_string() } else { profile.region.trim().to_string() };
         let endpoint = endpoint_of(&profile);
         if endpoint.is_empty() && profile.provider != "aws" {
@@ -343,7 +362,7 @@ impl S3 {
         if !endpoint.is_empty() {
             builder = builder.endpoint_url(endpoint);
         }
-        let s3 = S3 { client: Client::from_conf(builder.build()), profile, raw: false };
+        let s3 = S3 { client: Client::from_conf(builder.build()), profile, raw: false, remote: None };
         if let Ok(runtime) = tokio::runtime::Handle::try_current() {
             let sweeper = s3.clone();
             runtime.spawn(async move { sweeper.sweep_resumes().await });
@@ -354,6 +373,7 @@ impl S3 {
     /// Connects and makes one request; returns a sentence describing the result.
     pub async fn test(profile: Profile) -> Res<String> {
         let s3 = S3::connect(profile).await?;
+        if let Some(remote) = &s3.remote { return remote.test().await; }
         let started = std::time::Instant::now();
         let list = s3.list_buckets().await?;
         // How long one request takes says a lot about the endpoint and region chosen.
@@ -369,6 +389,9 @@ impl S3 {
 
     /// Buckets of the account, plus the ones linked by name in the profile.
     pub async fn list_buckets(&self) -> Res<BucketList> {
+        if self.remote.is_some() {
+            return Ok(BucketList { buckets: vec![BucketEntry { name: crate::remote::Remote::label(&self.profile), pinned: false }], warning: String::new() });
+        }
         let mut list = BucketList::default();
         match self.client.list_buckets().send().await {
             Ok(out) => {
@@ -395,6 +418,7 @@ impl S3 {
     }
 
     pub(super) async fn list_objects_plain(&self, bucket: &str, prefix: &str, token: &str) -> Res<Listing> {
+        if let Some(r) = &self.remote { return Ok(Listing { items: r.list(prefix).await?, next_token: String::new() }); }
         let mut request = self.client.list_objects_v2().bucket(bucket).prefix(prefix).delimiter("/").max_keys(1000);
         if !token.is_empty() {
             request = request.continuation_token(token);
@@ -424,6 +448,7 @@ impl S3 {
     /// Every object below a prefix. The flag tells whether the limit cut the scan short.
     pub async fn list_all(&self, bucket: &str, prefix: &str, limit: usize) -> Res<(Vec<Entry>, bool)> {
         if let Some((v, rel)) = self.vault_for(bucket, prefix) { return v.list_all(&self.raw(), &rel, limit).await; }
+        if let Some(r) = &self.remote { return r.list_all(prefix, limit).await; }
         let mut items = Vec::new();
         let mut token: Option<String> = None;
         loop {
@@ -446,6 +471,7 @@ impl S3 {
     }
 
     pub(super) async fn head_object_plain(&self, bucket: &str, key: &str) -> Res<ObjectInfo> {
+        if let Some(r) = &self.remote { return r.head(key).await; }
         let out = self.client.head_object().bucket(bucket).key(key).send().await.map_err(describe)?;
         let mut metadata: Vec<(String, String)> = out.metadata().map(|m| m.iter().map(|(k, v)| (k.clone(), v.clone())).collect()).unwrap_or_default();
         metadata.sort();
@@ -472,6 +498,7 @@ impl S3 {
     }
 
     pub(super) async fn read_bytes_plain(&self, bucket: &str, key: &str, limit: u64) -> Res<Vec<u8>> {
+        if let Some(r) = &self.remote { return r.read(key, limit).await; }
         let out = self.client.get_object().bucket(bucket).key(key).range(format!("bytes=0-{}", limit.saturating_sub(1)))
             .send().await.map_err(describe)?;
         // A service that ignores the range must not fill the memory: stop at the limit.
@@ -488,6 +515,7 @@ impl S3 {
     /// Replaces a text object, refusing when it changed since it was opened.
     pub async fn save_text(&self, bucket: &str, key: &str, text: String, etag: &str) -> Res<()> {
         if let Some((v, rel)) = self.vault_for(bucket, key) { return v.put_bytes(&self.raw(), &rel, text.into_bytes(), true).await; }
+        if let Some(r) = &self.remote { return r.write(key, text.into_bytes()).await; }
         let current = self.head_object(bucket, key).await?;
         if current.etag != etag {
             return Err(tr("The object changed after it was opened. Open it again and retry."));
@@ -513,6 +541,10 @@ impl S3 {
     }
 
     pub(super) async fn create_object_plain(&self, bucket: &str, key: &str, data: Vec<u8>, content_type: &str) -> Res<()> {
+        if let Some(r) = &self.remote {
+            if r.stat(key).await.is_ok() { return Err(trf("“{name}” already exists", &[("name", key.rsplit('/').next().unwrap_or(key))])); }
+            return r.write(key, data).await;
+        }
         if self.head_object(bucket, key).await.is_ok() {
             return Err(trf("“{name}” already exists", &[("name", key.rsplit('/').next().unwrap_or(key))]));
         }
@@ -523,6 +555,7 @@ impl S3 {
 
     pub async fn create_folder(&self, bucket: &str, key: &str) -> Res<()> {
         if let Some((v, rel)) = self.vault_for(bucket, key) { return v.create_folder(&self.raw(), &rel).await; }
+        if let Some(r) = &self.remote { return r.mkdir_p(key).await; }
         self.client.put_object().bucket(bucket).key(key).body(ByteStream::from_static(b"")).send().await.map_err(describe)?;
         Ok(())
     }
@@ -592,6 +625,7 @@ impl S3 {
     }
 
     pub(super) async fn delete_keys_plain(&self, bucket: &str, keys: Vec<String>) -> Res<usize> {
+        if let Some(r) = &self.remote { return r.delete(keys).await; }
         let mut targets = Vec::new();
         for key in keys {
             if key.ends_with('/') {
@@ -686,6 +720,17 @@ impl S3 {
     }
 
     pub(super) async fn copy_object_plain(&self, src_bucket: &str, src_key: &str, dst_bucket: &str, dst_key: &str) -> Res<()> {
+        if let Some(r) = &self.remote {
+            if let Some(done) = r.copy(src_key, dst_key).await { return done; }
+            // Without server-side copies the file passes through this computer.
+            let dir = gtk::glib::user_cache_dir().join("ferry").join("copy");
+            tokio::fs::create_dir_all(&dir).await.map_err(|e| e.to_string())?;
+            let temp = dir.join(gtk::glib::uuid_string_random().as_str());
+            let result = async { r.download(src_key, &temp, &Progress::default()).await?; r.upload(&temp, dst_key, &Progress::default()).await }.await;
+            let _ = tokio::fs::remove_file(&temp).await;
+            let _ = (src_bucket, dst_bucket);
+            return result;
+        }
         let (sse, kms) = self.encryption();
         let request = self.client.copy_object().bucket(dst_bucket).key(dst_key)
             .set_storage_class(self.storage_class()).set_server_side_encryption(sse).set_ssekms_key_id(kms);
@@ -697,6 +742,7 @@ impl S3 {
             if !Arc::ptr_eq(&v, &w) { return Err(vault::unsupported()); }
             return v.rename(&self.raw(), &rel_from, &rel_to).await;
         }
+        if let Some(r) = &self.remote { return r.rename(from, to).await; }
         self.copy_object(bucket, from, bucket, to).await?;
         self.client.delete_object().bucket(bucket).key(from).send().await.map_err(describe)?;
         Ok(())
@@ -708,6 +754,7 @@ impl S3 {
     /// and the content type the upload must send.
     pub async fn presign_put(&self, bucket: &str, key: &str, seconds: u64) -> Res<(String, String)> {
         self.plain_only(bucket, key)?;
+        self.s3_only()?;
         let config = PresigningConfig::expires_in(Duration::from_secs(seconds)).map_err(|e| e.to_string())?;
         let content_type = content_type_of(Path::new(key));
         let request = self.client.put_object().bucket(bucket).key(key).content_type(&content_type).presigned(config).await.map_err(describe)?;
@@ -727,6 +774,7 @@ impl S3 {
     /// SHA-256 of an object's content, read as a stream.
     pub async fn sha256(&self, bucket: &str, key: &str, progress: &Progress) -> Res<String> {
         self.plain_only(bucket, key)?;
+        self.s3_only()?;
         use sha2::Digest;
         let out = self.client.get_object().bucket(bucket).key(key).send().await.map_err(describe)?;
         let mut hasher = sha2::Sha256::new();
@@ -740,6 +788,7 @@ impl S3 {
 
     pub async fn presign(&self, bucket: &str, key: &str, seconds: u64) -> Res<String> {
         self.plain_only(bucket, key)?;
+        self.s3_only()?;
         let config = PresigningConfig::expires_in(Duration::from_secs(seconds)).map_err(|e| e.to_string())?;
         let request = self.client.get_object().bucket(bucket).key(key).presigned(config).await.map_err(describe)?;
         Ok(request.uri().to_string())
@@ -748,6 +797,7 @@ impl S3 {
     /// Rewrites an object onto itself to change headers, metadata or storage class.
     pub async fn rewrite(&self, bucket: &str, info: &ObjectInfo, storage_class: Option<&str>) -> Res<()> {
         self.plain_only(bucket, &info.key)?;
+        self.s3_only()?;
         let mut request = self.client.copy_object().bucket(bucket).key(&info.key)
             .metadata_directive(MetadataDirective::Replace);
         if !info.content_type.is_empty() { request = request.content_type(&info.content_type); }
@@ -768,6 +818,7 @@ impl S3 {
     /// returns how many changed and the last error.
     pub async fn set_headers(&self, bucket: &str, keys: Vec<String>, cache_control: Option<String>, content_type: Option<String>, progress: &Progress) -> Res<(usize, usize, String)> {
         if let Some(first) = keys.first() { self.plain_only(bucket, first)?; }
+        self.s3_only()?;
         let (mut changed, mut failed, mut last_error) = (0, 0, String::new());
         for key in keys {
             progress.check()?;
@@ -789,6 +840,7 @@ impl S3 {
     /// Changes the storage class of several objects; returns how many succeeded.
     pub async fn set_storage_class(&self, bucket: &str, keys: Vec<String>, class: &str) -> Res<usize> {
         if let Some(first) = keys.first() { self.plain_only(bucket, first)?; }
+        self.s3_only()?;
         let mut changed = 0;
         let mut failed = 0;
         let mut last_error = String::new();
@@ -814,6 +866,7 @@ impl S3 {
     }
 
     pub(super) async fn upload_file_plain(&self, bucket: &str, key: &str, path: &Path, progress: &Progress) -> Res<()> {
+        if let Some(r) = &self.remote { return r.upload(path, key, progress).await; }
         let size = tokio::fs::metadata(path).await.map_err(|e| e.to_string())?.len();
         let content_type = content_type_of(path);
         let (sse, kms) = self.encryption();
@@ -1110,6 +1163,7 @@ impl S3 {
     }
 
     pub(super) async fn download_file_plain(&self, bucket: &str, key: &str, version: Option<&str>, path: &Path, progress: &Progress) -> Res<()> {
+        if let Some(r) = &self.remote { return r.download(key, path, progress).await; }
         if let Some(parent) = path.parent() {
             tokio::fs::create_dir_all(parent).await.map_err(|e| e.to_string())?;
         }
@@ -1192,6 +1246,7 @@ impl S3 {
     /// formats that are compressed already are stored as they are.
     pub async fn download_archive(&self, bucket: &str, prefix: &str, keys: Vec<String>, path: &Path, progress: &Progress) -> Res<()> {
         self.plain_only(bucket, prefix)?;
+        self.s3_only()?;
         use std::io::Write;
         use zip::write::SimpleFileOptions;
         const STORED: &[&str] = &["zip", "gz", "tgz", "xz", "bz2", "zst", "7z", "rar", "jpg", "jpeg", "png", "gif", "webp", "avif", "heic", "mp4", "mkv", "webm", "mov", "mp3", "ogg", "opus", "flac", "m4a", "pdf", "docx", "xlsx", "pptx", "odt", "ods", "odp", "epub", "jar", "apk"];
@@ -1242,7 +1297,7 @@ impl S3 {
 
     /// Copies an object to another connection by streaming it through this computer.
     pub async fn copy_to(&self, bucket: &str, key: &str, dst: &S3, dst_bucket: &str, dst_key: &str, progress: &Progress) -> Res<()> {
-        if self.vault_for(bucket, key).is_some() || dst.vault_for(dst_bucket, dst_key).is_some() {
+        if self.vault_for(bucket, key).is_some() || dst.vault_for(dst_bucket, dst_key).is_some() || self.remote.is_some() || dst.remote.is_some() {
             return self.copy_through(bucket, key, dst, dst_bucket, dst_key, progress).await;
         }
         if self.profile.id == dst.profile.id {
@@ -1284,7 +1339,7 @@ impl S3 {
     }
 
     pub async fn delete_object(&self, bucket: &str, key: &str) -> Res<()> {
-        if self.vault_for(bucket, key).is_some() { return self.delete_keys(bucket, vec![key.to_string()]).await.map(|_| ()); }
+        if self.vault_for(bucket, key).is_some() || self.remote.is_some() { return self.delete_keys(bucket, vec![key.to_string()]).await.map(|_| ()); }
         self.client.delete_object().bucket(bucket).key(key).send().await.map_err(describe)?;
         Ok(())
     }
@@ -1303,7 +1358,7 @@ fn entry_of(object: &aws_sdk_s3::types::Object, prefix: &str) -> Entry {
     }
 }
 
-fn content_type_of(path: &Path) -> String {
+pub(crate) fn content_type_of(path: &Path) -> String {
     let (guess, _) = gtk::gio::content_type_guess(Some(path), None::<&[u8]>);
     gtk::gio::content_type_get_mime_type(&guess).map(|m| m.to_string()).unwrap_or_else(|| "application/octet-stream".to_string())
 }

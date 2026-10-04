@@ -48,6 +48,8 @@ mod imp {
         #[template_child] pub search_entry: TemplateChild<gtk::SearchEntry>,
         #[template_child] pub search_banner: TemplateChild<adw::Banner>,
         #[template_child] pub vault_banner: TemplateChild<adw::Banner>,
+        #[template_child] pub buckets_heading: TemplateChild<gtk::Label>,
+        #[template_child] pub add_bucket_button: TemplateChild<gtk::MenuButton>,
         /// The Cryptomator vault of the open folder: its folder key and whether it is unlocked.
         pub vault_here: RefCell<Option<(String, bool)>>,
         #[template_child] pub details_split: TemplateChild<adw::OverlaySplitView>,
@@ -382,6 +384,10 @@ pub(crate) fn wildcard_match(pattern: &str, text: &str) -> bool {
     p[pi..].iter().all(|c| *c == '*')
 }
 
+/// Actions that only S3 services offer.
+const S3_ONLY: &[&str] = &["link-bucket", "new-bucket", "bucket-settings", "bucket-settings-for", "deleted-objects", "upload-link", "copy-link", "headers-selected",
+    "storage-class-selected", "object-versions", "object-headers", "object-tags", "object-permissions", "copy-cli"];
+
 /// Whether a listing cache key (profile, bucket, prefix) is inside an unlocked vault.
 fn cache_key_in_vault(key: &str) -> bool {
     let mut parts = key.split('\u{0}');
@@ -561,7 +567,7 @@ impl Window {
         imp.search_bar.set_key_capture_widget(Some(self));
 
         // Provider tiles on the welcome page start a connection with that provider chosen.
-        for preset in crate::profile::PRESETS.iter().filter(|p| ["aws", "supabase", "r2", "minio", "backblaze", "wasabi", "digitalocean", "gcs"].contains(&p.id)) {
+        for preset in crate::profile::PRESETS.iter().filter(|p| ["aws", "supabase", "r2", "minio", "backblaze", "wasabi", "digitalocean", "gcs", "sftp", "ftp", "webdav", "nextcloud"].contains(&p.id)) {
             let tile = gtk::Button::builder().css_classes(["card", "provider-tile"]).build();
             let column = gtk::Box::builder().orientation(gtk::Orientation::Vertical).spacing(8).build();
             // Initials come from the name without its parenthesized note, "Google Cloud Storage (HMAC)" → "GC".
@@ -1156,7 +1162,7 @@ impl Window {
         self.set_action_enabled("copy-link", self.selected_entries().iter().any(|e| !e.is_folder));
         self.set_action_enabled("open-external", single_file || self.imp().info.borrow().is_some());
         self.set_action_enabled("rename", self.selected_entries().iter().any(|e| !e.is_folder));
-        if self.in_vault() {
+        if self.in_vault() || self.imp().client.borrow().as_ref().is_some_and(|c| !c.is_s3()) {
             for name in ["copy-link", "headers-selected", "storage-class-selected", "copy-cli"] { self.set_action_enabled(name, false); }
         }
         self.update_status();
@@ -1350,6 +1356,12 @@ impl Window {
         for name in ["reload-buckets", "link-bucket", "new-bucket"] {
             self.set_action_enabled(name, connected);
         }
+        // File servers have no buckets, versions, links or bucket settings.
+        if imp.client.borrow().as_ref().is_some_and(|c| !c.is_s3()) {
+            for name in S3_ONLY {
+                self.set_action_enabled(name, false);
+            }
+        }
         self.set_action_enabled("export-profiles", !imp.profiles.borrow().is_empty());
         let browsing = imp.view_stack.visible_child_name().as_deref() == Some("browser");
         // In Recent, Ctrl+F searches every connection, with or without an open bucket.
@@ -1400,7 +1412,7 @@ impl Window {
         self.update_location_actions();
     }
 
-    fn edit_profile(&self, existing: Option<Profile>) {
+    pub(crate) fn edit_profile(&self, existing: Option<Profile>) {
         connection::present(self, existing, glib::clone!(#[weak(rename_to = win)] self, move |saved, in_keyring| {
             if !in_keyring && !saved.secret_key.is_empty() {
                 win.toast(&tr("No usable keyring was found; the access key is stored unencrypted"));
@@ -1458,6 +1470,7 @@ impl Window {
         imp.split_view.set_show_content(true);
         self.update_location_actions();
         let win = self.clone();
+        let id_for_trust = profile.id.clone();
         glib::spawn_future_local(async move {
             if s3::connection::needs_mfa(&profile) && !crate::dialogs::connection::unlock_mfa(&win, &profile).await {
                 win.imp().browser_stack.set_visible_child_name("welcome");
@@ -1476,6 +1489,24 @@ impl Window {
                     win.imp().client.replace(Some(client));
                     win.show_buckets(buckets);
                 }
+                Err(error) if crate::remote::sftp::UnknownHost::decode(&error).is_some() => {
+                    // A server seen for the first time: once its key is trusted, connect again.
+                    let unknown = crate::remote::sftp::UnknownHost::decode(&error).unwrap();
+                    win.imp().browser_stack.set_visible_child_name("welcome");
+                    if crate::dialogs::connection::trust_host_key(&win, &unknown).await {
+                        let id = id_for_trust.clone();
+                        let saved = bg(async move {
+                            let stored = profile::load().into_iter().find(|p| p.id == id).ok_or_else(|| tr("The connection was deleted"))?;
+                            let mut stored = profile::with_secrets(stored).await?;
+                            if unknown.jump { stored.jump_host_key = unknown.fingerprint; } else { stored.host_key = unknown.fingerprint; }
+                            profile::save(stored, true).await.map(|(p, _)| p)
+                        }).await;
+                        match saved {
+                            Ok(updated) => { win.load_profiles(); win.connect(updated); return; }
+                            Err(error) => win.toast(&error),
+                        }
+                    }
+                }
                 Err(error) => {
                     win.imp().browser_stack.set_visible_child_name("welcome");
                     win.imp().buckets_placeholder.set_text(&error);
@@ -1489,8 +1520,12 @@ impl Window {
     fn show_buckets(&self, list: s3::BucketList) {
         let imp = self.imp();
         imp.buckets_list.remove_all();
+        // A file server is one place, not a list of buckets.
+        let file_server = imp.client.borrow().as_ref().is_some_and(|c| !c.is_s3());
+        imp.buckets_heading.set_label(&if file_server { tr("Server") } else { tr("Buckets") });
+        imp.add_bucket_button.set_visible(!file_server);
         for bucket in &list.buckets {
-            let row = sidebar_row(if bucket.pinned { "emblem-shared-symbolic" } else { "package-x-generic-symbolic" }, &bucket.name);
+            let row = sidebar_row(if file_server { "network-server-symbolic" } else if bucket.pinned { "emblem-shared-symbolic" } else { "package-x-generic-symbolic" }, &bucket.name);
             let row_box = row.child().and_downcast::<gtk::Box>().unwrap();
             let menu = gio::Menu::new();
             let tools = gio::Menu::new();

@@ -1,13 +1,13 @@
 [Desktop Entry]
 Name=Ferry
-Comment=Move files between your computer and cloud storage
+Comment=Move files to and from servers and cloud storage
 Exec=ferry %U
 Icon=io.github.mehmetnuri.Ferry
 Terminal=false
 Type=Application
 Categories=Network;FileTransfer;GTK;GNOME;
 # Translators: Search terms to find this application. Do NOT translate or localize the semicolons. The list MUST also end with a semicolon.
-Keywords=ferry;s3;storage;bucket;cloud;transfer;upload;minio;r2;supabase;aws;
+Keywords=ferry;s3;sftp;ssh;ftp;webdav;nextcloud;storage;bucket;cloud;transfer;upload;minio;r2;supabase;aws;cryptomator;
 StartupNotify=true
 MimeType=x-scheme-handler/s3;
 DBusActivatable=true

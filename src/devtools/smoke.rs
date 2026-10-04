@@ -726,6 +726,38 @@ pub fn start(win: &Window, profile_name: String) {
             win.navigate(base);
         }
 
+        // The connection editor for a file server, and browsing one (with local test servers).
+        win.edit_profile(Some(crate::profile::Profile { provider: "sftp".into(), ..Default::default() }));
+        step(dialog_shot(&win, "40-sftp-editor", 800).await, "connection editor for SFTP", String::new());
+        if std::env::var_os("FERRY_REMOTE_TEST").is_some() {
+            let mut sftp = crate::profile::Profile { id: "smoke-sftp".into(), name: "Test SFTP".into(), provider: "sftp".into(), endpoint: "127.0.0.1:2222".into(),
+                access_key: "ada".into(), secret_key: "secret".into(), remote_path: "/".into(), ..Default::default() };
+            // The test server's key is approved the way the user would.
+            let probe = sftp.clone();
+            let first = crate::runtime::bg(async move { crate::s3::S3::connect(probe).await.map(|_| ()) }).await;
+            if let Some(unknown) = first.err().and_then(|e| crate::remote::sftp::UnknownHost::decode(&e)) { sftp.host_key = unknown.fingerprint; }
+            let setup = sftp.clone();
+            let remote = crate::runtime::bg(async move {
+                let remote = crate::s3::S3::connect(setup).await?;
+                remote.create_object("127.0.0.1", "ferry-smoke-sftp/hello.txt", b"hi".to_vec(), "text/plain").await?;
+                Ok(remote)
+            }).await;
+            win.connect(sftp);
+            let listed = until(15, || names(&win).iter().any(|n| n == "ferry-smoke-sftp")).await;
+            let off = !win.lookup_action("new-bucket").and_downcast::<gtk::gio::SimpleAction>().is_some_and(|a| a.is_enabled());
+            step(remote.is_ok() && listed && off, "browse an SFTP server, bucket actions off", format!("{:?}", names(&win)));
+            shot(&win, "41-sftp-browse").await;
+            win.navigate("ferry-smoke-sftp/");
+            let inside = until(10, || names(&win).iter().any(|n| n == "hello.txt")).await;
+            step(inside, "open a folder on it", format!("{:?}", names(&win)));
+            shot(&win, "42-sftp-folder").await;
+            if let Ok(remote) = remote {
+                let _ = crate::runtime::bg(async move { remote.delete_keys("127.0.0.1", vec!["ferry-smoke-sftp/".into()]).await }).await;
+            }
+            win.connect(client.profile.clone());
+            until(15, || win.open_bucket_name() == bucket).await;
+        }
+
         // Clean up.
         let (c, b) = (client.clone(), bucket.clone());
         let removed = crate::runtime::bg(async move { c.delete_keys(&b, vec![base.to_string()]).await }).await;

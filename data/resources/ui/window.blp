@@ -124,7 +124,7 @@ template $FerryWindow: Adw.ApplicationWindow {
                 visible: false;
 
                 Box {
-                  Label {
+                  Label buckets_heading {
                     label: _("Buckets");
                     xalign: 0;
                     hexpand: true;
@@ -145,7 +145,7 @@ template $FerryWindow: Adw.ApplicationWindow {
                     ]
                   }
 
-                  MenuButton {
+                  MenuButton add_bucket_button {
                     icon-name: "list-add-symbolic";
                     tooltip-text: _("Add Bucket");
                     menu-model: bucket_add_menu;

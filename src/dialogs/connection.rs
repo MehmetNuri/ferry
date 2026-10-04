@@ -9,6 +9,9 @@ use crate::profile::{PRESETS, Preset, Profile};
 use crate::runtime::bg;
 use crate::s3::S3;
 
+/// FTP protection, in the order of the encryption choices.
+const FTP_SECURITY: &[&str] = &["explicit", "implicit", "none"];
+
 pub const STORAGE_CLASSES: &[&str] = &["STANDARD", "STANDARD_IA", "ONEZONE_IA", "INTELLIGENT_TIERING", "GLACIER_IR", "GLACIER", "DEEP_ARCHIVE"];
 const ENCRYPTIONS: &[&str] = &["", "AES256", "aws:kms"];
 
@@ -51,6 +54,13 @@ pub fn present(parent: &impl IsA<gtk::Widget>, existing: Option<Profile>, on_sav
     let ca_choose: gtk::Button = get("ca_choose").downcast().unwrap();
     let ca_clear: gtk::Button = get("ca_clear").downcast().unwrap();
     let trust: gtk::Button = get("trust_button").downcast().unwrap();
+    let remote_path: adw::EntryRow = get("remote_path_row").downcast().unwrap();
+    let ftp_security: adw::ComboRow = get("ftp_security_row").downcast().unwrap();
+    let key_row: adw::ActionRow = get("key_row").downcast().unwrap();
+    let key_choose: gtk::Button = get("key_choose").downcast().unwrap();
+    let key_clear: gtk::Button = get("key_clear").downcast().unwrap();
+    let jump: adw::EntryRow = get("jump_row").downcast().unwrap();
+    let upload_group: adw::PreferencesGroup = get("upload_group").downcast().unwrap();
     let cancel: gtk::Button = get("cancel_button").downcast().unwrap();
 
     let labels: Vec<String> = PRESETS.iter().map(preset_label).collect();
@@ -79,6 +89,23 @@ pub fn present(parent: &impl IsA<gtk::Widget>, existing: Option<Profile>, on_sav
     kms_key.set_text(&original.kms_key);
     kms_key.set_visible(encryption.selected() == 2);
     supabase.set_visible(original.provider == "supabase");
+
+    remote_path.set_text(&original.remote_path);
+    jump.set_text(&original.jump_host);
+    ftp_security.set_model(Some(&gtk::StringList::new(&[&tr("TLS (recommended)"), &tr("TLS on its own port (implicit, 990)"), &tr("None (password sent readably)")])));
+    ftp_security.set_selected(FTP_SECURITY.iter().position(|m| *m == original.ftp_security).unwrap_or(0) as u32);
+    let key_path = Rc::new(RefCell::new(original.private_key.clone()));
+    // Approved server keys, changed when the user trusts an unknown server.
+    let host_keys = Rc::new(RefCell::new((original.host_key.clone(), original.jump_host_key.clone())));
+    let show_key = Rc::new({
+        let (key_row, key_clear, key_path) = (key_row.clone(), key_clear.clone(), key_path.clone());
+        move || {
+            let path = key_path.borrow();
+            key_clear.set_visible(!path.is_empty());
+            key_row.set_subtitle(&if path.is_empty() { tr("Optional: the SSH agent and the keys in ~/.ssh are tried first") } else { glib::markup_escape_text(&path).to_string() });
+        }
+    });
+    show_key();
 
     // Where the credentials come from: keys typed here, or a profile of the AWS CLI.
     auth.set_model(Some(&gtk::StringList::new(&[&tr("Access Keys"), &tr("AWS CLI Profile")])));
@@ -119,6 +146,52 @@ pub fn present(parent: &impl IsA<gtk::Widget>, existing: Option<Profile>, on_sav
     });
     show_ca();
 
+    // File servers and S3 services need different settings.
+    let apply_kind = Rc::new({
+        let (provider, region, path_style, upload_group, role, accelerate, ca_row, auth, buckets, session_token) =
+            (provider.clone(), region.clone(), path_style.clone(), upload_group.clone(), role.clone(), accelerate.clone(), ca_row.clone(), auth.clone(), buckets.clone(), session_token.clone());
+        let (remote_path, key_row, jump, ftp_security, access_key, secret_key, aws_profile) =
+            (remote_path.clone(), key_row.clone(), jump.clone(), ftp_security.clone(), access_key.clone(), secret_key.clone(), aws_profile.clone());
+        let has_cli = !cli_profiles.is_empty() || !original.aws_profile.is_empty();
+        move || {
+            let id = PRESETS[provider.selected() as usize].id;
+            let remote = crate::remote::is_remote(id);
+            for widget in [region.upcast_ref::<gtk::Widget>(), path_style.upcast_ref(), upload_group.upcast_ref(), role.upcast_ref(), buckets.upcast_ref(), session_token.upcast_ref()] {
+                widget.set_visible(!remote);
+            }
+            auth.set_visible(!remote && has_cli);
+            if remote { auth.set_selected(0); aws_profile.set_visible(false); access_key.set_visible(true); secret_key.set_visible(true); }
+            accelerate.set_visible(id == "aws");
+            ca_row.set_visible(id != "sftp");
+            remote_path.set_visible(remote);
+            key_row.set_visible(id == "sftp");
+            jump.set_visible(id == "sftp");
+            ftp_security.set_visible(id == "ftp");
+            access_key.set_title(&if remote { tr("User name") } else { tr("Access key ID") });
+            secret_key.set_title(&match id { "sftp" => tr("Password or key passphrase"), "ftp" | "webdav" | "nextcloud" => tr("Password"), _ => tr("Secret access key") });
+        }
+    });
+    apply_kind();
+    {
+        let (key_path, show_key, dialog) = (key_path.clone(), show_key.clone(), dialog.clone());
+        key_choose.connect_clicked(move |_| {
+            let chooser = gtk::FileDialog::builder().title(tr("Choose Private Key")).modal(true).build();
+            let ssh = glib::home_dir().join(".ssh");
+            if ssh.is_dir() { chooser.set_initial_folder(Some(&gtk::gio::File::for_path(ssh))); }
+            let (key_path, show_key, root) = (key_path.clone(), show_key.clone(), dialog.root().and_downcast::<gtk::Window>());
+            glib::spawn_future_local(async move {
+                let Ok(file) = chooser.open_future(root.as_ref()).await else { return };
+                let Some(path) = file.path() else { return };
+                key_path.replace(path.display().to_string());
+                show_key();
+            });
+        });
+    }
+    {
+        let (key_path, show_key) = (key_path.clone(), show_key.clone());
+        key_clear.connect_clicked(move |_| { key_path.replace(String::new()); show_key(); });
+    }
+
     // The endpoint follows the preset and region until the user types one.
     let auto_endpoint = Rc::new(RefCell::new(original.endpoint.is_empty()));
     let fill_endpoint = {
@@ -142,14 +215,21 @@ pub fn present(parent: &impl IsA<gtk::Widget>, existing: Option<Profile>, on_sav
         move || {
             let preset = &PRESETS[provider.selected() as usize];
             region.set_tooltip_text(Some(&format!("{} {}", tr("For example"), preset.region_hint)));
-            endpoint.set_title(&if preset.id == "aws" { tr("Endpoint (optional)") } else if preset.id == "supabase" { tr("Endpoint (derived from the project ref if empty)") } else { tr("Endpoint") });
+            endpoint.set_title(&match preset.id {
+                "aws" => tr("Endpoint (optional)"),
+                "supabase" => tr("Endpoint (derived from the project ref if empty)"),
+                "sftp" | "ftp" => tr("Server (host or host:port)"),
+                "webdav" => tr("Address (https://…)"),
+                "nextcloud" => tr("Server address (https://…)"),
+                _ => tr("Endpoint"),
+            });
         }
     };
     update_hints();
     // A new connection started from a provider tile gets that provider's endpoint.
     if !editing { fill_endpoint(); }
     {
-        let (supabase, path_style, region, fill_endpoint, update_hints, accelerate) = (supabase.clone(), path_style.clone(), region.clone(), fill_endpoint.clone(), update_hints.clone(), accelerate.clone());
+        let (supabase, path_style, region, fill_endpoint, update_hints, accelerate, apply_kind) = (supabase.clone(), path_style.clone(), region.clone(), fill_endpoint.clone(), update_hints.clone(), accelerate.clone(), apply_kind.clone());
         provider.connect_selected_notify(move |row| {
             let preset = &PRESETS[row.selected() as usize];
             supabase.set_visible(preset.id == "supabase");
@@ -160,6 +240,7 @@ pub fn present(parent: &impl IsA<gtk::Widget>, existing: Option<Profile>, on_sav
             }
             fill_endpoint();
             update_hints();
+            apply_kind();
         });
     }
     {
@@ -186,6 +267,9 @@ pub fn present(parent: &impl IsA<gtk::Widget>, existing: Option<Profile>, on_sav
             (access_key.clone(), secret_key.clone(), session_token.clone(), buckets.clone(), storage_class.clone(), encryption.clone(), kms_key.clone());
         let (auth, aws_profile, role, role_arn, external_id, mfa_serial, accelerate, ca_pem) =
             (auth.clone(), aws_profile.clone(), role.clone(), role_arn.clone(), external_id.clone(), mfa_serial.clone(), accelerate.clone(), ca_pem.clone());
+        let (remote_path, key_path, host_keys, jump, ftp_security) = (remote_path.clone(), key_path.clone(), host_keys.clone(), jump.clone(), ftp_security.clone());
+        let remote_kind = { let provider = provider.clone(); move || crate::remote::is_remote(PRESETS[provider.selected() as usize].id) };
+        let sftp_kind = { let provider = provider.clone(); move || PRESETS[provider.selected() as usize].id == "sftp" };
         move || Profile {
             id: original.id.clone(),
             name: name.text().trim().to_string(),
@@ -207,6 +291,12 @@ pub fn present(parent: &impl IsA<gtk::Widget>, existing: Option<Profile>, on_sav
             mfa_serial: if role.enables_expansion() { mfa_serial.text().trim().to_string() } else { String::new() },
             accelerate: accelerate.is_active() && PRESETS[provider.selected() as usize].id == "aws",
             ca_certificate: ca_pem.borrow().trim().to_string(),
+            remote_path: if remote_kind() { remote_path.text().trim().to_string() } else { String::new() },
+            private_key: if sftp_kind() { key_path.borrow().clone() } else { String::new() },
+            host_key: if sftp_kind() { host_keys.borrow().0.clone() } else { String::new() },
+            jump_host: if sftp_kind() { jump.text().trim().to_string() } else { String::new() },
+            jump_host_key: if sftp_kind() && !jump.text().trim().is_empty() { host_keys.borrow().1.clone() } else { String::new() },
+            ftp_security: if PRESETS[provider.selected() as usize].id == "ftp" { FTP_SECURITY[ftp_security.selected() as usize].to_string() } else { String::new() },
         }
     });
 
@@ -249,17 +339,26 @@ pub fn present(parent: &impl IsA<gtk::Widget>, existing: Option<Profile>, on_sav
     {
         // The result stays next to the button, and a toast reports it wherever the page is scrolled.
         let (collect, test_result, test_icon, toasts) = (collect.clone(), test_result.clone(), test_icon.clone(), toasts.clone());
-        let (dialog, trust) = (dialog.clone(), trust.clone());
+        let (dialog, trust, host_keys) = (dialog.clone(), trust.clone(), host_keys.clone());
         test_row.connect_activated(move |row| {
             let profile = collect();
             let (row, test_result, test_icon, toasts) = (row.clone(), test_result.clone(), test_icon.clone(), toasts.clone());
             row.set_sensitive(false);
             row.set_title(&tr("Testing…"));
             test_result.set_visible(false);
-            let (dialog, trust) = (dialog.clone(), trust.clone());
+            let (dialog, trust, host_keys) = (dialog.clone(), trust.clone(), host_keys.clone());
             glib::spawn_future_local(async move {
                 trust.set_visible(false);
+                let mut profile = profile;
                 let mut result = bg(S3::test(profile.clone())).await;
+                // An SFTP server (or its jump host) seen for the first time: the user checks its key.
+                for _ in 0..2 {
+                    let Some(unknown) = result.as_ref().err().and_then(|e| crate::remote::sftp::UnknownHost::decode(e)) else { break };
+                    if !trust_host_key(&dialog, &unknown).await { break; }
+                    if unknown.jump { host_keys.borrow_mut().1 = unknown.fingerprint.clone(); profile.jump_host_key = unknown.fingerprint; }
+                    else { host_keys.borrow_mut().0 = unknown.fingerprint.clone(); profile.host_key = unknown.fingerprint; }
+                    result = bg(S3::test(profile.clone())).await;
+                }
                 if result.as_ref().err().is_some_and(|e| e == crate::s3::connection::MFA_REQUIRED) {
                     result = if unlock_mfa(&dialog, &profile).await { bg(S3::test(profile.clone())).await } else { Err(tr("An MFA code is needed to test this connection")) };
                 }
@@ -320,8 +419,8 @@ pub fn present(parent: &impl IsA<gtk::Widget>, existing: Option<Profile>, on_sav
             let (dialog, toasts, button, on_saved) = (dialog.clone(), toasts.clone(), button.clone(), on_saved.clone());
             button.set_sensitive(false);
             glib::spawn_future_local(async move {
-                // Plain HTTP to a host on the internet sends data and session tokens readably.
-                if crate::s3::S3::insecure_endpoint(&profile.endpoint) {
+                // Plain HTTP to a host on the internet, or FTP without TLS, sends data and passwords readably.
+                if crate::s3::S3::insecure_endpoint(&profile.endpoint) || profile.ftp_security == "none" {
                     let alert = adw::AlertDialog::new(Some(&tr("Unencrypted Connection?")),
                         Some(&tr("This endpoint uses http:// instead of https://. Files, session tokens and share links can be read or changed on the way. Use https:// unless the server is in a network you trust.")));
                     alert.add_responses(&[("cancel", &tr("Cancel")), ("save", &tr("Save Anyway"))]);
@@ -385,4 +484,22 @@ pub async fn unlock_mfa(parent: &impl IsA<gtk::Widget>, profile: &Profile) -> bo
             }
         }
     }
+}
+
+/// Shows the key of an SFTP server (or jump host) seen for the first time; true when
+/// the user trusts it.
+pub async fn trust_host_key(parent: &impl IsA<gtk::Widget>, unknown: &crate::remote::sftp::UnknownHost) -> bool {
+    let place = if unknown.port == 22 { unknown.host.clone() } else { format!("{}:{}", unknown.host, unknown.port) };
+    let body = if unknown.jump {
+        crate::i18n::trf("Ferry has not connected to the jump host {host} before. Connect only if this key fingerprint is the server's, for example as its administrator or “ssh-keyscan” shows it:", &[("host", &place)])
+    } else {
+        crate::i18n::trf("Ferry has not connected to {host} before. Connect only if this key fingerprint is the server's, for example as its administrator or “ssh-keyscan” shows it:", &[("host", &place)])
+    };
+    let alert = adw::AlertDialog::new(Some(&tr("Unknown Server")), Some(&body));
+    let print = gtk::Label::builder().label(&unknown.fingerprint).wrap(true).wrap_mode(gtk::pango::WrapMode::Char).selectable(true).css_classes(["monospace"]).build();
+    alert.set_extra_child(Some(&print));
+    alert.add_responses(&[("cancel", &tr("Cancel")), ("trust", &tr("_Trust and Connect"))]);
+    alert.set_response_appearance("trust", adw::ResponseAppearance::Suggested);
+    alert.set_close_response("cancel");
+    alert.choose_future(Some(parent)).await == "trust"
 }

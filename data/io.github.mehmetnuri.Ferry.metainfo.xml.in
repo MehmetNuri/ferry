@@ -4,17 +4,20 @@
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-3.0-or-later</project_license>
   <name>Ferry</name>
-  <summary>Move files between your computer and cloud storage</summary>
+  <summary>Move files to and from servers and cloud storage</summary>
   <developer id="io.github.mehmetnuri">
     <name>Mehmet Nuri Öztürk</name>
   </developer>
   <description>
     <p>
-      Ferry moves files between your computer and cloud storage: Amazon S3, Supabase
-      Storage, MinIO, Cloudflare R2 and other S3-compatible services.
+      Ferry moves files between your computer and file servers or cloud storage: SFTP,
+      FTP, WebDAV and Nextcloud, Amazon S3, Cloudflare R2, MinIO, Supabase Storage and other
+      S3-compatible services.
     </p>
     <ul>
-      <li>Browse buckets in a list or a grid with thumbnails; folders open instantly from a cache</li>
+      <li>Browse buckets and file servers in a list or a grid with thumbnails; folders open instantly from a cache</li>
+      <li>SFTP also through a jump host, with the SSH agent and checked server keys; FTP over TLS; WebDAV and Nextcloud</li>
+      <li>Cryptomator vaults, unlocked right in the window on any bucket or server</li>
       <li>Quick preview of images, videos, audio and text with the space key</li>
       <li>A transfer queue with priorities, pausing each transfer, speed limit and retries; interrupted uploads and downloads continue where they stopped</li>
       <li>Recent objects of every connection, sorting, and downloading folders as one ZIP file</li>

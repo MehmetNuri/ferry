@@ -123,7 +123,7 @@ pub fn is_passphrase(data: &[u8]) -> bool {
     decryptor(data).is_ok_and(|d| d.is_scrypt())
 }
 
-fn finish(decryptor: age::Decryptor<age::armor::ArmoredReader<std::io::BufReader<&[u8]>>>, identities: &[Box<dyn age::Identity + Send + Sync>]) -> Result<Vec<Profile>, String> {
+fn finish(decryptor: age::Decryptor<age::armor::ArmoredReader<std::io::BufReader<&[u8]>>>, identities: &[Box<dyn age::Identity>]) -> Result<Vec<Profile>, String> {
     let mut reader = decryptor.decrypt(identities.iter().map(|i| i.as_ref() as &dyn age::Identity)).map_err(|e| match e {
         age::DecryptError::NoMatchingKeys => tr("None of your keys can open this backup"),
         age::DecryptError::DecryptionFailed | age::DecryptError::KeyDecryptionFailed => tr("Wrong password, or the file is damaged"),
@@ -142,7 +142,7 @@ pub fn open_passphrase(data: &[u8], passphrase: &str) -> Result<Vec<Profile>, St
 
 /// Identities from a file: an age identity file (also with plugin identities) or an
 /// SSH private key, which may ask for its passphrase.
-fn identities_from(path: &std::path::Path, prompts: &Prompts) -> Vec<Box<dyn age::Identity + Send + Sync>> {
+fn identities_from(path: &std::path::Path, prompts: &Prompts) -> Vec<Box<dyn age::Identity>> {
     let Ok(text) = std::fs::read(path) else { return Vec::new() };
     let text = Zeroizing::new(text);
     if let Ok(file) = age::IdentityFile::from_buffer(text.as_slice())
@@ -157,7 +157,7 @@ fn identities_from(path: &std::path::Path, prompts: &Prompts) -> Vec<Box<dyn age
 }
 
 /// The usual places for keys: SSH keys and age key files of the user.
-fn default_identities(prompts: &Prompts) -> Vec<Box<dyn age::Identity + Send + Sync>> {
+fn default_identities(prompts: &Prompts) -> Vec<Box<dyn age::Identity>> {
     let home = gtk::glib::home_dir();
     let config = gtk::glib::user_config_dir();
     let mut found = Vec::new();
@@ -168,7 +168,7 @@ fn default_identities(prompts: &Prompts) -> Vec<Box<dyn age::Identity + Send + S
     }
     // A YubiKey is asked last: it may want a PIN or a touch.
     if yubikey_plugin()
-        && let Ok(identity) = age::plugin::Identity::default_for_plugin("yubikey")
+        && let identity = age::plugin::Identity::default_for_plugin("yubikey")
         && let Ok(plugin) = age::plugin::IdentityPluginV1::new("yubikey", &[identity], prompts.clone()) {
         found.push(Box::new(plugin));
     }

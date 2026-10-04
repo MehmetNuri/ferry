@@ -300,3 +300,97 @@ fn vault_live() {
         assert_eq!(failures, 0, "{failures} checks failed");
     });
 }
+
+/// SFTP (direct and through a jump host), FTP over TLS and WebDAV against local test
+/// servers. Run with FERRY_REMOTE_TEST=<folder with tls/cert.pem and ssh/jump_key>.
+#[test]
+fn remote_live() {
+    use crate::profile::Profile;
+    use crate::s3::vault;
+    let Ok(dir) = std::env::var("FERRY_REMOTE_TEST") else { return };
+    let dir = std::path::PathBuf::from(dir);
+    runtime().block_on(async move {
+        let cert = std::fs::read_to_string(dir.join("tls/cert.pem")).unwrap();
+        let profiles = vec![
+            Profile { id: "t-sftp".into(), name: "sftp".into(), provider: "sftp".into(), endpoint: "127.0.0.1:2222".into(), access_key: "ada".into(), secret_key: "secret".into(), remote_path: "/".into(), ..Default::default() },
+            Profile { id: "t-jump".into(), name: "jump".into(), provider: "sftp".into(), endpoint: "ferry-sftp:2022".into(), access_key: "ada".into(), secret_key: "secret".into(), remote_path: "/".into(),
+                jump_host: "ops@127.0.0.1:2223".into(), private_key: dir.join("ssh/jump_key").display().to_string(), ..Default::default() },
+            Profile { id: "t-ftps".into(), name: "ftps".into(), provider: "ftp".into(), endpoint: "localhost:2125".into(), access_key: "ada".into(), secret_key: "secret".into(), ca_certificate: std::fs::read_to_string(dir.join("tls/rsa-cert.pem")).unwrap(), ..Default::default() },
+            Profile { id: "t-ftp".into(), name: "ftp".into(), provider: "ftp".into(), endpoint: "127.0.0.1:2122".into(), access_key: "ada".into(), secret_key: "secret".into(), ftp_security: "none".into(), ..Default::default() },
+            Profile { id: "t-dav".into(), name: "dav".into(), provider: "webdav".into(), endpoint: "http://127.0.0.1:8080/".into(), access_key: "ada".into(), secret_key: "secret".into(), ..Default::default() },
+        ];
+        // A server that encrypts the sign-in but not the files is refused clearly, not left hanging.
+        let quirk = Profile { id: "t-quirk".into(), name: "quirk".into(), provider: "ftp".into(), endpoint: "localhost:2121".into(), access_key: "ada".into(), secret_key: "secret".into(), ca_certificate: cert.clone(), ftp_security: "implicit".into(), ..Default::default() };
+        let refused = tokio::time::timeout(std::time::Duration::from_secs(30), S3::connect(quirk)).await;
+        let refused_ok = matches!(&refused, Ok(Err(e)) if e.contains("PROT P"));
+        println!("{}  ftp   server without data encryption is refused   {:?}", if refused_ok { "OK  " } else { "FAIL" }, refused.as_ref().map(|r| r.as_ref().err()));
+        let local = std::env::temp_dir().join(format!("ferry-remote-{}", std::process::id()));
+        std::fs::create_dir_all(&local).unwrap();
+        let data: Vec<u8> = (0..300_000u32).map(|i| (i % 253) as u8).collect();
+        std::fs::write(local.join("a.bin"), &data).unwrap();
+        let mut failures = 0;
+        for mut profile in profiles {
+            let kind = profile.name.clone();
+            let mut check = |name: &str, ok: bool, detail: String| {
+                if ok { println!("OK    {kind:<5} {name:<36} {detail}") } else { failures += 1; println!("FAIL  {kind:<5} {name:<36} {detail}") }
+            };
+            // First contact: the server keys are unknown and have to be approved.
+            let mut client = S3::connect(profile.clone()).await;
+            for _ in 0..2 {
+                let Some(unknown) = client.as_ref().err().and_then(|e| crate::remote::sftp::UnknownHost::decode(e)) else { break };
+                if unknown.jump { profile.jump_host_key = unknown.fingerprint.clone(); } else { profile.host_key = unknown.fingerprint.clone(); }
+                check(if unknown.jump { "jump host key asked for" } else { "server key asked for" }, unknown.fingerprint.starts_with("SHA256:"), unknown.fingerprint);
+                client = S3::connect(profile.clone()).await;
+            }
+            let client = match client { Ok(c) => c, Err(e) => { check("connect", false, e); continue } };
+            check("connect", true, String::new());
+            let bucket = client.list_buckets().await.unwrap().buckets[0].name.clone();
+            let base = format!("ferry-remote-{kind}/");
+            let p = Progress::default();
+            check("create folder", client.create_folder(&bucket, &format!("{base}docs/")).await.is_ok(), String::new());
+            let up = client.upload_file(&bucket, &format!("{base}docs/a.bin"), &local.join("a.bin"), &p).await;
+            check("upload", up.is_ok(), format!("{:?}", up.err()));
+            let deep = client.upload_file(&bucket, &format!("{base}x/y/deep.bin"), &local.join("a.bin"), &p).await;
+            check("upload makes missing folders", deep.is_ok(), format!("{:?}", deep.err()));
+            let listed = client.list_objects(&bucket, &base, "").await.map(|l| l.items.iter().map(|e| e.name.clone()).collect::<Vec<_>>());
+            check("list", listed.as_ref().is_ok_and(|n| n.contains(&"docs".into()) && n.contains(&"x".into())), format!("{listed:?}"));
+            let head = client.head_object(&bucket, &format!("{base}docs/a.bin")).await;
+            check("size", head.as_ref().is_ok_and(|h| h.size == 300_000), format!("{:?}", head.map(|h| h.size)));
+            let start = client.read_bytes(&bucket, &format!("{base}docs/a.bin"), 1000).await.unwrap_or_default();
+            check("read the start", start == data[..1000], format!("{} bytes", start.len()));
+            let back = local.join(format!("back-{kind}.bin"));
+            let down = client.download_file(&bucket, &format!("{base}docs/a.bin"), None, &back, &p).await;
+            check("download", down.is_ok() && std::fs::read(&back).unwrap_or_default() == data, format!("{:?}", down.err()));
+            let renamed = client.rename(&bucket, &format!("{base}docs/a.bin"), &format!("{base}docs/b.bin")).await;
+            check("rename", renamed.is_ok() && client.head_object(&bucket, &format!("{base}docs/b.bin")).await.is_ok(), format!("{:?}", renamed.err()));
+            let copied = client.copy_object(&bucket, &format!("{base}docs/b.bin"), &bucket, &format!("{base}copy.bin")).await;
+            check("copy", copied.is_ok() && client.head_object(&bucket, &format!("{base}copy.bin")).await.is_ok_and(|h| h.size == 300_000), format!("{:?}", copied.err()));
+            let moved = client.rename_folder(&bucket, &format!("{base}docs/"), &format!("{base}papers/")).await;
+            let inside = client.list_objects(&bucket, &format!("{base}papers/"), "").await.unwrap_or_default();
+            check("rename a folder", moved.is_ok() && inside.items.iter().any(|e| e.name == "b.bin"), format!("{:?}", moved.err()));
+            let made = client.create_object(&bucket, &format!("{base}note ü.txt"), b"hello".to_vec(), "text/plain").await;
+            let again = client.create_object(&bucket, &format!("{base}note ü.txt"), b"hello".to_vec(), "text/plain").await;
+            check("new file, no silent replace", made.is_ok() && again.is_err(), format!("{:?}", made.err()));
+            let (all, _) = client.list_all(&bucket, &base, usize::MAX).await.unwrap_or_default();
+            check("walk the tree", all.iter().any(|e| e.key.ends_with("x/y/deep.bin")), format!("{} entries", all.len()));
+            check("links are refused", client.presign(&bucket, &format!("{base}copy.bin"), 60).await.is_err(), String::new());
+            // A Cryptomator vault on the file server.
+            let root = format!("{base}vault/");
+            let v = async {
+                vault::create(&client, &bucket, &root, "vault password".into()).await?;
+                vault::unlock(&client, &bucket, &root, "vault password".into()).await?;
+                client.upload_file(&bucket, &format!("{root}secret.bin"), &local.join("a.bin"), &p).await?;
+                let read = client.read_bytes(&bucket, &format!("{root}secret.bin"), 400_000).await?;
+                Ok::<_, String>(read == data)
+            }.await;
+            check("Cryptomator vault on it", v.as_ref().is_ok_and(|ok| *ok), format!("{v:?}"));
+            vault::lock(&client.profile.id, &bucket, &root);
+            let removed = client.delete_keys(&bucket, vec![base.clone()]).await;
+            let gone = client.list_objects(&bucket, "", "").await.map(|l| !l.items.iter().any(|e| e.key == base)).unwrap_or(false);
+            check("delete the folder with everything", removed.is_ok() && gone, format!("{removed:?}"));
+        }
+        let _ = std::fs::remove_dir_all(&local);
+        assert!(refused_ok, "a server without data encryption was not refused");
+        assert_eq!(failures, 0, "{failures} checks failed");
+    });
+}
