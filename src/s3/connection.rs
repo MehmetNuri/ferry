@@ -1,26 +1,20 @@
-//! How a connection reaches its server: the HTTP client with the desktop's proxy and
-//! the trusted certificates, and where the credentials come from (keys, AWS CLI
-//! profiles with SSO, assumed roles with MFA).
 use std::collections::HashMap;
 use std::sync::{Mutex, PoisonError};
 use std::time::{Duration, SystemTime};
 
 use aws_config::BehaviorVersion;
-use gio::prelude::*;
 use aws_sdk_s3::config::{Credentials, Region, SharedCredentialsProvider};
-use aws_smithy_http_client::{proxy::ProxyConfig, tls, Builder, ConnectorBuilder};
+use aws_smithy_http_client::{Builder, ConnectorBuilder, proxy::ProxyConfig, tls};
 use aws_smithy_runtime_api::client::http::SharedHttpClient;
+use gio::prelude::*;
 
 use crate::i18n::tr;
 use crate::profile::Profile;
 
 use super::Res;
 
-/// The error `credentials` gives when a role needs an MFA code first.
 pub const MFA_REQUIRED: &str = "mfa-required";
 
-/// The proxy the desktop uses for this address (GNOME settings, or the proxy portal
-/// in Flatpak), else the usual environment variables.
 fn proxy_for(url: &str) -> ProxyConfig {
     let resolver = gio::ProxyResolver::default();
     if let Ok(proxies) = resolver.lookup(url, gio::Cancellable::NONE) {
@@ -29,7 +23,8 @@ fn proxy_for(url: &str) -> ProxyConfig {
                 return ProxyConfig::disabled();
             }
             if (proxy.starts_with("http://") || proxy.starts_with("https://"))
-                && let Ok(config) = ProxyConfig::all(proxy.as_str()) {
+                && let Ok(config) = ProxyConfig::all(proxy.as_str())
+            {
                 return config;
             }
         }
@@ -37,7 +32,6 @@ fn proxy_for(url: &str) -> ProxyConfig {
     ProxyConfig::from_env()
 }
 
-/// The HTTP client of a connection: system certificates plus the connection's own.
 pub fn http_client(profile: &Profile, endpoint: &str) -> Res<SharedHttpClient> {
     if !profile.ca_certificate.trim().is_empty() {
         return Ok(SharedHttpClient::new(super::pinned::PinnedClient::new(&profile.ca_certificate)?));
@@ -62,49 +56,55 @@ pub fn http_client(profile: &Profile, endpoint: &str) -> Res<SharedHttpClient> {
     }))
 }
 
-/// The shared AWS configuration (region, HTTP client, and with a CLI profile its
-/// credentials) a connection starts from.
 async fn shared_config(profile: &Profile, region: &str, client: SharedHttpClient) -> aws_config::SdkConfig {
-    let mut loader = aws_config::defaults(BehaviorVersion::latest()).region(Region::new(region.to_string())).http_client(client);
+    let mut loader =
+        aws_config::defaults(BehaviorVersion::latest()).region(Region::new(region.to_string())).http_client(client);
     if !profile.aws_profile.trim().is_empty() {
         loader = loader.profile_name(profile.aws_profile.trim());
     }
     loader.load().await
 }
 
-/// Temporary credentials of roles assumed with an MFA code, until they expire.
 static SESSIONS: Mutex<Option<HashMap<String, Credentials>>> = Mutex::new(None);
 
 fn cached_session(id: &str) -> Option<Credentials> {
     let sessions = SESSIONS.lock().unwrap_or_else(PoisonError::into_inner);
     let found = sessions.as_ref()?.get(id)?.clone();
-    // A session close to its end is renewed instead of failing halfway through a transfer.
     let fresh = found.expiry().is_none_or(|end| end > SystemTime::now() + Duration::from_secs(300));
     fresh.then_some(found)
 }
 
-/// Forgets the role session of a connection, for example after editing it.
 pub fn forget_session(id: &str) {
     if let Some(map) = SESSIONS.lock().unwrap_or_else(PoisonError::into_inner).as_mut() {
         map.remove(id);
     }
 }
 
-/// Whether connecting needs an MFA code now.
 pub fn needs_mfa(profile: &Profile) -> bool {
-    !profile.role_arn.trim().is_empty() && !profile.mfa_serial.trim().is_empty() && cached_session(&profile.id).is_none()
+    !profile.role_arn.trim().is_empty()
+        && !profile.mfa_serial.trim().is_empty()
+        && cached_session(&profile.id).is_none()
 }
 
-/// The credentials of a connection, and the shared configuration they came with.
-pub async fn credentials(profile: &Profile, region: &str, client: SharedHttpClient) -> Res<(aws_config::SdkConfig, Option<SharedCredentialsProvider>)> {
+pub async fn credentials(
+    profile: &Profile,
+    region: &str,
+    client: SharedHttpClient,
+) -> Res<(aws_config::SdkConfig, Option<SharedCredentialsProvider>)> {
     let shared = shared_config(profile, region, client).await;
-    let base: Option<SharedCredentialsProvider> = if !profile.aws_profile.trim().is_empty() || profile.access_key.trim().is_empty() {
-        // An AWS CLI profile, or with no keys at all the usual chain (environment, ~/.aws).
-        shared.credentials_provider()
-    } else {
-        let token = (!profile.session_token.is_empty()).then(|| profile.session_token.clone());
-        Some(SharedCredentialsProvider::new(Credentials::new(profile.access_key.trim(), profile.secret_key.trim(), token, None, "profile")))
-    };
+    let base: Option<SharedCredentialsProvider> =
+        if !profile.aws_profile.trim().is_empty() || profile.access_key.trim().is_empty() {
+            shared.credentials_provider()
+        } else {
+            let token = (!profile.session_token.is_empty()).then(|| profile.session_token.clone());
+            Some(SharedCredentialsProvider::new(Credentials::new(
+                profile.access_key.trim(),
+                profile.secret_key.trim(),
+                token,
+                None,
+                "profile",
+            )))
+        };
     let role = profile.role_arn.trim();
     if role.is_empty() {
         return Ok((shared, base));
@@ -124,8 +124,6 @@ pub async fn credentials(profile: &Profile, region: &str, client: SharedHttpClie
     Ok((shared, Some(SharedCredentialsProvider::new(provider))))
 }
 
-/// Assumes the role of a connection with an MFA code and keeps the session for the
-/// next hour.
 pub async fn start_mfa_session(profile: &Profile, code: &str) -> Res<()> {
     let region = if profile.region.trim().is_empty() { "us-east-1" } else { profile.region.trim() };
     let client = http_client(profile, "")?;
@@ -137,8 +135,13 @@ pub async fn start_mfa_session(profile: &Profile, code: &str) -> Res<()> {
         config = config.credentials_provider(base);
     }
     let sts = aws_sdk_sts::Client::from_conf(config.build());
-    let mut request = sts.assume_role().role_arn(profile.role_arn.trim()).role_session_name("ferry")
-        .serial_number(profile.mfa_serial.trim()).token_code(code.trim()).duration_seconds(3600);
+    let mut request = sts
+        .assume_role()
+        .role_arn(profile.role_arn.trim())
+        .role_session_name("ferry")
+        .serial_number(profile.mfa_serial.trim())
+        .token_code(code.trim())
+        .duration_seconds(3600);
     if !profile.external_id.trim().is_empty() {
         request = request.external_id(profile.external_id.trim());
     }
@@ -148,16 +151,22 @@ pub async fn start_mfa_session(profile: &Profile, code: &str) -> Res<()> {
     })?;
     let c = out.credentials().ok_or_else(|| tr("The role gave no credentials"))?;
     let expiry = SystemTime::try_from(*c.expiration()).ok();
-    let session = Credentials::new(c.access_key_id(), c.secret_access_key(), Some(c.session_token().to_string()), expiry, "mfa");
-    SESSIONS.lock().unwrap_or_else(PoisonError::into_inner).get_or_insert_with(Default::default).insert(profile.id.clone(), session);
+    let session =
+        Credentials::new(c.access_key_id(), c.secret_access_key(), Some(c.session_token().to_string()), expiry, "mfa");
+    SESSIONS
+        .lock()
+        .unwrap_or_else(PoisonError::into_inner)
+        .get_or_insert_with(Default::default)
+        .insert(profile.id.clone(), session);
     Ok(())
 }
 
-/// Names of the AWS CLI profiles in ~/.aws/config and ~/.aws/credentials.
 pub fn aws_profiles() -> Vec<String> {
     let home = gtk::glib::home_dir();
     let config = std::env::var_os("AWS_CONFIG_FILE").map(Into::into).unwrap_or_else(|| home.join(".aws/config"));
-    let credentials = std::env::var_os("AWS_SHARED_CREDENTIALS_FILE").map(Into::into).unwrap_or_else(|| home.join(".aws/credentials"));
+    let credentials = std::env::var_os("AWS_SHARED_CREDENTIALS_FILE")
+        .map(Into::into)
+        .unwrap_or_else(|| home.join(".aws/credentials"));
     let mut names = Vec::new();
     for (path, prefixed) in [(config, true), (credentials, false)] {
         let Ok(text) = std::fs::read_to_string(path) else { continue };
@@ -168,49 +177,73 @@ pub fn aws_profiles() -> Vec<String> {
     names
 }
 
-/// Section names of an AWS INI file; in the config file they read [profile name],
-/// except [default]. sso-session and services sections are not profiles.
 fn parse_profile_names(text: &str, prefixed: bool) -> Vec<String> {
-    text.lines().filter_map(|line| {
-        let section = line.trim().strip_prefix('[')?.strip_suffix(']')?.trim();
-        if !prefixed { return Some(section.to_string()); }
-        if section == "default" { return Some(section.to_string()); }
-        section.strip_prefix("profile ").map(|n| n.trim().to_string())
-    }).filter(|n| !n.is_empty()).collect()
+    text.lines()
+        .filter_map(|line| {
+            let section = line.trim().strip_prefix('[')?.strip_suffix(']')?.trim();
+            if !prefixed {
+                return Some(section.to_string());
+            }
+            if section == "default" {
+                return Some(section.to_string());
+            }
+            section.strip_prefix("profile ").map(|n| n.trim().to_string())
+        })
+        .filter(|n| !n.is_empty())
+        .collect()
 }
 
-/// The certificate a server presents, to trust it after the user compared its fingerprint.
 pub struct ServerCertificate {
     pub host: String,
-    /// SHA-256 of the certificate, as colon-separated hex.
     pub fingerprint: String,
     pub pem: String,
 }
 
-/// Accepts any certificate, only to look at it; nothing is sent over this connection.
 #[derive(Debug)]
 struct Inspect(std::sync::Arc<tokio_rustls::rustls::crypto::CryptoProvider>);
 
 impl tokio_rustls::rustls::client::danger::ServerCertVerifier for Inspect {
-    fn verify_server_cert(&self, _: &rustls_pki_types::CertificateDer<'_>, _: &[rustls_pki_types::CertificateDer<'_>], _: &rustls_pki_types::ServerName<'_>, _: &[u8], _: rustls_pki_types::UnixTime)
-        -> Result<tokio_rustls::rustls::client::danger::ServerCertVerified, tokio_rustls::rustls::Error> {
+    fn verify_server_cert(
+        &self,
+        _: &rustls_pki_types::CertificateDer<'_>,
+        _: &[rustls_pki_types::CertificateDer<'_>],
+        _: &rustls_pki_types::ServerName<'_>,
+        _: &[u8],
+        _: rustls_pki_types::UnixTime,
+    ) -> Result<tokio_rustls::rustls::client::danger::ServerCertVerified, tokio_rustls::rustls::Error> {
         Ok(tokio_rustls::rustls::client::danger::ServerCertVerified::assertion())
     }
-    fn verify_tls12_signature(&self, message: &[u8], cert: &rustls_pki_types::CertificateDer<'_>, dss: &tokio_rustls::rustls::DigitallySignedStruct)
-        -> Result<tokio_rustls::rustls::client::danger::HandshakeSignatureValid, tokio_rustls::rustls::Error> {
-        tokio_rustls::rustls::crypto::verify_tls12_signature(message, cert, dss, &self.0.signature_verification_algorithms)
+    fn verify_tls12_signature(
+        &self,
+        message: &[u8],
+        cert: &rustls_pki_types::CertificateDer<'_>,
+        dss: &tokio_rustls::rustls::DigitallySignedStruct,
+    ) -> Result<tokio_rustls::rustls::client::danger::HandshakeSignatureValid, tokio_rustls::rustls::Error> {
+        tokio_rustls::rustls::crypto::verify_tls12_signature(
+            message,
+            cert,
+            dss,
+            &self.0.signature_verification_algorithms,
+        )
     }
-    fn verify_tls13_signature(&self, message: &[u8], cert: &rustls_pki_types::CertificateDer<'_>, dss: &tokio_rustls::rustls::DigitallySignedStruct)
-        -> Result<tokio_rustls::rustls::client::danger::HandshakeSignatureValid, tokio_rustls::rustls::Error> {
-        tokio_rustls::rustls::crypto::verify_tls13_signature(message, cert, dss, &self.0.signature_verification_algorithms)
+    fn verify_tls13_signature(
+        &self,
+        message: &[u8],
+        cert: &rustls_pki_types::CertificateDer<'_>,
+        dss: &tokio_rustls::rustls::DigitallySignedStruct,
+    ) -> Result<tokio_rustls::rustls::client::danger::HandshakeSignatureValid, tokio_rustls::rustls::Error> {
+        tokio_rustls::rustls::crypto::verify_tls13_signature(
+            message,
+            cert,
+            dss,
+            &self.0.signature_verification_algorithms,
+        )
     }
     fn supported_verify_schemes(&self) -> Vec<tokio_rustls::rustls::SignatureScheme> {
         self.0.signature_verification_algorithms.supported_schemes()
     }
 }
 
-/// Connects to an https endpoint and returns the top certificate of the chain it
-/// presents: the self-signed certificate itself, or the private CA's.
 pub async fn fetch_certificate(endpoint: &str) -> Res<ServerCertificate> {
     use base64::Engine;
     use sha2::Digest;
@@ -218,19 +251,30 @@ pub async fn fetch_certificate(endpoint: &str) -> Res<ServerCertificate> {
     let rest = url.strip_prefix("https://").ok_or_else(|| tr("Only https:// endpoints have certificates"))?;
     let authority = rest.split('/').next().unwrap_or(rest);
     let (host, port) = match authority.rsplit_once(':') {
-        Some((h, p)) if !h.ends_with(']') || h.starts_with('[') => (h.trim_matches(['[', ']']).to_string(), p.parse::<u16>().map_err(|_| tr("Invalid endpoint"))?),
+        Some((h, p)) if !h.ends_with(']') || h.starts_with('[') => {
+            (h.trim_matches(['[', ']']).to_string(), p.parse::<u16>().map_err(|_| tr("Invalid endpoint"))?)
+        }
         _ => (authority.trim_matches(['[', ']']).to_string(), 443),
     };
     let provider = std::sync::Arc::new(tokio_rustls::rustls::crypto::aws_lc_rs::default_provider());
     let config = tokio_rustls::rustls::ClientConfig::builder_with_provider(provider.clone())
-        .with_safe_default_protocol_versions().map_err(|e| e.to_string())?
-        .dangerous().with_custom_certificate_verifier(std::sync::Arc::new(Inspect(provider)))
+        .with_safe_default_protocol_versions()
+        .map_err(|e| e.to_string())?
+        .dangerous()
+        .with_custom_certificate_verifier(std::sync::Arc::new(Inspect(provider)))
         .with_no_client_auth();
     let name = rustls_pki_types::ServerName::try_from(host.clone()).map_err(|_| tr("Invalid endpoint"))?;
-    let tcp = tokio::time::timeout(Duration::from_secs(10), tokio::net::TcpStream::connect((host.as_str(), port))).await
-        .map_err(|_| tr("The server did not answer"))?.map_err(|e| e.to_string())?;
-    let stream = tokio::time::timeout(Duration::from_secs(10), tokio_rustls::TlsConnector::from(std::sync::Arc::new(config)).connect(name, tcp)).await
-        .map_err(|_| tr("The server did not answer"))?.map_err(|e| e.to_string())?;
+    let tcp = tokio::time::timeout(Duration::from_secs(10), tokio::net::TcpStream::connect((host.as_str(), port)))
+        .await
+        .map_err(|_| tr("The server did not answer"))?
+        .map_err(|e| e.to_string())?;
+    let stream = tokio::time::timeout(
+        Duration::from_secs(10),
+        tokio_rustls::TlsConnector::from(std::sync::Arc::new(config)).connect(name, tcp),
+    )
+    .await
+    .map_err(|_| tr("The server did not answer"))?
+    .map_err(|e| e.to_string())?;
     let chain = stream.get_ref().1.peer_certificates().ok_or_else(|| tr("The server presented no certificate"))?;
     let top = chain.last().ok_or_else(|| tr("The server presented no certificate"))?;
     let digest = sha2::Sha256::digest(top.as_ref());
@@ -241,7 +285,6 @@ pub async fn fetch_certificate(endpoint: &str) -> Res<ServerCertificate> {
     Ok(ServerCertificate { host, fingerprint, pem })
 }
 
-/// The SHA-256 fingerprints of the certificates in a PEM text.
 pub fn fingerprints(pem: &str) -> Vec<String> {
     use base64::Engine;
     use sha2::Digest;
@@ -250,7 +293,11 @@ pub fn fingerprints(pem: &str) -> Vec<String> {
     let mut inside = false;
     for line in pem.lines() {
         let line = line.trim();
-        if line == "-----BEGIN CERTIFICATE-----" { inside = true; body.clear(); continue; }
+        if line == "-----BEGIN CERTIFICATE-----" {
+            inside = true;
+            body.clear();
+            continue;
+        }
         if line == "-----END CERTIFICATE-----" {
             inside = false;
             if let Ok(der) = base64::engine::general_purpose::STANDARD.decode(&body) {
@@ -258,16 +305,26 @@ pub fn fingerprints(pem: &str) -> Vec<String> {
             }
             continue;
         }
-        if inside { body.push_str(line); }
+        if inside {
+            body.push_str(line);
+        }
     }
     found
 }
 
-/// Whether an error message is about a certificate the system does not trust.
 pub fn is_certificate_error(message: &str) -> bool {
     let lower = message.to_lowercase();
-    ["unknownissuer", "unknown issuer", "invalidcertificate", "invalid peer certificate", "certificate", "self signed", "self-signed"]
-        .iter().any(|k| lower.contains(k))
+    [
+        "unknownissuer",
+        "unknown issuer",
+        "invalidcertificate",
+        "invalid peer certificate",
+        "certificate",
+        "self signed",
+        "self-signed",
+    ]
+    .iter()
+    .any(|k| lower.contains(k))
 }
 
 #[cfg(test)]
@@ -276,9 +333,9 @@ mod tests {
 
     #[test]
     fn aws_ini_sections() {
-        let config = "[default]\nregion=eu-west-1\n[profile work]\nsso_session = corp\n[sso-session corp]\n[services s3]\n";
+        let config =
+            "[default]\nregion=eu-west-1\n[profile work]\nsso_session = corp\n[sso-session corp]\n[services s3]\n";
         assert_eq!(parse_profile_names(config, true), vec!["default", "work"]);
         assert_eq!(parse_profile_names("[default]\n[ci]\n", false), vec!["default", "ci"]);
     }
 }
-

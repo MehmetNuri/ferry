@@ -13,7 +13,9 @@
     "--socket=fallback-x11",
     "--socket=wayland",
     "--device=dri",
-    "--filesystem=xdg-download"
+    "--filesystem=xdg-download",
+    "--socket=ssh-auth",
+    "--talk-name=org.gnome.OnlineAccounts"
   ],
   "build-options": {
     "append-path": "/usr/lib/sdk/rust-stable/bin",

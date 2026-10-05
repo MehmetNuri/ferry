@@ -1,5 +1,3 @@
-//! Importing connections from other applications: rclone, s3cmd, Cyberduck bookmarks and
-//! AWS CLI profiles found on this computer, or in a file the user picks.
 use adw::prelude::*;
 use gtk::glib;
 use std::cell::RefCell;
@@ -10,8 +8,12 @@ use crate::i18n::{tr, trf, trn};
 use crate::runtime::bg;
 use crate::window::Window;
 
-/// A row per connection, checked unless one with the same name already exists.
-fn add_row(group: &adw::PreferencesGroup, rows: &Rc<RefCell<Vec<(gtk::CheckButton, Found)>>>, found: Found, existing: &[String]) {
+fn add_row(
+    group: &adw::PreferencesGroup,
+    rows: &Rc<RefCell<Vec<(gtk::CheckButton, Found)>>>,
+    found: Found,
+    existing: &[String],
+) {
     let p = &found.profile;
     let place = if !p.aws_profile.is_empty() {
         trf("AWS CLI profile “{name}”", &[("name", &p.aws_profile)])
@@ -23,18 +25,32 @@ fn add_row(group: &adw::PreferencesGroup, rows: &Rc<RefCell<Vec<(gtk::CheckButto
     let keys = if p.secret_key.is_empty() { String::new() } else { format!(" · {}", tr("with access keys")) };
     let duplicate = existing.contains(&p.name);
     let check = gtk::CheckButton::builder().active(!duplicate).valign(gtk::Align::Center).build();
-    let subtitle = if duplicate { format!("{} · {place}{keys} · {}", found.source, tr("a connection with this name exists")) } else { format!("{} · {place}{keys}", found.source) };
-    let row = adw::ActionRow::builder().title(glib::markup_escape_text(&p.name)).subtitle(glib::markup_escape_text(&subtitle)).activatable_widget(&check).build();
+    let subtitle = if duplicate {
+        format!("{} · {place}{keys} · {}", found.source, tr("a connection with this name exists"))
+    } else {
+        format!("{} · {place}{keys}", found.source)
+    };
+    let row = adw::ActionRow::builder()
+        .title(glib::markup_escape_text(&p.name))
+        .subtitle(glib::markup_escape_text(&subtitle))
+        .activatable_widget(&check)
+        .build();
     row.add_prefix(&check);
     group.add(&row);
     rows.borrow_mut().push((check, found));
 }
 
 pub fn present(win: &Window) {
-    let dialog = adw::Dialog::builder().title(tr("Import From Other Apps")).content_width(520).content_height(560).build();
+    let dialog =
+        adw::Dialog::builder().title(tr("Import From Other Apps")).content_width(520).content_height(560).build();
     let header = adw::HeaderBar::builder().show_start_title_buttons(false).show_end_title_buttons(false).build();
     let cancel = gtk::Button::with_mnemonic(&tr("_Cancel"));
-    let import = gtk::Button::builder().label(tr("_Import")).use_underline(true).css_classes(["suggested-action"]).sensitive(false).build();
+    let import = gtk::Button::builder()
+        .label(tr("_Import"))
+        .use_underline(true)
+        .css_classes(["suggested-action"])
+        .sensitive(false)
+        .build();
     header.pack_start(&cancel);
     header.pack_end(&import);
     let view = adw::ToolbarView::new();
@@ -51,7 +67,12 @@ pub fn present(win: &Window) {
     let empty = adw::StatusPage::builder().icon_name("edit-find-symbolic").title(tr("No Connections Found"))
         .description(tr("No settings of rclone, s3cmd, Cyberduck or the AWS CLI were found on this computer. Choose a file to import from.")).vexpand(true).build();
     empty.add_css_class("compact");
-    let empty_button = gtk::Button::builder().label(tr("_Choose File…")).use_underline(true).halign(gtk::Align::Center).css_classes(["pill", "suggested-action"]).build();
+    let empty_button = gtk::Button::builder()
+        .label(tr("_Choose File…"))
+        .use_underline(true)
+        .halign(gtk::Align::Center)
+        .css_classes(["pill", "suggested-action"])
+        .build();
     empty.set_child(Some(&empty_button));
     let stack = gtk::Stack::new();
     stack.add_named(&empty, Some("empty"));
@@ -62,18 +83,27 @@ pub fn present(win: &Window) {
 
     let rows: Rc<RefCell<Vec<(gtk::CheckButton, Found)>>> = Rc::default();
     let existing: Vec<String> = crate::profile::load().into_iter().map(|p| p.name).collect();
-    let refresh = Rc::new(glib::clone!(#[weak] import, #[weak] stack, #[strong] rows, move || {
-        let any = !rows.borrow().is_empty();
-        stack.set_visible_child_name(if any { "list" } else { "empty" });
-        import.set_visible(any);
-        import.set_sensitive(rows.borrow().iter().any(|(c, _)| c.is_active()));
-    }));
+    let refresh = Rc::new(glib::clone!(
+        #[weak]
+        import,
+        #[weak]
+        stack,
+        #[strong]
+        rows,
+        move || {
+            let any = !rows.borrow().is_empty();
+            stack.set_visible_child_name(if any { "list" } else { "empty" });
+            import.set_visible(any);
+            import.set_sensitive(rows.borrow().iter().any(|(c, _)| c.is_active()));
+        }
+    ));
     let add = {
         let (group, rows, refresh) = (group.clone(), rows.clone(), refresh.clone());
         Rc::new(move |found: Vec<Found>| {
             for item in found {
-                // The same connection found twice (a file picked again) is shown once.
-                if rows.borrow().iter().any(|(_, f)| f.profile.name == item.profile.name && f.source == item.source) { continue; }
+                if rows.borrow().iter().any(|(_, f)| f.profile.name == item.profile.name && f.source == item.source) {
+                    continue;
+                }
                 add_row(&group, &rows, item, &existing);
                 if let Some((check, _)) = rows.borrow().last() {
                     let refresh = refresh.clone();
@@ -89,24 +119,40 @@ pub fn present(win: &Window) {
     }
     add(found);
 
-    let pick = Rc::new(glib::clone!(#[weak] dialog, #[weak] toasts, #[strong] add, move || {
-        let chooser = gtk::FileDialog::builder().title(tr("Choose File")).modal(true).build();
-        let root = dialog.root().and_downcast::<gtk::Window>();
-        let add = add.clone();
-        glib::spawn_future_local(async move {
-            let Ok(file) = chooser.open_future(root.as_ref()).await else { return };
-            let Some(path) = file.path() else { return };
-            match foreign::read_file(&path) {
-                Ok(found) if found.is_empty() => toasts.add_toast(crate::window::plain_toast(&tr("No S3 connections were found in this file"))),
-                Ok(found) => add(found),
-                Err(error) => toasts.add_toast(crate::window::plain_toast(&error)),
-            }
-        });
-    }));
+    let pick = Rc::new(glib::clone!(
+        #[weak]
+        dialog,
+        #[weak]
+        toasts,
+        #[strong]
+        add,
+        move || {
+            let chooser = gtk::FileDialog::builder().title(tr("Choose File")).modal(true).build();
+            let root = dialog.root().and_downcast::<gtk::Window>();
+            let add = add.clone();
+            glib::spawn_future_local(async move {
+                let Ok(file) = chooser.open_future(root.as_ref()).await else { return };
+                let Some(path) = file.path() else { return };
+                match foreign::read_file(&path) {
+                    Ok(found) if found.is_empty() => {
+                        toasts.add_toast(crate::window::plain_toast(&tr("No S3 connections were found in this file")))
+                    }
+                    Ok(found) => add(found),
+                    Err(error) => toasts.add_toast(crate::window::plain_toast(&error)),
+                }
+            });
+        }
+    ));
     let p = pick.clone();
     choose.connect_activated(move |_| p());
     empty_button.connect_clicked(move |_| pick());
-    cancel.connect_clicked(glib::clone!(#[weak] dialog, move |_| { dialog.close(); }));
+    cancel.connect_clicked(glib::clone!(
+        #[weak]
+        dialog,
+        move |_| {
+            dialog.close();
+        }
+    ));
 
     let parent = win.clone();
     import.connect_clicked(glib::clone!(#[weak] dialog, #[weak] toasts, #[strong] rows, move |button| {
@@ -144,4 +190,3 @@ pub fn present(win: &Window) {
     }));
     dialog.present(Some(win));
 }
-

@@ -1,4 +1,3 @@
-/// Prints a diagnostic line to stderr when FERRY_DEBUG is set.
 macro_rules! debug {
     ($($arg:tt)*) => {
         if std::env::var_os("FERRY_DEBUG").is_some() { eprintln!("[ferry] {}", format!($($arg)*)); }
@@ -38,11 +37,9 @@ fn main() -> glib::ExitCode {
     glib::set_application_name("Ferry");
 
     let mut args: Vec<String> = std::env::args().collect();
-    // A subcommand runs in the terminal and never opens a window.
     if args.get(1).is_some_and(|a| cli::COMMANDS.contains(&a.as_str())) {
         return glib::ExitCode::from(cli::run(&args[1..]) as u8);
     }
-    // "--hidden" starts in the background without a window, as at login.
     if let Some(index) = args.iter().position(|a| a == "--hidden") {
         args.remove(index);
         application::START_HIDDEN.store(true, std::sync::atomic::Ordering::Relaxed);

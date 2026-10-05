@@ -7,6 +7,8 @@ in the window, so files can be encrypted before they leave your computer.
 It is written in Rust with GTK 4 and libadwaita, and follows the GNOME Human
 Interface Guidelines.
 
+![Ferry showing the photos of a file server in a grid](data/screenshots/photos.png)
+
 ## Supported services
 
 **File servers**
@@ -19,7 +21,11 @@ Interface Guidelines.
 
 **Cloud storage**
 
-Ferry works with services that offer the S3 API. These come with ready-made settings:
+- Google Drive, with the Google account of Settings › Online Accounts; nothing to sign in
+  to again, and deleted files go to the Drive trash
+- Azure Blob Storage, signing in with the account key or a shared access signature (SAS)
+
+Ferry also works with services that offer the S3 API. These come with ready-made settings:
 
 - Amazon S3
 - Cloudflare R2
@@ -49,8 +55,7 @@ and temporary session tokens.
 
 **Importing connections:** from rclone, s3cmd, Cyberduck bookmarks and the AWS CLI.
 
-Further cloud services, such as Azure Blob Storage, Google Drive, OneDrive and Dropbox,
-are planned.
+Further cloud services, such as OneDrive and Dropbox, are planned.
 
 ## Features
 
@@ -97,6 +102,17 @@ are planned.
 - Self-signed servers and private certificate authorities, trusted after comparing the SHA-256 fingerprint; the desktop proxy settings are followed
 - Adaptive layout, keyboard shortcuts window (Ctrl+?), follows the privacy setting for file history
 
+## Screenshots
+
+| | |
+|---|---|
+| ![Welcome page with the providers](data/screenshots/welcome.png) | ![Documents on a file server](data/screenshots/documents.png) |
+| Choose a provider to add a connection | Browse a server like a folder |
+| ![Quick preview of a photo](data/screenshots/preview.png) | ![An unlocked Cryptomator vault](data/screenshots/vault.png) |
+| Quick preview with the space key | Cryptomator vaults open in place |
+| ![The transfer queue](data/screenshots/transfers.png) | ![The connection editor for SFTP with a jump host](data/screenshots/connection.png) |
+| Transfers with speed and time left | SFTP through a jump host |
+
 ## Command line
 
 The saved connections can be used from a terminal and in scripts, without a window:
@@ -123,14 +139,16 @@ src/
   runtime.rs                   the Tokio runtime and the bridge to the GLib main loop
   search.rs                    GNOME Shell search provider
   window/                      the main window: browsing, actions, tabs
-  remote/                      file servers: SFTP (with jump hosts), FTP over TLS, WebDAV
+  remote/                      file servers and cloud drives: SFTP (with jump hosts), FTP over
+                               TLS, WebDAV, Azure Blob Storage, Google Drive (through GNOME
+                               Online Accounts)
   s3/                          S3 operations: objects, bucket tools, access settings,
                                connections (proxy, certificates, AWS profiles, roles)
   transfers/                   transfer queue and its panel, mounts, drags, external editors
   pages/                       Recent, Analyzer, Backups, Compatibility
   dialogs/                     dialogs and the quick preview
   widgets/                     small custom widgets
-  devtools/                    self test, probe and the scripted interface run
+  devtools/                    self test, probe, the scripted interface run and screenshots
 crates/
   cryptomator-vault/           Cryptomator vault format 8, independent of the storage
 data/

@@ -1,9 +1,6 @@
-//! Text views for file content. With the "sourceview" feature GtkSourceView adds
-//! syntax highlighting and line numbers in the light or dark Adwaita style.
 #[allow(unused_imports)]
 use gtk::prelude::*;
 
-/// A monospace view of `text`; `file_name` picks the highlighting language.
 pub fn new(text: &str, file_name: &str) -> gtk::TextView {
     #[cfg(feature = "sourceview")]
     {
@@ -12,25 +9,31 @@ pub fn new(text: &str, file_name: &str) -> gtk::TextView {
         let buffer = sourceview5::Buffer::new(None::<&gtk::TextTagTable>);
         let head = &text.as_bytes()[..text.len().min(4096)];
         let (content_type, _) = gtk::gio::content_type_guess(Some(file_name), Some(head));
-        if let Some(language) = sourceview5::LanguageManager::default().guess_language(Some(file_name), Some(content_type.as_str())) {
+        if let Some(language) =
+            sourceview5::LanguageManager::default().guess_language(Some(file_name), Some(content_type.as_str()))
+        {
             buffer.set_language(Some(&language));
         }
         let style = adw::StyleManager::default();
         let apply = |buffer: &sourceview5::Buffer, dark: bool| {
-            let scheme = sourceview5::StyleSchemeManager::default().scheme(if dark { "Adwaita-dark" } else { "Adwaita" });
+            let scheme =
+                sourceview5::StyleSchemeManager::default().scheme(if dark { "Adwaita-dark" } else { "Adwaita" });
             buffer.set_style_scheme(scheme.as_ref());
         };
         apply(&buffer, style.is_dark());
-        style.connect_dark_notify(glib::clone!(#[weak] buffer, move |style| apply(&buffer, style.is_dark())));
+        style.connect_dark_notify(glib::clone!(
+            #[weak]
+            buffer,
+            move |style| apply(&buffer, style.is_dark())
+        ));
         buffer.set_highlight_matching_brackets(false);
-        // Loading the text is not an edit the user could undo.
         buffer.begin_irreversible_action();
         buffer.set_text(text);
         buffer.end_irreversible_action();
         let view = sourceview5::View::with_buffer(&buffer);
         view.set_show_line_numbers(text.lines().count() > 1);
         view.set_monospace(true);
-        return view.upcast();
+        view.upcast()
     }
     #[cfg(not(feature = "sourceview"))]
     {
@@ -41,8 +44,6 @@ pub fn new(text: &str, file_name: &str) -> gtk::TextView {
     }
 }
 
-/// Gives icon-only buttons below `root` their tooltip as accessible name, so screen
-/// readers say what they do instead of just "button".
 pub fn label_icon_buttons(root: &impl IsA<gtk::Widget>) {
     let mut stack = vec![root.as_ref().clone()];
     while let Some(widget) = stack.pop() {

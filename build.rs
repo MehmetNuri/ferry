@@ -1,9 +1,6 @@
 use std::path::PathBuf;
 use std::process::Command;
 
-// Compiles the Blueprint files to GtkBuilder XML and bundles them, the style
-// sheet and the shortcuts window into a GResource linked into the binary.
-/// Interface resources, as GNOME projects keep them: Blueprint files, style sheet, icons.
 const RESOURCES: &str = "data/resources";
 const UI: &str = "data/resources/ui";
 
@@ -28,15 +25,18 @@ fn main() {
         .expect("blueprint-compiler is required to build the interface");
     assert!(status.success(), "blueprint-compiler failed");
 
-    // The schema is compiled for running from the source tree; Meson installs it properly.
+    // only for running from the source tree; Meson installs the schema
     let schemas = out.join("schemas");
     std::fs::create_dir_all(&schemas).unwrap();
-    std::fs::copy("data/io.github.mehmetnuri.Ferry.gschema.xml", schemas.join("io.github.mehmetnuri.Ferry.gschema.xml")).unwrap();
+    std::fs::copy(
+        "data/io.github.mehmetnuri.Ferry.gschema.xml",
+        schemas.join("io.github.mehmetnuri.Ferry.gschema.xml"),
+    )
+    .unwrap();
     println!("cargo:rerun-if-changed=data/io.github.mehmetnuri.Ferry.gschema.xml");
     let status = Command::new("glib-compile-schemas").arg(&schemas).status().expect("glib-compile-schemas is required");
     assert!(status.success(), "glib-compile-schemas failed");
 
-    // Translations, so a source checkout runs in the system language.
     println!("cargo:rerun-if-changed=po");
     for entry in std::fs::read_dir("po").into_iter().flatten().flatten() {
         let path = entry.path();
@@ -44,7 +44,12 @@ fn main() {
             let lang = path.file_stem().unwrap().to_string_lossy().into_owned();
             let dir = out.join("locale").join(&lang).join("LC_MESSAGES");
             std::fs::create_dir_all(&dir).unwrap();
-            let status = Command::new("msgfmt").arg("-o").arg(dir.join("ferry.mo")).arg(&path).status().expect("msgfmt is required");
+            let status = Command::new("msgfmt")
+                .arg("-o")
+                .arg(dir.join("ferry.mo"))
+                .arg(&path)
+                .status()
+                .expect("msgfmt is required");
             assert!(status.success(), "msgfmt failed for {}", path.display());
         }
     }

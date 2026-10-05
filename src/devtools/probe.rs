@@ -1,5 +1,3 @@
-//! Read-only check of every operation against a saved connection, for diagnosing
-//! providers. Run with: FERRY_PROBE=<profile name> cargo test probe -- --nocapture
 #![cfg(test)]
 
 use crate::profile;

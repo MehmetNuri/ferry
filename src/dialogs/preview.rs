@@ -1,15 +1,12 @@
-//! Quick preview (Space): images, videos, audio and text at full size, with
-//! the arrow keys moving through the files of the folder. Media streams from
-//! a short-lived presigned link, so nothing has to be downloaded first.
 use adw::prelude::*;
 use gtk::{gdk, gio, glib};
 use std::cell::{Cell, RefCell};
 use std::rc::Rc;
 
-use crate::window::actions::category;
 use crate::i18n::{tr, trf, trn};
 use crate::runtime::bg;
 use crate::s3::{Entry, S3};
+use crate::window::actions::category;
 use crate::window::{Window, format_size, format_time, icon_for};
 
 const IMAGE_LIMIT: i64 = 64 * 1024 * 1024;
@@ -17,12 +14,31 @@ const TEXT_LIMIT: u64 = 1024 * 1024;
 const ZIP_LIMIT: i64 = 64 * 1024 * 1024;
 
 pub(crate) fn is_text(name: &str) -> bool {
-    category(name) == 7 || matches!(name.rsplit_once('.').map(|(_, e)| e.to_lowercase()).as_deref(),
-        Some("txt" | "md" | "csv" | "tsv" | "log" | "ini" | "conf" | "cfg" | "env" | "gitignore" | "properties" | "srt" | "vtt"))
+    category(name) == 7
+        || matches!(
+            name.rsplit_once('.').map(|(_, e)| e.to_lowercase()).as_deref(),
+            Some(
+                "txt"
+                    | "md"
+                    | "csv"
+                    | "tsv"
+                    | "log"
+                    | "ini"
+                    | "conf"
+                    | "cfg"
+                    | "env"
+                    | "gitignore"
+                    | "properties"
+                    | "srt"
+                    | "vtt"
+            )
+        )
 }
 
 pub fn present(win: &Window, client: S3, bucket: String, files: Vec<Entry>, index: usize) {
-    if files.is_empty() { return; }
+    if files.is_empty() {
+        return;
+    }
     let dialog = adw::Dialog::builder().content_width(960).content_height(680).build();
     let header = adw::HeaderBar::new();
     let title = adw::WindowTitle::new("", "");
@@ -33,25 +49,37 @@ pub fn present(win: &Window, client: S3, bucket: String, files: Vec<Entry>, inde
     nav.append(&previous);
     nav.append(&next);
     header.pack_start(&nav);
-    let open = gtk::Button::builder().icon_name("document-open-symbolic").tooltip_text(tr("Open With Default Application")).build();
+    let open = gtk::Button::builder()
+        .icon_name("document-open-symbolic")
+        .tooltip_text(tr("Open With Default Application"))
+        .build();
     let download = gtk::Button::builder().icon_name("folder-download-symbolic").tooltip_text(tr("Download…")).build();
     let share = gtk::Button::builder().icon_name("send-to-symbolic").tooltip_text(tr("Share Link…")).build();
-    // Pictures can go straight to the clipboard, for chats and documents.
-    let copy_image = gtk::Button::builder().icon_name("edit-copy-symbolic").tooltip_text(tr("Copy Image")).visible(false).build();
+    let copy_image =
+        gtk::Button::builder().icon_name("edit-copy-symbolic").tooltip_text(tr("Copy Image")).visible(false).build();
     header.pack_end(&open);
     header.pack_end(&share);
     header.pack_end(&download);
     header.pack_end(&copy_image);
     let current_image: Rc<RefCell<Option<gdk::Texture>>> = Rc::default();
-    copy_image.connect_clicked(glib::clone!(#[strong] current_image, #[weak] dialog, move |_| {
-        if let Some(texture) = current_image.borrow().as_ref() {
-            dialog.clipboard().set_texture(texture);
-            if let Some(win) = dialog.root().and_downcast::<Window>() { win.toast(&tr("Image copied")); }
+    copy_image.connect_clicked(glib::clone!(
+        #[strong]
+        current_image,
+        #[weak]
+        dialog,
+        move |_| {
+            if let Some(texture) = current_image.borrow().as_ref() {
+                dialog.clipboard().set_texture(texture);
+                if let Some(win) = dialog.root().and_downcast::<Window>() {
+                    win.toast(&tr("Image copied"));
+                }
+            }
         }
-    }));
+    ));
     let view = adw::ToolbarView::new();
     view.add_top_bar(&header);
-    let stack = gtk::Stack::builder().transition_type(gtk::StackTransitionType::Crossfade).transition_duration(150).build();
+    let stack =
+        gtk::Stack::builder().transition_type(gtk::StackTransitionType::Crossfade).transition_duration(150).build();
     view.set_content(Some(&stack));
     dialog.set_child(Some(&view));
 
@@ -61,33 +89,70 @@ pub fn present(win: &Window, client: S3, bucket: String, files: Vec<Entry>, inde
     let media: Rc<RefCell<Option<gtk::MediaStream>>> = Rc::default();
 
     let show: Rc<dyn Fn()> = {
-        let (files, index, generation, media, stack, title, previous, next, client, bucket, copy_image, current_image) =
-            (files.clone(), index.clone(), generation.clone(), media.clone(), stack.clone(), title.clone(), previous.clone(), next.clone(), client.clone(), bucket.clone(), copy_image.clone(), current_image.clone());
+        let (files, index, generation, media, stack, title, previous, next, client, bucket, copy_image, current_image) = (
+            files.clone(),
+            index.clone(),
+            generation.clone(),
+            media.clone(),
+            stack.clone(),
+            title.clone(),
+            previous.clone(),
+            next.clone(),
+            client.clone(),
+            bucket.clone(),
+            copy_image.clone(),
+            current_image.clone(),
+        );
         Rc::new(move || {
             let entry = files[index.get()].clone();
             let mine = generation.get() + 1;
             generation.set(mine);
-            // A playing video stops when another file is shown.
-            if let Some(stream) = media.borrow_mut().take() { stream.pause(); }
+            if let Some(stream) = media.borrow_mut().take() {
+                stream.pause();
+            }
             title.set_title(&entry.name);
-            title.set_subtitle(&format!("{} · {} · {}/{}", format_size(entry.size), format_time(entry.modified), index.get() + 1, files.len()));
+            title.set_subtitle(&format!(
+                "{} · {} · {}/{}",
+                format_size(entry.size),
+                format_time(entry.modified),
+                index.get() + 1,
+                files.len()
+            ));
             previous.set_sensitive(index.get() > 0);
             next.set_sensitive(index.get() + 1 < files.len());
-            let spinner = adw::Spinner::builder().halign(gtk::Align::Center).valign(gtk::Align::Center).width_request(48).height_request(48).build();
+            let spinner = adw::Spinner::builder()
+                .halign(gtk::Align::Center)
+                .valign(gtk::Align::Center)
+                .width_request(48)
+                .height_request(48)
+                .build();
             let name = format!("loading-{mine}");
             stack.add_named(&spinner, Some(&name));
             stack.set_visible_child(&spinner);
             let kind = category(&entry.name);
             copy_image.set_visible(false);
             current_image.replace(None);
-            let (client, bucket, stack, generation, media, copy_image, current_image) = (client.clone(), bucket.clone(), stack.clone(), generation.clone(), media.clone(), copy_image.clone(), current_image.clone());
+            let (client, bucket, stack, generation, media, copy_image, current_image) = (
+                client.clone(),
+                bucket.clone(),
+                stack.clone(),
+                generation.clone(),
+                media.clone(),
+                copy_image.clone(),
+                current_image.clone(),
+            );
             glib::spawn_future_local(async move {
                 let key = entry.key.clone();
                 let widget: gtk::Widget = if kind == 2 && entry.size <= IMAGE_LIMIT {
                     let (c, b, k) = (client.clone(), bucket.clone(), key.clone());
-                    match bg(async move { c.read_bytes(&b, &k, IMAGE_LIMIT as u64).await }).await.ok().filter(|bytes| crate::widgets::image_fits(bytes)).and_then(|bytes| gdk::Texture::from_bytes(&glib::Bytes::from_owned(bytes)).ok()) {
+                    match bg(async move { c.read_bytes(&b, &k, IMAGE_LIMIT as u64).await })
+                        .await
+                        .ok()
+                        .filter(|bytes| crate::widgets::image_fits(bytes))
+                        .and_then(|bytes| gdk::Texture::from_bytes(&glib::Bytes::from_owned(bytes)).ok())
+                    {
                         Some(texture) => {
-                            // Only the picture still on screen can be copied.
+                            // Stale result, the user already moved on.
                             if generation.get() == mine {
                                 current_image.replace(Some(texture.clone()));
                                 copy_image.set_visible(true);
@@ -101,12 +166,28 @@ pub fn present(win: &Window, client: S3, bucket: String, files: Vec<Entry>, inde
                     match bg(async move { c.presign(&b, &k, 3600).await }).await {
                         Ok(url) => {
                             let file = gtk::MediaFile::for_file(&gio::File::for_uri(&url));
-                            let video = gtk::Video::builder().media_stream(&file).autoplay(true).vexpand(true).hexpand(true).build();
+                            let video = gtk::Video::builder()
+                                .media_stream(&file)
+                                .autoplay(true)
+                                .vexpand(true)
+                                .hexpand(true)
+                                .build();
                             media.replace(Some(file.upcast()));
                             if kind == 4 {
-                                // Audio gets a large icon above the controls.
-                                let column = gtk::Box::builder().orientation(gtk::Orientation::Vertical).spacing(24).valign(gtk::Align::Center).margin_start(48).margin_end(48).build();
-                                column.append(&gtk::Image::builder().gicon(&icon_for(&entry)).pixel_size(128).css_classes(["dim-label"]).build());
+                                let column = gtk::Box::builder()
+                                    .orientation(gtk::Orientation::Vertical)
+                                    .spacing(24)
+                                    .valign(gtk::Align::Center)
+                                    .margin_start(48)
+                                    .margin_end(48)
+                                    .build();
+                                column.append(
+                                    &gtk::Image::builder()
+                                        .gicon(&icon_for(&entry))
+                                        .pixel_size(128)
+                                        .css_classes(["dim-label"])
+                                        .build(),
+                                );
                                 video.set_vexpand(false);
                                 video.set_height_request(60);
                                 column.append(&video);
@@ -128,29 +209,48 @@ pub fn present(win: &Window, client: S3, bucket: String, files: Vec<Entry>, inde
                     match bg(async move { c.read_bytes(&b, &k, TEXT_LIMIT).await }).await {
                         Ok(bytes) => {
                             let text = String::from_utf8_lossy(&bytes).into_owned();
-                            let extension = entry.name.rsplit_once('.').map(|(_, e)| e.to_lowercase()).unwrap_or_default();
-                            if let Some(table) = (extension == "csv" || extension == "tsv").then(|| table_view(&text, if extension == "tsv" { '\t' } else { ',' })).flatten() {
+                            let extension =
+                                entry.name.rsplit_once('.').map(|(_, e)| e.to_lowercase()).unwrap_or_default();
+                            if let Some(table) = (extension == "csv" || extension == "tsv")
+                                .then(|| table_view(&text, if extension == "tsv" { '\t' } else { ',' }))
+                                .flatten()
+                            {
                                 table
                             } else {
-                            // Minified JSON is shown indented; the object itself is not changed.
-                            let text = if extension == "json" && text.lines().count() <= 2 && text.len() > 120 {
-                                serde_json::from_str::<serde_json::Value>(&text).ok().and_then(|v| serde_json::to_string_pretty(&v).ok()).unwrap_or(text)
-                            } else { text };
-                            let view = crate::widgets::code_view::new(&text, &entry.name);
-                            view.set_editable(false);
-                            view.set_wrap_mode(gtk::WrapMode::WordChar);
-                            view.set_top_margin(12); view.set_bottom_margin(12); view.set_left_margin(12); view.set_right_margin(12);
-                            let scroller = gtk::ScrolledWindow::builder().child(&view).vexpand(true).build();
-                            if entry.size as u64 > TEXT_LIMIT {
-                                // Only the beginning of a large file is fetched; say so.
-                                let page = gtk::Box::new(gtk::Orientation::Vertical, 0);
-                                let banner = adw::Banner::builder().title(trf("Showing the first {size} of {total}", &[("size", &format_size(TEXT_LIMIT as i64)), ("total", &format_size(entry.size))])).revealed(true).build();
-                                page.append(&banner);
-                                page.append(&scroller);
-                                page.upcast()
-                            } else {
-                                scroller.upcast()
-                            }
+                                let text = if extension == "json" && text.lines().count() <= 2 && text.len() > 120 {
+                                    serde_json::from_str::<serde_json::Value>(&text)
+                                        .ok()
+                                        .and_then(|v| serde_json::to_string_pretty(&v).ok())
+                                        .unwrap_or(text)
+                                } else {
+                                    text
+                                };
+                                let view = crate::widgets::code_view::new(&text, &entry.name);
+                                view.set_editable(false);
+                                view.set_wrap_mode(gtk::WrapMode::WordChar);
+                                view.set_top_margin(12);
+                                view.set_bottom_margin(12);
+                                view.set_left_margin(12);
+                                view.set_right_margin(12);
+                                let scroller = gtk::ScrolledWindow::builder().child(&view).vexpand(true).build();
+                                if entry.size as u64 > TEXT_LIMIT {
+                                    let page = gtk::Box::new(gtk::Orientation::Vertical, 0);
+                                    let banner = adw::Banner::builder()
+                                        .title(trf(
+                                            "Showing the first {size} of {total}",
+                                            &[
+                                                ("size", &format_size(TEXT_LIMIT as i64)),
+                                                ("total", &format_size(entry.size)),
+                                            ],
+                                        ))
+                                        .revealed(true)
+                                        .build();
+                                    page.append(&banner);
+                                    page.append(&scroller);
+                                    page.upcast()
+                                } else {
+                                    scroller.upcast()
+                                }
                             }
                         }
                         Err(error) => fallback(&entry, &error),
@@ -158,15 +258,30 @@ pub fn present(win: &Window, client: S3, bucket: String, files: Vec<Entry>, inde
                 } else {
                     fallback(&entry, &tr("No preview for this file type"))
                 };
-                if generation.get() != mine { return; }
+                if generation.get() != mine {
+                    return;
+                }
                 let name = format!("content-{mine}");
                 stack.add_named(&widget, Some(&name));
                 stack.set_visible_child(&widget);
-                // Older pages leave once the crossfade has finished.
-                glib::timeout_add_local_once(std::time::Duration::from_millis(300), glib::clone!(#[weak] stack, #[weak] widget, move || {
-                    let mut child = stack.first_child();
-                    while let Some(c) = child { child = c.next_sibling(); if c != widget { stack.remove(&c); } }
-                }));
+                glib::timeout_add_local_once(
+                    std::time::Duration::from_millis(300),
+                    glib::clone!(
+                        #[weak]
+                        stack,
+                        #[weak]
+                        widget,
+                        move || {
+                            let mut child = stack.first_child();
+                            while let Some(c) = child {
+                                child = c.next_sibling();
+                                if c != widget {
+                                    stack.remove(&c);
+                                }
+                            }
+                        }
+                    ),
+                );
             });
         })
     };
@@ -176,7 +291,10 @@ pub fn present(win: &Window, client: S3, bucket: String, files: Vec<Entry>, inde
         let (index, files, show) = (index.clone(), files.clone(), show.clone());
         move |delta: i32| {
             let target = index.get() as i64 + delta as i64;
-            if target >= 0 && (target as usize) < files.len() { index.set(target as usize); show(); }
+            if target >= 0 && (target as usize) < files.len() {
+                index.set(target as usize);
+                show();
+            }
         }
     };
     let s = step.clone();
@@ -185,36 +303,79 @@ pub fn present(win: &Window, client: S3, bucket: String, files: Vec<Entry>, inde
     next.connect_clicked(move |_| s(1));
     let keys = gtk::EventControllerKey::new();
     let s = step.clone();
-    keys.connect_key_pressed(glib::clone!(#[weak] dialog, #[upgrade_or] glib::Propagation::Proceed, move |_, key, _, _| {
-        match key {
-            gdk::Key::Left => { s(-1); glib::Propagation::Stop }
-            gdk::Key::Right => { s(1); glib::Propagation::Stop }
-            gdk::Key::space => { dialog.close(); glib::Propagation::Stop }
-            _ => glib::Propagation::Proceed,
+    keys.connect_key_pressed(glib::clone!(
+        #[weak]
+        dialog,
+        #[upgrade_or]
+        glib::Propagation::Proceed,
+        move |_, key, _, _| {
+            match key {
+                gdk::Key::Left => {
+                    s(-1);
+                    glib::Propagation::Stop
+                }
+                gdk::Key::Right => {
+                    s(1);
+                    glib::Propagation::Stop
+                }
+                gdk::Key::space => {
+                    dialog.close();
+                    glib::Propagation::Stop
+                }
+                _ => glib::Propagation::Proceed,
+            }
         }
-    }));
+    ));
     dialog.add_controller(keys);
-    let current = { let (files, index) = (files.clone(), index.clone()); move || files[index.get()].clone() };
+    let current = {
+        let (files, index) = (files.clone(), index.clone());
+        move || files[index.get()].clone()
+    };
     let c = current.clone();
-    open.connect_clicked(glib::clone!(#[weak] win, #[strong] client, #[strong] bucket, move |_| crate::transfers::external::open(&win, client.clone(), bucket.clone(), c().key)));
+    open.connect_clicked(glib::clone!(
+        #[weak]
+        win,
+        #[strong]
+        client,
+        #[strong]
+        bucket,
+        move |_| crate::transfers::external::open(&win, client.clone(), bucket.clone(), c().key)
+    ));
     let c = current.clone();
-    download.connect_clicked(glib::clone!(#[weak] win, move |_| win.download(vec![c()])));
+    download.connect_clicked(glib::clone!(
+        #[weak]
+        win,
+        move |_| win.download(vec![c()])
+    ));
     let c = current.clone();
-    share.connect_clicked(glib::clone!(#[weak] win, move |_| win.presign(c().key)));
-    dialog.connect_closed(move |_| { if let Some(stream) = media.borrow_mut().take() { stream.pause(); } });
+    share.connect_clicked(glib::clone!(
+        #[weak]
+        win,
+        move |_| win.presign(c().key)
+    ));
+    dialog.connect_closed(move |_| {
+        if let Some(stream) = media.borrow_mut().take() {
+            stream.pause();
+        }
+    });
     dialog.present(Some(win));
 }
 
 fn fallback(entry: &Entry, message: &str) -> gtk::Widget {
-    let page = adw::StatusPage::builder().title(glib::markup_escape_text(&entry.name)).description(glib::markup_escape_text(message)).build();
-    page.set_paintable(Some(&gtk::IconTheme::for_display(&gdk::Display::default().unwrap())
-        .lookup_by_gicon(&icon_for(entry), 128, 1, gtk::TextDirection::None, gtk::IconLookupFlags::empty())));
+    let page = adw::StatusPage::builder()
+        .title(glib::markup_escape_text(&entry.name))
+        .description(glib::markup_escape_text(message))
+        .build();
+    page.set_paintable(Some(&gtk::IconTheme::for_display(&gdk::Display::default().unwrap()).lookup_by_gicon(
+        &icon_for(entry),
+        128,
+        1,
+        gtk::TextDirection::None,
+        gtk::IconLookupFlags::empty(),
+    )));
     page.upcast()
 }
 
-/// An image that fits the window, zooms with Ctrl+scroll, pinch, + and -, and
-/// toggles between fit and actual size with a double click; dragging pans.
-/// The files inside a ZIP archive, with their sizes, as an archive manager lists them.
 fn archive_view(bytes: Vec<u8>) -> Result<gtk::Widget, String> {
     let mut archive = zip::ZipArchive::new(std::io::Cursor::new(bytes)).map_err(|e| e.to_string())?;
     let mut entries: Vec<(String, u64, bool)> = Vec::new();
@@ -227,25 +388,30 @@ fn archive_view(bytes: Vec<u8>) -> Result<gtk::Widget, String> {
     let list = gtk::ListBox::builder().selection_mode(gtk::SelectionMode::None).css_classes(["boxed-list"]).build();
     for (name, size, dir) in entries.iter().take(1000) {
         let row = adw::ActionRow::builder().title(glib::markup_escape_text(name)).title_lines(1).build();
-        let icon = if *dir { gio::ThemedIcon::new("folder-symbolic").upcast::<gio::Icon>() } else {
+        let icon = if *dir {
+            gio::ThemedIcon::new("folder-symbolic").upcast::<gio::Icon>()
+        } else {
             let (content_type, _) = gio::content_type_guess(Some(name.as_str()), None::<&[u8]>);
             gio::content_type_get_symbolic_icon(&content_type)
         };
         row.add_prefix(&gtk::Image::from_gicon(&icon));
-        if !dir { row.add_suffix(&gtk::Label::builder().label(format_size(*size as i64)).css_classes(["dim-label", "numeric"]).build()); }
+        if !dir {
+            row.add_suffix(
+                &gtk::Label::builder().label(format_size(*size as i64)).css_classes(["dim-label", "numeric"]).build(),
+            );
+        }
         list.append(&row);
     }
     let page = adw::PreferencesPage::new();
     let group = adw::PreferencesGroup::builder()
         .title(trn("{n} file", "{n} files", &[("n", &files.to_string())]))
-        .description(trf("{size} when extracted", &[("size", &format_size(total as i64))])).build();
+        .description(trf("{size} when extracted", &[("size", &format_size(total as i64))]))
+        .build();
     group.add(&list);
     page.add(&group);
     Ok(page.upcast())
 }
 
-/// Splits delimited text into rows of fields; quoted fields may hold delimiters,
-/// line breaks and doubled quotes.
 pub(crate) fn parse_delimited(text: &str, delimiter: char, max_rows: usize) -> Vec<Vec<String>> {
     let mut rows = Vec::new();
     let (mut row, mut field, mut quoted) = (Vec::new(), String::new(), false);
@@ -253,7 +419,10 @@ pub(crate) fn parse_delimited(text: &str, delimiter: char, max_rows: usize) -> V
     while let Some(c) = chars.next() {
         if quoted {
             match c {
-                '"' if chars.peek() == Some(&'"') => { field.push('"'); chars.next(); }
+                '"' if chars.peek() == Some(&'"') => {
+                    field.push('"');
+                    chars.next();
+                }
                 '"' => quoted = false,
                 _ => field.push(c),
             }
@@ -266,7 +435,9 @@ pub(crate) fn parse_delimited(text: &str, delimiter: char, max_rows: usize) -> V
             '\n' => {
                 row.push(std::mem::take(&mut field));
                 rows.push(std::mem::take(&mut row));
-                if rows.len() >= max_rows { return rows; }
+                if rows.len() >= max_rows {
+                    return rows;
+                }
             }
             _ => field.push(c),
         }
@@ -278,19 +449,28 @@ pub(crate) fn parse_delimited(text: &str, delimiter: char, max_rows: usize) -> V
     rows
 }
 
-/// A table of the first rows of a CSV or TSV file; the first row names the columns.
 fn table_view(text: &str, delimiter: char) -> Option<gtk::Widget> {
     let rows = parse_delimited(text, delimiter, 2001);
     let (header, body) = rows.split_first()?;
     let columns = rows.iter().map(|r| r.len()).max().unwrap_or(0).min(60);
-    if columns < 2 { return None; }
+    if columns < 2 {
+        return None;
+    }
     let store = gio::ListStore::new::<glib::BoxedAnyObject>();
-    for row in body { store.append(&glib::BoxedAnyObject::new(row.clone())); }
-    let view = gtk::ColumnView::builder().model(&gtk::NoSelection::new(Some(store))).show_column_separators(true).show_row_separators(true).css_classes(["data-table"]).build();
+    for row in body {
+        store.append(&glib::BoxedAnyObject::new(row.clone()));
+    }
+    let view = gtk::ColumnView::builder()
+        .model(&gtk::NoSelection::new(Some(store)))
+        .show_column_separators(true)
+        .show_row_separators(true)
+        .css_classes(["data-table"])
+        .build();
     for index in 0..columns {
         let factory = gtk::SignalListItemFactory::new();
         factory.connect_setup(|_, item| {
-            let label = gtk::Label::builder().xalign(0.0).ellipsize(gtk::pango::EllipsizeMode::End).max_width_chars(40).build();
+            let label =
+                gtk::Label::builder().xalign(0.0).ellipsize(gtk::pango::EllipsizeMode::End).max_width_chars(40).build();
             item.downcast_ref::<gtk::ListItem>().unwrap().set_child(Some(&label));
         });
         factory.connect_bind(move |_, item| {
@@ -302,11 +482,22 @@ fn table_view(text: &str, delimiter: char) -> Option<gtk::Widget> {
             label.set_text(&text);
         });
         let title = header.get(index).cloned().unwrap_or_default();
-        let column = gtk::ColumnViewColumn::builder().title(&title).factory(&factory).resizable(true).expand(index + 1 == columns).build();
+        let column = gtk::ColumnViewColumn::builder()
+            .title(&title)
+            .factory(&factory)
+            .resizable(true)
+            .expand(index + 1 == columns)
+            .build();
         view.append_column(&column);
     }
-    let note = gtk::Label::builder().xalign(0.0).margin_start(12).margin_top(6).margin_bottom(6).css_classes(["caption", "dim-label"])
-        .label(trn("{n} row shown", "{n} rows shown", &[("n", &body.len().to_string())])).build();
+    let note = gtk::Label::builder()
+        .xalign(0.0)
+        .margin_start(12)
+        .margin_top(6)
+        .margin_bottom(6)
+        .css_classes(["caption", "dim-label"])
+        .label(trn("{n} row shown", "{n} rows shown", &[("n", &body.len().to_string())]))
+        .build();
     let page = gtk::Box::new(gtk::Orientation::Vertical, 0);
     page.append(&gtk::ScrolledWindow::builder().child(&view).vexpand(true).build());
     page.append(&note);
@@ -314,10 +505,10 @@ fn table_view(text: &str, delimiter: char) -> Option<gtk::Widget> {
 }
 
 fn zoomable(texture: &gdk::Texture) -> gtk::Widget {
-    let picture = gtk::Picture::builder().paintable(texture).content_fit(gtk::ContentFit::ScaleDown).can_shrink(true).build();
+    let picture =
+        gtk::Picture::builder().paintable(texture).content_fit(gtk::ContentFit::ScaleDown).can_shrink(true).build();
     let scroller = gtk::ScrolledWindow::builder().child(&picture).vexpand(true).hexpand(true).focusable(true).build();
     let (width, height) = (texture.width() as f64, texture.height() as f64);
-    // 0 means "fit"; otherwise the zoom factor of the image.
     let zoom = Rc::new(Cell::new(0.0f64));
     let apply: Rc<dyn Fn(f64)> = {
         let (picture, zoom) = (picture.clone(), zoom.clone());
@@ -335,15 +526,22 @@ fn zoomable(texture: &gdk::Texture) -> gtk::Widget {
             }
         })
     };
-    // The factor the fitted image has, so zooming starts from what is seen.
     let current = {
         let (zoom, scroller) = (zoom.clone(), scroller.clone());
-        move || if zoom.get() > 0.0 { zoom.get() } else { (scroller.width() as f64 / width).min(scroller.height() as f64 / height).min(1.0).max(0.05) }
+        move || {
+            if zoom.get() > 0.0 {
+                zoom.get()
+            } else {
+                (scroller.width() as f64 / width).min(scroller.height() as f64 / height).clamp(0.05, 1.0)
+            }
+        }
     };
     let scroll = gtk::EventControllerScroll::new(gtk::EventControllerScrollFlags::VERTICAL);
     let (a, c) = (apply.clone(), current.clone());
     scroll.connect_scroll(move |controller, _, dy| {
-        if !controller.current_event_state().contains(gdk::ModifierType::CONTROL_MASK) { return glib::Propagation::Proceed; }
+        if !controller.current_event_state().contains(gdk::ModifierType::CONTROL_MASK) {
+            return glib::Propagation::Proceed;
+        }
         a(c() * if dy < 0.0 { 1.2 } else { 1.0 / 1.2 });
         glib::Propagation::Stop
     });
@@ -357,9 +555,12 @@ fn zoomable(texture: &gdk::Texture) -> gtk::Widget {
     scroller.add_controller(pinch);
     let click = gtk::GestureClick::new();
     let (a, z) = (apply.clone(), zoom.clone());
-    click.connect_pressed(move |_, presses, _, _| if presses == 2 { a(if z.get() == 0.0 { 1.0 } else { 0.0 }); });
+    click.connect_pressed(move |_, presses, _, _| {
+        if presses == 2 {
+            a(if z.get() == 0.0 { 1.0 } else { 0.0 });
+        }
+    });
     scroller.add_controller(click);
-    // Dragging moves a zoomed image around.
     let drag = gtk::GestureDrag::new();
     let origin = Rc::new(Cell::new((0.0, 0.0)));
     let (o, sc) = (origin.clone(), scroller.clone());
@@ -374,9 +575,18 @@ fn zoomable(texture: &gdk::Texture) -> gtk::Widget {
     let keys = gtk::EventControllerKey::new();
     let (a, c) = (apply.clone(), current.clone());
     keys.connect_key_pressed(move |_, key, _, _| match key {
-        gdk::Key::plus | gdk::Key::KP_Add | gdk::Key::equal => { a(c() * 1.25); glib::Propagation::Stop }
-        gdk::Key::minus | gdk::Key::KP_Subtract => { a(c() / 1.25); glib::Propagation::Stop }
-        gdk::Key::_0 | gdk::Key::KP_0 => { a(0.0); glib::Propagation::Stop }
+        gdk::Key::plus | gdk::Key::KP_Add | gdk::Key::equal => {
+            a(c() * 1.25);
+            glib::Propagation::Stop
+        }
+        gdk::Key::minus | gdk::Key::KP_Subtract => {
+            a(c() / 1.25);
+            glib::Propagation::Stop
+        }
+        gdk::Key::_0 | gdk::Key::KP_0 => {
+            a(0.0);
+            glib::Propagation::Stop
+        }
         _ => glib::Propagation::Proceed,
     });
     scroller.add_controller(keys);
@@ -389,7 +599,8 @@ mod tests {
 
     #[test]
     fn delimited_text() {
-        let rows = parse_delimited("name,note\r\nbeach,\"sun, sand\"\n\"say \"\"hi\"\"\",\"two\nlines\"\nlast,row", ',', 100);
+        let rows =
+            parse_delimited("name,note\r\nbeach,\"sun, sand\"\n\"say \"\"hi\"\"\",\"two\nlines\"\nlast,row", ',', 100);
         assert_eq!(rows.len(), 4);
         assert_eq!(rows[1], vec!["beach", "sun, sand"]);
         assert_eq!(rows[2], vec!["say \"hi\"", "two\nlines"]);

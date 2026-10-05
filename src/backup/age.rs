@@ -1,6 +1,3 @@
-//! age backups (age-encryption.org). Recipients are age public keys, SSH public keys
-//! and plugin recipients such as YubiKeys (age1yubikey1…, needs age-plugin-yubikey).
-//! Anyone can open such a file with the age or rage tools as well.
 use std::io::{Read, Write};
 use std::str::FromStr;
 
@@ -11,15 +8,12 @@ use super::invalid;
 use crate::i18n::{tr, trf};
 use crate::profile::Profile;
 
-/// A question a key or plugin asks while encrypting or decrypting. The worker thread
-/// waits for the answer from the interface.
 pub enum Prompt {
     Message(String),
     Confirm { message: String, yes: String, no: Option<String>, reply: std::sync::mpsc::Sender<Option<bool>> },
     Text { description: String, secret: bool, reply: std::sync::mpsc::Sender<Option<String>> },
 }
 
-/// age callbacks that forward to the interface.
 #[derive(Clone)]
 pub struct Prompts(pub tokio::sync::mpsc::UnboundedSender<Prompt>);
 
@@ -38,7 +32,14 @@ impl age::Callbacks for Prompts {
 
     fn confirm(&self, message: &str, yes: &str, no: Option<&str>) -> Option<bool> {
         let (reply, answer) = std::sync::mpsc::channel();
-        self.0.send(Prompt::Confirm { message: message.to_string(), yes: yes.to_string(), no: no.map(str::to_string), reply }).ok()?;
+        self.0
+            .send(Prompt::Confirm {
+                message: message.to_string(),
+                yes: yes.to_string(),
+                no: no.map(str::to_string),
+                reply,
+            })
+            .ok()?;
         answer.recv().ok().flatten()
     }
 
@@ -51,28 +52,30 @@ impl age::Callbacks for Prompts {
     }
 }
 
-/// Whether the plugin for YubiKeys is installed.
 pub fn yubikey_plugin() -> bool {
     gtk::glib::find_program_in_path("age-plugin-yubikey").is_some()
 }
 
-/// The recipients of the YubiKeys plugged in, from age-plugin-yubikey.
 pub async fn yubikey_recipients() -> Result<Vec<String>, String> {
-    let output = tokio::process::Command::new("age-plugin-yubikey").arg("--list").output().await.map_err(|e| e.to_string())?;
+    let output =
+        tokio::process::Command::new("age-plugin-yubikey").arg("--list").output().await.map_err(|e| e.to_string())?;
     let text = String::from_utf8_lossy(&output.stdout);
-    let found: Vec<String> = text.lines().map(str::trim).filter(|l| l.starts_with("age1yubikey1")).map(str::to_string).collect();
+    let found: Vec<String> =
+        text.lines().map(str::trim).filter(|l| l.starts_with("age1yubikey1")).map(str::to_string).collect();
     if found.is_empty() {
         return Err(tr("No YubiKey with an age key was found. Set one up with age-plugin-yubikey first."));
     }
     Ok(found)
 }
 
-/// Splits user input or a .pub file into recipient lines, leaving out comments.
 pub fn split(text: &str) -> Vec<String> {
-    text.split([',', '\n']).map(str::trim).filter(|l| !l.is_empty() && !l.starts_with('#')).map(str::to_string).collect()
+    text.split([',', '\n'])
+        .map(str::trim)
+        .filter(|l| !l.is_empty() && !l.starts_with('#'))
+        .map(str::to_string)
+        .collect()
 }
 
-/// Checks one recipient without encrypting anything.
 pub fn valid(recipient: &str) -> bool {
     age::x25519::Recipient::from_str(recipient).is_ok()
         || age::ssh::Recipient::from_str(recipient).is_ok()
@@ -107,7 +110,8 @@ pub fn seal(plain: &[u8], recipients: &[String]) -> Result<Vec<u8>, String> {
     let encryptor = age::Encryptor::with_recipients(native.iter().map(|r| r.as_ref() as &dyn age::Recipient))
         .map_err(|e| e.to_string())?;
     let mut out = Vec::new();
-    let armored = age::armor::ArmoredWriter::wrap_output(&mut out, age::armor::Format::AsciiArmor).map_err(|e| e.to_string())?;
+    let armored =
+        age::armor::ArmoredWriter::wrap_output(&mut out, age::armor::Format::AsciiArmor).map_err(|e| e.to_string())?;
     let mut writer = encryptor.wrap_output(armored).map_err(|e| e.to_string())?;
     writer.write_all(plain).map_err(|e| e.to_string())?;
     writer.finish().and_then(|armor| armor.finish()).map_err(|e| e.to_string())?;
@@ -118,71 +122,83 @@ fn decryptor(data: &[u8]) -> Result<age::Decryptor<age::armor::ArmoredReader<std
     age::Decryptor::new_buffered(age::armor::ArmoredReader::new(data)).map_err(|_| invalid())
 }
 
-/// Whether the file was encrypted with a passphrase (age -p) instead of keys.
 pub fn is_passphrase(data: &[u8]) -> bool {
     decryptor(data).is_ok_and(|d| d.is_scrypt())
 }
 
-fn finish(decryptor: age::Decryptor<age::armor::ArmoredReader<std::io::BufReader<&[u8]>>>, identities: &[Box<dyn age::Identity>]) -> Result<Vec<Profile>, String> {
-    let mut reader = decryptor.decrypt(identities.iter().map(|i| i.as_ref() as &dyn age::Identity)).map_err(|e| match e {
-        age::DecryptError::NoMatchingKeys => tr("None of your keys can open this backup"),
-        age::DecryptError::DecryptionFailed | age::DecryptError::KeyDecryptionFailed => tr("Wrong password, or the file is damaged"),
-        other => other.to_string(),
-    })?;
+fn finish(
+    decryptor: age::Decryptor<age::armor::ArmoredReader<std::io::BufReader<&[u8]>>>,
+    identities: &[Box<dyn age::Identity>],
+) -> Result<Vec<Profile>, String> {
+    let mut reader =
+        decryptor.decrypt(identities.iter().map(|i| i.as_ref() as &dyn age::Identity)).map_err(|e| match e {
+            age::DecryptError::NoMatchingKeys => tr("None of your keys can open this backup"),
+            age::DecryptError::DecryptionFailed | age::DecryptError::KeyDecryptionFailed => {
+                tr("Wrong password, or the file is damaged")
+            }
+            other => other.to_string(),
+        })?;
     let mut plain = Zeroizing::new(Vec::new());
     reader.read_to_end(&mut plain).map_err(|_| tr("Wrong password, or the file is damaged"))?;
     serde_json::from_slice(&plain).map_err(|_| invalid())
 }
 
-/// Opens a passphrase-encrypted age file.
 pub fn open_passphrase(data: &[u8], passphrase: &str) -> Result<Vec<Profile>, String> {
     let identity = age::scrypt::Identity::new(SecretString::from(passphrase.to_string()));
     finish(decryptor(data)?, &[Box::new(identity)])
 }
 
-/// Identities from a file: an age identity file (also with plugin identities) or an
-/// SSH private key, which may ask for its passphrase.
 fn identities_from(path: &std::path::Path, prompts: &Prompts) -> Vec<Box<dyn age::Identity>> {
     let Ok(text) = std::fs::read(path) else { return Vec::new() };
     let text = Zeroizing::new(text);
     if let Ok(file) = age::IdentityFile::from_buffer(text.as_slice())
         && let Ok(found) = file.with_callbacks(prompts.clone()).into_identities()
-        && !found.is_empty() {
+        && !found.is_empty()
+    {
         return found;
     }
     match age::ssh::Identity::from_buffer(text.as_slice(), Some(path.display().to_string())) {
-        Ok(identity) if !matches!(identity, age::ssh::Identity::Unsupported(_)) => vec![Box::new(identity.with_callbacks(prompts.clone()))],
+        Ok(identity) if !matches!(identity, age::ssh::Identity::Unsupported(_)) => {
+            vec![Box::new(identity.with_callbacks(prompts.clone()))]
+        }
         _ => Vec::new(),
     }
 }
 
-/// The usual places for keys: SSH keys and age key files of the user.
 fn default_identities(prompts: &Prompts) -> Vec<Box<dyn age::Identity>> {
     let home = gtk::glib::home_dir();
     let config = gtk::glib::user_config_dir();
     let mut found = Vec::new();
-    for path in [config.join("age/keys.txt"), config.join("sops/age/keys.txt"), home.join(".ssh/id_ed25519"), home.join(".ssh/id_rsa")] {
+    for path in [
+        config.join("age/keys.txt"),
+        config.join("sops/age/keys.txt"),
+        home.join(".ssh/id_ed25519"),
+        home.join(".ssh/id_rsa"),
+    ] {
         if path.is_file() {
             found.extend(identities_from(&path, prompts));
         }
     }
-    // A YubiKey is asked last: it may want a PIN or a touch.
     if yubikey_plugin()
         && let identity = age::plugin::Identity::default_for_plugin("yubikey")
-        && let Ok(plugin) = age::plugin::IdentityPluginV1::new("yubikey", &[identity], prompts.clone()) {
+        && let Ok(plugin) = age::plugin::IdentityPluginV1::new("yubikey", &[identity], prompts.clone())
+    {
         found.push(Box::new(plugin));
     }
     found
 }
 
-/// Opens a key-encrypted age file, with the key file the user chose or with the usual keys.
 pub fn open(data: &[u8], identity_file: Option<&std::path::Path>, prompts: &Prompts) -> Result<Vec<Profile>, String> {
     let identities = match identity_file {
         Some(path) => identities_from(path, prompts),
         None => default_identities(prompts),
     };
     if identities.is_empty() {
-        return Err(if identity_file.is_some() { tr("The file is not an age identity or SSH private key") } else { tr("None of your keys can open this backup") });
+        return Err(if identity_file.is_some() {
+            tr("The file is not an age identity or SSH private key")
+        } else {
+            tr("None of your keys can open this backup")
+        });
     }
     finish(decryptor(data)?, &identities)
 }

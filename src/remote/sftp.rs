@@ -1,7 +1,3 @@
-//! SFTP over SSH, also through a jump host (as `ssh -J`). Server keys are checked
-//! against ~/.ssh/known_hosts or the fingerprint the user approved for the connection.
-//! Signing in tries the SSH agent, the connection's key file, the usual keys in ~/.ssh
-//! and the password, in that order, as OpenSSH does.
 use std::path::Path;
 use std::sync::{Arc, Mutex as StdMutex, PoisonError};
 
@@ -12,16 +8,13 @@ use russh_sftp::protocol::OpenFlags;
 use tokio::io::{AsyncReadExt, AsyncWriteExt};
 use tokio::sync::Mutex;
 
-use super::{host_port, join, pump, Stat};
+use super::{Stat, host_port, join, pump};
 use crate::i18n::{tr, trf};
 use crate::profile::Profile;
 use crate::s3::{Progress, Res};
 
-/// The start of the error for a server whose key is not known yet. The rest of the text
-/// holds the host, port, fingerprint and whether it is the jump host, one per line.
 pub const UNKNOWN_HOST: &str = "ssh-unknown-host";
 
-/// A server key to be confirmed by the user.
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct UnknownHost {
     pub host: String,
@@ -32,7 +25,13 @@ pub struct UnknownHost {
 
 impl UnknownHost {
     fn encode(&self) -> String {
-        format!("{UNKNOWN_HOST}\n{}\n{}\n{}\n{}", self.host, self.port, self.fingerprint, if self.jump { "jump" } else { "target" })
+        format!(
+            "{UNKNOWN_HOST}\n{}\n{}\n{}\n{}",
+            self.host,
+            self.port,
+            self.fingerprint,
+            if self.jump { "jump" } else { "target" }
+        )
     }
 
     pub fn decode(error: &str) -> Option<UnknownHost> {
@@ -46,7 +45,6 @@ impl UnknownHost {
     }
 }
 
-/// What the key check found, read after a failed connection.
 #[derive(Clone, Default)]
 enum KeyCheck {
     #[default]
@@ -88,9 +86,12 @@ impl client::Handler for Handler {
     }
 }
 
-/// "user@host:port" of a jump host.
 fn parse_jump(text: &str, default_user: &str) -> Res<(String, String, u16)> {
-    let (user, server) = text.trim().rsplit_once('@').map(|(u, s)| (u.to_string(), s)).unwrap_or((default_user.to_string(), text.trim()));
+    let (user, server) = text
+        .trim()
+        .rsplit_once('@')
+        .map(|(u, s)| (u.to_string(), s))
+        .unwrap_or((default_user.to_string(), text.trim()));
     let (host, port) = host_port(server, 22)?;
     Ok((user, host, port))
 }
@@ -104,30 +105,33 @@ fn config() -> Arc<client::Config> {
     })
 }
 
-/// The reason a connection failed: a key that needs approval, or the error itself.
 fn key_failure(found: &Arc<StdMutex<KeyCheck>>, host: &str, port: u16, jump: bool, error: russh::Error) -> String {
     match found.lock().unwrap_or_else(PoisonError::into_inner).clone() {
         KeyCheck::Unknown(fingerprint) => UnknownHost { host: host.to_string(), port, fingerprint, jump }.encode(),
-        KeyCheck::Changed => trf("The key of {host} has changed since it was saved in ~/.ssh/known_hosts. This can mean that someone is intercepting the connection. If the server was reinstalled, remove its old line from known_hosts.", &[("host", host)]),
+        KeyCheck::Changed => trf(
+            "The key of {host} has changed since it was saved in ~/.ssh/known_hosts. This can mean that someone is intercepting the connection. If the server was reinstalled, remove its old line from known_hosts.",
+            &[("host", host)],
+        ),
         KeyCheck::Fine => describe(error),
     }
 }
 
 fn describe(error: russh::Error) -> String {
     match error {
-        russh::Error::IO(e) if e.kind() == std::io::ErrorKind::ConnectionRefused => tr("The server refused the connection; check the address and port"),
+        russh::Error::IO(e) if e.kind() == std::io::ErrorKind::ConnectionRefused => {
+            tr("The server refused the connection; check the address and port")
+        }
         russh::Error::IO(e) => e.to_string(),
         russh::Error::ConnectionTimeout | russh::Error::InactivityTimeout => tr("The server did not answer"),
         other => other.to_string(),
     }
 }
 
-/// Signs in with the agent, a key file, the usual keys, then the password.
 async fn authenticate(handle: &mut client::Handle<Handler>, user: &str, key_file: &str, password: &str) -> Res<()> {
     let hash = handle.best_supported_rsa_hash().await.ok().flatten().flatten();
-    // The SSH agent, which also holds keys on smartcards and YubiKeys.
     if let Ok(mut agent) = russh::keys::agent::client::AgentClient::connect_env().await
-        && let Ok(identities) = agent.request_identities().await {
+        && let Ok(identities) = agent.request_identities().await
+    {
         for identity in identities {
             let russh::keys::agent::AgentIdentity::PublicKey { key, .. } = identity else { continue };
             if handle.authenticate_publickey_with(user, key, hash, &mut agent).await.is_ok_and(|r| r.success()) {
@@ -144,8 +148,8 @@ async fn authenticate(handle: &mut client::Handle<Handler>, user: &str, key_file
     for file in files {
         let Ok(text) = std::fs::read_to_string(&file) else { continue };
         let text = zeroize::Zeroizing::new(text);
-        // An encrypted key is opened with the connection's password as its passphrase.
-        let key = russh::keys::decode_secret_key(&text, None).or_else(|_| russh::keys::decode_secret_key(&text, Some(password)));
+        let key = russh::keys::decode_secret_key(&text, None)
+            .or_else(|_| russh::keys::decode_secret_key(&text, Some(password)));
         let Ok(key) = key else { continue };
         let signed = handle.authenticate_publickey(user, PrivateKeyWithHashAlg::new(Arc::new(key), hash)).await;
         if signed.is_ok_and(|r| r.success()) {
@@ -157,19 +161,28 @@ async fn authenticate(handle: &mut client::Handle<Handler>, user: &str, key_file
             return Ok(());
         }
         // Some servers only offer keyboard-interactive for passwords.
-        if let Ok(client::KeyboardInteractiveAuthResponse::InfoRequest { prompts, .. }) = handle.authenticate_keyboard_interactive_start(user, None).await {
+        if let Ok(client::KeyboardInteractiveAuthResponse::InfoRequest { prompts, .. }) =
+            handle.authenticate_keyboard_interactive_start(user, None).await
+        {
             let answers = prompts.iter().map(|_| password.to_string()).collect();
-            if handle.authenticate_keyboard_interactive_respond(answers).await.is_ok_and(|r| matches!(r, client::KeyboardInteractiveAuthResponse::Success)) {
+            if handle
+                .authenticate_keyboard_interactive_respond(answers)
+                .await
+                .is_ok_and(|r| matches!(r, client::KeyboardInteractiveAuthResponse::Success))
+            {
                 return Ok(());
             }
         }
     }
-    Err(trf("The server did not accept the sign-in of “{user}”. Check the user name, the password or the key.", &[("user", user)]))
+    Err(trf(
+        "The server did not accept the sign-in of “{user}”. Check the user name, the password or the key.",
+        &[("user", user)],
+    ))
 }
 
 struct Connected {
     sftp: Arc<SftpSession>,
-    /// Kept alive: closing a session ends the tunnel or the channel.
+    // Must stay alive, dropping them closes the tunnel.
     _handles: Vec<client::Handle<Handler>>,
 }
 
@@ -181,7 +194,11 @@ pub struct Sftp {
 
 impl Sftp {
     pub async fn connect(profile: &Profile) -> Res<Sftp> {
-        let sftp = Sftp { profile: profile.clone(), root: StdMutex::new(profile.remote_path.trim().to_string()), session: Mutex::new(None) };
+        let sftp = Sftp {
+            profile: profile.clone(),
+            root: StdMutex::new(profile.remote_path.trim().to_string()),
+            session: Mutex::new(None),
+        };
         sftp.session().await?;
         Ok(sftp)
     }
@@ -189,35 +206,57 @@ impl Sftp {
     async fn open(&self) -> Res<Connected> {
         let p = &self.profile;
         let (host, port) = host_port(&p.endpoint, 22)?;
-        let user = if p.access_key.trim().is_empty() { std::env::var("USER").unwrap_or_default() } else { p.access_key.trim().to_string() };
+        let user = if p.access_key.trim().is_empty() {
+            std::env::var("USER").unwrap_or_default()
+        } else {
+            p.access_key.trim().to_string()
+        };
         let mut handles = Vec::new();
         let found = Arc::new(StdMutex::new(KeyCheck::Fine));
         let handler = Handler { host: host.clone(), port, pinned: p.host_key.clone(), found: found.clone() };
         let mut target = if p.jump_host.trim().is_empty() {
-            let connecting = tokio::time::timeout(std::time::Duration::from_secs(20), client::connect(config(), (host.as_str(), port), handler)).await
-                .map_err(|_| tr("The server did not answer"))?;
+            let connecting = tokio::time::timeout(
+                std::time::Duration::from_secs(20),
+                client::connect(config(), (host.as_str(), port), handler),
+            )
+            .await
+            .map_err(|_| tr("The server did not answer"))?;
             connecting.map_err(|e| key_failure(&found, &host, port, false, e))?
         } else {
-            // The jump host first, then a tunnel through it to the server.
             let (jump_user, jump_host, jump_port) = parse_jump(&p.jump_host, &user)?;
             let jump_found = Arc::new(StdMutex::new(KeyCheck::Fine));
-            let jump_handler = Handler { host: jump_host.clone(), port: jump_port, pinned: p.jump_host_key.clone(), found: jump_found.clone() };
-            let connecting = tokio::time::timeout(std::time::Duration::from_secs(20), client::connect(config(), (jump_host.as_str(), jump_port), jump_handler)).await
-                .map_err(|_| trf("The jump host {host} did not answer", &[("host", &jump_host)]))?;
+            let jump_handler = Handler {
+                host: jump_host.clone(),
+                port: jump_port,
+                pinned: p.jump_host_key.clone(),
+                found: jump_found.clone(),
+            };
+            let connecting = tokio::time::timeout(
+                std::time::Duration::from_secs(20),
+                client::connect(config(), (jump_host.as_str(), jump_port), jump_handler),
+            )
+            .await
+            .map_err(|_| trf("The jump host {host} did not answer", &[("host", &jump_host)]))?;
             let mut jump = connecting.map_err(|e| key_failure(&jump_found, &jump_host, jump_port, true, e))?;
-            authenticate(&mut jump, &jump_user, &p.private_key, "").await
-                .map_err(|e| format!("{} ({e})", trf("Signing in to the jump host {host} failed", &[("host", &jump_host)])))?;
-            let channel = jump.channel_open_direct_tcpip(host.clone(), port as u32, "127.0.0.1", 0).await
-                .map_err(|e| trf("The jump host could not reach {host}: {error}", &[("host", &host), ("error", &e.to_string())]))?;
+            authenticate(&mut jump, &jump_user, &p.private_key, "").await.map_err(|e| {
+                format!("{} ({e})", trf("Signing in to the jump host {host} failed", &[("host", &jump_host)]))
+            })?;
+            let channel =
+                jump.channel_open_direct_tcpip(host.clone(), port as u32, "127.0.0.1", 0).await.map_err(|e| {
+                    trf("The jump host could not reach {host}: {error}", &[("host", &host), ("error", &e.to_string())])
+                })?;
             handles.push(jump);
-            client::connect_stream(config(), channel.into_stream(), handler).await.map_err(|e| key_failure(&found, &host, port, false, e))?
+            client::connect_stream(config(), channel.into_stream(), handler)
+                .await
+                .map_err(|e| key_failure(&found, &host, port, false, e))?
         };
         authenticate(&mut target, &user, &p.private_key, &p.secret_key).await?;
         let channel = target.channel_open_session().await.map_err(describe)?;
         channel.request_subsystem(true, "sftp").await.map_err(describe)?;
-        let sftp = SftpSession::new(channel.into_stream()).await.map_err(|e| trf("The server offers no SFTP: {error}", &[("error", &e.to_string())]))?;
+        let sftp = SftpSession::new(channel.into_stream())
+            .await
+            .map_err(|e| trf("The server offers no SFTP: {error}", &[("error", &e.to_string())]))?;
         handles.push(target);
-        // Without a folder the connection starts in the user's home folder.
         let root_empty = self.root.lock().unwrap_or_else(PoisonError::into_inner).is_empty();
         if root_empty {
             let home = sftp.canonicalize(".").await.unwrap_or_else(|_| "/".into());
@@ -226,11 +265,11 @@ impl Sftp {
         Ok(Connected { sftp: Arc::new(sftp), _handles: handles })
     }
 
-    /// The session, connecting again when the last one ended.
     async fn session(&self) -> Res<Arc<SftpSession>> {
         let mut guard = self.session.lock().await;
         if let Some(connected) = guard.as_ref()
-            && !connected._handles.last().is_some_and(|h| h.is_closed()) {
+            && !connected._handles.last().is_some_and(|h| h.is_closed())
+        {
             return Ok(connected.sftp.clone());
         }
         let connected = self.open().await?;
@@ -250,12 +289,15 @@ impl Sftp {
         for entry in sftp.read_dir(base.clone()).await.map_err(sftp_error)? {
             let name = entry.file_name();
             let mut meta = entry.metadata();
-            // Links show as what they point to.
             if meta.is_symlink()
-                && let Ok(target) = sftp.metadata(format!("{}/{name}", base.trim_end_matches('/'))).await {
+                && let Ok(target) = sftp.metadata(format!("{}/{name}", base.trim_end_matches('/'))).await
+            {
                 meta = target;
             }
-            out.push((name, Stat { size: meta.size.unwrap_or(0), modified: meta.mtime.unwrap_or(0) as i64, is_dir: meta.is_dir() }));
+            out.push((
+                name,
+                Stat { size: meta.size.unwrap_or(0), modified: meta.mtime.unwrap_or(0) as i64, is_dir: meta.is_dir() },
+            ));
         }
         Ok(out)
     }
@@ -284,20 +326,35 @@ impl Sftp {
     pub async fn upload(&self, path: &Path, key: &str, progress: &Progress) -> Res<()> {
         let sftp = self.session().await?;
         let target = self.path(key);
-        let mut remote = sftp.open_with_flags(target.clone(), OpenFlags::CREATE | OpenFlags::TRUNCATE | OpenFlags::WRITE).await.map_err(sftp_error)?;
+        let mut remote = sftp
+            .open_with_flags(target.clone(), OpenFlags::CREATE | OpenFlags::TRUNCATE | OpenFlags::WRITE)
+            .await
+            .map_err(sftp_error)?;
         let mut local = tokio::fs::File::open(path).await.map_err(|e| e.to_string())?;
         pump(&mut local, &mut remote, progress).await?;
         remote.shutdown().await.map_err(|e| e.to_string())?;
-        // The file keeps its date, as with scp -p.
-        if let Some(mtime) = std::fs::metadata(path).ok().and_then(|m| m.modified().ok()).and_then(|t| t.duration_since(std::time::UNIX_EPOCH).ok()) {
-            let attrs = russh_sftp::protocol::FileAttributes { mtime: Some(mtime.as_secs() as u32), atime: Some(mtime.as_secs() as u32), ..Default::default() };
+        if let Some(mtime) = std::fs::metadata(path)
+            .ok()
+            .and_then(|m| m.modified().ok())
+            .and_then(|t| t.duration_since(std::time::UNIX_EPOCH).ok())
+        {
+            let attrs = russh_sftp::protocol::FileAttributes {
+                mtime: Some(mtime.as_secs() as u32),
+                atime: Some(mtime.as_secs() as u32),
+                ..Default::default()
+            };
             let _ = sftp.set_metadata(target, attrs).await;
         }
         Ok(())
     }
 
     pub async fn write(&self, key: &str, data: Vec<u8>) -> Res<()> {
-        let mut remote = self.session().await?.open_with_flags(self.path(key), OpenFlags::CREATE | OpenFlags::TRUNCATE | OpenFlags::WRITE).await.map_err(sftp_error)?;
+        let mut remote = self
+            .session()
+            .await?
+            .open_with_flags(self.path(key), OpenFlags::CREATE | OpenFlags::TRUNCATE | OpenFlags::WRITE)
+            .await
+            .map_err(sftp_error)?;
         remote.write_all(&data).await.map_err(|e| e.to_string())?;
         remote.shutdown().await.map_err(|e| e.to_string())
     }
@@ -316,11 +373,12 @@ impl Sftp {
 
     pub async fn rename(&self, from: &str, to: &str) -> Res<()> {
         let sftp = self.session().await?;
-        let (from, to) = (self.path(from).trim_end_matches('/').to_string(), self.path(to).trim_end_matches('/').to_string());
+        let (from, to) =
+            (self.path(from).trim_end_matches('/').to_string(), self.path(to).trim_end_matches('/').to_string());
         if sftp.rename(from.clone(), to.clone()).await.is_ok() {
             return Ok(());
         }
-        // SFTP version 3 refuses to replace a file; it is removed first, as S3 replaces it.
+        // SFTPv3 rename won't overwrite, so remove the target first.
         if sftp.metadata(to.clone()).await.is_ok_and(|m| !m.is_dir()) {
             sftp.remove_file(to.clone()).await.map_err(sftp_error)?;
         }
@@ -330,9 +388,13 @@ impl Sftp {
 
 fn sftp_error(error: russh_sftp::client::error::Error) -> String {
     let text = error.to_string();
-    if text.contains("No such file") || text.contains("NoSuchFile") { tr("The file or folder was not found") }
-    else if text.contains("Permission denied") || text.contains("PermissionDenied") { tr("The server does not allow this") }
-    else { text }
+    if text.contains("No such file") || text.contains("NoSuchFile") {
+        tr("The file or folder was not found")
+    } else if text.contains("Permission denied") || text.contains("PermissionDenied") {
+        tr("The server does not allow this")
+    } else {
+        text
+    }
 }
 
 #[cfg(test)]
@@ -341,7 +403,8 @@ mod tests {
 
     #[test]
     fn unknown_host_round_trip() {
-        let found = UnknownHost { host: "example.org".into(), port: 2222, fingerprint: "SHA256:abc".into(), jump: true };
+        let found =
+            UnknownHost { host: "example.org".into(), port: 2222, fingerprint: "SHA256:abc".into(), jump: true };
         assert_eq!(UnknownHost::decode(&found.encode()), Some(found));
         assert!(UnknownHost::decode("some other error").is_none());
         assert_eq!(parse_jump("bastion.example.org", "ada").unwrap(), ("ada".into(), "bastion.example.org".into(), 22));

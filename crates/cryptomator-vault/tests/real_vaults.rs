@@ -1,5 +1,4 @@
-//! Unlock, list and decrypt vaults created by other implementations
-//! (see tests/fixtures/SOURCES.txt for provenance).
+//! Vaults made by other implementations, see tests/fixtures/SOURCES.txt.
 
 use std::collections::BTreeMap;
 use std::fs;
@@ -26,8 +25,6 @@ fn open(name: &str, password: &str) -> (Vault, PathBuf) {
     (Vault::unlock(&mk, &cfg, password).unwrap(), root)
 }
 
-/// Walk the whole vault the way a client would: start at the root dir ID,
-/// list the content directory, decrypt names, follow `dir.c9r`.
 fn walk(vault: &Vault, root: &Path, dir_id: &str, prefix: &str, out: &mut BTreeMap<String, Node>) {
     let content_dir = root.join(vault.dir_path(dir_id).unwrap());
     assert!(content_dir.is_dir(), "missing content dir for {prefix:?}");
@@ -93,19 +90,14 @@ fn siv_gcm_vault_created_by_cryptomator() {
     let welcome = all.iter().find(|(k, _)| k.ends_with(".rtf")).expect("an .rtf file");
     let Node::File(data) = welcome.1 else { panic!() };
     assert!(data.starts_with(b"{\\rtf"), "decrypted file is RTF");
-    // wrong password, distinct error
     let mk = fs::read(root.join("masterkey.cryptomator")).unwrap();
     let cfg = fs::read_to_string(root.join("vault.cryptomator")).unwrap();
     assert_eq!(Vault::unlock(&mk, &cfg, "wrong").unwrap_err(), Error::InvalidPassword);
-    // the .bkup copies are byte-identical backups
     assert_eq!(cfg, fs::read_to_string(root.join("vault.cryptomator.AD47C184.bkup")).unwrap());
 }
 
 #[test]
 fn siv_gcm_vault_names_round_trip() {
-    // Re-encrypting decrypted names must reproduce the stored ciphertext
-    // names exactly (AES-SIV is deterministic), proving name compatibility
-    // in the write direction too.
     let (vault, root) = open("vault-siv-gcm", "cryptomator-vault-sync");
     let dir = root.join(vault.dir_path("").unwrap());
     for e in fs::read_dir(dir).unwrap() {
@@ -124,11 +116,9 @@ fn ctrmac_vault_with_nested_dirs() {
     let all = listing(&vault, &root);
     let Some(Node::File(welcome)) = all.get("/WELCOME.rtf") else { panic!("WELCOME.rtf missing") };
     assert!(String::from_utf8_lossy(welcome).contains("Cryptomator"));
-    // cryptomator-ts expects 4 directories and 1 file in the root.
     let root_items: Vec<_> = all.keys().filter(|k| k.matches('/').count() == 1).collect();
     let dirs = root_items.iter().filter(|k| all[k.as_str()] == Node::Dir).count();
     assert_eq!((dirs, root_items.len() - dirs), (4, 1));
-    // there are nested directories
     assert!(all.keys().any(|k| k.matches('/').count() >= 3));
 }
 
@@ -146,18 +136,16 @@ fn ctrmac_vault_with_long_names() {
     let all = listing(&vault, &root);
     let long_dir = all.iter().find(|(k, v)| **v == Node::Dir && k.contains(&"A".repeat(220)));
     assert!(long_dir.is_some(), "shortened directory");
-    let (_, file) = all
-        .iter()
-        .find(|(k, _)| k.contains(&"B".repeat(220)) && k.ends_with(".txt"))
-        .expect("shortened file");
+    let (_, file) =
+        all.iter().find(|(k, _)| k.contains(&"B".repeat(220)) && k.ends_with(".txt")).expect("shortened file");
     let Node::File(data) = file else { panic!() };
     assert!(String::from_utf8_lossy(data).contains("Hello world"));
-    // Writing the same long names must produce the same .c9s names.
     let dir = root.join(vault.dir_path("").unwrap());
     for e in fs::read_dir(dir).unwrap() {
         let raw = e.unwrap().file_name().into_string().unwrap();
         if classify_entry(&raw) == EntryKind::Shortened {
-            let nf = fs::read(fixture("vault-ctrmac-2").join(vault.dir_path("").unwrap()).join(&raw).join("name.c9s")).unwrap();
+            let nf = fs::read(fixture("vault-ctrmac-2").join(vault.dir_path("").unwrap()).join(&raw).join("name.c9s"))
+                .unwrap();
             let clear = vault.decrypt_shortened_name(&raw, &nf, "").unwrap();
             assert_eq!(vault.node_name(&clear, "").unwrap().storage_name(), raw);
         }

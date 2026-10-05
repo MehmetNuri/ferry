@@ -47,7 +47,7 @@ Adw.Dialog dialog {
           }
         }
 
-        Adw.PreferencesGroup {
+        Adw.PreferencesGroup server_group {
           title: _("Server");
 
           Adw.EntryRow endpoint_row {
@@ -76,12 +76,24 @@ Adw.Dialog dialog {
           }
         }
 
-        Adw.PreferencesGroup {
+        Adw.PreferencesGroup credentials_group {
           title: _("Credentials");
           description: _("Stored in the system keyring.");
 
           Adw.ComboRow auth_row {
             title: _("Sign-In Method");
+          }
+
+          Adw.ComboRow online_account_row {
+            title: _("Account");
+            subtitle: _("From Settings › Online Accounts");
+            visible: false;
+          }
+
+          Adw.ButtonRow online_settings_row {
+            title: _("Online Accounts Settings…");
+            end-icon-name: "adw-external-link-symbolic";
+            visible: false;
           }
 
           Adw.ComboRow aws_profile_row {
@@ -162,7 +174,7 @@ Adw.Dialog dialog {
           }
         }
 
-        Adw.PreferencesGroup {
+        Adw.PreferencesGroup advanced_group {
           title: _("Advanced");
 
           Adw.ExpanderRow role_row {

@@ -2,6 +2,7 @@
 name = "cryptomator-vault"
 version = "0.1.0"
 edition = "2024"
+publish = false
 description = "Storage-agnostic implementation of the Cryptomator vault format 8"
 license = "GPL-3.0-or-later"
 

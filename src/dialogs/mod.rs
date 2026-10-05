@@ -1,4 +1,3 @@
-//! Dialogs and the quick preview.
 pub mod access;
 pub mod backup;
 pub mod batch_rename;

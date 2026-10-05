@@ -11,8 +11,8 @@
   <description>
     <p>
       Ferry moves files between your computer and file servers or cloud storage: SFTP,
-      FTP, WebDAV and Nextcloud, Amazon S3, Cloudflare R2, MinIO, Supabase Storage and other
-      S3-compatible services.
+      FTP, WebDAV and Nextcloud, Google Drive, Azure Blob Storage, Amazon S3, Cloudflare R2, MinIO, Supabase
+      Storage and other S3-compatible services.
     </p>
     <ul>
       <li>Browse buckets and file servers in a list or a grid with thumbnails; folders open instantly from a cache</li>
@@ -36,6 +36,32 @@
       <li>Pauses while offline and keeps the computer awake during transfers</li>
     </ul>
   </description>
+  <screenshots>
+    <screenshot type="default">
+      <image>https://raw.githubusercontent.com/MehmetNuri/ferry/main/data/screenshots/photos.png</image>
+      <caption>Photos of a file server in a grid</caption>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/MehmetNuri/ferry/main/data/screenshots/documents.png</image>
+      <caption>Browsing a file server</caption>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/MehmetNuri/ferry/main/data/screenshots/preview.png</image>
+      <caption>Quick preview of a photo</caption>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/MehmetNuri/ferry/main/data/screenshots/vault.png</image>
+      <caption>An unlocked Cryptomator vault</caption>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/MehmetNuri/ferry/main/data/screenshots/transfers.png</image>
+      <caption>The transfer queue</caption>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/MehmetNuri/ferry/main/data/screenshots/connection.png</image>
+      <caption>Connecting over SFTP through a jump host</caption>
+    </screenshot>
+  </screenshots>
   <launchable type="desktop-id">io.github.mehmetnuri.Ferry.desktop</launchable>
   <url type="homepage">https://github.com/MehmetNuri/s3_browser</url>
   <url type="bugtracker">https://github.com/MehmetNuri/s3_browser/issues</url>

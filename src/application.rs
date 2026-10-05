@@ -29,18 +29,18 @@ mod imp {
     }
 
     impl ApplicationImpl for Application {
-        // A second launch only brings the existing window forward.
         fn activate(&self) {
             let app = self.obj();
             let window = app.main_window();
-            // Started at login: the window exists for backups and transfers but stays hidden.
             if START_HIDDEN.swap(false, std::sync::atomic::Ordering::Relaxed) {
                 crate::debug!("started hidden");
                 request_background_quietly();
                 return;
             }
-            // A scripted run can ask for a window size, to check the adaptive layout.
-            if let Some((w, h)) = std::env::var("FERRY_SMOKE_SIZE").ok().and_then(|v| v.split_once('x').and_then(|(w, h)| Some((w.parse().ok()?, h.parse().ok()?)))) {
+            if let Some((w, h)) = std::env::var("FERRY_SMOKE_SIZE")
+                .ok()
+                .and_then(|v| v.split_once('x').and_then(|(w, h)| Some((w.parse().ok()?, h.parse().ok()?))))
+            {
                 window.unmaximize();
                 window.set_default_size(w, h);
             }
@@ -49,9 +49,11 @@ mod imp {
             if let Ok(profile) = std::env::var("FERRY_SMOKE") {
                 crate::devtools::smoke::start(&window, profile);
             }
+            if std::env::var_os("FERRY_SCREENSHOTS").is_some() {
+                crate::devtools::shots::start(&window);
+            }
         }
 
-        // s3:// links opened anywhere in the desktop show their location here.
         fn open(&self, files: &[gio::File], _hint: &str) {
             let window = self.obj().main_window();
             window.present();
@@ -71,7 +73,6 @@ mod imp {
 
         fn startup(&self) {
             self.parent_startup();
-            // Everything cached (thumbnails, dragged and edited copies) may come from private buckets.
             let cache = glib::user_cache_dir().join("ferry");
             let _ = std::fs::create_dir_all(&cache);
             let _ = std::fs::set_permissions(&cache, std::os::unix::fs::PermissionsExt::from_mode(0o700));
@@ -80,13 +81,14 @@ mod imp {
             crate::transfers::mount::forget_stale_bookmarks();
         }
 
-        // Mounted folders must not outlive the process that serves them.
+        // mounts must not outlive the process serving them
         fn shutdown(&self) {
-            // Unfinished transfers are kept for the next start.
             for window in self.obj().windows() {
                 if let Ok(win) = window.downcast::<Window>() {
                     win.queue().save();
-                    if std::env::var_os("FERRY_SMOKE").is_none() { win.save_listings(); }
+                    if std::env::var_os("FERRY_SMOKE").is_none() {
+                        win.save_listings();
+                    }
                 }
             }
             crate::search::save();
@@ -94,8 +96,6 @@ mod imp {
             crate::transfers::external::cleanup();
             self.parent_shutdown();
         }
-
-
     }
 
     impl GtkApplicationImpl for Application {}
@@ -113,28 +113,46 @@ impl Application {
         glib::Object::builder()
             .property("application-id", config::APP_ID)
             .property("resource-base-path", "/io/github/mehmetnuri/Ferry")
-            .property("flags", gio::ApplicationFlags::HANDLES_OPEN)
+            // NON_UNIQUE so screenshots can run beside a running instance
+            .property(
+                "flags",
+                if std::env::var_os("FERRY_SCREENSHOTS").is_some() {
+                    gio::ApplicationFlags::HANDLES_OPEN | gio::ApplicationFlags::NON_UNIQUE
+                } else {
+                    gio::ApplicationFlags::HANDLES_OPEN
+                },
+            )
             .build()
     }
 
     fn setup_actions(&self) {
         let quit = gio::ActionEntry::builder("quit").activate(|app: &Self, _, _| app.quit()).build();
         let about = gio::ActionEntry::builder("about").activate(|app: &Self, _, _| app.show_about()).build();
-        let preferences = gio::ActionEntry::builder("preferences").activate(|app: &Self, _, _| app.show_preferences()).build();
-        let show = gio::ActionEntry::builder("show-window").activate(|app: &Self, _, _| app.main_window().present()).build();
-        let transfers = gio::ActionEntry::builder("show-transfers").activate(|app: &Self, _, _| app.main_window().show_transfers()).build();
-        let retry = gio::ActionEntry::builder("retry-failed").activate(|app: &Self, _, _| {
-            let window = app.main_window();
-            let retried = window.queue().retry_failed();
-            if retried > 0 { window.show_transfers(); }
-        }).build();
-        // Opens a local folder from a notification button.
-        let open_folder = gio::ActionEntry::builder("open-folder").parameter_type(Some(glib::VariantTy::STRING)).activate(|_: &Self, _, param| {
-            if let Some(path) = param.and_then(|p| p.get::<String>()) {
-                let uri = gio::File::for_path(path).uri();
-                let _ = gio::AppInfo::launch_default_for_uri(&uri, gio::AppLaunchContext::NONE);
-            }
-        }).build();
+        let preferences =
+            gio::ActionEntry::builder("preferences").activate(|app: &Self, _, _| app.show_preferences()).build();
+        let show =
+            gio::ActionEntry::builder("show-window").activate(|app: &Self, _, _| app.main_window().present()).build();
+        let transfers = gio::ActionEntry::builder("show-transfers")
+            .activate(|app: &Self, _, _| app.main_window().show_transfers())
+            .build();
+        let retry = gio::ActionEntry::builder("retry-failed")
+            .activate(|app: &Self, _, _| {
+                let window = app.main_window();
+                let retried = window.queue().retry_failed();
+                if retried > 0 {
+                    window.show_transfers();
+                }
+            })
+            .build();
+        let open_folder = gio::ActionEntry::builder("open-folder")
+            .parameter_type(Some(glib::VariantTy::STRING))
+            .activate(|_: &Self, _, param| {
+                if let Some(path) = param.and_then(|p| p.get::<String>()) {
+                    let uri = gio::File::for_path(path).uri();
+                    let _ = gio::AppInfo::launch_default_for_uri(&uri, gio::AppLaunchContext::NONE);
+                }
+            })
+            .build();
         self.add_action_entries([quit, about, preferences, show, transfers, retry, open_folder]);
         self.set_accels_for_action("app.preferences", &["<Control>comma"]);
 
@@ -163,57 +181,92 @@ impl Application {
         self.set_accels_for_action("win.show-help-overlay", &["<Control>question"]);
     }
 
-    /// The single main window; hidden while running in the background.
     fn main_window(&self) -> Window {
         self.windows().into_iter().find_map(|w| w.downcast::<Window>().ok()).unwrap_or_else(|| Window::new(self))
     }
 
     fn show_preferences(&self) {
         let dialog = adw::PreferencesDialog::new();
-        let page = adw::PreferencesPage::builder().title(tr("General")).icon_name("preferences-system-symbolic").build();
+        let page =
+            adw::PreferencesPage::builder().title(tr("General")).icon_name("preferences-system-symbolic").build();
         let behavior = adw::PreferencesGroup::builder().title(tr("Behavior")).build();
-        let background = adw::SwitchRow::builder().title(tr("Run in Background"))
-            .subtitle(tr("Closing the window keeps transfers and scheduled backups running")).build();
-        let notify = adw::SwitchRow::builder().title(tr("Notifications"))
-            .subtitle(tr("Show a notification when transfers finish while the window is not focused")).build();
-        let autostart = adw::SwitchRow::builder().title(tr("Start at Login"))
-            .subtitle(tr("Runs in the background without a window, so scheduled and watched backups keep working")).build();
+        let background = adw::SwitchRow::builder()
+            .title(tr("Run in Background"))
+            .subtitle(tr("Closing the window keeps transfers and scheduled backups running"))
+            .build();
+        let notify = adw::SwitchRow::builder()
+            .title(tr("Notifications"))
+            .subtitle(tr("Show a notification when transfers finish while the window is not focused"))
+            .build();
+        let autostart = adw::SwitchRow::builder()
+            .title(tr("Start at Login"))
+            .subtitle(tr("Runs in the background without a window, so scheduled and watched backups keep working"))
+            .build();
         behavior.add(&background);
         behavior.add(&autostart);
         behavior.add(&notify);
         let transfers = adw::PreferencesGroup::builder().title(tr("Transfers")).build();
-        let limit = adw::SpinRow::builder().title(tr("Simultaneous Transfers")).subtitle(tr("Files uploaded or downloaded at the same time"))
-            .adjustment(&gtk::Adjustment::new(4.0, 1.0, 16.0, 1.0, 4.0, 0.0)).build();
+        let limit = adw::SpinRow::builder()
+            .title(tr("Simultaneous Transfers"))
+            .subtitle(tr("Files uploaded or downloaded at the same time"))
+            .adjustment(&gtk::Adjustment::new(4.0, 1.0, 16.0, 1.0, 4.0, 0.0))
+            .build();
         transfers.add(&limit);
         let ask = adw::SwitchRow::builder().title(tr("Ask Where to Save Downloads")).build();
         transfers.add(&ask);
         let folder_row = adw::ActionRow::builder().title(tr("Download Folder")).subtitle_selectable(true).build();
-        let choose = gtk::Button::builder().icon_name("folder-open-symbolic").tooltip_text(tr("Choose Folder…")).valign(gtk::Align::Center).css_classes(["flat"]).build();
+        let choose = gtk::Button::builder()
+            .icon_name("folder-open-symbolic")
+            .tooltip_text(tr("Choose Folder…"))
+            .valign(gtk::Align::Center)
+            .css_classes(["flat"])
+            .build();
         folder_row.add_suffix(&choose);
         folder_row.set_activatable_widget(Some(&choose));
-        let show_folder = glib::clone!(#[weak] folder_row, move || {
-            let path = crate::window::download_folder();
-            folder_row.set_subtitle(&glib::markup_escape_text(&path.display().to_string()));
-        });
+        let show_folder = glib::clone!(
+            #[weak]
+            folder_row,
+            move || {
+                let path = crate::window::download_folder();
+                folder_row.set_subtitle(&glib::markup_escape_text(&path.display().to_string()));
+            }
+        );
         show_folder();
-        choose.connect_clicked(glib::clone!(#[weak] dialog, #[strong] show_folder, move |_| {
-            let chooser = gtk::FileDialog::builder().title(tr("Download folder")).modal(true)
-                .initial_folder(&gio::File::for_path(crate::window::download_folder())).build();
-            let root = dialog.root().and_downcast::<gtk::Window>();
-            let show_folder = show_folder.clone();
-            glib::spawn_future_local(async move {
-                if let Ok(folder) = chooser.select_folder_future(root.as_ref()).await && let Some(path) = folder.path() {
-                    let _ = settings().set_string("download-folder", &path.display().to_string());
-                    show_folder();
-                }
-            });
-        }));
+        choose.connect_clicked(glib::clone!(
+            #[weak]
+            dialog,
+            #[strong]
+            show_folder,
+            move |_| {
+                let chooser = gtk::FileDialog::builder()
+                    .title(tr("Download folder"))
+                    .modal(true)
+                    .initial_folder(&gio::File::for_path(crate::window::download_folder()))
+                    .build();
+                let root = dialog.root().and_downcast::<gtk::Window>();
+                let show_folder = show_folder.clone();
+                glib::spawn_future_local(async move {
+                    if let Ok(folder) = chooser.select_folder_future(root.as_ref()).await
+                        && let Some(path) = folder.path()
+                    {
+                        let _ = settings().set_string("download-folder", &path.display().to_string());
+                        show_folder();
+                    }
+                });
+            }
+        ));
         transfers.add(&folder_row);
-        let skip = adw::EntryRow::builder().title(tr("Leave Out When Uploading Folders")).show_apply_button(true)
-            .text(settings().strv("upload-skip").iter().map(|s| s.to_string()).collect::<Vec<_>>().join(", ")).build();
-        skip.set_tooltip_text(Some(&tr("Comma-separated names; * and ? are wildcards, for example node_modules, *.tmp")));
+        let skip = adw::EntryRow::builder()
+            .title(tr("Leave Out When Uploading Folders"))
+            .show_apply_button(true)
+            .text(settings().strv("upload-skip").iter().map(|s| s.to_string()).collect::<Vec<_>>().join(", "))
+            .build();
+        skip.set_tooltip_text(Some(&tr(
+            "Comma-separated names; * and ? are wildcards, for example node_modules, *.tmp",
+        )));
         skip.connect_apply(|row| {
-            let names: Vec<String> = row.text().split(',').map(|s| s.trim().to_string()).filter(|s| !s.is_empty()).collect();
+            let names: Vec<String> =
+                row.text().split(',').map(|s| s.trim().to_string()).filter(|s| !s.is_empty()).collect();
             let _ = settings().set_strv("upload-skip", names.iter().map(String::as_str).collect::<Vec<_>>());
         });
         transfers.add(&skip);
@@ -263,14 +316,14 @@ impl Application {
     }
 }
 
-/// Progress and count on the application icon in docks that show them (Dash to Dock,
-/// Ubuntu Dock), through the LauncherEntry interface; sent only when they change.
 pub fn set_launcher_progress(active: usize, fraction: f64) {
     thread_local! {
         static LAST: Cell<(usize, i32)> = const { Cell::new((0, -1)) };
     }
     let shown = (active, (fraction * 100.0).round() as i32);
-    if LAST.with(|l| l.replace(shown)) == shown { return; }
+    if LAST.with(|l| l.replace(shown)) == shown {
+        return;
+    }
     let Some(app) = gio::Application::default() else { return };
     let Some(connection) = app.dbus_connection() else { return };
     let properties = glib::VariantDict::new(None);
@@ -279,22 +332,21 @@ pub fn set_launcher_progress(active: usize, fraction: f64) {
     properties.insert("count", active as i64);
     properties.insert("count-visible", active > 0);
     let uri = format!("application://{}.desktop", config::APP_ID);
-    let _ = connection.emit_signal(None, "/io/github/mehmetnuri/Ferry/launcher", "com.canonical.Unity.LauncherEntry", "Update",
-        Some(&glib::Variant::tuple_from_iter([uri.to_variant(), properties.end()])));
+    let _ = connection.emit_signal(
+        None,
+        "/io/github/mehmetnuri/Ferry/launcher",
+        "com.canonical.Unity.LauncherEntry",
+        "Update",
+        Some(&glib::Variant::tuple_from_iter([uri.to_variant(), properties.end()])),
+    );
 }
 
 thread_local! {
     static BACKGROUND_ASKED: Cell<bool> = const { Cell::new(false) };
 }
 
-/// Asks the desktop once to let the application run without a window. GNOME
-/// then lists it under "Background Apps" in the system menu (for applications
-/// installed as Flatpak), where it can be reopened or quit. The first time the
-/// window goes away a notification also says so and offers to quit.
-/// Set by "--hidden" on the command line.
 pub static START_HIDDEN: std::sync::atomic::AtomicBool = std::sync::atomic::AtomicBool::new(false);
 
-/// Like request_background, without the notification; used when started at login.
 fn request_background_quietly() {
     BACKGROUND_ASKED.with(|asked| asked.set(true));
     let reason = tr("Scheduled backups run in the background");
@@ -303,14 +355,15 @@ fn request_background_quietly() {
     });
 }
 
-/// Starts the application hidden at login, or stops doing so. Inside Flatpak
-/// the background portal handles it; otherwise an XDG autostart entry is written.
 pub fn set_autostart(enabled: bool) {
     if std::path::Path::new("/.flatpak-info").exists() {
         let reason = tr("Scheduled backups run in the background");
         crate::runtime::runtime().spawn(async move {
-            let request = ashpd::desktop::background::Background::request().reason(reason.as_str()).auto_start(enabled)
-                .command(["ferry", "--hidden"]).dbus_activatable(false);
+            let request = ashpd::desktop::background::Background::request()
+                .reason(reason.as_str())
+                .auto_start(enabled)
+                .command(["ferry", "--hidden"])
+                .dbus_activatable(false);
             if let Err(error) = request.send().await.and_then(|r| r.response()) {
                 eprintln!("Autostart could not be changed: {error}");
             }
@@ -323,8 +376,13 @@ pub fn set_autostart(enabled: bool) {
         return;
     }
     let exe = std::env::current_exe().map(|p| p.display().to_string()).unwrap_or_else(|_| "ferry".into());
-    let entry = format!("[Desktop Entry]\nType=Application\nName=Ferry\nExec={exe} --hidden\nIcon={}\nNoDisplay=true\nX-GNOME-Autostart-enabled=true\n", config::APP_ID);
-    if let Some(dir) = path.parent() { let _ = std::fs::create_dir_all(dir); }
+    let entry = format!(
+        "[Desktop Entry]\nType=Application\nName=Ferry\nExec={exe} --hidden\nIcon={}\nNoDisplay=true\nX-GNOME-Autostart-enabled=true\n",
+        config::APP_ID
+    );
+    if let Some(dir) = path.parent() {
+        let _ = std::fs::create_dir_all(dir);
+    }
     let _ = std::fs::write(path, entry);
 }
 
@@ -334,7 +392,8 @@ pub fn request_background() {
     }
     if let Some(app) = gio::Application::default() {
         let notification = gio::Notification::new(&tr("Ferry Is Running in the Background"));
-        notification.set_body(Some(&tr("Transfers and scheduled backups continue. Open Ferry again to show the window.")));
+        notification
+            .set_body(Some(&tr("Transfers and scheduled backups continue. Open Ferry again to show the window.")));
         notification.set_icon(&gio::ThemedIcon::new(config::APP_ID));
         notification.set_default_action("app.show-window");
         notification.add_button(&tr("Quit"), "app.quit");
@@ -342,19 +401,22 @@ pub fn request_background() {
     }
     let reason = tr("Transfers and scheduled backups continue while the window is closed");
     crate::runtime::runtime().spawn(async move {
-        let request = ashpd::desktop::background::Background::request().reason(reason.as_str()).auto_start(false).dbus_activatable(false);
+        let request = ashpd::desktop::background::Background::request()
+            .reason(reason.as_str())
+            .auto_start(false)
+            .dbus_activatable(false);
         if let Err(error) = request.send().await.and_then(|r| r.response()) {
             eprintln!("Background permission was not granted: {error}");
         }
     });
 }
 
-/// The status line GNOME shows for the application in the background apps menu.
 pub fn set_background_status(status: &str) {
     let message = if status.is_empty() { tr("Idle") } else { status.to_string() };
     crate::runtime::runtime().spawn(async move {
         if let Ok(proxy) = ashpd::desktop::background::BackgroundProxy::new().await {
-            let _ = proxy.set_status(ashpd::desktop::background::SetStatusOptions::default().set_message(&message)).await;
+            let _ =
+                proxy.set_status(ashpd::desktop::background::SetStatusOptions::default().set_message(&message)).await;
         }
     });
 }
@@ -365,7 +427,10 @@ pub fn notify_transfers(done: u32, failed: u32) {
     }
     let Some(app) = gio::Application::default() else { return };
     let (title, body) = if failed > 0 {
-        (tr("Transfers Failed"), trf("{n} transfers failed, {d} finished", &[("n", &failed.to_string()), ("d", &done.to_string())]))
+        (
+            tr("Transfers Failed"),
+            trf("{n} transfers failed, {d} finished", &[("n", &failed.to_string()), ("d", &done.to_string())]),
+        )
     } else {
         (tr("Transfers Finished"), trn("{n} transfer finished", "{n} transfers finished", &[("n", &done.to_string())]))
     };
@@ -382,7 +447,9 @@ pub fn notify_transfers(done: u32, failed: u32) {
 }
 
 pub fn notify_with_folder(title: &str, body: &str, folder: &std::path::Path) {
-    if !settings().boolean("notify-transfers") { return; }
+    if !settings().boolean("notify-transfers") {
+        return;
+    }
     let Some(app) = gio::Application::default() else { return };
     let notification = gio::Notification::new(title);
     notification.set_body(Some(body));
@@ -393,21 +460,34 @@ pub fn notify_with_folder(title: &str, body: &str, folder: &std::path::Path) {
     app.send_notification(Some("download"), &notification);
 }
 
-/// Details for bug reports, shown under Troubleshooting in the About dialog. No credentials.
 fn debug_info() -> String {
     let profiles = crate::profile::load();
-    let providers: Vec<String> = profiles.iter().map(|p| format!("{} ({})", p.provider, if crate::s3::endpoint_of(p).is_empty() { "default endpoint" } else { "custom endpoint" })).collect();
+    let providers: Vec<String> = profiles
+        .iter()
+        .map(|p| {
+            format!(
+                "{} ({})",
+                p.provider,
+                if crate::s3::endpoint_of(p).is_empty() { "default endpoint" } else { "custom endpoint" }
+            )
+        })
+        .collect();
     format!(
         "Ferry {}\nGTK {}.{}.{}\nlibadwaita {}.{}.{}\nSession: {}\nDesktop: {}\nFlatpak: {}\nLanguage: {}\nConnections: {}\nQueue limit: {}, speed limit: {} KB/s\n",
         config::VERSION,
-        gtk::major_version(), gtk::minor_version(), gtk::micro_version(),
-        adw::major_version(), adw::minor_version(), adw::micro_version(),
+        gtk::major_version(),
+        gtk::minor_version(),
+        gtk::micro_version(),
+        adw::major_version(),
+        adw::minor_version(),
+        adw::micro_version(),
         std::env::var("XDG_SESSION_TYPE").unwrap_or_default(),
         std::env::var("XDG_CURRENT_DESKTOP").unwrap_or_default(),
         std::path::Path::new("/.flatpak-info").exists(),
         glib::language_names().first().map(|s| s.to_string()).unwrap_or_default(),
         if providers.is_empty() { "none".to_string() } else { providers.join(", ") },
-        settings().int("transfer-limit"), settings().int("bandwidth-kbps"),
+        settings().int("transfer-limit"),
+        settings().int("bandwidth-kbps"),
     )
 }
 

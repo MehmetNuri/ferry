@@ -1,12 +1,3 @@
-//! Directory IDs, directory paths and file name encryption.
-//!
-//! * `dirPath(dirId) = "d/" + h[0..2] + "/" + h[2..32]` with
-//!   `h = BASE32(SHA1(AES-SIV(dirId, no associated data)))`.
-//! * `encName = BASE64URL(AES-SIV(NFC(name), AD = parent dirId)) + ".c9r"`.
-//! * If `encName` is longer than the shortening threshold it is stored as
-//!   `BASE64URL(SHA1(encName)) + ".c9s"`, a directory holding `name.c9s`
-//!   (the full `encName`) plus `contents.c9r`, `dir.c9r` or `symlink.c9r`.
-
 use aes_siv::KeyInit;
 use aes_siv::siv::Aes256Siv;
 use data_encoding::{BASE32, BASE64URL, BASE64URL_NOPAD};
@@ -16,68 +7,44 @@ use unicode_normalization::UnicodeNormalization;
 use crate::error::{Error, Result, invalid};
 use crate::keys::MasterKey;
 
-/// Directory ID of the vault root.
 pub const ROOT_DIR_ID: &str = "";
-/// Maximum length of a directory ID (a UUID is 36 ASCII chars).
 pub const MAX_DIR_ID_LEN: usize = 36;
-/// Name of the vault data directory.
 pub const DATA_DIR: &str = "d";
-/// Suffix of regular encrypted names.
 pub const C9R_SUFFIX: &str = ".c9r";
-/// Suffix of shortened names.
 pub const C9S_SUFFIX: &str = ".c9s";
-/// File inside a directory node that holds its directory ID.
 pub const DIR_FILE: &str = "dir.c9r";
-/// File inside a symlink node that holds the encrypted target.
 pub const SYMLINK_FILE: &str = "symlink.c9r";
-/// File inside a shortened file node that holds the file contents.
 pub const CONTENTS_FILE: &str = "contents.c9r";
-/// File inside a shortened node that holds the full encrypted name.
 pub const NAME_FILE: &str = "name.c9s";
-/// Optional backup of a directory's own ID inside its content directory
-/// (encrypted like file contents).
 pub const DIR_ID_BACKUP_FILE: &str = "dirid.c9r";
 
-/// Maximum accepted length of a `name.c9s` file / encrypted name.
 pub const MAX_ENCRYPTED_NAME_LEN: usize = 64 * 1024;
 
 fn siv(key: &MasterKey) -> Aes256Siv {
-    // Aes256Siv takes a 512 bit key: macKey || encKey (see MasterKey::siv_key).
     Aes256Siv::new_from_slice(key.siv_key().as_slice()).expect("AES-SIV-512 key is 64 bytes")
 }
 
-/// AES-SIV encryption with Cryptomator's key order and a list of associated data.
 pub(crate) fn siv_encrypt(key: &MasterKey, plaintext: &[u8], ad: &[&[u8]]) -> Result<Vec<u8>> {
-    siv(key)
-        .encrypt(ad.iter(), plaintext)
-        .map_err(|_| Error::InvalidArgument("AES-SIV encryption failed".into()))
+    siv(key).encrypt(ad.iter(), plaintext).map_err(|_| Error::InvalidArgument("AES-SIV encryption failed".into()))
 }
 
-/// AES-SIV decryption with Cryptomator's key order.
 pub(crate) fn siv_decrypt(key: &MasterKey, ciphertext: &[u8], ad: &[&[u8]]) -> Result<Vec<u8>> {
     if ciphertext.len() < 16 {
         return Err(Error::Authentication("SIV ciphertext too short"));
     }
-    siv(key)
-        .decrypt(ad.iter(), ciphertext)
-        .map_err(|_| Error::Authentication("AES-SIV tag mismatch"))
+    siv(key).decrypt(ad.iter(), ciphertext).map_err(|_| Error::Authentication("AES-SIV tag mismatch"))
 }
 
-/// `BASE32(SHA1(AES-SIV(dirId)))`, 32 characters.
 pub fn hash_dir_id(key: &MasterKey, dir_id: &str) -> Result<String> {
     let enc = siv_encrypt(key, dir_id.as_bytes(), &[])?;
     Ok(BASE32.encode(&Sha1::digest(&enc)))
 }
 
-/// Storage path of a directory's contents, relative to the vault root,
-/// e.g. `d/BZ/R4VZSS5PEF7TU3PMFIMON5GJRNBDWA` (no trailing slash).
 pub fn dir_path(key: &MasterKey, dir_id: &str) -> Result<String> {
     let h = hash_dir_id(key, dir_id)?;
     Ok(format!("{DATA_DIR}/{}/{}", &h[..2], &h[2..]))
 }
 
-/// Validate and decode the content of a `dir.c9r` file (or a decrypted
-/// `dirid.c9r`) into a directory ID.
 pub fn parse_dir_id(bytes: &[u8]) -> Result<String> {
     if bytes.len() > MAX_DIR_ID_LEN {
         return Err(invalid(format!("directory ID longer than {MAX_DIR_ID_LEN} bytes")));
@@ -99,10 +66,6 @@ fn check_cleartext_name(name: &str) -> Result<()> {
     Ok(())
 }
 
-/// Encrypt a cleartext name for the directory `parent_dir_id`.
-///
-/// The name is NFC-normalized first. Returns the full encrypted name with
-/// the `.c9r` suffix (not yet shortened; see [`node_name`]).
 pub fn encrypt_name(key: &MasterKey, name: &str, parent_dir_id: &str) -> Result<String> {
     check_cleartext_name(name)?;
     let nfc: String = name.nfc().collect();
@@ -110,12 +73,7 @@ pub fn encrypt_name(key: &MasterKey, name: &str, parent_dir_id: &str) -> Result<
     Ok(format!("{}{C9R_SUFFIX}", BASE64URL.encode(&ct)))
 }
 
-/// Decrypt an encrypted name (with or without `.c9r` suffix) that lives in
-/// directory `parent_dir_id`.
-///
-/// Names that decrypt to something unusable as a path component (empty,
-/// `.`/`..`, containing `/` or NUL) are rejected, so a malicious vault cannot
-/// cause path traversal in a client.
+/// Rejects ., .., /, NUL and empty names: path traversal from hostile vaults.
 pub fn decrypt_name(key: &MasterKey, encrypted: &str, parent_dir_id: &str) -> Result<String> {
     let base = encrypted.strip_suffix(C9R_SUFFIX).unwrap_or(encrypted);
     if base.len() > MAX_ENCRYPTED_NAME_LEN {
@@ -130,29 +88,17 @@ pub fn decrypt_name(key: &MasterKey, encrypted: &str, parent_dir_id: &str) -> Re
     Ok(name)
 }
 
-/// `BASE64URL(SHA1(encrypted_name)) + ".c9s"` for a full encrypted name
-/// (including its `.c9r` suffix).
 pub fn shorten_name(encrypted_name: &str) -> String {
     format!("{}{C9S_SUFFIX}", BASE64URL.encode(&Sha1::digest(encrypted_name.as_bytes())))
 }
 
-/// How a node is stored inside its parent's content directory.
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum NodeName {
-    /// The encrypted name (`xxx.c9r`) is used directly.
     Regular(String),
-    /// The name is too long: a `.c9s` directory named `short_name` holds a
-    /// `name.c9s` file whose content is `full_name`.
-    Shortened {
-        /// The `xxx.c9s` directory name.
-        short_name: String,
-        /// The full `xxx.c9r` encrypted name to write into `name.c9s`.
-        full_name: String,
-    },
+    Shortened { short_name: String, full_name: String },
 }
 
 impl NodeName {
-    /// The name of the entry inside the parent content directory.
     pub fn storage_name(&self) -> &str {
         match self {
             NodeName::Regular(n) => n,
@@ -160,8 +106,6 @@ impl NodeName {
         }
     }
 
-    /// Path (relative to the parent content directory) of the object holding
-    /// a regular file's contents: `xxx.c9r` or `xxx.c9s/contents.c9r`.
     pub fn file_contents_path(&self) -> String {
         match self {
             NodeName::Regular(n) => n.clone(),
@@ -169,17 +113,14 @@ impl NodeName {
         }
     }
 
-    /// Path of the `dir.c9r` file for a directory node.
     pub fn dir_file_path(&self) -> String {
         format!("{}/{DIR_FILE}", self.storage_name())
     }
 
-    /// Path of the `symlink.c9r` file for a symlink node.
     pub fn symlink_file_path(&self) -> String {
         format!("{}/{SYMLINK_FILE}", self.storage_name())
     }
 
-    /// Path of the `name.c9s` file, if the name is shortened.
     pub fn name_file_path(&self) -> Option<String> {
         match self {
             NodeName::Regular(_) => None,
@@ -188,8 +129,6 @@ impl NodeName {
     }
 }
 
-/// Encrypt `name` and apply name shortening with `threshold`
-/// (shorten when the encrypted name incl. `.c9r` is longer than `threshold`).
 pub fn node_name(key: &MasterKey, name: &str, parent_dir_id: &str, threshold: usize) -> Result<NodeName> {
     let full = encrypt_name(key, name, parent_dir_id)?;
     if full.len() > threshold {
@@ -199,36 +138,25 @@ pub fn node_name(key: &MasterKey, name: &str, parent_dir_id: &str, threshold: us
     }
 }
 
-/// Decode a `name.c9s` file of the `.c9s` entry `short_name` and check that it
-/// really hashes to `short_name`. Returns the full encrypted name.
 pub fn parse_name_file(short_name: &str, name_file: &[u8]) -> Result<String> {
     if name_file.len() > MAX_ENCRYPTED_NAME_LEN {
         return Err(invalid("name.c9s too long"));
     }
-    let full = std::str::from_utf8(name_file)
-        .map_err(|_| invalid("name.c9s is not UTF-8"))?
-        .trim();
+    let full = std::str::from_utf8(name_file).map_err(|_| invalid("name.c9s is not UTF-8"))?.trim();
     if shorten_name(full) != short_name {
         return Err(Error::Authentication("name.c9s does not match its .c9s directory name"));
     }
     Ok(full.to_owned())
 }
 
-/// Kind of a raw entry found in a ciphertext content directory listing.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum EntryKind {
-    /// `xxx.c9r`: a file object (regular file) or a prefix (directory or
-    /// symlink node, distinguished by containing `dir.c9r`/`symlink.c9r`).
     Regular,
-    /// `xxx.c9s`: a shortened node; read its `name.c9s`.
     Shortened,
-    /// `dirid.c9r`: the directory ID backup; not a child node.
     DirIdBackup,
-    /// Anything else (sync conflict copies, `.DS_Store`, ...).
     Other,
 }
 
-/// Classify an entry name of a ciphertext content directory.
 pub fn classify_entry(name: &str) -> EntryKind {
     if name == DIR_ID_BACKUP_FILE {
         EntryKind::DirIdBackup
@@ -241,7 +169,6 @@ pub fn classify_entry(name: &str) -> EntryKind {
     }
 }
 
-/// A fresh random directory ID (UUID v4, 36 chars).
 pub fn new_dir_id() -> Result<String> {
     crate::jwt::random_uuid()
 }
@@ -251,9 +178,7 @@ mod tests {
     use super::*;
     use data_encoding::HEXLOWER_PERMISSIVE as HEX;
 
-    /// Cryptomator's own AES-SIV test vectors (siv-mode). Each line gives the
-    /// CTR key and the MAC key separately; we build `MasterKey { enc: ctrKey,
-    /// mac: macKey }`, which checks that `siv_key()` uses Cryptomator's order.
+    // Vectors from cryptomator/siv-mode; separate keys also check siv_key() order.
     #[test]
     fn siv_mode_reference_vectors() {
         let data = include_str!("../tests/fixtures/siv-mode-testcases.txt");

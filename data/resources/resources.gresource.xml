@@ -2,6 +2,8 @@
 <gresources>
   <gresource prefix="/io/github/mehmetnuri/Ferry">
     <file>style.css</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/apps/io.github.mehmetnuri.Ferry.svg">../icons/hicolor/scalable/apps/io.github.mehmetnuri.Ferry.svg</file>
+    <file preprocess="xml-stripblanks" alias="icons/scalable/apps/io.github.mehmetnuri.Ferry-symbolic.svg">../icons/hicolor/symbolic/apps/io.github.mehmetnuri.Ferry-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/funnel-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/qr-code-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/transfer-upload-symbolic.svg</file>

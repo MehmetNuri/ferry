@@ -1,10 +1,7 @@
-//! Round trips through every layer of a freshly created vault, with tampering and
-//! chunk-boundary cases.
 use std::io::{Read, Write};
 
 use cryptomator_vault::{CipherCombo, Error, NodeName, ScryptParams, Vault};
 
-/// A low scrypt cost keeps the tests fast; real vaults use `Vault::create`.
 fn vault(combo: CipherCombo) -> Vault {
     let created = Vault::create_with("correct horse", ScryptParams { cost: 1024, block_size: 8 }, combo).unwrap();
     Vault::unlock(created.masterkey_json.as_bytes(), &created.vault_config, "correct horse").unwrap()
@@ -17,7 +14,10 @@ fn data(len: usize) -> Vec<u8> {
 #[test]
 fn wrong_password_is_reported() {
     let created = Vault::create_with("right", ScryptParams { cost: 1024, block_size: 8 }, CipherCombo::SivGcm).unwrap();
-    assert!(matches!(Vault::unlock(created.masterkey_json.as_bytes(), &created.vault_config, "wrong"), Err(Error::InvalidPassword)));
+    assert!(matches!(
+        Vault::unlock(created.masterkey_json.as_bytes(), &created.vault_config, "wrong"),
+        Err(Error::InvalidPassword)
+    ));
 }
 
 #[test]
@@ -44,8 +44,6 @@ fn tampering_is_detected() {
             bad[at] ^= 1;
             assert!(v.decrypt_file(&bad).is_err(), "{combo:?} flip at {at}");
         }
-        // Dropping the last chunk is noticed too when it was a full one... a truncated file
-        // must at least not decrypt to the original.
         let cut = &sealed[..sealed.len() - 10];
         assert!(v.decrypt_file(cut).map(|p| p != data(70_000)).unwrap_or(true));
     }
@@ -59,7 +57,6 @@ fn names_and_shortening() {
         let enc = v.encrypt_name(name, &dir).unwrap();
         assert!(enc.ends_with(".c9r"));
         assert_eq!(v.decrypt_name(&enc, &dir).unwrap(), name);
-        // The parent's ID is bound to the name.
         assert!(v.decrypt_name(&enc, "").is_err());
     }
     let long = "x".repeat(300);

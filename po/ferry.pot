@@ -9,7 +9,7 @@ msgstr ""
 "#-#-#-#-#  rs.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-04 23:00+0300\n"
+"POT-Creation-Date: 2026-10-05 18:38+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,7 +21,7 @@ msgstr ""
 "#-#-#-#-#  data.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-04 23:00+0300\n"
+"POT-Creation-Date: 2026-10-05 18:38+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,187 +30,187 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/application.rs:173 src/dialogs/bucket.rs:148
+#: src/application.rs:177 src/dialogs/bucket.rs:148
 msgid "General"
 msgstr ""
 
-#: src/application.rs:174
+#: src/application.rs:178
 msgid "Behavior"
 msgstr ""
 
-#: src/application.rs:175
+#: src/application.rs:179
 msgid "Run in Background"
 msgstr ""
 
-#: src/application.rs:176
+#: src/application.rs:180
 msgid "Closing the window keeps transfers and scheduled backups running"
 msgstr ""
 
-#: src/application.rs:177
+#: src/application.rs:181
 msgid "Notifications"
 msgstr ""
 
-#: src/application.rs:178
+#: src/application.rs:182
 msgid ""
 "Show a notification when transfers finish while the window is not focused"
 msgstr ""
 
-#: src/application.rs:179
+#: src/application.rs:183
 msgid "Start at Login"
 msgstr ""
 
-#: src/application.rs:180
+#: src/application.rs:184
 msgid ""
 "Runs in the background without a window, so scheduled and watched backups "
 "keep working"
 msgstr ""
 
-#: src/application.rs:184 src/transfers/view.rs:176
+#: src/application.rs:188 src/transfers/view.rs:176
 #: data/resources/ui/window.blp:232
 msgid "Transfers"
 msgstr ""
 
-#: src/application.rs:185
+#: src/application.rs:189
 msgid "Simultaneous Transfers"
 msgstr ""
 
-#: src/application.rs:185
+#: src/application.rs:189
 msgid "Files uploaded or downloaded at the same time"
 msgstr ""
 
-#: src/application.rs:188
+#: src/application.rs:192
 msgid "Ask Where to Save Downloads"
 msgstr ""
 
-#: src/application.rs:190
+#: src/application.rs:194
 msgid "Download Folder"
 msgstr ""
 
-#: src/application.rs:191 src/dialogs/bucket.rs:662
+#: src/application.rs:195 src/dialogs/bucket.rs:662
 msgid "Choose Folder…"
 msgstr ""
 
-#: src/application.rs:200
+#: src/application.rs:204
 msgid "Download folder"
 msgstr ""
 
-#: src/application.rs:212
+#: src/application.rs:216
 msgid "Leave Out When Uploading Folders"
 msgstr ""
 
-#: src/application.rs:214
+#: src/application.rs:218
 msgid ""
 "Comma-separated names; * and ? are wildcards, for example node_modules, *.tmp"
 msgstr ""
 
-#: src/application.rs:240
+#: src/application.rs:244
 msgid "Browse and manage S3-compatible storage"
 msgstr ""
 
-#: src/application.rs:246
+#: src/application.rs:250
 msgid "translator-credits"
 msgstr ""
 
-#: src/application.rs:249 data/io.github.mehmetnuri.Ferry.metainfo.xml.in:67
+#: src/application.rs:253 data/io.github.mehmetnuri.Ferry.metainfo.xml.in:93
 msgid "First GNOME edition, rewritten in Rust with GTK 4 and libadwaita."
 msgstr ""
 
-#: src/application.rs:250
+#: src/application.rs:254
 msgid ""
 "Transfer queue with priorities, pause, speed limit and resume after restart"
 msgstr ""
 
-#: src/application.rs:251
+#: src/application.rs:255
 msgid "Interrupted uploads and downloads continue where they stopped"
 msgstr ""
 
-#: src/application.rs:252
+#: src/application.rs:256
 msgid "Recent objects, sorting, ZIP downloads and s3:// links"
 msgstr ""
 
-#: src/application.rs:253
+#: src/application.rs:257
 msgid ""
 "Previews of CSV tables, ZIP contents and highlighted code; copy and paste "
 "with GNOME Files"
 msgstr ""
 
-#: src/application.rs:254
+#: src/application.rs:258
 msgid "Quick preview of images, videos, audio and text"
 msgstr ""
 
-#: src/application.rs:255
+#: src/application.rs:259
 msgid "Copy, cut and paste, moving by drag and drop, undo"
 msgstr ""
 
-#: src/application.rs:256
+#: src/application.rs:260
 msgid "Search from the GNOME Shell overview"
 msgstr ""
 
-#: src/application.rs:257
+#: src/application.rs:261
 msgid "Share links with QR codes and upload links"
 msgstr ""
 
-#: src/application.rs:258
+#: src/application.rs:262
 msgid "Bucket mounting, permissions, Object Lock, CloudFront"
 msgstr ""
 
-#: src/application.rs:300 src/application.rs:310
+#: src/application.rs:304 src/application.rs:314
 msgid "Scheduled backups run in the background"
 msgstr ""
 
-#: src/application.rs:336
+#: src/application.rs:340
 msgid "Ferry Is Running in the Background"
 msgstr ""
 
-#: src/application.rs:337
+#: src/application.rs:341
 msgid ""
 "Transfers and scheduled backups continue. Open Ferry again to show the "
 "window."
 msgstr ""
 
-#: src/application.rs:340 src/window/mod.rs:197
+#: src/application.rs:344 src/window/mod.rs:197
 msgid "Quit"
 msgstr ""
 
-#: src/application.rs:343
+#: src/application.rs:347
 msgid "Transfers and scheduled backups continue while the window is closed"
 msgstr ""
 
-#: src/application.rs:354 src/transfers/view.rs:156 src/transfers/view.rs:164
+#: src/application.rs:358 src/transfers/view.rs:156 src/transfers/view.rs:164
 msgid "Idle"
 msgstr ""
 
-#: src/application.rs:368
+#: src/application.rs:372
 msgid "Transfers Failed"
 msgstr ""
 
-#: src/application.rs:368
+#: src/application.rs:372
 msgid "{n} transfers failed, {d} finished"
 msgstr ""
 
-#: src/application.rs:370
+#: src/application.rs:374
 msgid "Transfers Finished"
 msgstr ""
 
-#: src/application.rs:370 src/transfers/view.rs:49
+#: src/application.rs:374 src/transfers/view.rs:49
 msgid "{n} transfer finished"
 msgid_plural "{n} transfers finished"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/application.rs:378 src/transfers/view.rs:370 src/transfers/view.rs:512
+#: src/application.rs:382 src/transfers/view.rs:370 src/transfers/view.rs:512
 msgid "Retry"
 msgstr ""
 
-#: src/application.rs:379
+#: src/application.rs:383
 msgid "Show Transfers"
 msgstr ""
 
-#: src/application.rs:392 src/window/mod.rs:3140 src/window/mod.rs:3210
+#: src/application.rs:396 src/window/mod.rs:3155 src/window/mod.rs:3225
 msgid "Open Folder"
 msgstr ""
 
-#: src/application.rs:416
+#: src/application.rs:420
 msgid "Backup “{name}” Failed"
 msgstr ""
 
@@ -416,7 +416,7 @@ msgstr ""
 
 #: src/dialogs/access.rs:148 src/dialogs/access.rs:165
 #: src/dialogs/access.rs:178 src/dialogs/access.rs:185
-#: src/dialogs/bucket.rs:232 src/dialogs/bucket.rs:386 src/window/mod.rs:2330
+#: src/dialogs/bucket.rs:232 src/dialogs/bucket.rs:386 src/window/mod.rs:2345
 #: data/resources/ui/profile-dialog.blp:21
 msgid "Save"
 msgstr ""
@@ -436,7 +436,7 @@ msgstr ""
 msgid "State"
 msgstr ""
 
-#: src/dialogs/access.rs:160 src/dialogs/access.rs:404 src/window/mod.rs:1468
+#: src/dialogs/access.rs:160 src/dialogs/access.rs:404 src/window/mod.rs:1471
 msgid "Loading…"
 msgstr ""
 
@@ -573,12 +573,12 @@ msgstr ""
 msgid "Storage"
 msgstr ""
 
-#: src/dialogs/access.rs:323 src/window/mod.rs:2263
+#: src/dialogs/access.rs:323 src/window/mod.rs:2278
 msgid "Storage class"
 msgstr ""
 
-#: src/dialogs/access.rs:324 src/dialogs/bucket.rs:184 src/window/mod.rs:2436
-#: src/window/mod.rs:2477
+#: src/dialogs/access.rs:324 src/dialogs/bucket.rs:184 src/window/mod.rs:2451
+#: src/window/mod.rs:2492
 msgid "Apply"
 msgstr ""
 
@@ -686,7 +686,7 @@ msgstr ""
 msgid "_Export…"
 msgstr ""
 
-#: src/dialogs/backup.rs:47 src/dialogs/connection.rs:111
+#: src/dialogs/backup.rs:47 src/dialogs/connection.rs:118
 msgid "Access Keys"
 msgstr ""
 
@@ -697,7 +697,7 @@ msgid ""
 msgstr ""
 
 #: src/dialogs/backup.rs:49 src/dialogs/backup.rs:58 src/dialogs/backup.rs:60
-#: src/dialogs/backup.rs:225 src/dialogs/connection.rs:171
+#: src/dialogs/backup.rs:225 src/dialogs/connection.rs:214
 #: src/window/vault.rs:100
 msgid "Password"
 msgstr ""
@@ -763,7 +763,7 @@ msgid ""
 msgstr ""
 
 #: src/dialogs/backup.rs:79 src/dialogs/bucket.rs:259 src/dialogs/bucket.rs:429
-#: src/window/mod.rs:2126 src/window/mod.rs:2255
+#: src/window/mod.rs:2141 src/window/mod.rs:2270
 msgid "Key"
 msgstr ""
 
@@ -815,14 +815,14 @@ msgstr ""
 #: src/dialogs/backup.rs:267 src/dialogs/backup.rs:318
 #: src/dialogs/batch_rename.rs:44 src/dialogs/bucket.rs:18
 #: src/dialogs/bucket.rs:344 src/dialogs/bucket.rs:662
-#: src/dialogs/bucket.rs:739 src/dialogs/connection.rs:401
-#: src/dialogs/connection.rs:426 src/dialogs/connection.rs:436
-#: src/dialogs/connection.rs:462 src/dialogs/connection.rs:501
+#: src/dialogs/bucket.rs:739 src/dialogs/connection.rs:449
+#: src/dialogs/connection.rs:474 src/dialogs/connection.rs:484
+#: src/dialogs/connection.rs:510 src/dialogs/connection.rs:549
 #: src/dialogs/import_apps.rs:124 src/dialogs/share.rs:45
 #: src/pages/analyzer.rs:185 src/pages/backups.rs:157 src/transfers/view.rs:371
-#: src/transfers/view.rs:515 src/window/mod.rs:1428 src/window/mod.rs:1596
-#: src/window/mod.rs:1616 src/window/mod.rs:1630 src/window/mod.rs:2436
-#: src/window/mod.rs:2477 src/window/mod.rs:2903 src/window/mod.rs:3038
+#: src/transfers/view.rs:515 src/window/mod.rs:1431 src/window/mod.rs:1611
+#: src/window/mod.rs:1631 src/window/mod.rs:1645 src/window/mod.rs:2451
+#: src/window/mod.rs:2492 src/window/mod.rs:2918 src/window/mod.rs:3053
 #: src/window/vault.rs:105 data/resources/ui/profile-dialog.blp:16
 msgid "Cancel"
 msgstr ""
@@ -883,7 +883,7 @@ msgid_plural "Rename {n} Files"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/dialogs/batch_rename.rs:45 src/window/mod.rs:2403
+#: src/dialogs/batch_rename.rs:45 src/window/mod.rs:2418
 msgid "Rename"
 msgstr ""
 
@@ -919,7 +919,7 @@ msgstr ""
 msgid "First number"
 msgstr ""
 
-#: src/dialogs/batch_rename.rs:59 src/window/mod.rs:2317
+#: src/dialogs/batch_rename.rs:59 src/window/mod.rs:2332
 msgid "Preview"
 msgstr ""
 
@@ -989,7 +989,7 @@ msgstr ""
 msgid "Algorithm"
 msgstr ""
 
-#: src/dialogs/bucket.rs:182 data/resources/ui/profile-dialog.blp:160
+#: src/dialogs/bucket.rs:182 data/resources/ui/profile-dialog.blp:172
 msgid "KMS key ID or alias (optional)"
 msgstr ""
 
@@ -1063,7 +1063,7 @@ msgstr ""
 msgid "Current"
 msgstr ""
 
-#: src/dialogs/bucket.rs:319 src/window/mod.rs:2229
+#: src/dialogs/bucket.rs:319 src/window/mod.rs:2244
 #: data/resources/ui/window.blp:686
 msgid "Download"
 msgstr ""
@@ -1089,8 +1089,8 @@ msgid "This version will be deleted permanently. This cannot be undone."
 msgstr ""
 
 #: src/dialogs/bucket.rs:344 src/pages/backups.rs:138 src/pages/backups.rs:157
-#: src/window/mod.rs:775 src/window/mod.rs:1398 src/window/mod.rs:1428
-#: src/window/mod.rs:1685 src/window/mod.rs:2239 src/window/mod.rs:2530
+#: src/window/mod.rs:775 src/window/mod.rs:1401 src/window/mod.rs:1431
+#: src/window/mod.rs:1700 src/window/mod.rs:2254 src/window/mod.rs:2545
 #: data/resources/ui/window.blp:658
 msgid "Delete"
 msgstr ""
@@ -1103,7 +1103,7 @@ msgstr ""
 msgid "Versioning of this bucket"
 msgstr ""
 
-#: src/dialogs/bucket.rs:386 src/window/mod.rs:2303
+#: src/dialogs/bucket.rs:386 src/window/mod.rs:2318
 msgid "HTTP Headers"
 msgstr ""
 
@@ -1117,7 +1117,7 @@ msgstr ""
 msgid "Headers updated"
 msgstr ""
 
-#: src/dialogs/bucket.rs:426 src/window/mod.rs:2304
+#: src/dialogs/bucket.rs:426 src/window/mod.rs:2319
 msgid "Tags and Metadata"
 msgstr ""
 
@@ -1365,210 +1365,234 @@ msgstr ""
 msgid "Other S3-compatible"
 msgstr ""
 
-#: src/dialogs/connection.rs:68 src/dialogs/connection.rs:71
+#: src/dialogs/connection.rs:75 src/dialogs/connection.rs:78
 msgid "Provider default"
 msgstr ""
 
-#: src/dialogs/connection.rs:76
+#: src/dialogs/connection.rs:83
 msgid "Edit Connection"
 msgstr ""
 
-#: src/dialogs/connection.rs:76 data/resources/ui/window.blp:42
+#: src/dialogs/connection.rs:83 data/resources/ui/window.blp:42
 msgid "New Connection"
 msgstr ""
 
-#: src/dialogs/connection.rs:95
+#: src/dialogs/connection.rs:102
 msgid "TLS (recommended)"
 msgstr ""
 
-#: src/dialogs/connection.rs:95
+#: src/dialogs/connection.rs:102
 msgid "TLS on its own port (implicit, 990)"
 msgstr ""
 
-#: src/dialogs/connection.rs:95
+#: src/dialogs/connection.rs:102
 msgid "None (password sent readably)"
 msgstr ""
 
-#: src/dialogs/connection.rs:105 data/resources/ui/profile-dialog.blp:107
+#: src/dialogs/connection.rs:112 data/resources/ui/profile-dialog.blp:119
 msgid "Optional: the SSH agent and the keys in ~/.ssh are tried first"
 msgstr ""
 
-#: src/dialogs/connection.rs:111 data/resources/ui/profile-dialog.blp:88
+#: src/dialogs/connection.rs:118 data/resources/ui/profile-dialog.blp:100
 msgid "AWS CLI Profile"
 msgstr ""
 
-#: src/dialogs/connection.rs:142 data/resources/ui/profile-dialog.blp:195
+#: src/dialogs/connection.rs:149 data/resources/ui/profile-dialog.blp:207
 msgid "System certificates only"
 msgstr ""
 
-#: src/dialogs/connection.rs:170
+#: src/dialogs/connection.rs:166
+msgid "No account yet: add one in Settings › Online Accounts"
+msgstr ""
+
+#: src/dialogs/connection.rs:166 data/resources/ui/profile-dialog.blp:89
+msgid "From Settings › Online Accounts"
+msgstr ""
+
+#: src/dialogs/connection.rs:200
+msgid "Signed in by GNOME Online Accounts; Ferry keeps no password."
+msgstr ""
+
+#: src/dialogs/connection.rs:200 data/resources/ui/profile-dialog.blp:81
+msgid "Stored in the system keyring."
+msgstr ""
+
+#: src/dialogs/connection.rs:213
+msgid "Storage account"
+msgstr ""
+
+#: src/dialogs/connection.rs:213
 msgid "User name"
 msgstr ""
 
-#: src/dialogs/connection.rs:170 data/resources/ui/profile-dialog.blp:94
+#: src/dialogs/connection.rs:213 data/resources/ui/profile-dialog.blp:106
 msgid "Access key ID"
 msgstr ""
 
-#: src/dialogs/connection.rs:171
+#: src/dialogs/connection.rs:214
 msgid "Password or key passphrase"
 msgstr ""
 
-#: src/dialogs/connection.rs:171 data/resources/ui/profile-dialog.blp:98
+#: src/dialogs/connection.rs:214
+msgid "Account key or SAS token"
+msgstr ""
+
+#: src/dialogs/connection.rs:214 data/resources/ui/profile-dialog.blp:110
 msgid "Secret access key"
 msgstr ""
 
-#: src/dialogs/connection.rs:178
+#: src/dialogs/connection.rs:221
 msgid "Choose Private Key"
 msgstr ""
 
-#: src/dialogs/connection.rs:217
+#: src/dialogs/connection.rs:260
 msgid "For example"
 msgstr ""
 
-#: src/dialogs/connection.rs:219
+#: src/dialogs/connection.rs:262 src/dialogs/connection.rs:267
 msgid "Endpoint (optional)"
 msgstr ""
 
-#: src/dialogs/connection.rs:220
+#: src/dialogs/connection.rs:263
 msgid "Endpoint (derived from the project ref if empty)"
 msgstr ""
 
-#: src/dialogs/connection.rs:221
+#: src/dialogs/connection.rs:264
 msgid "Server (host or host:port)"
 msgstr ""
 
-#: src/dialogs/connection.rs:222
+#: src/dialogs/connection.rs:265
 msgid "Address (https://…)"
 msgstr ""
 
-#: src/dialogs/connection.rs:223
+#: src/dialogs/connection.rs:266
 msgid "Server address (https://…)"
 msgstr ""
 
-#: src/dialogs/connection.rs:224 data/resources/ui/profile-dialog.blp:54
+#: src/dialogs/connection.rs:268 data/resources/ui/profile-dialog.blp:54
 msgid "Endpoint"
 msgstr ""
 
-#: src/dialogs/connection.rs:316
+#: src/dialogs/connection.rs:364
 msgid "Certificates"
 msgstr ""
 
-#: src/dialogs/connection.rs:321
+#: src/dialogs/connection.rs:369
 msgid "Choose Certificate"
 msgstr ""
 
-#: src/dialogs/connection.rs:327
+#: src/dialogs/connection.rs:375
 msgid "The file is not a PEM certificate"
 msgstr ""
 
-#: src/dialogs/connection.rs:347
+#: src/dialogs/connection.rs:395
 msgid "Testing…"
 msgstr ""
 
-#: src/dialogs/connection.rs:363
+#: src/dialogs/connection.rs:411
 msgid "An MFA code is needed to test this connection"
 msgstr ""
 
-#: src/dialogs/connection.rs:368 data/resources/ui/profile-dialog.blp:225
+#: src/dialogs/connection.rs:416 data/resources/ui/profile-dialog.blp:237
 msgid "Test Connection"
 msgstr ""
 
-#: src/dialogs/connection.rs:371
+#: src/dialogs/connection.rs:419
 msgid "Connection works"
 msgstr ""
 
-#: src/dialogs/connection.rs:372
+#: src/dialogs/connection.rs:420
 msgid "Connection failed"
 msgstr ""
 
-#: src/dialogs/connection.rs:397
+#: src/dialogs/connection.rs:445
 msgid "Trust This Certificate?"
 msgstr ""
 
-#: src/dialogs/connection.rs:398
+#: src/dialogs/connection.rs:446
 msgid ""
 "The system does not know the certificate of {host}. Trust it only if this "
 "fingerprint matches the one of your server, for example as shown by its "
 "administrator:"
 msgstr ""
 
-#: src/dialogs/connection.rs:401
+#: src/dialogs/connection.rs:449
 msgid "_Trust"
 msgstr ""
 
-#: src/dialogs/connection.rs:424
+#: src/dialogs/connection.rs:472
 msgid "Unencrypted Connection?"
 msgstr ""
 
-#: src/dialogs/connection.rs:425
+#: src/dialogs/connection.rs:473
 msgid ""
 "This endpoint uses http:// instead of https://. Files, session tokens and "
 "share links can be read or changed on the way. Use https:// unless the "
 "server is in a network you trust."
 msgstr ""
 
-#: src/dialogs/connection.rs:426
+#: src/dialogs/connection.rs:474
 msgid "Save Anyway"
 msgstr ""
 
-#: src/dialogs/connection.rs:434 src/dialogs/import_apps.rs:122
+#: src/dialogs/connection.rs:482 src/dialogs/import_apps.rs:122
 msgid "Keyring Unavailable"
 msgstr ""
 
-#: src/dialogs/connection.rs:435 src/dialogs/import_apps.rs:123
+#: src/dialogs/connection.rs:483 src/dialogs/import_apps.rs:123
 msgid ""
 "The system keyring could not be opened, so the secret key cannot be stored "
 "safely. It can be saved in a file only you can read, which is less safe. It "
 "moves to the keyring as soon as one works."
 msgstr ""
 
-#: src/dialogs/connection.rs:436 src/dialogs/import_apps.rs:124
+#: src/dialogs/connection.rs:484 src/dialogs/import_apps.rs:124
 msgid "Save in File"
 msgstr ""
 
-#: src/dialogs/connection.rs:456
+#: src/dialogs/connection.rs:504
 msgid "Enter MFA Code"
 msgstr ""
 
-#: src/dialogs/connection.rs:457
+#: src/dialogs/connection.rs:505
 msgid "“{name}” assumes a role that needs a code from your MFA device."
 msgstr ""
 
-#: src/dialogs/connection.rs:459 src/window/actions.rs:755
+#: src/dialogs/connection.rs:507 src/window/actions.rs:755
 msgid "Code"
 msgstr ""
 
-#: src/dialogs/connection.rs:462
+#: src/dialogs/connection.rs:510
 msgid "Connect"
 msgstr ""
 
-#: src/dialogs/connection.rs:481
+#: src/dialogs/connection.rs:529
 msgid "MFA Failed"
 msgstr ""
 
-#: src/dialogs/connection.rs:482
+#: src/dialogs/connection.rs:530
 msgid "_Try Again"
 msgstr ""
 
-#: src/dialogs/connection.rs:494
+#: src/dialogs/connection.rs:542
 msgid ""
 "Ferry has not connected to the jump host {host} before. Connect only if this "
 "key fingerprint is the server's, for example as its administrator or “ssh-"
 "keyscan” shows it:"
 msgstr ""
 
-#: src/dialogs/connection.rs:496
+#: src/dialogs/connection.rs:544
 msgid ""
 "Ferry has not connected to {host} before. Connect only if this key "
 "fingerprint is the server's, for example as its administrator or “ssh-"
 "keyscan” shows it:"
 msgstr ""
 
-#: src/dialogs/connection.rs:498
+#: src/dialogs/connection.rs:546
 msgid "Unknown Server"
 msgstr ""
 
-#: src/dialogs/connection.rs:501
+#: src/dialogs/connection.rs:549
 msgid "_Trust and Connect"
 msgstr ""
 
@@ -1638,15 +1662,15 @@ msgstr ""
 msgid "Next"
 msgstr ""
 
-#: src/dialogs/preview.rs:36 src/window/mod.rs:754 src/window/mod.rs:2233
+#: src/dialogs/preview.rs:36 src/window/mod.rs:754 src/window/mod.rs:2248
 msgid "Open With Default Application"
 msgstr ""
 
-#: src/dialogs/preview.rs:37 src/window/mod.rs:756 src/window/mod.rs:2133
+#: src/dialogs/preview.rs:37 src/window/mod.rs:756 src/window/mod.rs:2148
 msgid "Download…"
 msgstr ""
 
-#: src/dialogs/preview.rs:38 src/window/mod.rs:766 src/window/mod.rs:2235
+#: src/dialogs/preview.rs:38 src/window/mod.rs:766 src/window/mod.rs:2250
 msgid "Share Link…"
 msgstr ""
 
@@ -1800,7 +1824,7 @@ msgstr ""
 msgid "Storage Analyzer"
 msgstr ""
 
-#: src/pages/analyzer.rs:30 src/window/mod.rs:1532
+#: src/pages/analyzer.rs:30 src/window/mod.rs:1547
 msgid "Analyze"
 msgstr ""
 
@@ -1822,7 +1846,7 @@ msgstr ""
 msgid "Total size"
 msgstr ""
 
-#: src/pages/analyzer.rs:93 src/window/mod.rs:2123
+#: src/pages/analyzer.rs:93 src/window/mod.rs:2138
 msgid "Objects"
 msgstr ""
 
@@ -2129,7 +2153,7 @@ msgid_plural "{n} uploads"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/pages/compatibility.rs:79 src/window/mod.rs:2259
+#: src/pages/compatibility.rs:79 src/window/mod.rs:2274
 msgid "{n} byte"
 msgid_plural "{n} bytes"
 msgstr[0] ""
@@ -2315,16 +2339,72 @@ msgid_plural "{n} recent objects"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/profile.rs:185
+#: src/profile.rs:189
 msgid "The saved access key could not be read from the keyring"
 msgstr ""
 
-#: src/profile.rs:204
+#: src/profile.rs:208
 msgid "The connection needs a name"
 msgstr ""
 
-#: src/profile.rs:265
+#: src/profile.rs:269
 msgid "No random numbers are available"
+msgstr ""
+
+#: src/remote/azure.rs:120
+msgid "Enter the name of the storage account"
+msgstr ""
+
+#: src/remote/azure.rs:129 src/remote/mod.rs:66 src/remote/webdav.rs:125
+#: src/remote/webdav.rs:127
+msgid "Invalid server address"
+msgstr ""
+
+#: src/remote/azure.rs:134
+msgid "The account key is not valid; copy it again from the Azure portal"
+msgstr ""
+
+#: src/remote/azure.rs:204 src/remote/webdav.rs:150
+msgid "The server could not be reached; check the address"
+msgstr ""
+
+#: src/remote/azure.rs:204 src/remote/ftp.rs:84 src/remote/gdrive.rs:138
+#: src/remote/sftp.rs:120 src/remote/sftp.rs:198 src/remote/webdav.rs:151
+#: src/s3/connection.rs:231 src/s3/connection.rs:233
+msgid "The server did not answer"
+msgstr ""
+
+#: src/remote/azure.rs:215
+msgid "The account name or key is not right, or the computer's clock is wrong"
+msgstr ""
+
+#: src/remote/azure.rs:216 src/remote/gdrive.rs:151 src/remote/sftp.rs:334
+#: src/remote/webdav.rs:157
+msgid "The server does not allow this"
+msgstr ""
+
+#: src/remote/azure.rs:217
+msgid "The container was not found"
+msgstr ""
+
+#: src/remote/azure.rs:218 src/remote/azure.rs:284 src/remote/azure.rs:375
+#: src/remote/ftp.rs:180 src/remote/gdrive.rs:152 src/remote/gdrive.rs:234
+#: src/remote/gdrive.rs:239 src/remote/sftp.rs:333 src/remote/webdav.rs:158
+#: src/remote/webdav.rs:188
+msgid "The file or folder was not found"
+msgstr ""
+
+#: src/remote/azure.rs:219
+msgid "It already exists"
+msgstr ""
+
+#: src/remote/azure.rs:220 src/remote/gdrive.rs:153 src/remote/gdrive.rs:353
+#: src/remote/webdav.rs:161
+msgid "The server answered {status}"
+msgstr ""
+
+#: src/remote/azure.rs:392
+msgid "The copy on the server ended as “{status}”"
 msgstr ""
 
 #: src/remote/ftp.rs:30 src/remote/sftp.rs:118
@@ -2348,51 +2428,97 @@ msgid ""
 "The server does not offer TLS. Choose plain FTP only on a network you trust."
 msgstr ""
 
-#: src/remote/ftp.rs:84 src/remote/sftp.rs:120 src/remote/sftp.rs:198
-#: src/remote/webdav.rs:151 src/s3/connection.rs:231 src/s3/connection.rs:233
-msgid "The server did not answer"
-msgstr ""
-
 #: src/remote/ftp.rs:93
 msgid ""
 "This server encrypts the sign-in but not the files themselves (it refuses "
 "PROT P). Choose another encryption setting."
 msgstr ""
 
-#: src/remote/ftp.rs:180 src/remote/sftp.rs:333 src/remote/webdav.rs:158
-#: src/remote/webdav.rs:188
-msgid "The file or folder was not found"
-msgstr ""
-
 #: src/remote/ftp.rs:264
 msgid "Renaming failed: {error}"
 msgstr ""
 
-#: src/remote/mod.rs:58
-msgid "Enter the address of the server"
+#: src/remote/gdrive.rs:109
+msgid "Choose a Google account from Settings › Online Accounts"
 msgstr ""
 
-#: src/remote/mod.rs:61 src/remote/webdav.rs:125 src/remote/webdav.rs:127
-msgid "Invalid server address"
+#: src/remote/gdrive.rs:138
+msgid "Google Drive could not be reached; check the network"
 msgstr ""
 
-#: src/remote/mod.rs:62 src/remote/mod.rs:66
-msgid "Invalid port"
+#: src/remote/gdrive.rs:147
+msgid ""
+"Google did not accept the sign-in. Check the account in Settings › Online "
+"Accounts."
 msgstr ""
 
-#: src/remote/mod.rs:157
-msgid "This is a folder"
+#: src/remote/gdrive.rs:149
+msgid ""
+"This Google account does not give access to files. Turn on Files for it in "
+"Settings › Online Accounts."
 msgstr ""
 
-#: src/remote/mod.rs:219
-msgid "“{name}” is a file, not a folder"
+#: src/remote/gdrive.rs:150 src/remote/webdav.rs:159
+msgid "The storage on the server is full"
 msgstr ""
 
-#: src/remote/mod.rs:240
+#: src/remote/gdrive.rs:191
+msgid "The shared drive was not found"
+msgstr ""
+
+#: src/remote/gdrive.rs:268
+msgid "This kind of Google file cannot be downloaded"
+msgstr ""
+
+#: src/remote/gdrive.rs:350
+msgid "Google Drive did not start the upload"
+msgstr ""
+
+#: src/remote/gdrive.rs:395 src/remote/mod.rs:294
 msgid "The connection's folder itself cannot be deleted"
 msgstr ""
 
-#: src/remote/mod.rs:301
+#: src/remote/gdrive.rs:427
+msgid "Google Drive copies files, not folders"
+msgstr ""
+
+#: src/remote/goa.rs:27
+msgid ""
+"GNOME Online Accounts is not available. Add the account in Settings › Online "
+"Accounts."
+msgstr ""
+
+#: src/remote/goa.rs:62
+msgid "The online account was removed from Settings"
+msgstr ""
+
+#: src/remote/goa.rs:63
+msgid ""
+"GNOME Online Accounts could not sign in. Check the account in Settings › "
+"Online Accounts."
+msgstr ""
+
+#: src/remote/mod.rs:63
+msgid "Enter the address of the server"
+msgstr ""
+
+#: src/remote/mod.rs:67 src/remote/mod.rs:71
+msgid "Invalid port"
+msgstr ""
+
+#: src/remote/mod.rs:137 src/remote/mod.rs:144 src/s3/mod.rs:332
+msgid "File servers do not offer this"
+msgstr ""
+
+#: src/remote/mod.rs:200
+msgid "This is a folder"
+msgstr ""
+
+#: src/remote/mod.rs:271
+msgid "“{name}” is a file, not a folder"
+msgstr ""
+
+#: src/remote/mod.rs:378
 msgid "Connection successful: {n} item in the folder"
 msgid_plural "Connection successful: {n} items in the folder"
 msgstr[0] ""
@@ -2427,24 +2553,8 @@ msgstr ""
 msgid "The server offers no SFTP: {error}"
 msgstr ""
 
-#: src/remote/sftp.rs:334 src/remote/webdav.rs:157
-msgid "The server does not allow this"
-msgstr ""
-
-#: src/remote/webdav.rs:150
-msgid "The server could not be reached; check the address"
-msgstr ""
-
-#: src/remote/webdav.rs:159
-msgid "The storage on the server is full"
-msgstr ""
-
 #: src/remote/webdav.rs:160
 msgid "The file is locked on the server"
-msgstr ""
-
-#: src/remote/webdav.rs:161
-msgid "The server answered {status}"
 msgstr ""
 
 #: src/s3/access.rs:92
@@ -2594,10 +2704,6 @@ msgid ""
 "The MFA session of this connection ended. Connect again to enter a new code."
 msgstr ""
 
-#: src/s3/mod.rs:332
-msgid "File servers do not offer this"
-msgstr ""
-
 #: src/s3/mod.rs:345
 msgid "An endpoint is required for this provider"
 msgstr ""
@@ -2616,41 +2722,41 @@ msgstr[1] ""
 msgid "Connection successful: bucket “{name}” is reachable"
 msgstr ""
 
-#: src/s3/mod.rs:521
+#: src/s3/mod.rs:522
 msgid "The object changed after it was opened. Open it again and retry."
 msgstr ""
 
-#: src/s3/mod.rs:545 src/s3/mod.rs:549 src/s3/vault.rs:357 src/s3/vault.rs:439
+#: src/s3/mod.rs:546 src/s3/mod.rs:550 src/s3/vault.rs:357 src/s3/vault.rs:439
 msgid "“{name}” already exists"
 msgstr ""
 
-#: src/s3/mod.rs:858
+#: src/s3/mod.rs:865
 msgid "The storage class of {n} object could not be changed"
 msgid_plural "The storage class of {n} objects could not be changed"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/s3/mod.rs:889
+#: src/s3/mod.rs:896
 msgid ""
 "The uploaded object differs from the file; it was damaged on the way. Upload "
 "it again."
 msgstr ""
 
-#: src/s3/mod.rs:1012
+#: src/s3/mod.rs:1019
 msgid "Part {n} was damaged on the way. Try the upload again."
 msgstr ""
 
-#: src/s3/mod.rs:1139
+#: src/s3/mod.rs:1146
 msgid "The connection ended before the download was complete"
 msgstr ""
 
-#: src/s3/mod.rs:1227
+#: src/s3/mod.rs:1234
 msgid ""
 "The checksum of the downloaded file does not match (expected {expected}…, "
 "got {actual}…); the file was not saved"
 msgstr ""
 
-#: src/s3/mod.rs:1619
+#: src/s3/mod.rs:1626
 msgid "Object name must stay within the selected download directory"
 msgstr ""
 
@@ -2950,7 +3056,7 @@ msgstr ""
 msgid "Show in Bucket"
 msgstr ""
 
-#: src/transfers/view.rs:519 src/window/mod.rs:2131 src/window/mod.rs:3048
+#: src/transfers/view.rs:519 src/window/mod.rs:2146 src/window/mod.rs:3063
 msgid "Open"
 msgstr ""
 
@@ -3061,7 +3167,7 @@ msgid_plural "{n} objects moved"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/window/actions.rs:554 src/window/mod.rs:2413 src/window/mod.rs:2543
+#: src/window/actions.rs:554 src/window/mod.rs:2428 src/window/mod.rs:2558
 msgid "Undo"
 msgstr ""
 
@@ -3111,8 +3217,8 @@ msgstr ""
 msgid "Archives"
 msgstr ""
 
-#: src/window/actions.rs:756 src/window/mod.rs:710 src/window/mod.rs:2122
-#: src/window/mod.rs:2259 data/resources/ui/window.blp:803
+#: src/window/actions.rs:756 src/window/mod.rs:710 src/window/mod.rs:2137
+#: src/window/mod.rs:2274 data/resources/ui/window.blp:803
 msgid "Size"
 msgstr ""
 
@@ -3128,11 +3234,11 @@ msgstr ""
 msgid "Larger than 100 MB"
 msgstr ""
 
-#: src/window/actions.rs:756 src/window/mod.rs:1707
+#: src/window/actions.rs:756 src/window/mod.rs:1722
 msgid "Empty"
 msgstr ""
 
-#: src/window/actions.rs:757 src/window/mod.rs:712 src/window/mod.rs:2261
+#: src/window/actions.rs:757 src/window/mod.rs:712 src/window/mod.rs:2276
 msgid "Modified"
 msgstr ""
 
@@ -3182,22 +3288,22 @@ msgstr ""
 msgid "Browser"
 msgstr ""
 
-#: src/window/mod.rs:478 src/window/mod.rs:1812
+#: src/window/mod.rs:478 src/window/mod.rs:1827
 #: data/resources/ui/window.blp:707
 msgid "Recent"
 msgstr ""
 
-#: src/window/mod.rs:478 src/window/mod.rs:1811
+#: src/window/mod.rs:478 src/window/mod.rs:1826
 #: data/resources/ui/window.blp:715
 msgid "Analyzer"
 msgstr ""
 
-#: src/window/mod.rs:478 src/window/mod.rs:1813
+#: src/window/mod.rs:478 src/window/mod.rs:1828
 #: data/resources/ui/window.blp:723
 msgid "Backups"
 msgstr ""
 
-#: src/window/mod.rs:478 src/window/mod.rs:1814
+#: src/window/mod.rs:478 src/window/mod.rs:1829
 #: data/resources/ui/window.blp:731
 msgid "Compatibility"
 msgstr ""
@@ -3270,11 +3376,11 @@ msgstr ""
 msgid "Select All"
 msgstr ""
 
-#: src/window/mod.rs:791 src/window/mod.rs:1532
+#: src/window/mod.rs:791 src/window/mod.rs:1547
 msgid "Copy Location"
 msgstr ""
 
-#: src/window/mod.rs:932 src/window/mod.rs:942 src/window/mod.rs:1849
+#: src/window/mod.rs:932 src/window/mod.rs:942 src/window/mod.rs:1864
 #: data/resources/ui/window.blp:613
 msgid "Empty Folder"
 msgstr ""
@@ -3303,405 +3409,409 @@ msgstr ""
 msgid "{n} selected"
 msgstr ""
 
-#: src/window/mod.rs:1392
+#: src/window/mod.rs:1395
 msgid "Edit…"
 msgstr ""
 
-#: src/window/mod.rs:1395
+#: src/window/mod.rs:1398
 msgid "Duplicate…"
 msgstr ""
 
-#: src/window/mod.rs:1402
+#: src/window/mod.rs:1405
 msgid "Connection Menu"
 msgstr ""
 
-#: src/window/mod.rs:1418
+#: src/window/mod.rs:1421
 msgid "No usable keyring was found; the access key is stored unencrypted"
 msgstr ""
 
-#: src/window/mod.rs:1427
+#: src/window/mod.rs:1430
 msgid "Delete Connection?"
 msgstr ""
 
-#: src/window/mod.rs:1427
+#: src/window/mod.rs:1430
 msgid ""
 "“{name}” and its stored credentials will be removed. Buckets are not "
 "affected."
 msgstr ""
 
-#: src/window/mod.rs:1499
+#: src/window/mod.rs:1503
 msgid "The connection was deleted"
 msgstr ""
 
-#: src/window/mod.rs:1525 data/resources/ui/profile-dialog.blp:51
+#: src/window/mod.rs:1539 data/resources/ui/profile-dialog.blp:51
 msgid "Server"
 msgstr ""
 
-#: src/window/mod.rs:1525 data/resources/ui/window.blp:128
+#: src/window/mod.rs:1539
+msgid "Containers"
+msgstr ""
+
+#: src/window/mod.rs:1539 data/resources/ui/window.blp:128
 msgid "Buckets"
 msgstr ""
 
-#: src/window/mod.rs:1532 data/resources/ui/window.blp:840
+#: src/window/mod.rs:1547 data/resources/ui/window.blp:840
 msgid "Bucket Settings"
 msgstr ""
 
-#: src/window/mod.rs:1532 data/resources/ui/window.blp:829
+#: src/window/mod.rs:1547 data/resources/ui/window.blp:829
 msgid "Mount as Folder…"
 msgstr ""
 
-#: src/window/mod.rs:1538
+#: src/window/mod.rs:1553
 msgid "Empty Bucket…"
 msgstr ""
 
-#: src/window/mod.rs:1543
+#: src/window/mod.rs:1558
 msgid "Remove from Connection"
 msgstr ""
 
-#: src/window/mod.rs:1547
+#: src/window/mod.rs:1562
 msgid "Delete Bucket…"
 msgstr ""
 
-#: src/window/mod.rs:1555
+#: src/window/mod.rs:1570
 msgid "Bucket Menu"
 msgstr ""
 
-#: src/window/mod.rs:1565
+#: src/window/mod.rs:1580
 msgid "No buckets"
 msgstr ""
 
-#: src/window/mod.rs:1567
+#: src/window/mod.rs:1582
 msgid ""
 "These credentials cannot list buckets. Link a bucket you have access to by "
 "entering its name."
 msgstr ""
 
-#: src/window/mod.rs:1640
+#: src/window/mod.rs:1655
 msgid "Link Bucket"
 msgstr ""
 
-#: src/window/mod.rs:1640
+#: src/window/mod.rs:1655
 msgid ""
 "Enter the name of an existing bucket you can access. Nothing is created; it "
 "is only added to this connection."
 msgstr ""
 
-#: src/window/mod.rs:1640
+#: src/window/mod.rs:1655
 msgid "Link"
 msgstr ""
 
-#: src/window/mod.rs:1671
+#: src/window/mod.rs:1686
 msgid "New Bucket"
 msgstr ""
 
-#: src/window/mod.rs:1671 src/window/mod.rs:2048 src/window/mod.rs:2065
+#: src/window/mod.rs:1686 src/window/mod.rs:2063 src/window/mod.rs:2080
 #: src/window/vault.rs:105
 msgid "Create"
 msgstr ""
 
-#: src/window/mod.rs:1674
+#: src/window/mod.rs:1689
 msgid "Bucket created"
 msgstr ""
 
-#: src/window/mod.rs:1684
+#: src/window/mod.rs:1699
 msgid ""
 "“{name}” and all objects in it will be deleted permanently. Type the bucket "
 "name to confirm."
 msgstr ""
 
-#: src/window/mod.rs:1685
+#: src/window/mod.rs:1700
 msgid "Delete Bucket?"
 msgstr ""
 
-#: src/window/mod.rs:1693
+#: src/window/mod.rs:1708
 msgid "Bucket deleted"
 msgstr ""
 
-#: src/window/mod.rs:1706
+#: src/window/mod.rs:1721
 msgid ""
 "All objects in “{name}” will be deleted permanently; the bucket itself "
 "stays. Type the bucket name to confirm."
 msgstr ""
 
-#: src/window/mod.rs:1707
+#: src/window/mod.rs:1722
 msgid "Empty Bucket?"
 msgstr ""
 
-#: src/window/mod.rs:1710
+#: src/window/mod.rs:1725
 msgid "Empty {name}"
 msgstr ""
 
-#: src/window/mod.rs:1720
+#: src/window/mod.rs:1735
 msgid "{n} object deleted"
 msgid_plural "{n} objects deleted"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/window/mod.rs:1849
+#: src/window/mod.rs:1864
 msgid "No Results"
 msgstr ""
 
-#: src/window/mod.rs:2031
+#: src/window/mod.rs:2046
 msgid "{n} result for “{q}”"
 msgid_plural "{n} results for “{q}”"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/window/mod.rs:2032
+#: src/window/mod.rs:2047
 msgid "Only the first results are shown; narrow the search."
 msgstr ""
 
-#: src/window/mod.rs:2048
+#: src/window/mod.rs:2063
 msgid "New Folder"
 msgstr ""
 
-#: src/window/mod.rs:2065
+#: src/window/mod.rs:2080
 msgid "New Text File"
 msgstr ""
 
-#: src/window/mod.rs:2065
+#: src/window/mod.rs:2080
 msgid "New Document"
 msgstr ""
 
-#: src/window/mod.rs:2094
+#: src/window/mod.rs:2109
 msgid "{n} item selected"
 msgid_plural "{n} items selected"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/window/mod.rs:2098
+#: src/window/mod.rs:2113
 msgid "{n} folder not counted"
 msgid_plural "{n} folders not counted"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/window/mod.rs:2121 src/window/mod.rs:2248
+#: src/window/mod.rs:2136 src/window/mod.rs:2263
 #: data/resources/ui/window.blp:531
 msgid "Properties"
 msgstr ""
 
-#: src/window/mod.rs:2122 src/window/mod.rs:2123 src/window/mod.rs:2286
+#: src/window/mod.rs:2137 src/window/mod.rs:2138 src/window/mod.rs:2301
 msgid "Calculating…"
 msgstr ""
 
-#: src/window/mod.rs:2189
+#: src/window/mod.rs:2204
 msgid "Details Could Not Be Loaded"
 msgstr ""
 
-#: src/window/mod.rs:2191 data/resources/ui/window.blp:586
+#: src/window/mod.rs:2206 data/resources/ui/window.blp:586
 msgid "Try Again"
 msgstr ""
 
-#: src/window/mod.rs:2237
+#: src/window/mod.rs:2252
 msgid "Copy Key"
 msgstr ""
 
-#: src/window/mod.rs:2238
+#: src/window/mod.rs:2253
 msgid "Key copied"
 msgstr ""
 
-#: src/window/mod.rs:2257
+#: src/window/mod.rs:2272
 msgid "Dimensions"
 msgstr ""
 
-#: src/window/mod.rs:2257
+#: src/window/mod.rs:2272
 msgid "{w} × {h} pixels"
 msgstr ""
 
-#: src/window/mod.rs:2265 data/resources/ui/profile-dialog.blp:74
+#: src/window/mod.rs:2280 data/resources/ui/profile-dialog.blp:74
 msgid "Encryption"
 msgstr ""
 
-#: src/window/mod.rs:2266 src/window/mod.rs:2964
+#: src/window/mod.rs:2281 src/window/mod.rs:2979
 msgid "Version"
 msgstr ""
 
-#: src/window/mod.rs:2270
+#: src/window/mod.rs:2285
 msgid "Original file date"
 msgstr ""
 
-#: src/window/mod.rs:2277
+#: src/window/mod.rs:2292
 msgid "Not calculated"
 msgstr ""
 
-#: src/window/mod.rs:2278
+#: src/window/mod.rs:2293
 msgid "Calculate"
 msgstr ""
 
-#: src/window/mod.rs:2292
+#: src/window/mod.rs:2307
 msgid "SHA-256"
 msgstr ""
 
-#: src/window/mod.rs:2302
+#: src/window/mod.rs:2317
 msgid "Versions"
 msgstr ""
 
-#: src/window/mod.rs:2305
+#: src/window/mod.rs:2320
 msgid "Permissions and Retention"
 msgstr ""
 
-#: src/window/mod.rs:2328
+#: src/window/mod.rs:2343
 msgid "Edit"
 msgstr ""
 
-#: src/window/mod.rs:2352
+#: src/window/mod.rs:2367
 msgid "Changes saved"
 msgstr ""
 
-#: src/window/mod.rs:2403
+#: src/window/mod.rs:2418
 msgid "A name with “/” moves the file into that folder."
 msgstr ""
 
-#: src/window/mod.rs:2413
+#: src/window/mod.rs:2428
 msgid "Renamed to “{name}”"
 msgstr ""
 
-#: src/window/mod.rs:2433
+#: src/window/mod.rs:2448
 msgid "Change Storage Class"
 msgstr ""
 
-#: src/window/mod.rs:2433
+#: src/window/mod.rs:2448
 msgid "{n} object will be copied in place into the new storage class."
 msgid_plural "{n} objects will be copied in place into the new storage class."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/window/mod.rs:2444
+#: src/window/mod.rs:2459
 msgid "Storage class of {n} object changed"
 msgid_plural "Storage class of {n} objects changed"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/window/mod.rs:2456 src/window/mod.rs:2490
+#: src/window/mod.rs:2471 src/window/mod.rs:2505
 msgid "Edit Headers"
 msgstr ""
 
-#: src/window/mod.rs:2457
+#: src/window/mod.rs:2472
 msgid "Empty fields keep the current value of the object."
 msgid_plural "Empty fields keep the current value of each of the {n} objects."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/window/mod.rs:2466
+#: src/window/mod.rs:2481
 msgid "Common Values"
 msgstr ""
 
-#: src/window/mod.rs:2501
+#: src/window/mod.rs:2516
 msgid "{n} objects could not be changed: {error}"
 msgstr ""
 
-#: src/window/mod.rs:2503
+#: src/window/mod.rs:2518
 msgid "Headers of {n} object changed"
 msgid_plural "Headers of {n} objects changed"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/window/mod.rs:2519
+#: src/window/mod.rs:2534
 msgid "{n} items will be deleted ({f} folders, including their contents)."
 msgstr ""
 
-#: src/window/mod.rs:2521
+#: src/window/mod.rs:2536
 msgid "“{name}” will be deleted permanently."
 msgstr ""
 
-#: src/window/mod.rs:2523
+#: src/window/mod.rs:2538
 msgid "{n} item will be deleted permanently."
 msgid_plural "{n} items will be deleted permanently."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/window/mod.rs:2529
+#: src/window/mod.rs:2544
 msgid "Delete Folder?"
 msgstr ""
 
-#: src/window/mod.rs:2529
+#: src/window/mod.rs:2544
 msgid "Delete Items?"
 msgstr ""
 
-#: src/window/mod.rs:2539
+#: src/window/mod.rs:2554
 msgid "“{name}” deleted"
 msgstr ""
 
-#: src/window/mod.rs:2541
+#: src/window/mod.rs:2556
 msgid "{n} item deleted"
 msgid_plural "{n} items deleted"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/window/mod.rs:2553
+#: src/window/mod.rs:2568
 msgid "Delete {n} item"
 msgid_plural "Delete {n} items"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/window/mod.rs:2574
+#: src/window/mod.rs:2589
 msgid "Select Items Matching"
 msgstr ""
 
-#: src/window/mod.rs:2574
+#: src/window/mod.rs:2589
 msgid "Use * for any characters and ? for one, for example *.jpg"
 msgstr ""
 
-#: src/window/mod.rs:2574
+#: src/window/mod.rs:2589
 msgid "Select"
 msgstr ""
 
-#: src/window/mod.rs:2586
+#: src/window/mod.rs:2601
 msgid "No item matches “{pattern}”"
 msgstr ""
 
-#: src/window/mod.rs:2595
+#: src/window/mod.rs:2610
 msgid "Export List"
 msgstr ""
 
-#: src/window/mod.rs:2601
+#: src/window/mod.rs:2616
 msgid "Listing the folder…"
 msgstr ""
 
-#: src/window/mod.rs:2609
+#: src/window/mod.rs:2624
 msgid "{n} object exported"
 msgid_plural "{n} objects exported"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/window/mod.rs:2652
+#: src/window/mod.rs:2667
 msgid "Nothing to undo"
 msgstr ""
 
-#: src/window/mod.rs:2744
+#: src/window/mod.rs:2759
 msgid "{n} transfer running"
 msgid_plural "{n} transfers running"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/window/mod.rs:2746
+#: src/window/mod.rs:2761
 msgid "{n} transfer failed"
 msgid_plural "{n} transfers failed"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/window/mod.rs:2748
+#: src/window/mod.rs:2763
 msgid "Transfers finished"
 msgstr ""
 
-#: src/window/mod.rs:2752
+#: src/window/mod.rs:2767
 msgid "{n} transfer"
 msgid_plural "{n} transfers"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/window/mod.rs:2800
+#: src/window/mod.rs:2815
 msgid "Upload Folder"
 msgstr ""
 
-#: src/window/mod.rs:2800 data/resources/ui/window.blp:247
+#: src/window/mod.rs:2815 data/resources/ui/window.blp:247
 msgid "Upload Files"
 msgstr ""
 
-#: src/window/mod.rs:2890
+#: src/window/mod.rs:2905
 msgid "Replace “{name}”?"
 msgstr ""
 
-#: src/window/mod.rs:2891
+#: src/window/mod.rs:2906
 msgid ""
 "An object with this name already exists.\n"
 "\n"
@@ -3709,154 +3819,154 @@ msgid ""
 "New file: {new_size}, {new_date}"
 msgstr ""
 
-#: src/window/mod.rs:2895
+#: src/window/mod.rs:2910
 msgid ""
 "Objects with the same names are already in the bucket. Replacing them "
 "overwrites their content."
 msgstr ""
 
-#: src/window/mod.rs:2898
+#: src/window/mod.rs:2913
 msgid "{n} of the files is newer than its object."
 msgid_plural "{n} of the files are newer than their objects."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/window/mod.rs:2900
+#: src/window/mod.rs:2915
 msgid "{n} File Already Exists"
 msgid_plural "{n} Files Already Exist"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/window/mod.rs:2903
+#: src/window/mod.rs:2918
 msgid "Skip"
 msgstr ""
 
-#: src/window/mod.rs:2903
+#: src/window/mod.rs:2918
 msgid "Keep Both"
 msgstr ""
 
-#: src/window/mod.rs:2905
+#: src/window/mod.rs:2920
 msgid "Replace Older"
 msgstr ""
 
-#: src/window/mod.rs:2906
+#: src/window/mod.rs:2921
 msgid "Replace"
 msgstr ""
 
-#: src/window/mod.rs:2924
+#: src/window/mod.rs:2939
 msgid "{n} file could not be uploaded"
 msgid_plural "{n} files could not be uploaded"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/window/mod.rs:2926
+#: src/window/mod.rs:2941
 msgid "{n} file uploaded"
 msgid_plural "{n} files uploaded"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/window/mod.rs:2928
+#: src/window/mod.rs:2943
 msgid "Upload cancelled"
 msgstr ""
 
-#: src/window/mod.rs:2946
+#: src/window/mod.rs:2961
 msgid "{n} file queued for {path}"
 msgid_plural "{n} files queued for {path}"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/window/mod.rs:2958
+#: src/window/mod.rs:2973
 msgid "Save Version"
 msgstr ""
 
-#: src/window/mod.rs:2969 src/window/mod.rs:3140
+#: src/window/mod.rs:2984 src/window/mod.rs:3155
 msgid "Download finished"
 msgstr ""
 
-#: src/window/mod.rs:2989
+#: src/window/mod.rs:3004
 msgid "Mounted"
 msgstr ""
 
-#: src/window/mod.rs:3003
+#: src/window/mod.rs:3018
 msgid "read only"
 msgstr ""
 
-#: src/window/mod.rs:3005
+#: src/window/mod.rs:3020
 msgid "Unmount"
 msgstr ""
 
-#: src/window/mod.rs:3008
+#: src/window/mod.rs:3023
 msgid "Unmounted"
 msgstr ""
 
-#: src/window/mod.rs:3032
+#: src/window/mod.rs:3047
 msgid "Mount as Folder"
 msgstr ""
 
-#: src/window/mod.rs:3033
+#: src/window/mod.rs:3048
 msgid ""
 "The location appears as a normal folder in GNOME Files. The mount point is "
 "created in the “Ferry” folder of your home directory."
 msgstr ""
 
-#: src/window/mod.rs:3035
+#: src/window/mod.rs:3050
 msgid "Allow changes"
 msgstr ""
 
-#: src/window/mod.rs:3035
+#: src/window/mod.rs:3050
 msgid ""
 "Saved files are uploaded when closed; deleting and renaming change the bucket"
 msgstr ""
 
-#: src/window/mod.rs:3038
+#: src/window/mod.rs:3053
 msgid "Mount"
 msgstr ""
 
-#: src/window/mod.rs:3048
+#: src/window/mod.rs:3063
 msgid "Mounted at {path}"
 msgstr ""
 
-#: src/window/mod.rs:3080
+#: src/window/mod.rs:3095
 msgid "Remove from Favorites"
 msgstr ""
 
-#: src/window/mod.rs:3080 data/resources/ui/window.blp:480
+#: src/window/mod.rs:3095 data/resources/ui/window.blp:480
 msgid "Add to Favorites"
 msgstr ""
 
-#: src/window/mod.rs:3105
+#: src/window/mod.rs:3120
 msgid "Download To"
 msgstr ""
 
-#: src/window/mod.rs:3135
+#: src/window/mod.rs:3150
 msgid "{n} file could not be downloaded"
 msgid_plural "{n} files could not be downloaded"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/window/mod.rs:3138
+#: src/window/mod.rs:3153
 msgid "Download Finished"
 msgstr ""
 
-#: src/window/mod.rs:3138
+#: src/window/mod.rs:3153
 msgid "{n} file downloaded"
 msgid_plural "{n} files downloaded"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/window/mod.rs:3176
+#: src/window/mod.rs:3191
 msgid "Download as Archive"
 msgstr ""
 
-#: src/window/mod.rs:3201
+#: src/window/mod.rs:3216
 msgid "There is nothing to put in the archive"
 msgstr ""
 
-#: src/window/mod.rs:3210
+#: src/window/mod.rs:3225
 msgid "“{name}” is ready"
 msgstr ""
 
-#: src/window/mod.rs:3228
+#: src/window/mod.rs:3243
 msgid "Files are uploaded to {path}"
 msgstr ""
 
@@ -4176,123 +4286,127 @@ msgstr ""
 msgid "Credentials"
 msgstr ""
 
-#: data/resources/ui/profile-dialog.blp:81
-msgid "Stored in the system keyring."
-msgstr ""
-
 #: data/resources/ui/profile-dialog.blp:84
 msgid "Sign-In Method"
 msgstr ""
 
-#: data/resources/ui/profile-dialog.blp:89
+#: data/resources/ui/profile-dialog.blp:88
+msgid "Account"
+msgstr ""
+
+#: data/resources/ui/profile-dialog.blp:94
+msgid "Online Accounts Settings…"
+msgstr ""
+
+#: data/resources/ui/profile-dialog.blp:101
 msgid "From ~/.aws/config, also with IAM Identity Center (SSO)"
 msgstr ""
 
-#: data/resources/ui/profile-dialog.blp:102
+#: data/resources/ui/profile-dialog.blp:114
 msgid "Session token (optional)"
 msgstr ""
 
-#: data/resources/ui/profile-dialog.blp:106
+#: data/resources/ui/profile-dialog.blp:118
 msgid "Private Key"
 msgstr ""
 
-#: data/resources/ui/profile-dialog.blp:114
+#: data/resources/ui/profile-dialog.blp:126
 msgid "Choose Private Key…"
 msgstr ""
 
-#: data/resources/ui/profile-dialog.blp:125
+#: data/resources/ui/profile-dialog.blp:137
 msgid "Remove Private Key"
 msgstr ""
 
-#: data/resources/ui/profile-dialog.blp:136
+#: data/resources/ui/profile-dialog.blp:148
 msgid "Jump host (optional)"
 msgstr ""
 
-#: data/resources/ui/profile-dialog.blp:137
+#: data/resources/ui/profile-dialog.blp:149
 msgid ""
 "A server to connect through, as user@host:port, like ssh -J. Signing in to "
 "it uses the SSH agent or your keys."
 msgstr ""
 
-#: data/resources/ui/profile-dialog.blp:142
+#: data/resources/ui/profile-dialog.blp:154
 msgid "Buckets (optional, comma separated)"
 msgstr ""
 
-#: data/resources/ui/profile-dialog.blp:143
+#: data/resources/ui/profile-dialog.blp:155
 msgid ""
 "If your credentials cannot list buckets (s3:ListAllMyBuckets), enter the "
 "bucket names they can access."
 msgstr ""
 
-#: data/resources/ui/profile-dialog.blp:148
+#: data/resources/ui/profile-dialog.blp:160
 msgid "Upload Defaults"
 msgstr ""
 
-#: data/resources/ui/profile-dialog.blp:149
+#: data/resources/ui/profile-dialog.blp:161
 msgid ""
 "Applied to new objects written through this connection by uploads, copies "
 "and syncs."
 msgstr ""
 
-#: data/resources/ui/profile-dialog.blp:152
+#: data/resources/ui/profile-dialog.blp:164
 msgid "Storage class for uploads"
 msgstr ""
 
-#: data/resources/ui/profile-dialog.blp:156
+#: data/resources/ui/profile-dialog.blp:168
 msgid "Encryption for uploads"
 msgstr ""
 
-#: data/resources/ui/profile-dialog.blp:166
+#: data/resources/ui/profile-dialog.blp:178
 msgid "Advanced"
 msgstr ""
 
-#: data/resources/ui/profile-dialog.blp:169
+#: data/resources/ui/profile-dialog.blp:181
 msgid "Assume Role"
 msgstr ""
 
-#: data/resources/ui/profile-dialog.blp:170
+#: data/resources/ui/profile-dialog.blp:182
 msgid "Act as an IAM role with the credentials above"
 msgstr ""
 
-#: data/resources/ui/profile-dialog.blp:175
+#: data/resources/ui/profile-dialog.blp:187
 msgid "Role ARN"
 msgstr ""
 
-#: data/resources/ui/profile-dialog.blp:179
+#: data/resources/ui/profile-dialog.blp:191
 msgid "External ID (optional)"
 msgstr ""
 
-#: data/resources/ui/profile-dialog.blp:183
+#: data/resources/ui/profile-dialog.blp:195
 msgid "MFA device ARN (optional)"
 msgstr ""
 
-#: data/resources/ui/profile-dialog.blp:184
+#: data/resources/ui/profile-dialog.blp:196
 msgid "With an MFA device, a code from it is asked for when connecting."
 msgstr ""
 
-#: data/resources/ui/profile-dialog.blp:189
+#: data/resources/ui/profile-dialog.blp:201
 msgid "Transfer Acceleration"
 msgstr ""
 
-#: data/resources/ui/profile-dialog.blp:190
+#: data/resources/ui/profile-dialog.blp:202
 msgid ""
 "Faster transfers over long distances through AWS edge locations. It has to "
 "be turned on for the bucket as well."
 msgstr ""
 
-#: data/resources/ui/profile-dialog.blp:194
+#: data/resources/ui/profile-dialog.blp:206
 msgid "Trusted Certificate"
 msgstr ""
 
-#: data/resources/ui/profile-dialog.blp:201
+#: data/resources/ui/profile-dialog.blp:213
 msgid "Choose Certificate…"
 msgstr ""
 
-#: data/resources/ui/profile-dialog.blp:212
+#: data/resources/ui/profile-dialog.blp:224
 msgid "Remove Certificate"
 msgstr ""
 
-#: data/resources/ui/profile-dialog.blp:239
+#: data/resources/ui/profile-dialog.blp:251
 msgid "Trust Certificate…"
 msgstr ""
 
@@ -4523,8 +4637,8 @@ msgstr ""
 #: data/io.github.mehmetnuri.Ferry.metainfo.xml.in:12
 msgid ""
 "Ferry moves files between your computer and file servers or cloud storage: "
-"SFTP, FTP, WebDAV and Nextcloud, Amazon S3, Cloudflare R2, MinIO, Supabase "
-"Storage and other S3-compatible services."
+"SFTP, FTP, WebDAV and Nextcloud, Google Drive, Azure Blob Storage, Amazon "
+"S3, Cloudflare R2, MinIO, Supabase Storage and other S3-compatible services."
 msgstr ""
 
 #: data/io.github.mehmetnuri.Ferry.metainfo.xml.in:18
@@ -4626,6 +4740,30 @@ msgstr ""
 
 #: data/io.github.mehmetnuri.Ferry.metainfo.xml.in:36
 msgid "Pauses while offline and keeps the computer awake during transfers"
+msgstr ""
+
+#: data/io.github.mehmetnuri.Ferry.metainfo.xml.in:42
+msgid "Photos of a file server in a grid"
+msgstr ""
+
+#: data/io.github.mehmetnuri.Ferry.metainfo.xml.in:46
+msgid "Browsing a file server"
+msgstr ""
+
+#: data/io.github.mehmetnuri.Ferry.metainfo.xml.in:50
+msgid "Quick preview of a photo"
+msgstr ""
+
+#: data/io.github.mehmetnuri.Ferry.metainfo.xml.in:54
+msgid "An unlocked Cryptomator vault"
+msgstr ""
+
+#: data/io.github.mehmetnuri.Ferry.metainfo.xml.in:58
+msgid "The transfer queue"
+msgstr ""
+
+#: data/io.github.mehmetnuri.Ferry.metainfo.xml.in:62
+msgid "Connecting over SFTP through a jump host"
 msgstr ""
 
 #: data/io.github.mehmetnuri.Ferry.gschema.xml:6

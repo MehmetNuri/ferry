@@ -1,5 +1,4 @@
-//! Known-answer tests against values from the reference implementation
-//! (cryptomator/cryptolib unit tests) and RFC 7914.
+//! Known answers from cryptomator/cryptolib tests and RFC 7914.
 
 use cryptomator_vault::masterkey::{MasterkeyFile, ScryptParams, derive_kek};
 use cryptomator_vault::{CipherCombo, ContentCryptor, Error, FileHeader, MasterKey};
@@ -13,29 +12,16 @@ fn zero_key() -> MasterKey {
     MasterKey::from_parts([0; 32], [0; 32])
 }
 
-// ---------------------------------------------------------------- scrypt
-
-/// RFC 7914 section 12 vectors (also cryptolib ScryptTest). Our KEK is 32
-/// bytes; PBKDF2 output blocks are independent of dkLen, so it must equal the
-/// first 32 bytes of the 64 byte vectors.
+// RFC 7914 sec. 12; we derive 32 bytes, the first half of the 64-byte vectors.
 #[test]
 fn scrypt_rfc7914() {
     let k = derive_kek("", b"", ScryptParams { cost: 16, block_size: 1 }).unwrap();
-    assert_eq!(
-        HEXLOWER.encode(k.as_slice()),
-        "77d6576238657b203b19ca42c18a0497f16b4844e3074ae8dfdffa3fede21442"
-    );
+    assert_eq!(HEXLOWER.encode(k.as_slice()), "77d6576238657b203b19ca42c18a0497f16b4844e3074ae8dfdffa3fede21442");
     let k = derive_kek("pleaseletmein", b"SodiumChloride", ScryptParams { cost: 16384, block_size: 8 }).unwrap();
-    assert_eq!(
-        HEXLOWER.encode(k.as_slice()),
-        "7023bdcb3afd7348461c06cd81fd38ebfda8fbba904f8e3ea9b543f6545da1f2"
-    );
+    assert_eq!(HEXLOWER.encode(k.as_slice()), "7023bdcb3afd7348461c06cd81fd38ebfda8fbba904f8e3ea9b543f6545da1f2");
 }
 
-// ---------------------------------------------------------- masterkey file
-
-/// cryptolib MasterkeyFileAccessTest: all-zero 512 bit key, password "asd",
-/// 8 zero salt bytes, N=2, r=8, version 3.
+/// cryptolib MasterkeyFileAccessTest: zero key, password "asd", N=2, r=8.
 const CRYPTOLIB_MASTERKEY_JSON: &str = r#"{
   "version": 3,
   "scryptSalt": "AAAAAAAAAAA=",
@@ -60,11 +46,8 @@ fn masterkey_file_lock_matches_cryptolib_vector() {
     let file = MasterkeyFile::lock_with_salt(&zero_key(), "asd", params, vec![0; 8], 3).unwrap();
     let expected = MasterkeyFile::parse(CRYPTOLIB_MASTERKEY_JSON.as_bytes()).unwrap();
     assert_eq!(file, expected);
-    // And the JSON we write parses back to the same thing.
     assert_eq!(MasterkeyFile::parse(file.to_json().as_bytes()).unwrap(), expected);
 }
-
-// ---------------------------------------------------- SIV_GCM (cryptolib v2)
 
 const V2_HEADER: &str = "AAAAAAAAAAAAAAAAMVi/wrKflJEHTsXTuvOdGHJgA8o3pip00aL1jnUGNY7dSrEoTUrhey+maVG6P0F2RBmZR74SjU0=";
 
@@ -110,7 +93,6 @@ fn gcm_chunk_vectors() {
     // testChunkDecryption
     let ct = b64("VVVVVVVVVVVVVVVVnHVdh+EbedvPeiCwCdaTYpzn1CXQjhSh7PHv");
     assert_eq!(c.decrypt_chunk(&h, 0, &ct).unwrap(), b"hello world");
-    // wrong chunk number = reordering
     assert!(matches!(c.decrypt_chunk(&h, 1, &ct), Err(Error::Authentication(_))));
     // testUnauthenticChunkDecryption: NONCE, CONTENT, TAG
     for bad in [
@@ -130,8 +112,7 @@ fn gcm_file_vector() {
     let file = b64(V2_FILE);
     assert_eq!(c.decrypt(&file).unwrap(), b"hello world");
     assert_eq!(c.cleartext_size(file.len() as u64).unwrap(), 11);
-    // The test's mocked RNG produced header nonce 0x55.., content key 0x77..,
-    // chunk nonce 0x55..; re-encrypting with those must give identical bytes.
+    // cryptolib's mocked RNG: nonces 0x55.., content key 0x77..
     let h = c.decrypt_header(&file).unwrap();
     assert_eq!(h.nonce(), &[0x55; 12]);
     assert_eq!(h.content_key(), &[0x77; 32]);
@@ -147,8 +128,6 @@ fn gcm_file_vector() {
         assert!(matches!(c.decrypt(&lenient_b64(bad)), Err(Error::Authentication(_))));
     }
 }
-
-// ------------------------------------------------- SIV_CTRMAC (cryptolib v1)
 
 const V1_HEADER: &str = "AAAAAAAAAAAAAAAAAAAAACNqP4ddv3Z2rUiiFJKEIIdTD4r7x0U2ualjtPHEy3OLzqdAPU1ga24VjC86+zlHN49BfMdzvHF3f9EE0LSnRLSsu6ps3IRcJg==";
 const V1_CHUNK: &str = "AAAAAAAAAAAAAAAAAAAAALTwrBTNYP7m3yTGKlhka9WPvX1Lpn5EYfVxlyX1ISgRXtdRnivM7r6F3Og=";

@@ -1,5 +1,3 @@
-//! A small circular progress indicator, as GNOME Files shows for operations.
-//! Changes are animated with a libadwaita spring so the arc never jumps.
 use adw::prelude::*;
 use std::cell::Cell;
 use std::rc::Rc;
@@ -13,7 +11,8 @@ pub struct Pie {
 
 impl Pie {
     pub fn new(size: i32) -> Self {
-        let widget = gtk::DrawingArea::builder().content_width(size).content_height(size).valign(gtk::Align::Center).build();
+        let widget =
+            gtk::DrawingArea::builder().content_width(size).content_height(size).valign(gtk::Align::Center).build();
         widget.add_css_class("transfer-pie");
         let shown = Rc::new(Cell::new(0.0_f64));
         let draw_value = shown.clone();
@@ -38,7 +37,9 @@ impl Pie {
         let area = widget.downgrade();
         let target = adw::CallbackAnimationTarget::new(move |value| {
             target_value.set(value);
-            if let Some(area) = area.upgrade() { area.queue_draw(); }
+            if let Some(area) = area.upgrade() {
+                area.queue_draw();
+            }
         });
         let animation = adw::SpringAnimation::new(&widget, 0.0, 0.0, adw::SpringParams::new(1.0, 1.0, 120.0), target);
         animation.set_clamp(true);
@@ -50,7 +51,6 @@ impl Pie {
         if (fraction - self.animation.value_to()).abs() < 0.001 {
             return;
         }
-        // A new batch starts from zero instead of sweeping backwards.
         if fraction < self.shown.get() - 0.2 {
             self.shown.set(fraction);
             self.widget.queue_draw();
@@ -61,13 +61,16 @@ impl Pie {
     }
 }
 
-/// Fades a widget in or out with the libadwaita easing used across GNOME.
 pub fn fade(widget: &impl IsA<gtk::Widget>, show: bool) {
     let widget = widget.as_ref().clone();
     let from = widget.opacity();
     let to = if show { 1.0 } else { 0.0 };
     let w = widget.downgrade();
-    let target = adw::CallbackAnimationTarget::new(move |value| { if let Some(w) = w.upgrade() { w.set_opacity(value); } });
+    let target = adw::CallbackAnimationTarget::new(move |value| {
+        if let Some(w) = w.upgrade() {
+            w.set_opacity(value);
+        }
+    });
     let animation = adw::TimedAnimation::new(&widget, from, to, 180, target);
     animation.set_easing(adw::Easing::EaseOutCubic);
     animation.play();
