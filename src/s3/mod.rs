@@ -1287,7 +1287,7 @@ impl S3 {
                     drop(file);
                     let local = {
                         use md5::Digest;
-                        format!("{:x}", md5::Md5::digest(&chunk))
+                        md5::Md5::digest(&chunk).iter().map(|b| format!("{b:02x}")).collect::<String>()
                     };
                     throttle(length).await;
                     progress.check()?;
@@ -2120,7 +2120,7 @@ async fn file_md5(path: &Path) -> Res<String> {
         }
         hasher.update(&buffer[..n]);
     }
-    Ok(format!("{:x}", hasher.finalize()))
+    Ok(hasher.finalize().iter().map(|b| format!("{b:02x}")).collect())
 }
 
 fn etag_matches(etag: &str, md5_hex: &str) -> Option<bool> {

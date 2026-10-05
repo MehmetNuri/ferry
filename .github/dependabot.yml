@@ -6,7 +6,16 @@ updates:
       interval: weekly
     cooldown:
       default-days: 7
+    ignore:
+      # age 0.12 pulls ml-kem 0.2, which does not build next to russh's kem 0.3
+      - dependency-name: age
+        versions: ["0.12.x"]
     groups:
+      # these crates only upgrade together
+      gtk-rs:
+        patterns: [gtk4, gdk4*, gsk4*, gio, glib, glib-*, libadwaita, sourceview5, pango, cairo-rs, graphene-rs]
+      rustcrypto:
+        patterns: [aes, aes-*, aead, argon2, cipher, ctr, digest, hmac, md-5, password-hash, pbkdf2, scrypt, sha1, sha2]
       cargo:
         update-types: [minor, patch]
   - package-ecosystem: github-actions

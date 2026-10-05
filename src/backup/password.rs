@@ -107,4 +107,21 @@ mod tests {
         let tampered = String::from_utf8(sealed).unwrap().replace("\"passes\": 3", "\"passes\": 1");
         assert!(open(tampered.as_bytes(), "correct horse battery").is_err());
     }
+
+    // sealed by argon2 0.5 / aes-gcm 0.10
+    #[test]
+    fn opens_backups_from_older_versions() {
+        let sealed = r#"{
+  "format": "ferry-backup",
+  "version": 2,
+  "kdf": "argon2id",
+  "memory": 65536,
+  "passes": 3,
+  "lanes": 1,
+  "salt": "W2jsHvJNhiEepBtTQ+JjVw==",
+  "nonce": "MGhHf0TRRlaAq6ob",
+  "data": "wswtEcC56J4LwIHHoSKuJZH7l+Z1czUOr4blo2NsT7XeiduC9OssnbxyNdLLuwN8TzGtP5J75A6+Sz6jPxIBOPsRFcR2KZqAJkc5Ga5Hfo1PXm/Z6eCUndI1u7MRGa7rs18Tjg3iBtLQ3CoyHWnyEGDWGK+nci5MnDGWkuJJVzlxpbjwaj/dMG4l1MrG5ITz0QJnQeqfRMF/FQKSxFcYH0KJdLiqpU9RFJBMBnsAvN/jNvruWVplKfS/ATbB3r4LGt659sIgU1EXuiXKOrlRuPtQjyQ3Prf0hk+29Jvs3jcwSBD9cdhV2uuRHv57Xyd5HdItFwId1J9RB0BOYC30az8CwbavH7sWDjzsq5SRzZI6QTDAf8kl7/QbLvKnwVkININGjPbESaLvXpsjoEOsd/m3bQK/+cFLzXcFXmrA2gNNAK6YBfCFVegd+aOvSlTbAWCjdC+6wum08cv5582/0tbNBZ6sUbFZ15gj+UU321j2PQfr5kGYfg8meFuPdKc/WlD8OxP9bezS3nCXjO5mXQ=="
+}"#;
+        assert_eq!(open(sealed.as_bytes(), "hunter2").unwrap()[0].secret_key, "s3cr3t");
+    }
 }
