@@ -48,6 +48,7 @@ authority. The built-in compatibility test shows which features a server support
 
 **Encryption:** Cryptomator vaults (format 8), created by Ferry or by the Cryptomator
 apps, can be unlocked, browsed and written in any bucket and on any file server.
+On S3, uploads can use SSE-S3, SSE-KMS or SSE-C with your own key, kept in the keyring.
 
 **Signing in:** access keys kept in the GNOME keyring, AWS CLI profiles including IAM
 Identity Center (single sign-on) and `credential_process`, assumed roles with MFA codes,

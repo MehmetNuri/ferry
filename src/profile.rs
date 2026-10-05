@@ -24,6 +24,8 @@ pub struct Profile {
     pub storage_class: String,
     pub encryption: String,
     pub kms_key: String,
+    #[serde(skip_serializing_if = "String::is_empty")]
+    pub sse_customer_key: String,
     pub aws_profile: String,
     pub role_arn: String,
     pub external_id: String,
@@ -233,28 +235,36 @@ async fn write_secret(keyring: &oo7::Keyring, profile: &Profile, field: &str, va
 }
 
 pub async fn with_secrets(mut profile: Profile) -> Result<Profile, String> {
-    if !profile.secret_key.is_empty() {
+    if !profile.secret_key.is_empty() || !profile.sse_customer_key.is_empty() {
         if let Ok(keyring) = keyring().await
             && write_secret(&keyring, &profile, "secret", &profile.secret_key).await.is_ok()
             && write_secret(&keyring, &profile, "token", &profile.session_token).await.is_ok()
+            && write_secret(&keyring, &profile, "sse-c", &profile.sse_customer_key).await.is_ok()
         {
             let mut profiles = load();
             if let Some(stored) = profiles.iter_mut().find(|p| p.id == profile.id) {
                 stored.secret_key.clear();
                 stored.session_token.clear();
+                stored.sse_customer_key.clear();
             }
             let _ = store(&profiles);
         }
         return Ok(profile);
     }
-    if profile.access_key.is_empty() {
+    let wants_key = profile.encryption == crate::s3::ssec::ENCRYPTION;
+    if profile.access_key.is_empty() && !wants_key {
         return Ok(profile);
     }
     let keyring = keyring()
         .await
         .map_err(|e| format!("{} ({e})", tr("The saved access key could not be read from the keyring")))?;
-    profile.secret_key = read_secret(&keyring, &profile.id, "secret").await?;
-    profile.session_token = read_secret(&keyring, &profile.id, "token").await?;
+    if !profile.access_key.is_empty() {
+        profile.secret_key = read_secret(&keyring, &profile.id, "secret").await?;
+        profile.session_token = read_secret(&keyring, &profile.id, "token").await?;
+    }
+    if wants_key {
+        profile.sse_customer_key = read_secret(&keyring, &profile.id, "sse-c").await?;
+    }
     Ok(profile)
 }
 
@@ -276,16 +286,20 @@ pub async fn save(mut profile: Profile, allow_plain: bool) -> Result<(Profile, b
     if let Ok(keyring) = keyring().await {
         let secret = write_secret(&keyring, &profile, "secret", &profile.secret_key).await;
         let token = write_secret(&keyring, &profile, "token", &profile.session_token).await;
-        if secret.is_ok() && token.is_ok() {
+        let sse = write_secret(&keyring, &profile, "sse-c", &profile.sse_customer_key).await;
+        if secret.is_ok() && token.is_ok() && sse.is_ok() {
             on_disk.secret_key.clear();
             on_disk.session_token.clear();
+            on_disk.sse_customer_key.clear();
             in_keyring = true;
         } else {
-            let _ = keyring.delete(&attributes(&profile.id, "secret")).await;
-            let _ = keyring.delete(&attributes(&profile.id, "token")).await;
+            for field in ["secret", "token", "sse-c"] {
+                let _ = keyring.delete(&attributes(&profile.id, field)).await;
+            }
         }
     }
-    let has_secrets = !profile.secret_key.is_empty() || !profile.session_token.is_empty();
+    let has_secrets =
+        !profile.secret_key.is_empty() || !profile.session_token.is_empty() || !profile.sse_customer_key.is_empty();
     if !in_keyring && has_secrets && !allow_plain {
         return Err(KEYRING_UNAVAILABLE.to_string());
     }
@@ -303,8 +317,9 @@ pub async fn delete(id: String) -> Result<(), String> {
     store(&profiles)?;
     crate::s3::forget_client(&id);
     if let Ok(keyring) = keyring().await {
-        let _ = keyring.delete(&attributes(&id, "secret")).await;
-        let _ = keyring.delete(&attributes(&id, "token")).await;
+        for field in ["secret", "token", "sse-c"] {
+            let _ = keyring.delete(&attributes(&id, field)).await;
+        }
     }
     Ok(())
 }
