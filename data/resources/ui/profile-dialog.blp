@@ -172,6 +172,46 @@ Adw.Dialog dialog {
             title: _("KMS key ID or alias (optional)");
             visible: false;
           }
+
+          Adw.PasswordEntryRow sse_key_row {
+            title: _("Encryption key (Base64, 32 bytes)");
+            visible: false;
+
+            [suffix]
+            Button sse_copy_button {
+              icon-name: "edit-copy-symbolic";
+              tooltip-text: _("Copy Key");
+              valign: center;
+
+              styles [
+                "flat",
+              ]
+            }
+
+            [suffix]
+            Button sse_generate_button {
+              icon-name: "view-refresh-symbolic";
+              tooltip-text: _("Generate a New Key");
+              valign: center;
+
+              styles [
+                "flat",
+              ]
+            }
+          }
+
+          Label sse_note {
+            label: _("Keep a copy of this key somewhere safe. Without it nobody can read these files, not even the provider. Share links are not available with your own key.");
+            wrap: true;
+            xalign: 0;
+            margin-top: 12;
+            visible: false;
+
+            styles [
+              "dim-label",
+              "caption",
+            ]
+          }
         }
 
         Adw.PreferencesGroup advanced_group {

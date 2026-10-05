@@ -1144,3 +1144,115 @@ fn gdrive_live() {
         assert_eq!(failures, 0, "{failures} checks failed");
     });
 }
+
+// FERRY_SSEC_TEST=https://host:port FERRY_SSEC_CA=<pem>; MinIO only accepts SSE-C over TLS.
+#[test]
+fn ssec_live() {
+    use crate::profile::Profile;
+    let Ok(endpoint) = std::env::var("FERRY_SSEC_TEST") else { return };
+    let ca = std::env::var("FERRY_SSEC_CA").map(|p| std::fs::read_to_string(p).unwrap()).unwrap_or_default();
+    runtime().block_on(async move {
+        let plain_profile = Profile {
+            id: "t-ssec".into(),
+            name: "SSE-C".into(),
+            provider: "minio".into(),
+            endpoint,
+            region: "us-east-1".into(),
+            access_key: "minioadmin".into(),
+            secret_key: "minioadmin".into(),
+            path_style: true,
+            ca_certificate: ca,
+            ..Default::default()
+        };
+        let profile = Profile {
+            encryption: crate::s3::ssec::ENCRYPTION.into(),
+            sse_customer_key: crate::s3::ssec::generate_key().unwrap(),
+            ..plain_profile.clone()
+        };
+        let mut failures = 0;
+        let mut check = |name: &str, ok: bool, detail: String| {
+            if ok {
+                println!("OK    ssec {name:<40} {detail}")
+            } else {
+                failures += 1;
+                println!("FAIL  ssec {name:<40} {detail}")
+            }
+        };
+        let bad = S3::connect(Profile { sse_customer_key: "c2hvcnQ=".into(), ..profile.clone() }).await;
+        check("a malformed key is refused", bad.is_err(), format!("{:?}", bad.err()));
+        let client = S3::connect(profile.clone()).await.unwrap();
+        let plain = S3::connect(plain_profile.clone()).await.unwrap();
+        let other =
+            S3::connect(Profile { sse_customer_key: crate::s3::ssec::generate_key().unwrap(), ..profile.clone() })
+                .await
+                .unwrap();
+        let bucket = "ferry-ssec";
+        let _ = client.delete_bucket(bucket).await;
+        let made = client.create_bucket(bucket).await;
+        check("create a bucket", made.is_ok(), format!("{:?}", made.err()));
+
+        let local = std::env::temp_dir().join(format!("ferry-ssec-{}", std::process::id()));
+        std::fs::create_dir_all(&local).unwrap();
+        let small: Vec<u8> = (0..300_000u32).map(|i| (i % 253) as u8).collect();
+        let big: Vec<u8> = (0..40 * 1024 * 1024u32).map(|i| (i % 249) as u8).collect();
+        std::fs::write(local.join("small.bin"), &small).unwrap();
+        std::fs::write(local.join("big.bin"), &big).unwrap();
+        let p = Progress::default();
+
+        let up = client.upload_file(bucket, "small.bin", &local.join("small.bin"), &p).await;
+        check("upload in one request", up.is_ok(), format!("{:?}", up.err()));
+        let up = client.upload_file(bucket, "big.bin", &local.join("big.bin"), &p).await;
+        check("upload in parts", up.is_ok(), format!("{:?}", up.err()));
+        let head = client.head_object(bucket, "small.bin").await;
+        check(
+            "details show SSE-C",
+            head.as_ref().is_ok_and(|h| h.encryption == "SSE-C"),
+            format!("{:?}", head.map(|h| h.encryption)),
+        );
+
+        let got = client.download_file(bucket, "small.bin", None, &local.join("small.out"), &p).await;
+        let same = std::fs::read(local.join("small.out")).ok() == Some(small.clone());
+        check("download", got.is_ok() && same, format!("{:?}", got.err()));
+        let got = client.download_sized(bucket, "big.bin", big.len() as u64, &local.join("big.out"), &p).await;
+        let same = std::fs::read(local.join("big.out")).ok() == Some(big.clone());
+        check("download in ranges", got.is_ok() && same, format!("{:?}", got.err()));
+        let head_bytes = client.read_bytes(bucket, "big.bin", 1000).await;
+        check("read the start", head_bytes.as_deref().ok() == Some(&big[..1000]), String::new());
+        let hash = client.sha256(bucket, "small.bin", &p).await;
+        check("checksum", hash.is_ok(), format!("{:?}", hash.err()));
+
+        let without = plain.read_bytes(bucket, "small.bin", 100).await;
+        check("unreadable without the key", without.is_err(), String::new());
+        let wrong = other.read_bytes(bucket, "small.bin", 100).await;
+        check("unreadable with another key", wrong.is_err(), String::new());
+
+        let put = plain.put_bytes(bucket, "plain.txt", b"no key".to_vec()).await;
+        let read = client.read_bytes(bucket, "plain.txt", 100).await;
+        check(
+            "objects without a key still open",
+            put.is_ok() && read.as_deref().ok() == Some(&b"no key"[..]),
+            format!("{:?} {:?}", put.err(), read.err()),
+        );
+
+        let copied = client.copy_object(bucket, "small.bin", bucket, "copy.bin").await;
+        let read = client.read_bytes(bucket, "copy.bin", 10).await;
+        check("copy", copied.is_ok() && read.as_deref().ok() == Some(&small[..10]), format!("{:?}", copied.err()));
+        let copied = client.copy_object(bucket, "plain.txt", bucket, "plain-copy.txt").await;
+        let head = client.head_object(bucket, "plain-copy.txt").await;
+        check(
+            "copy of an object without a key gets it",
+            copied.is_ok() && head.as_ref().is_ok_and(|h| h.encryption == "SSE-C"),
+            format!("{:?} {:?}", copied.err(), head.map(|h| h.encryption)),
+        );
+        let moved = client.rename(bucket, "copy.bin", "moved.bin").await;
+        let read = client.read_bytes(bucket, "moved.bin", 10).await;
+        check("rename", moved.is_ok() && read.is_ok(), format!("{:?}", moved.err()));
+        let link = client.presign(bucket, "small.bin", 60).await;
+        check("no share links", link.is_err(), String::new());
+
+        let removed = client.delete_bucket(bucket).await;
+        check("clean up", removed.is_ok(), format!("{:?}", removed.err()));
+        let _ = std::fs::remove_dir_all(&local);
+        assert_eq!(failures, 0);
+    });
+}

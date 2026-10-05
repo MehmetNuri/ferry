@@ -229,7 +229,8 @@ impl S3 {
     }
 
     pub async fn restore_state(&self, bucket: &str, key: &str) -> Res<String> {
-        let out = self.client.head_object().bucket(bucket).key(key).send().await.map_err(describe)?;
+        let out =
+            self.sse_c_read(|| self.client.head_object().bucket(bucket).key(key).send()).await.map_err(describe)?;
         Ok(out.restore().unwrap_or_default().to_string())
     }
 

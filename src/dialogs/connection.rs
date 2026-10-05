@@ -12,7 +12,7 @@ const FTP_SECURITY: &[&str] = &["explicit", "implicit", "none"];
 
 pub const STORAGE_CLASSES: &[&str] =
     &["STANDARD", "STANDARD_IA", "ONEZONE_IA", "INTELLIGENT_TIERING", "GLACIER_IR", "GLACIER", "DEEP_ARCHIVE"];
-const ENCRYPTIONS: &[&str] = &["", "AES256", "aws:kms"];
+const ENCRYPTIONS: &[&str] = &["", "AES256", "aws:kms", crate::s3::ssec::ENCRYPTION];
 
 fn preset_label(preset: &Preset) -> String {
     if preset.label.is_empty() { tr("Other S3-compatible") } else { preset.label.to_string() }
@@ -37,6 +37,10 @@ pub fn present(parent: &impl IsA<gtk::Widget>, existing: Option<Profile>, on_sav
     let storage_class: adw::ComboRow = get("storage_class_row").downcast().unwrap();
     let encryption: adw::ComboRow = get("encryption_row").downcast().unwrap();
     let kms_key: adw::EntryRow = get("kms_key_row").downcast().unwrap();
+    let sse_key: adw::PasswordEntryRow = get("sse_key_row").downcast().unwrap();
+    let sse_copy: gtk::Button = get("sse_copy_button").downcast().unwrap();
+    let sse_generate: gtk::Button = get("sse_generate_button").downcast().unwrap();
+    let sse_note: gtk::Label = get("sse_note").downcast().unwrap();
     let test_row: adw::ButtonRow = get("test_row").downcast().unwrap();
     let test_result: adw::ActionRow = get("test_result").downcast().unwrap();
     let test_icon: gtk::Image = get("test_icon").downcast().unwrap();
@@ -72,7 +76,8 @@ pub fn present(parent: &impl IsA<gtk::Widget>, existing: Option<Profile>, on_sav
     let mut classes = vec![tr("Provider default")];
     classes.extend(STORAGE_CLASSES.iter().map(|c| c.to_string()));
     storage_class.set_model(Some(&gtk::StringList::new(&classes.iter().map(String::as_str).collect::<Vec<_>>())));
-    let encryption_labels = [tr("Provider default"), "SSE-S3 (AES256)".to_string(), "SSE-KMS".to_string()];
+    let encryption_labels =
+        [tr("Provider default"), "SSE-S3 (AES256)".to_string(), "SSE-KMS".to_string(), tr("SSE-C (your own key)")];
     encryption
         .set_model(Some(&gtk::StringList::new(&encryption_labels.iter().map(String::as_str).collect::<Vec<_>>())));
 
@@ -99,6 +104,9 @@ pub fn present(parent: &impl IsA<gtk::Widget>, existing: Option<Profile>, on_sav
     encryption.set_selected(ENCRYPTIONS.iter().position(|e| *e == original.encryption).unwrap_or(0) as u32);
     kms_key.set_text(&original.kms_key);
     kms_key.set_visible(encryption.selected() == 2);
+    sse_key.set_text(&original.sse_customer_key);
+    sse_key.set_visible(encryption.selected() == 3);
+    sse_note.set_visible(encryption.selected() == 3);
     supabase.set_visible(original.provider == "supabase");
 
     remote_path.set_text(&original.remote_path);
@@ -380,15 +388,50 @@ pub fn present(parent: &impl IsA<gtk::Widget>, existing: Option<Profile>, on_sav
         });
     }
     {
-        let kms_key = kms_key.clone();
-        encryption.connect_selected_notify(move |row| kms_key.set_visible(row.selected() == 2));
+        let (kms_key, sse_key, sse_note) = (kms_key.clone(), sse_key.clone(), sse_note.clone());
+        encryption.connect_selected_notify(move |row| {
+            kms_key.set_visible(row.selected() == 2);
+            sse_key.set_visible(row.selected() == 3);
+            sse_note.set_visible(row.selected() == 3);
+            if row.selected() == 3 && sse_key.text().is_empty() {
+                sse_key.set_text(&crate::s3::ssec::generate_key().unwrap_or_default());
+            }
+        });
+    }
+    {
+        let (sse_key, toasts) = (sse_key.clone(), toasts.clone());
+        sse_copy.connect_clicked(move |button| {
+            button.clipboard().set_text(sse_key.text().trim());
+            toasts.add_toast(crate::window::plain_toast(&tr("Key copied")));
+        });
+    }
+    {
+        let (sse_key, dialog) = (sse_key.clone(), dialog.clone());
+        sse_generate.connect_clicked(move |_| {
+            let (sse_key, dialog) = (sse_key.clone(), dialog.clone());
+            glib::spawn_future_local(async move {
+                if !sse_key.text().is_empty() {
+                    let alert = adw::AlertDialog::new(
+                        Some(&tr("Replace the Key?")),
+                        Some(&tr("Files uploaded with the current key can only be read with it.")),
+                    );
+                    alert.add_responses(&[("cancel", &tr("Cancel")), ("replace", &tr("_Replace"))]);
+                    alert.set_response_appearance("replace", adw::ResponseAppearance::Destructive);
+                    alert.set_close_response("cancel");
+                    if alert.choose_future(Some(&dialog)).await != "replace" {
+                        return;
+                    }
+                }
+                sse_key.set_text(&crate::s3::ssec::generate_key().unwrap_or_default());
+            });
+        });
     }
 
     let collect = Rc::new({
         let original = original.clone();
         let (name, provider, project_ref, endpoint, region, path_style) =
             (name.clone(), provider.clone(), project_ref.clone(), endpoint.clone(), region.clone(), path_style.clone());
-        let (access_key, secret_key, session_token, buckets, storage_class, encryption, kms_key) = (
+        let (access_key, secret_key, session_token, buckets, storage_class, encryption, kms_key, sse_key) = (
             access_key.clone(),
             secret_key.clone(),
             session_token.clone(),
@@ -396,6 +439,7 @@ pub fn present(parent: &impl IsA<gtk::Widget>, existing: Option<Profile>, on_sav
             storage_class.clone(),
             encryption.clone(),
             kms_key.clone(),
+            sse_key.clone(),
         );
         let (auth, aws_profile, role, role_arn, external_id, mfa_serial, accelerate, ca_pem) = (
             auth.clone(),
@@ -436,6 +480,11 @@ pub fn present(parent: &impl IsA<gtk::Widget>, existing: Option<Profile>, on_sav
             },
             encryption: ENCRYPTIONS[encryption.selected() as usize].to_string(),
             kms_key: if encryption.selected() == 2 { kms_key.text().trim().to_string() } else { String::new() },
+            sse_customer_key: if encryption.selected() == 3 && !remote_kind() {
+                sse_key.text().trim().to_string()
+            } else {
+                String::new()
+            },
             aws_profile: if auth.selected() == 1 {
                 aws_profile
                     .selected_item()
@@ -622,12 +671,31 @@ pub fn present(parent: &impl IsA<gtk::Widget>, existing: Option<Profile>, on_sav
     }
     let on_saved = Rc::new(on_saved);
     {
-        let (dialog, collect, toasts) = (dialog.clone(), collect.clone(), toasts.clone());
+        let (dialog, collect, toasts, original) = (dialog.clone(), collect.clone(), toasts.clone(), original.clone());
         save.connect_clicked(move |button| {
             let profile = collect();
             let (dialog, toasts, button, on_saved) = (dialog.clone(), toasts.clone(), button.clone(), on_saved.clone());
+            let ssec = crate::s3::ssec::ENCRYPTION;
+            if profile.encryption == ssec
+                && !crate::remote::is_remote(&profile.provider)
+                && let Err(error) = crate::s3::ssec::parse_key(&profile.sse_customer_key)
+            {
+                toasts.add_toast(crate::window::plain_toast(&error));
+                return;
+            }
+            let key_changed = original.encryption == ssec
+                && !original.sse_customer_key.is_empty()
+                && original.sse_customer_key != profile.sse_customer_key;
             button.set_sensitive(false);
             glib::spawn_future_local(async move {
+                if key_changed {
+                    let alert = adw::AlertDialog::new(Some(&tr("Change the Encryption Key?")),
+                        Some(&tr("Files uploaded with the previous key cannot be read without it. Keep a copy of the previous key if such files remain.")));
+                    alert.add_responses(&[("cancel", &tr("Cancel")), ("save", &tr("Change Key"))]);
+                    alert.set_response_appearance("save", adw::ResponseAppearance::Destructive);
+                    alert.set_close_response("cancel");
+                    if alert.choose_future(Some(&dialog)).await != "save" { button.set_sensitive(true); return; }
+                }
                 if crate::s3::S3::insecure_endpoint(&profile.endpoint) || profile.ftp_security == "none" {
                     let alert = adw::AlertDialog::new(Some(&tr("Unencrypted Connection?")),
                         Some(&tr("This endpoint uses http:// instead of https://. Files, session tokens and share links can be read or changed on the way. Use https:// unless the server is in a network you trust.")));

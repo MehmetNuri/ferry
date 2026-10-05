@@ -1,6 +1,7 @@
 pub mod access;
 pub mod connection;
 pub mod pinned;
+pub mod ssec;
 pub mod tools;
 pub mod vault;
 
@@ -18,6 +19,7 @@ use aws_sdk_s3::types::{
     BucketLocationConstraint, CompletedMultipartUpload, CompletedPart, CreateBucketConfiguration, Delete,
     MetadataDirective, ObjectIdentifier, ServerSideEncryption, StorageClass,
 };
+use aws_smithy_runtime_api::client::orchestrator::HttpResponse;
 use tokio::io::AsyncReadExt;
 use tokio::io::AsyncWriteExt;
 
@@ -375,6 +377,12 @@ impl S3 {
             // Many S3-compatible services reject the newer trailing checksums.
             .request_checksum_calculation(RequestChecksumCalculation::WhenRequired)
             .response_checksum_validation(ResponseChecksumValidation::WhenRequired);
+        if profile.encryption == ssec::ENCRYPTION {
+            if S3::insecure_endpoint(&endpoint) {
+                return Err(tr("Your own encryption key is only sent over HTTPS"));
+            }
+            builder = builder.interceptor(ssec::CustomerKey::new(&profile.sse_customer_key)?);
+        }
         if !endpoint.is_empty() {
             builder = builder.endpoint_url(endpoint);
         }
@@ -518,7 +526,8 @@ impl S3 {
         if let Some(r) = &self.remote {
             return r.head(bucket, key).await;
         }
-        let out = self.client.head_object().bucket(bucket).key(key).send().await.map_err(describe)?;
+        let out =
+            self.sse_c_read(|| self.client.head_object().bucket(bucket).key(key).send()).await.map_err(describe)?;
         let mut metadata: Vec<(String, String)> =
             out.metadata().map(|m| m.iter().map(|(k, v)| (k.clone(), v.clone())).collect()).unwrap_or_default();
         metadata.sort();
@@ -533,7 +542,10 @@ impl S3 {
             content_disposition: out.content_disposition().unwrap_or_default().to_string(),
             content_encoding: out.content_encoding().unwrap_or_default().to_string(),
             version_id: out.version_id().unwrap_or_default().to_string(),
-            encryption: out.server_side_encryption().map(|e| e.as_str().to_string()).unwrap_or_default(),
+            encryption: match out.sse_customer_algorithm() {
+                Some(_) => "SSE-C".to_string(),
+                None => out.server_side_encryption().map(|e| e.as_str().to_string()).unwrap_or_default(),
+            },
             metadata,
         })
     }
@@ -550,12 +562,14 @@ impl S3 {
             return r.read(bucket, key, limit).await;
         }
         let out = self
-            .client
-            .get_object()
-            .bucket(bucket)
-            .key(key)
-            .range(format!("bytes=0-{}", limit.saturating_sub(1)))
-            .send()
+            .sse_c_read(|| {
+                self.client
+                    .get_object()
+                    .bucket(bucket)
+                    .key(key)
+                    .range(format!("bytes=0-{}", limit.saturating_sub(1)))
+                    .send()
+            })
             .await
             .map_err(describe)?;
         let mut body = out.body;
@@ -802,7 +816,7 @@ impl S3 {
     }
 
     fn encryption(&self) -> (Option<ServerSideEncryption>, Option<String>) {
-        if self.profile.encryption.is_empty() {
+        if self.profile.encryption.is_empty() || self.sse_c() {
             return (None, None);
         }
         let kms = if self.profile.encryption == "aws:kms" && !self.profile.kms_key.is_empty() {
@@ -814,6 +828,25 @@ impl S3 {
     }
 
     // Copy source is URL-encoded per spec; Supabase wants it raw, so retry unencoded.
+    pub(crate) fn sse_c(&self) -> bool {
+        self.profile.encryption == ssec::ENCRYPTION
+    }
+
+    // A wrong guess about the key is a 400, so reads try once more the other way.
+    #[allow(clippy::result_large_err)]
+    pub(crate) async fn sse_c_read<T, E, F, Fut>(&self, send: F) -> Result<T, SdkError<E, HttpResponse>>
+    where
+        F: Fn() -> Fut,
+        Fut: std::future::Future<Output = Result<T, SdkError<E, HttpResponse>>>,
+    {
+        match send().await {
+            Err(error) if self.sse_c() && error.raw_response().is_some_and(|r| r.status().as_u16() == 400) => {
+                ssec::PLAIN_SOURCE.scope(true, send()).await
+            }
+            other => other,
+        }
+    }
+
     pub async fn send_copy(
         &self,
         request: aws_sdk_s3::operation::copy_object::builders::CopyObjectFluentBuilder,
@@ -832,7 +865,7 @@ impl S3 {
             if let Some(version) = version {
                 copy_source.push_str(&format!("?versionId={version}"));
             }
-            match request.clone().copy_source(copy_source).send().await {
+            match self.sse_c_read(|| request.clone().copy_source(&copy_source).send()).await {
                 Ok(_) => return Ok(()),
                 Err(error) => {
                     let missing = error_code(&error) == "NoSuchKey";
@@ -911,6 +944,9 @@ impl S3 {
     pub async fn presign_put(&self, bucket: &str, key: &str, seconds: u64) -> Res<(String, String)> {
         self.plain_only(bucket, key)?;
         self.s3_only()?;
+        if self.sse_c() {
+            return Err(tr("Links cannot be made while files are encrypted with your own key"));
+        }
         let config = PresigningConfig::expires_in(Duration::from_secs(seconds)).map_err(|e| e.to_string())?;
         let content_type = content_type_of(Path::new(key));
         let request = self
@@ -945,7 +981,8 @@ impl S3 {
         self.plain_only(bucket, key)?;
         self.s3_only()?;
         use sha2::Digest;
-        let out = self.client.get_object().bucket(bucket).key(key).send().await.map_err(describe)?;
+        let out =
+            self.sse_c_read(|| self.client.get_object().bucket(bucket).key(key).send()).await.map_err(describe)?;
         let mut hasher = sha2::Sha256::new();
         let mut body = out.body;
         while let Some(chunk) = body.try_next().await.map_err(|e| e.to_string())? {
@@ -958,6 +995,9 @@ impl S3 {
     pub async fn presign(&self, bucket: &str, key: &str, seconds: u64) -> Res<String> {
         self.plain_only(bucket, key)?;
         self.s3_only()?;
+        if self.sse_c() {
+            return Err(tr("Links cannot be made while files are encrypted with your own key"));
+        }
         let config = PresigningConfig::expires_in(Duration::from_secs(seconds)).map_err(|e| e.to_string())?;
         let request = self.client.get_object().bucket(bucket).key(key).presigned(config).await.map_err(describe)?;
         Ok(request.uri().to_string())
@@ -1454,7 +1494,8 @@ impl S3 {
         let partial = path.with_file_name(&name);
         name.push(".json");
         let state_path = path.with_file_name(name);
-        let head = self.client.head_object().bucket(bucket).key(key).send().await.map_err(describe)?;
+        let head =
+            self.sse_c_read(|| self.client.head_object().bucket(bucket).key(key).send()).await.map_err(describe)?;
         let size = head.content_length().unwrap_or(0).max(0) as u64;
         let etag = head.e_tag().unwrap_or_default().to_string();
         let last_modified = file_time(head.metadata(), head.last_modified());
@@ -1488,12 +1529,14 @@ impl S3 {
                     let start = index * CHUNK;
                     let end = (start + CHUNK).min(size) - 1;
                     let out = self
-                        .client
-                        .get_object()
-                        .bucket(bucket)
-                        .key(key)
-                        .range(format!("bytes={start}-{end}"))
-                        .send()
+                        .sse_c_read(|| {
+                            self.client
+                                .get_object()
+                                .bucket(bucket)
+                                .key(key)
+                                .range(format!("bytes={start}-{end}"))
+                                .send()
+                        })
                         .await
                         .map_err(describe)?;
                     let mut body = out.body;
@@ -1570,12 +1613,9 @@ impl S3 {
             && let Ok(saved) = tokio::fs::read_to_string(&sidecar).await
         {
             let head = self
-                .client
-                .head_object()
-                .bucket(bucket)
-                .key(key)
-                .set_version_id(version.map(str::to_string))
-                .send()
+                .sse_c_read(|| {
+                    self.client.head_object().bucket(bucket).key(key).set_version_id(version.map(str::to_string)).send()
+                })
                 .await
                 .map_err(describe)?;
             let current = head.e_tag().unwrap_or_default().to_string();
@@ -1587,7 +1627,7 @@ impl S3 {
         if start > 0 {
             request = request.range(format!("bytes={start}-"));
         }
-        let out = request.send().await.map_err(describe)?;
+        let out = self.sse_c_read(|| request.clone().send()).await.map_err(describe)?;
         let etag_header = out.e_tag().unwrap_or_default().to_string();
         let last_modified = file_time(out.metadata(), out.last_modified());
         let _ = tokio::fs::write(&sidecar, &etag_header).await;
@@ -1678,7 +1718,10 @@ impl S3 {
                     writer.add_directory(inner.as_str(), SimpleFileOptions::default()).map_err(|e| e.to_string())?;
                     continue;
                 }
-                let out = self.client.get_object().bucket(bucket).key(&key).send().await.map_err(describe)?;
+                let out = self
+                    .sse_c_read(|| self.client.get_object().bucket(bucket).key(&key).send())
+                    .await
+                    .map_err(describe)?;
                 let extension = inner.rsplit_once('.').map(|(_, e)| e.to_lowercase()).unwrap_or_default();
                 let method = if STORED.contains(&extension.as_str()) {
                     zip::CompressionMethod::Stored
@@ -1742,7 +1785,8 @@ impl S3 {
             progress.add(size.max(0) as u64);
             return Ok(());
         }
-        let out = self.client.get_object().bucket(bucket).key(key).send().await.map_err(describe)?;
+        let out =
+            self.sse_c_read(|| self.client.get_object().bucket(bucket).key(key).send()).await.map_err(describe)?;
         let size = out.content_length().unwrap_or(0).max(0) as u64;
         let content_type = out.content_type().unwrap_or("application/octet-stream").to_string();
         if size > MULTIPART_THRESHOLD {

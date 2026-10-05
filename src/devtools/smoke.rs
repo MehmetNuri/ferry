@@ -988,6 +988,23 @@ pub fn start(win: &Window, profile_name: String) {
         step(dialog_shot(&win, "40b-drive-editor", 800).await, "connection editor for Google Drive", String::new());
         win.edit_profile(Some(crate::profile::Profile { provider: "azure".into(), ..Default::default() }));
         step(dialog_shot(&win, "40c-azure-editor", 800).await, "connection editor for Azure", String::new());
+        win.edit_profile(Some(crate::profile::Profile {
+            provider: "aws".into(),
+            encryption: crate::s3::ssec::ENCRYPTION.into(),
+            sse_customer_key: crate::s3::ssec::generate_key().unwrap(),
+            ..Default::default()
+        }));
+        let opened = until(5, || win.visible_dialog().is_some()).await;
+        glib::timeout_future(Duration::from_millis(500)).await;
+        let generate = win
+            .visible_dialog()
+            .and_then(|d| find_by_tooltip(d.upcast_ref(), &crate::i18n::tr("Generate a New Key")))
+            .is_some_and(|w| w.is_mapped());
+        if let Some(d) = win.visible_dialog() {
+            d.force_close();
+        }
+        glib::timeout_future(Duration::from_millis(300)).await;
+        step(opened && generate, "connection editor shows the SSE-C key", String::new());
         if std::env::var_os("FERRY_REMOTE_TEST").is_some() {
             let mut sftp = crate::profile::Profile {
                 id: "smoke-sftp".into(),

@@ -485,12 +485,15 @@ impl Filesystem for S3Fs {
         let length = READ_AHEAD.max(size as u64);
         let result = self.block(async move {
             let out = client
-                .client
-                .get_object()
-                .bucket(&bucket)
-                .key(&key)
-                .range(format!("bytes={offset}-{}", offset + length - 1))
-                .send()
+                .sse_c_read(|| {
+                    client
+                        .client
+                        .get_object()
+                        .bucket(&bucket)
+                        .key(&key)
+                        .range(format!("bytes={offset}-{}", offset + length - 1))
+                        .send()
+                })
                 .await;
             match out {
                 Ok(out) => Ok(out.body.collect().await.map_err(|e| e.to_string())?.into_bytes().to_vec()),
