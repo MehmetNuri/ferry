@@ -2,7 +2,7 @@ use std::path::Path;
 
 use base64::Engine;
 use futures_util::StreamExt;
-use hmac::{Hmac, Mac};
+use hmac::{Hmac, KeyInit, Mac};
 use quick_xml::events::Event;
 use reqwest::{Method, StatusCode};
 use sha2::Sha256;
