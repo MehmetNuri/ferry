@@ -28,7 +28,7 @@ russh = "0.64"
 russh-sftp = "3"
 rustls-native-certs = "0.8"
 aws-sdk-s3 = { version = "1.152.0", default-features = false, features = ["rt-tokio", "default-https-client", "sigv4a"] }
-base64 = "0.22"
+base64 = "0.23"
 bytes = "1"
 fuser = { version = "0.18.0", default-features = false }
 futures-channel = "0.3.34"
