@@ -34,7 +34,7 @@ fuser = { version = "0.18.0", default-features = false }
 futures-channel = "0.3.34"
 futures-util = "0.3.34"
 gettext-rs = "0.8.0"
-gio = { version = "0.21", features = ["v2_70"] }
+gio = { version = "0.22", features = ["v2_70"] }
 gtk = { version = "0.10", package = "gtk4", features = ["v4_16"] }
 http-body = "1"
 libc = "0.2.190"
