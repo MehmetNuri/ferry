@@ -1,0 +1,59 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  fmt:
+    name: Format
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - run: rustup component add rustfmt
+      - run: cargo fmt --all --check
+
+  test:
+    name: Clippy and tests
+    runs-on: ubuntu-24.04
+    container:
+      image: registry.fedoraproject.org/fedora:44@sha256:7011f51bd8089d345be42d41f0aa3190d258823528852a5e7ec976fe2fd20f53
+      # bubblewrap needs namespaces: gdk-pixbuf decodes images in a glycin sandbox
+      options: --privileged
+    permissions:
+      contents: read
+    steps:
+      - name: Install build dependencies
+        run: >
+          dnf install -y --setopt=install_weak_deps=False
+          rust cargo clippy git gcc gcc-c++ cmake clang pkgconf-pkg-config
+          gtk4-devel libadwaita-devel gtksourceview5-devel
+          blueprint-compiler gettext glib2-devel
+          meson desktop-file-utils appstream bubblewrap
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6 # v2.9.2
+      - run: cargo clippy --workspace --all-targets --locked -- -D warnings
+      - run: cargo clippy --workspace --all-targets --locked --no-default-features -- -D warnings
+      - run: cargo test --workspace --locked
+      - name: Validate desktop, metainfo and schema files
+        run: |
+          meson setup _build
+          meson compile -C _build data/io.github.mehmetnuri.Ferry.desktop data/io.github.mehmetnuri.Ferry.metainfo.xml
+          meson test -C _build --no-rebuild --print-errorlogs
