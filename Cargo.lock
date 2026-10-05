@@ -1733,7 +1733,7 @@ dependencies = [
  "hyper-util",
  "libadwaita",
  "libc",
- "md-5 0.10.6",
+ "md-5 0.11.0",
  "oo7",
  "pbkdf2 0.12.2",
  "qrcode",
