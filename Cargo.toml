@@ -11,7 +11,7 @@ cryptomator-vault = { path = "crates/cryptomator-vault" }
 adw = { version = "0.8", package = "libadwaita", features = ["v1_6"] }
 aes-gcm = "0.10"
 age = { version = "0.11", features = ["ssh", "plugin", "armor"] }
-argon2 = "0.5"
+argon2 = "0.6"
 ashpd = { version = "0.13", default-features = false, features = ["tokio", "background"] }
 aws-config = { version = "1.12.0", default-features = false, features = ["rt-tokio", "default-https-client", "sso", "credentials-process"] }
 aws-sdk-cloudfront = { version = "1.135.0", default-features = false, features = ["rt-tokio", "default-https-client"] }
