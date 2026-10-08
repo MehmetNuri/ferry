@@ -147,8 +147,10 @@ jobs:
       - name: Package
         run: |
           mkdir -p debian root/DEBIAN root/usr/share/doc/ferry
-          printf 'Source: ferry\n\nPackage: ferry\n' > debian/control
-          depends=$(dpkg-shlibdeps -O root/usr/bin/ferry | sed 's/^shlibs:Depends=//')
+          printf 'Source: ferry\n\nPackage: ferry\nArchitecture: amd64\n' > debian/control
+          dpkg-shlibdeps -O root/usr/bin/ferry > shlibs.txt
+          depends=$(sed -n 's/^shlibs:Depends=//p' shlibs.txt)
+          test -n "$depends"
           sed -e "s/@VERSION@/$VERSION/" -e "s/@DEPENDS@/$depends/" build-aux/packaging/deb-control > root/DEBIAN/control
           cp LICENSE root/usr/share/doc/ferry/copyright
           mkdir dist
@@ -199,10 +201,49 @@ jobs:
           path: dist/*
           if-no-files-found: error
 
+  install-test:
+    name: Install test (${{ matrix.system }})
+    needs: [rpm, deb, arch]
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - system: debian
+            image: docker.io/library/debian:13@sha256:913f6706df59a68922d1dd08f78c2476560a8d367897200a6005b00e5f67c2d5
+            artifact: ferry-deb
+          - system: fedora
+            image: registry.fedoraproject.org/fedora:43@sha256:005ce311c13eaa639de9d9c52e470f10652c7371561697fb8c1c6e852e23c481
+            artifact: ferry-rpm
+          - system: arch
+            image: docker.io/library/archlinux:base-devel@sha256:996c3a1d6b0d87b01242f6fcd8cfa3ad3eece1a67ab5c8f108e20af1d7b97bdd
+            artifact: ferry-arch
+    container: ${{ matrix.image }}
+    permissions: {}
+    steps:
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: ${{ matrix.artifact }}
+          path: dist
+      - name: Install into a clean system
+        env:
+          SYSTEM: ${{ matrix.system }}
+        run: |
+          case "$SYSTEM" in
+            debian) apt-get update && apt-get install -y ./dist/*.deb ;;
+            fedora) dnf install -y ./dist/*.rpm ;;
+            arch) pacman -Syu --noconfirm && pacman -U --noconfirm ./dist/*.pkg.tar.zst ;;
+          esac
+      - name: Run
+        run: |
+          ferry --help
+          test -f /usr/share/locale/tr/LC_MESSAGES/ferry.mo
+          test -f /usr/share/applications/io.github.mehmetnuri.Ferry.desktop
+
   publish:
     name: Publish
     if: github.event_name == 'push' && github.ref_type == 'tag'
-    needs: [prepare, flatpak, rpm, deb, arch]
+    needs: [prepare, flatpak, rpm, deb, arch, install-test]
     runs-on: ubuntu-24.04
     permissions:
       contents: write # create the release
