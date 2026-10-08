@@ -232,7 +232,10 @@ jobs:
           case "$SYSTEM" in
             debian) apt-get update && apt-get install -y ./dist/*.deb ;;
             fedora) dnf install -y ./dist/*.rpm ;;
-            arch) pacman -Syu --noconfirm && pacman -U --noconfirm ./dist/*.pkg.tar.zst ;;
+            # the Docker image skips translations, a real install does not
+            arch)
+              sed -i '/^NoExtract/d' /etc/pacman.conf
+              pacman -Syu --noconfirm && pacman -U --noconfirm ./dist/*.pkg.tar.zst ;;
           esac
       - name: Run
         run: |
