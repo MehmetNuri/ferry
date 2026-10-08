@@ -159,6 +159,17 @@ po/                            translations
 build-aux/                     Flatpak manifest
 ```
 
+## Installing
+
+Packages are attached to each [release](https://github.com/MehmetNuri/ferry/releases):
+
+| System | Install with |
+|---|---|
+| Any distribution | `flatpak install --user Ferry-*-linux-x86_64.flatpak` (needs Flathub for the GNOME runtime) |
+| Fedora 43 and later | `sudo dnf install ./Ferry-*-linux-x86_64.rpm` |
+| Debian 13, Ubuntu 25.04 and later, Pardus 25 | `sudo apt install ./Ferry-*-linux-amd64.deb` |
+| Arch Linux | `sudo pacman -U Ferry-*-linux-x86_64.pkg.tar.zst` |
+
 ## Building
 
 Dependencies: Rust (stable), GTK ≥ 4.16, libadwaita ≥ 1.6, blueprint-compiler, gettext.

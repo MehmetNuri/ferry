@@ -88,9 +88,10 @@
   </requires>
   <content_rating type="oars-1.1"/>
   <releases>
-    <release version="0.1.0" date="2026-10-03">
+    <release version="0.1.0" date="2026-10-08">
+      <url type="details">https://github.com/MehmetNuri/ferry/releases/tag/v0.1.0</url>
       <description>
-        <p>First GNOME edition, rewritten in Rust with GTK 4 and libadwaita.</p>
+        <p>The first release: S3-compatible storage, SFTP, FTP, WebDAV, Azure Blob Storage and Google Drive, with Cryptomator vaults and a resumable transfer queue.</p>
       </description>
     </release>
   </releases>
