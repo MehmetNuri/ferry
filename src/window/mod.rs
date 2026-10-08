@@ -466,6 +466,7 @@ const S3_ONLY: &[&str] = &[
     "object-tags",
     "object-permissions",
     "copy-cli",
+    "mount",
 ];
 
 fn cache_key_in_vault(key: &str) -> bool {

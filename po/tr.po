@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ferry\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-05 21:40+0300\n"
+"POT-Creation-Date: 2026-10-08 22:42+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Turkish\n"
@@ -301,9 +301,15 @@ msgstr "Aktarım kuyruğu"
 msgid "Connecting over SFTP through a jump host"
 msgstr "Atlama sunucusu üzerinden SFTP ile bağlanma"
 
-#: data/io.github.mehmetnuri.Ferry.metainfo.xml.in:93 src/application.rs:302
-msgid "First GNOME edition, rewritten in Rust with GTK 4 and libadwaita."
-msgstr "Rust, GTK 4 ve libadwaita ile yeniden yazılan ilk GNOME sürümü."
+#: data/io.github.mehmetnuri.Ferry.metainfo.xml.in:94
+msgid ""
+"The first release: S3-compatible storage, SFTP, FTP, WebDAV, Azure Blob "
+"Storage and Google Drive, with Cryptomator vaults and a resumable transfer "
+"queue."
+msgstr ""
+"İlk sürüm: S3 uyumlu depolama, SFTP, FTP, WebDAV, Azure Blob Storage ve "
+"Google Drive; Cryptomator kasaları ve kaldığı yerden devam eden aktarım "
+"kuyruğuyla."
 
 #: data/resources/ui/help-overlay.blp:11
 msgctxt "shortcut window"
@@ -516,9 +522,9 @@ msgstr "Kapat"
 #: src/dialogs/bucket.rs:21 src/dialogs/bucket.rs:596
 #: src/dialogs/bucket.rs:1145 src/dialogs/bucket.rs:1297
 #: src/dialogs/connection.rs:418 src/dialogs/connection.rs:659
-#: src/dialogs/connection.rs:694 src/dialogs/connection.rs:702
-#: src/dialogs/connection.rs:711 src/dialogs/connection.rs:744
-#: src/dialogs/connection.rs:800 src/dialogs/import_apps.rs:170
+#: src/dialogs/connection.rs:694 src/dialogs/connection.rs:706
+#: src/dialogs/connection.rs:715 src/dialogs/connection.rs:748
+#: src/dialogs/connection.rs:804 src/dialogs/import_apps.rs:170
 #: src/dialogs/share.rs:50 src/pages/analyzer.rs:324 src/pages/backups.rs:193
 #: src/transfers/view.rs:563 src/transfers/view.rs:727 src/window/mod.rs:1926
 #: src/window/mod.rs:2158 src/window/mod.rs:2180 src/window/mod.rs:2198
@@ -1199,6 +1205,10 @@ msgstr "S3 uyumlu depolamayı gezin ve yönetin"
 #: src/application.rs:299
 msgid "translator-credits"
 msgstr "Mehmet Nuri Öztürk"
+
+#: src/application.rs:302
+msgid "First GNOME edition, rewritten in Rust with GTK 4 and libadwaita."
+msgstr "Rust, GTK 4 ve libadwaita ile yeniden yazılan ilk GNOME sürümü."
 
 #: src/application.rs:303
 msgid ""
@@ -2610,11 +2620,17 @@ msgstr ""
 msgid "Change Key"
 msgstr "Anahtarı Değiştir"
 
-#: src/dialogs/connection.rs:700
-msgid "Unencrypted Connection?"
-msgstr "Şifresiz Bağlantı mı?"
-
 #: src/dialogs/connection.rs:701
+msgid ""
+"This server is reached with plain FTP. The password and the files can be "
+"read or changed on the way. Use FTP over TLS unless the server is in a "
+"network you trust."
+msgstr ""
+"Bu sunucuya şifresiz FTP ile bağlanılıyor. Parola ve dosyalar yolda "
+"okunabilir ya da değiştirilebilir. Sunucu güvendiğiniz bir ağda değilse TLS "
+"üzerinden FTP kullanın."
+
+#: src/dialogs/connection.rs:703
 msgid ""
 "This endpoint uses http:// instead of https://. Files, session tokens and "
 "share links can be read or changed on the way. Use https:// unless the "
@@ -2624,15 +2640,19 @@ msgstr ""
 "belirteçleri ve paylaşım bağlantıları yolda okunabilir ya da "
 "değiştirilebilir. Sunucu güvendiğiniz bir ağda değilse https:// kullanın."
 
-#: src/dialogs/connection.rs:702
+#: src/dialogs/connection.rs:705
+msgid "Unencrypted Connection?"
+msgstr "Şifresiz Bağlantı mı?"
+
+#: src/dialogs/connection.rs:706
 msgid "Save Anyway"
 msgstr "Yine de Kaydet"
 
-#: src/dialogs/connection.rs:709 src/dialogs/import_apps.rs:168
+#: src/dialogs/connection.rs:713 src/dialogs/import_apps.rs:168
 msgid "Keyring Unavailable"
 msgstr "Anahtarlık Kullanılamıyor"
 
-#: src/dialogs/connection.rs:710 src/dialogs/import_apps.rs:169
+#: src/dialogs/connection.rs:714 src/dialogs/import_apps.rs:169
 msgid ""
 "The system keyring could not be opened, so the secret key cannot be stored "
 "safely. It can be saved in a file only you can read, which is less safe. It "
@@ -2642,35 +2662,35 @@ msgstr ""
 "Yalnızca sizin okuyabileceğiniz bir dosyaya kaydedilebilir; bu daha az "
 "güvenlidir. Anahtarlık çalışır çalışmaz oraya taşınır."
 
-#: src/dialogs/connection.rs:711 src/dialogs/import_apps.rs:170
+#: src/dialogs/connection.rs:715 src/dialogs/import_apps.rs:170
 msgid "Save in File"
 msgstr "Dosyaya Kaydet"
 
-#: src/dialogs/connection.rs:730
+#: src/dialogs/connection.rs:734
 msgid "Enter MFA Code"
 msgstr "MFA Kodunu Girin"
 
-#: src/dialogs/connection.rs:732
+#: src/dialogs/connection.rs:736
 msgid "“{name}” assumes a role that needs a code from your MFA device."
 msgstr "“{name}”, MFA cihazınızdan kod isteyen bir rolü üstleniyor."
 
-#: src/dialogs/connection.rs:738 src/window/actions.rs:1266
+#: src/dialogs/connection.rs:742 src/window/actions.rs:1266
 msgid "Code"
 msgstr "Kod"
 
-#: src/dialogs/connection.rs:744
+#: src/dialogs/connection.rs:748
 msgid "Connect"
 msgstr "Bağlan"
 
-#: src/dialogs/connection.rs:770
+#: src/dialogs/connection.rs:774
 msgid "MFA Failed"
 msgstr "MFA Başarısız"
 
-#: src/dialogs/connection.rs:771
+#: src/dialogs/connection.rs:775
 msgid "_Try Again"
 msgstr "_Yeniden Dene"
 
-#: src/dialogs/connection.rs:782
+#: src/dialogs/connection.rs:786
 msgid ""
 "Ferry has not connected to the jump host {host} before. Connect only if this "
 "key fingerprint is the server's, for example as its administrator or “ssh-"
@@ -2680,7 +2700,7 @@ msgstr ""
 "parmak izi sunucuya aitse bağlanın; örneğin yöneticisinin ya da “ssh-"
 "keyscan” komutunun gösterdiği gibi:"
 
-#: src/dialogs/connection.rs:787
+#: src/dialogs/connection.rs:791
 msgid ""
 "Ferry has not connected to {host} before. Connect only if this key "
 "fingerprint is the server's, for example as its administrator or “ssh-"
@@ -2690,11 +2710,11 @@ msgstr ""
 "sunucuya aitse bağlanın; örneğin yöneticisinin ya da “ssh-keyscan” komutunun "
 "gösterdiği gibi:"
 
-#: src/dialogs/connection.rs:791
+#: src/dialogs/connection.rs:795
 msgid "Unknown Server"
 msgstr "Bilinmeyen Sunucu"
 
-#: src/dialogs/connection.rs:800
+#: src/dialogs/connection.rs:804
 msgid "_Trust and Connect"
 msgstr "_Güven ve Bağlan"
 

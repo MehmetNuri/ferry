@@ -18,6 +18,7 @@ const OFF_IN_VAULT: &[&str] = &[
     "object-tags",
     "object-permissions",
     "copy-cli",
+    "mount",
 ];
 
 const MIN_PASSWORD: usize = 8;

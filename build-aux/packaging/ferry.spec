@@ -7,6 +7,7 @@ Release:        1%{?dist}
 Summary:        Move files to and from servers and cloud storage
 License:        GPL-3.0-or-later
 URL:            https://github.com/MehmetNuri/ferry
+Packager:       Mehmet Nuri Öztürk <info@mehmetnuri.net>
 Recommends:     fuse3
 Suggests:       gnome-online-accounts
 Suggests:       gnupg2

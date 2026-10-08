@@ -697,8 +697,12 @@ pub fn present(parent: &impl IsA<gtk::Widget>, existing: Option<Profile>, on_sav
                     if alert.choose_future(Some(&dialog)).await != "save" { button.set_sensitive(true); return; }
                 }
                 if crate::s3::S3::insecure_endpoint(&profile.endpoint) || profile.ftp_security == "none" {
-                    let alert = adw::AlertDialog::new(Some(&tr("Unencrypted Connection?")),
-                        Some(&tr("This endpoint uses http:// instead of https://. Files, session tokens and share links can be read or changed on the way. Use https:// unless the server is in a network you trust.")));
+                    let body = if profile.ftp_security == "none" {
+                        tr("This server is reached with plain FTP. The password and the files can be read or changed on the way. Use FTP over TLS unless the server is in a network you trust.")
+                    } else {
+                        tr("This endpoint uses http:// instead of https://. Files, session tokens and share links can be read or changed on the way. Use https:// unless the server is in a network you trust.")
+                    };
+                    let alert = adw::AlertDialog::new(Some(&tr("Unencrypted Connection?")), Some(&body));
                     alert.add_responses(&[("cancel", &tr("Cancel")), ("save", &tr("Save Anyway"))]);
                     alert.set_response_appearance("save", adw::ResponseAppearance::Destructive);
                     alert.set_close_response("cancel");

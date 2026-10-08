@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ferry\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-05 21:40+0300\n"
+"POT-Creation-Date: 2026-10-08 22:42+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -256,8 +256,11 @@ msgstr ""
 msgid "Connecting over SFTP through a jump host"
 msgstr ""
 
-#: data/io.github.mehmetnuri.Ferry.metainfo.xml.in:93 src/application.rs:302
-msgid "First GNOME edition, rewritten in Rust with GTK 4 and libadwaita."
+#: data/io.github.mehmetnuri.Ferry.metainfo.xml.in:94
+msgid ""
+"The first release: S3-compatible storage, SFTP, FTP, WebDAV, Azure Blob "
+"Storage and Google Drive, with Cryptomator vaults and a resumable transfer "
+"queue."
 msgstr ""
 
 #: data/resources/ui/help-overlay.blp:11
@@ -471,9 +474,9 @@ msgstr ""
 #: src/dialogs/bucket.rs:21 src/dialogs/bucket.rs:596
 #: src/dialogs/bucket.rs:1145 src/dialogs/bucket.rs:1297
 #: src/dialogs/connection.rs:418 src/dialogs/connection.rs:659
-#: src/dialogs/connection.rs:694 src/dialogs/connection.rs:702
-#: src/dialogs/connection.rs:711 src/dialogs/connection.rs:744
-#: src/dialogs/connection.rs:800 src/dialogs/import_apps.rs:170
+#: src/dialogs/connection.rs:694 src/dialogs/connection.rs:706
+#: src/dialogs/connection.rs:715 src/dialogs/connection.rs:748
+#: src/dialogs/connection.rs:804 src/dialogs/import_apps.rs:170
 #: src/dialogs/share.rs:50 src/pages/analyzer.rs:324 src/pages/backups.rs:193
 #: src/transfers/view.rs:563 src/transfers/view.rs:727 src/window/mod.rs:1926
 #: src/window/mod.rs:2158 src/window/mod.rs:2180 src/window/mod.rs:2198
@@ -1133,6 +1136,10 @@ msgstr ""
 
 #: src/application.rs:299
 msgid "translator-credits"
+msgstr ""
+
+#: src/application.rs:302
+msgid "First GNOME edition, rewritten in Rust with GTK 4 and libadwaita."
 msgstr ""
 
 #: src/application.rs:303
@@ -2484,79 +2491,86 @@ msgstr ""
 msgid "Change Key"
 msgstr ""
 
-#: src/dialogs/connection.rs:700
-msgid "Unencrypted Connection?"
+#: src/dialogs/connection.rs:701
+msgid ""
+"This server is reached with plain FTP. The password and the files can be "
+"read or changed on the way. Use FTP over TLS unless the server is in a "
+"network you trust."
 msgstr ""
 
-#: src/dialogs/connection.rs:701
+#: src/dialogs/connection.rs:703
 msgid ""
 "This endpoint uses http:// instead of https://. Files, session tokens and "
 "share links can be read or changed on the way. Use https:// unless the "
 "server is in a network you trust."
 msgstr ""
 
-#: src/dialogs/connection.rs:702
+#: src/dialogs/connection.rs:705
+msgid "Unencrypted Connection?"
+msgstr ""
+
+#: src/dialogs/connection.rs:706
 msgid "Save Anyway"
 msgstr ""
 
-#: src/dialogs/connection.rs:709 src/dialogs/import_apps.rs:168
+#: src/dialogs/connection.rs:713 src/dialogs/import_apps.rs:168
 msgid "Keyring Unavailable"
 msgstr ""
 
-#: src/dialogs/connection.rs:710 src/dialogs/import_apps.rs:169
+#: src/dialogs/connection.rs:714 src/dialogs/import_apps.rs:169
 msgid ""
 "The system keyring could not be opened, so the secret key cannot be stored "
 "safely. It can be saved in a file only you can read, which is less safe. It "
 "moves to the keyring as soon as one works."
 msgstr ""
 
-#: src/dialogs/connection.rs:711 src/dialogs/import_apps.rs:170
+#: src/dialogs/connection.rs:715 src/dialogs/import_apps.rs:170
 msgid "Save in File"
 msgstr ""
 
-#: src/dialogs/connection.rs:730
+#: src/dialogs/connection.rs:734
 msgid "Enter MFA Code"
 msgstr ""
 
-#: src/dialogs/connection.rs:732
+#: src/dialogs/connection.rs:736
 msgid "“{name}” assumes a role that needs a code from your MFA device."
 msgstr ""
 
-#: src/dialogs/connection.rs:738 src/window/actions.rs:1266
+#: src/dialogs/connection.rs:742 src/window/actions.rs:1266
 msgid "Code"
 msgstr ""
 
-#: src/dialogs/connection.rs:744
+#: src/dialogs/connection.rs:748
 msgid "Connect"
 msgstr ""
 
-#: src/dialogs/connection.rs:770
+#: src/dialogs/connection.rs:774
 msgid "MFA Failed"
 msgstr ""
 
-#: src/dialogs/connection.rs:771
+#: src/dialogs/connection.rs:775
 msgid "_Try Again"
 msgstr ""
 
-#: src/dialogs/connection.rs:782
+#: src/dialogs/connection.rs:786
 msgid ""
 "Ferry has not connected to the jump host {host} before. Connect only if this "
 "key fingerprint is the server's, for example as its administrator or “ssh-"
 "keyscan” shows it:"
 msgstr ""
 
-#: src/dialogs/connection.rs:787
+#: src/dialogs/connection.rs:791
 msgid ""
 "Ferry has not connected to {host} before. Connect only if this key "
 "fingerprint is the server's, for example as its administrator or “ssh-"
 "keyscan” shows it:"
 msgstr ""
 
-#: src/dialogs/connection.rs:791
+#: src/dialogs/connection.rs:795
 msgid "Unknown Server"
 msgstr ""
 
-#: src/dialogs/connection.rs:800
+#: src/dialogs/connection.rs:804
 msgid "_Trust and Connect"
 msgstr ""
 
