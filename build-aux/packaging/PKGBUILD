@@ -6,6 +6,7 @@ pkgdesc='Move files to and from servers and cloud storage'
 arch=(x86_64)
 url='https://github.com/MehmetNuri/ferry'
 license=(GPL-3.0-or-later)
+options=(!debug)
 depends=(gtk4 libadwaita gtksourceview5 glib2 pango gdk-pixbuf2 cairo gcc-libs glibc)
 optdepends=(
   'fuse3: mount buckets as folders'
