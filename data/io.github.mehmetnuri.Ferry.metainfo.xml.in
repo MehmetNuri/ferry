@@ -63,11 +63,11 @@
     </screenshot>
   </screenshots>
   <launchable type="desktop-id">io.github.mehmetnuri.Ferry.desktop</launchable>
-  <url type="homepage">https://github.com/MehmetNuri/s3_browser</url>
-  <url type="bugtracker">https://github.com/MehmetNuri/s3_browser/issues</url>
-  <url type="vcs-browser">https://github.com/MehmetNuri/s3_browser</url>
-  <url type="contribute">https://github.com/MehmetNuri/s3_browser</url>
-  <url type="translate">https://github.com/MehmetNuri/s3_browser/tree/main/po</url>
+  <url type="homepage">https://github.com/MehmetNuri/ferry</url>
+  <url type="bugtracker">https://github.com/MehmetNuri/ferry/issues</url>
+  <url type="vcs-browser">https://github.com/MehmetNuri/ferry</url>
+  <url type="contribute">https://github.com/MehmetNuri/ferry</url>
+  <url type="translate">https://github.com/MehmetNuri/ferry/tree/main/po</url>
   <translation type="gettext">ferry</translation>
   <provides>
     <binary>ferry</binary>
