@@ -1,0 +1,278 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+  pull_request:
+    paths:
+      - .github/workflows/release.yml
+      - build-aux/**
+      - "**/meson.build"
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  prepare:
+    name: Version and audit
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - id: version
+        name: Read the version
+        env:
+          REF_TYPE: ${{ github.ref_type }}
+          REF_NAME: ${{ github.ref_name }}
+        run: |
+          version=$(sed -n "s/^  version: '\(.*\)',$/\1/p" meson.build)
+          grep -q "^version = \"$version\"$" Cargo.toml || { echo "Cargo.toml is not at $version"; exit 1; }
+          grep -q "<release version=\"$version\"" data/io.github.mehmetnuri.Ferry.metainfo.xml.in || { echo "metainfo has no $version release"; exit 1; }
+          test -f "build-aux/release-notes/$version.md" || { echo "release notes for $version are missing"; exit 1; }
+          if [ "$REF_TYPE" = tag ] && [ "$REF_NAME" != "v$version" ]; then
+            echo "tag $REF_NAME does not match version $version"; exit 1
+          fi
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+      - uses: EmbarkStudios/cargo-deny-action@3c6349835b2b7b196a839186cb8b78e02f7b5f25 # v2.1.1
+        with:
+          command: check advisories bans licenses sources
+
+  flatpak:
+    name: Flatpak
+    needs: prepare
+    runs-on: ubuntu-24.04
+    container:
+      image: ghcr.io/flathub-infra/flatpak-github-actions:gnome-50@sha256:1de59efef01a946d9f28f1ec3458bf6f61dcee3507d7fecdd473f8134da4ec77
+      options: --privileged
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: flatpak/flatpak-github-actions/flatpak-builder@79327416609af08178ad73b352877e51450790b3 # v6.8
+        with:
+          bundle: Ferry-${{ needs.prepare.outputs.version }}-linux-x86_64.flatpak
+          manifest-path: build-aux/io.github.mehmetnuri.Ferry.json
+          cache: false
+          upload-artifact: false
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: ferry-flatpak
+          path: Ferry-*.flatpak
+          if-no-files-found: error
+
+  rpm:
+    name: RPM
+    needs: prepare
+    runs-on: ubuntu-24.04
+    container: registry.fedoraproject.org/fedora:43@sha256:005ce311c13eaa639de9d9c52e470f10652c7371561697fb8c1c6e852e23c481
+    permissions:
+      contents: read
+    env:
+      VERSION: ${{ needs.prepare.outputs.version }}
+    steps:
+      - name: Install build dependencies
+        run: >
+          dnf install -y --setopt=install_weak_deps=False
+          rust cargo git gcc gcc-c++ cmake clang pkgconf-pkg-config rpm-build
+          gtk4-devel libadwaita-devel gtksourceview5-devel
+          blueprint-compiler gettext glib2-devel meson desktop-file-utils appstream
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Build
+        run: |
+          meson setup _build --prefix=/usr -Dprofile=default -Dsourceview=enabled
+          meson compile -C _build
+          DESTDIR="$PWD/root" meson install -C _build --no-rebuild
+      - name: Package
+        run: |
+          rpmbuild -bb build-aux/packaging/ferry.spec \
+            --define "ferry_version $VERSION" \
+            --define "ferry_root $PWD/root" \
+            --define "ferry_source $PWD" \
+            --define "_rpmdir $PWD/rpms"
+          mkdir dist
+          mv rpms/x86_64/ferry-*.rpm "dist/Ferry-$VERSION-linux-x86_64.rpm"
+          rpm -qpR dist/*.rpm
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: ferry-rpm
+          path: dist/*
+          if-no-files-found: error
+
+  deb:
+    name: DEB
+    needs: prepare
+    runs-on: ubuntu-24.04
+    container: docker.io/library/debian:13@sha256:913f6706df59a68922d1dd08f78c2476560a8d367897200a6005b00e5f67c2d5
+    permissions:
+      contents: read
+    env:
+      VERSION: ${{ needs.prepare.outputs.version }}
+    steps:
+      - name: Install build dependencies
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends \
+            ca-certificates curl git build-essential cmake clang pkg-config dpkg-dev \
+            libgtk-4-dev libadwaita-1-dev libgtksourceview-5-dev libglib2.0-dev-bin \
+            blueprint-compiler gettext meson ninja-build desktop-file-utils appstream rustup
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      # Debian's rustc is older than the dependencies need.
+      - name: Install Rust
+        run: |
+          rustup default stable
+          echo "$HOME/.cargo/bin" >> "$GITHUB_PATH"
+      - name: Build
+        run: |
+          meson setup _build --prefix=/usr -Dprofile=default -Dsourceview=enabled
+          meson compile -C _build
+          DESTDIR="$PWD/root" meson install -C _build --no-rebuild
+      - name: Package
+        run: |
+          mkdir -p debian root/DEBIAN root/usr/share/doc/ferry
+          printf 'Source: ferry\n\nPackage: ferry\nArchitecture: amd64\n' > debian/control
+          dpkg-shlibdeps -O root/usr/bin/ferry > shlibs.txt
+          depends=$(sed -n 's/^shlibs:Depends=//p' shlibs.txt)
+          test -n "$depends"
+          sed -e "s/@VERSION@/$VERSION/" -e "s/@DEPENDS@/$depends/" build-aux/packaging/deb-control > root/DEBIAN/control
+          cp LICENSE root/usr/share/doc/ferry/copyright
+          mkdir dist
+          dpkg-deb --root-owner-group --build root "dist/Ferry-$VERSION-linux-amd64.deb"
+          dpkg-deb --info dist/*.deb
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: ferry-deb
+          path: dist/*
+          if-no-files-found: error
+
+  arch:
+    name: Arch
+    needs: prepare
+    runs-on: ubuntu-24.04
+    container: docker.io/library/archlinux:base-devel@sha256:996c3a1d6b0d87b01242f6fcd8cfa3ad3eece1a67ab5c8f108e20af1d7b97bdd
+    permissions:
+      contents: read
+    env:
+      VERSION: ${{ needs.prepare.outputs.version }}
+    steps:
+      - name: Install build dependencies
+        run: >
+          pacman -Syu --noconfirm --needed
+          git rust cmake clang meson blueprint-compiler gettext
+          gtk4 libadwaita gtksourceview5 desktop-file-utils appstream
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Build
+        run: |
+          meson setup _build --prefix=/usr -Dprofile=default -Dsourceview=enabled
+          meson compile -C _build
+          DESTDIR="$PWD/root" meson install -C _build --no-rebuild
+      - name: Package
+        run: |
+          useradd -m builder
+          mkdir pkg dist
+          cp build-aux/packaging/PKGBUILD pkg/
+          chown -R builder pkg dist
+          (cd pkg && sudo -u builder env FERRY_VERSION="$VERSION" FERRY_ROOT="$GITHUB_WORKSPACE/root" \
+            FERRY_SOURCE="$GITHUB_WORKSPACE" PKGDEST="$GITHUB_WORKSPACE/dist" makepkg --nodeps --noconfirm)
+          mv dist/ferry-*.pkg.tar.zst "dist/Ferry-$VERSION-linux-x86_64.pkg.tar.zst"
+          pacman -Qip dist/*.pkg.tar.zst
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: ferry-arch
+          path: dist/*
+          if-no-files-found: error
+
+  install-test:
+    name: Install test (${{ matrix.system }})
+    needs: [rpm, deb, arch]
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - system: debian
+            image: docker.io/library/debian:13@sha256:913f6706df59a68922d1dd08f78c2476560a8d367897200a6005b00e5f67c2d5
+            artifact: ferry-deb
+          - system: fedora
+            image: registry.fedoraproject.org/fedora:43@sha256:005ce311c13eaa639de9d9c52e470f10652c7371561697fb8c1c6e852e23c481
+            artifact: ferry-rpm
+          - system: arch
+            image: docker.io/library/archlinux:base-devel@sha256:996c3a1d6b0d87b01242f6fcd8cfa3ad3eece1a67ab5c8f108e20af1d7b97bdd
+            artifact: ferry-arch
+    container: ${{ matrix.image }}
+    permissions: {}
+    steps:
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: ${{ matrix.artifact }}
+          path: dist
+      - name: Install into a clean system
+        env:
+          SYSTEM: ${{ matrix.system }}
+        run: |
+          case "$SYSTEM" in
+            debian) apt-get update && apt-get install -y ./dist/*.deb ;;
+            fedora) dnf install -y ./dist/*.rpm ;;
+            # the Docker image skips translations, a real install does not
+            arch)
+              sed -i '/^NoExtract/d' /etc/pacman.conf
+              pacman -Syu --noconfirm && pacman -U --noconfirm ./dist/*.pkg.tar.zst ;;
+          esac
+      - name: Run
+        run: |
+          ferry --help
+          test -f /usr/share/locale/tr/LC_MESSAGES/ferry.mo
+          test -f /usr/share/applications/io.github.mehmetnuri.Ferry.desktop
+
+  publish:
+    name: Publish
+    if: github.event_name == 'push' && github.ref_type == 'tag'
+    needs: [prepare, flatpak, rpm, deb, arch, install-test]
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write # create the release
+    env:
+      VERSION: ${{ needs.prepare.outputs.version }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          pattern: ferry-*
+          path: dist
+          merge-multiple: true
+      - name: Checksums
+        working-directory: dist
+        run: |
+          sha256sum -- * > SHA256SUMS
+          cat SHA256SUMS
+      - name: Create the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.ref_name }}
+        run: >
+          gh release create "$TAG" dist/*
+          --repo "$GITHUB_REPOSITORY"
+          --title "Ferry $VERSION"
+          --notes-file "build-aux/release-notes/$VERSION.md"
+          --verify-tag

@@ -1,0 +1,13 @@
+Package: ferry
+Version: @VERSION@
+Architecture: amd64
+Maintainer: Mehmet Nuri Öztürk <info@mehmetnuri.net>
+Depends: @DEPENDS@
+Recommends: fuse3
+Suggests: gnome-online-accounts, gnupg, age-plugin-yubikey
+Section: net
+Priority: optional
+Homepage: https://github.com/MehmetNuri/ferry
+Description: Move files to and from servers and cloud storage
+ Ferry is a GNOME client for S3-compatible storage, SFTP, FTP, WebDAV,
+ Azure Blob Storage and Google Drive, with Cryptomator vaults.

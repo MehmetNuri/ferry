@@ -1,0 +1,21 @@
+# Packages a tree installed by `meson install`; see .github/workflows/release.yml.
+pkgname=ferry
+pkgver=${FERRY_VERSION}
+pkgrel=1
+pkgdesc='Move files to and from servers and cloud storage'
+arch=(x86_64)
+url='https://github.com/MehmetNuri/ferry'
+license=(GPL-3.0-or-later)
+options=(!debug)
+depends=(gtk4 libadwaita gtksourceview5 glib2 pango gdk-pixbuf2 cairo gcc-libs glibc)
+optdepends=(
+  'fuse3: mount buckets as folders'
+  'gnome-online-accounts: Google Drive'
+  'gnupg: GnuPG encrypted backups'
+  'age-plugin-yubikey: YubiKey encrypted backups'
+)
+
+package() {
+  cp -a "${FERRY_ROOT}/." "${pkgdir}/"
+  install -Dm644 "${FERRY_SOURCE}/LICENSE" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+}
