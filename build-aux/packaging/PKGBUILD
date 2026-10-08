@@ -1,3 +1,4 @@
+# Maintainer: Mehmet Nuri Öztürk <info@mehmetnuri.net>
 # Packages a tree installed by `meson install`; see .github/workflows/release.yml.
 pkgname=ferry
 pkgver=${FERRY_VERSION}
