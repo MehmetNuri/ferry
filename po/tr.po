@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ferry\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-08 22:42+0300\n"
+"POT-Creation-Date: 2026-10-08 23:10+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Turkish\n"
@@ -526,22 +526,22 @@ msgstr "Kapat"
 #: src/dialogs/connection.rs:715 src/dialogs/connection.rs:748
 #: src/dialogs/connection.rs:804 src/dialogs/import_apps.rs:170
 #: src/dialogs/share.rs:50 src/pages/analyzer.rs:324 src/pages/backups.rs:193
-#: src/transfers/view.rs:563 src/transfers/view.rs:727 src/window/mod.rs:1926
-#: src/window/mod.rs:2158 src/window/mod.rs:2180 src/window/mod.rs:2198
-#: src/window/mod.rs:3395 src/window/mod.rs:3467 src/window/mod.rs:4126
-#: src/window/mod.rs:4330 src/window/vault.rs:131
+#: src/transfers/view.rs:563 src/transfers/view.rs:727 src/window/mod.rs:1927
+#: src/window/mod.rs:2159 src/window/mod.rs:2181 src/window/mod.rs:2199
+#: src/window/mod.rs:3396 src/window/mod.rs:3468 src/window/mod.rs:4127
+#: src/window/mod.rs:4331 src/window/vault.rs:132
 msgid "Cancel"
 msgstr "İptal"
 
 #: data/resources/ui/profile-dialog.blp:21 src/dialogs/access.rs:236
 #: src/dialogs/access.rs:274 src/dialogs/access.rs:309
 #: src/dialogs/access.rs:319 src/dialogs/bucket.rs:366
-#: src/dialogs/bucket.rs:648 src/window/mod.rs:3212
+#: src/dialogs/bucket.rs:648 src/window/mod.rs:3213
 msgid "Save"
 msgstr "Kaydet"
 
 #: data/resources/ui/profile-dialog.blp:33 src/dialogs/bucket.rs:718
-#: src/window/mod.rs:922
+#: src/window/mod.rs:923
 msgid "Name"
 msgstr "Ad"
 
@@ -563,7 +563,7 @@ msgstr ""
 msgid "Project ref"
 msgstr "Proje kimliği"
 
-#: data/resources/ui/profile-dialog.blp:51 src/window/mod.rs:2051
+#: data/resources/ui/profile-dialog.blp:51 src/window/mod.rs:2052
 msgid "Server"
 msgstr "Sunucu"
 
@@ -593,7 +593,7 @@ msgid ""
 "folder."
 msgstr "Bağlantının açıldığı klasör. Belirtilmezse ev klasörünüzde açılır."
 
-#: data/resources/ui/profile-dialog.blp:74 src/window/mod.rs:3105
+#: data/resources/ui/profile-dialog.blp:74 src/window/mod.rs:3106
 msgid "Encryption"
 msgstr "Şifreleme"
 
@@ -710,7 +710,7 @@ msgstr "KMS anahtar kimliği veya takma adı (isteğe bağlı)"
 msgid "Encryption key (Base64, 32 bytes)"
 msgstr "Şifreleme anahtarı (Base64, 32 bayt)"
 
-#: data/resources/ui/profile-dialog.blp:183 src/window/mod.rs:3043
+#: data/resources/ui/profile-dialog.blp:183 src/window/mod.rs:3044
 msgid "Copy Key"
 msgstr "Anahtarı Kopyala"
 
@@ -812,7 +812,7 @@ msgstr "Henüz bağlantı yok."
 msgid "Favorites"
 msgstr "Sık Kullanılanlar"
 
-#: data/resources/ui/window.blp:128 src/window/mod.rs:2055
+#: data/resources/ui/window.blp:128 src/window/mod.rs:2056
 msgid "Buckets"
 msgstr "Bucket'lar"
 
@@ -845,11 +845,11 @@ msgstr "Konum Menüsü"
 msgid "Transfers"
 msgstr "Aktarımlar"
 
-#: data/resources/ui/window.blp:246 src/window/mod.rs:989
+#: data/resources/ui/window.blp:246 src/window/mod.rs:990
 msgid "Upload"
 msgstr "Yükle"
 
-#: data/resources/ui/window.blp:247 src/window/mod.rs:3967
+#: data/resources/ui/window.blp:247 src/window/mod.rs:3968
 msgid "Upload Files"
 msgstr "Dosya Yükle"
 
@@ -857,7 +857,7 @@ msgstr "Dosya Yükle"
 msgid "You are offline. Transfers continue when the connection is back."
 msgstr "Çevrimdışısınız. Bağlantı gelince aktarımlar devam eder."
 
-#: data/resources/ui/window.blp:310 src/window/mod.rs:561
+#: data/resources/ui/window.blp:310 src/window/mod.rs:562
 msgid "Browser"
 msgstr "Tarayıcı"
 
@@ -914,7 +914,7 @@ msgstr "Izgara Görünümü"
 msgid "Sort"
 msgstr "Sırala"
 
-#: data/resources/ui/window.blp:480 src/window/mod.rs:4398
+#: data/resources/ui/window.blp:480 src/window/mod.rs:4399
 msgid "Add to Favorites"
 msgstr "Sık Kullanılanlara Ekle"
 
@@ -922,8 +922,8 @@ msgstr "Sık Kullanılanlara Ekle"
 msgid "Drop to Upload"
 msgstr "Yüklemek İçin Bırakın"
 
-#: data/resources/ui/window.blp:531 src/window/mod.rs:2824
-#: src/window/mod.rs:3071
+#: data/resources/ui/window.blp:531 src/window/mod.rs:2825
+#: src/window/mod.rs:3072
 msgid "Properties"
 msgstr "Özellikler"
 
@@ -935,16 +935,16 @@ msgstr "Özellikleri Kapat"
 msgid "Could Not Load This Folder"
 msgstr "Bu Klasör Yüklenemedi"
 
-#: data/resources/ui/window.blp:586 src/window/mod.rs:2947
+#: data/resources/ui/window.blp:586 src/window/mod.rs:2948
 msgid "Try Again"
 msgstr "Tekrar Dene"
 
-#: data/resources/ui/window.blp:613 src/window/mod.rs:1243
-#: src/window/mod.rs:1253 src/window/mod.rs:2462
+#: data/resources/ui/window.blp:613 src/window/mod.rs:1244
+#: src/window/mod.rs:1254 src/window/mod.rs:2463
 msgid "Empty Folder"
 msgstr "Boş Klasör"
 
-#: data/resources/ui/window.blp:614 src/window/mod.rs:1255
+#: data/resources/ui/window.blp:614 src/window/mod.rs:1256
 msgid "Drag and drop files here to upload them."
 msgstr "Yüklemek için dosyaları buraya sürükleyip bırakın."
 
@@ -961,9 +961,9 @@ msgid "Clear Selection"
 msgstr "Seçimi Temizle"
 
 #: data/resources/ui/window.blp:658 src/dialogs/bucket.rs:596
-#: src/pages/backups.rs:159 src/pages/backups.rs:193 src/window/mod.rs:1033
-#: src/window/mod.rs:1878 src/window/mod.rs:1926 src/window/mod.rs:2264
-#: src/window/mod.rs:3054 src/window/mod.rs:3560
+#: src/pages/backups.rs:159 src/pages/backups.rs:193 src/window/mod.rs:1034
+#: src/window/mod.rs:1879 src/window/mod.rs:1927 src/window/mod.rs:2265
+#: src/window/mod.rs:3055 src/window/mod.rs:3561
 msgid "Delete"
 msgstr "Sil"
 
@@ -980,27 +980,27 @@ msgid "Copy to…"
 msgstr "Kopyala…"
 
 #: data/resources/ui/window.blp:686 src/dialogs/bucket.rs:513
-#: src/window/mod.rs:3016
+#: src/window/mod.rs:3017
 msgid "Download"
 msgstr "İndir"
 
-#: data/resources/ui/window.blp:707 src/window/mod.rs:562
-#: src/window/mod.rs:2415
+#: data/resources/ui/window.blp:707 src/window/mod.rs:563
+#: src/window/mod.rs:2416
 msgid "Recent"
 msgstr "Son Kullanılanlar"
 
-#: data/resources/ui/window.blp:715 src/window/mod.rs:563
-#: src/window/mod.rs:2414
+#: data/resources/ui/window.blp:715 src/window/mod.rs:564
+#: src/window/mod.rs:2415
 msgid "Analyzer"
 msgstr "Analiz"
 
-#: data/resources/ui/window.blp:723 src/window/mod.rs:564
-#: src/window/mod.rs:2416
+#: data/resources/ui/window.blp:723 src/window/mod.rs:565
+#: src/window/mod.rs:2417
 msgid "Backups"
 msgstr "Yedekler"
 
-#: data/resources/ui/window.blp:731 src/window/mod.rs:565
-#: src/window/mod.rs:2418
+#: data/resources/ui/window.blp:731 src/window/mod.rs:566
+#: src/window/mod.rs:2419
 msgid "Compatibility"
 msgstr "Uyumluluk"
 
@@ -1040,7 +1040,7 @@ msgstr "Yeni Bucket…"
 msgid "Link Existing Bucket…"
 msgstr "Mevcut Bucket'ı Bağla…"
 
-#: data/resources/ui/window.blp:771 src/window/mod.rs:1042
+#: data/resources/ui/window.blp:771 src/window/mod.rs:1043
 msgid "Upload Files…"
 msgstr "Dosya Yükle…"
 
@@ -1065,7 +1065,7 @@ msgid "First Modified"
 msgstr "İlk Değiştirilen"
 
 #: data/resources/ui/window.blp:803 src/window/actions.rs:1270
-#: src/window/mod.rs:944 src/window/mod.rs:2826 src/window/mod.rs:3089
+#: src/window/mod.rs:945 src/window/mod.rs:2827 src/window/mod.rs:3090
 msgid "Size"
 msgstr "Boyut"
 
@@ -1077,11 +1077,11 @@ msgstr "Gizli Dosyaları Göster"
 msgid "New Tab"
 msgstr "Yeni Sekme"
 
-#: data/resources/ui/window.blp:820 src/window/mod.rs:1037
+#: data/resources/ui/window.blp:820 src/window/mod.rs:1038
 msgid "New Folder…"
 msgstr "Yeni Klasör…"
 
-#: data/resources/ui/window.blp:821 src/window/mod.rs:1038
+#: data/resources/ui/window.blp:821 src/window/mod.rs:1039
 msgid "New Text File…"
 msgstr "Yeni Metin Dosyası…"
 
@@ -1089,8 +1089,8 @@ msgstr "Yeni Metin Dosyası…"
 msgid "New Vault…"
 msgstr "Yeni Kasa…"
 
-#: data/resources/ui/window.blp:826 src/window/mod.rs:1015
-#: src/window/mod.rs:1046
+#: data/resources/ui/window.blp:826 src/window/mod.rs:1016
+#: src/window/mod.rs:1047
 msgid "Download as Archive…"
 msgstr "Arşiv Olarak İndir…"
 
@@ -1102,7 +1102,7 @@ msgstr "Listeyi CSV Olarak Dışa Aktar…"
 msgid "Sync a Local Folder…"
 msgstr "Yerel Klasörü Eşitle…"
 
-#: data/resources/ui/window.blp:829 src/window/mod.rs:2076
+#: data/resources/ui/window.blp:829 src/window/mod.rs:2077
 msgid "Mount as Folder…"
 msgstr "Klasör Olarak Bağla…"
 
@@ -1114,7 +1114,7 @@ msgstr "Yükleme Bağlantısı Oluştur…"
 msgid "Deleted Objects"
 msgstr "Silinen Nesneler"
 
-#: data/resources/ui/window.blp:835 src/window/mod.rs:1043
+#: data/resources/ui/window.blp:835 src/window/mod.rs:1044
 msgid "Select All"
 msgstr "Tümünü Seç"
 
@@ -1122,7 +1122,7 @@ msgstr "Tümünü Seç"
 msgid "Select Items Matching…"
 msgstr "Eşleşen Öğeleri Seç…"
 
-#: data/resources/ui/window.blp:840 src/window/mod.rs:2074
+#: data/resources/ui/window.blp:840 src/window/mod.rs:2075
 msgid "Bucket Settings"
 msgstr "Bucket Ayarları"
 
@@ -1308,7 +1308,7 @@ msgstr "Yeniden Dene"
 msgid "Show Transfers"
 msgstr "Aktarımları Göster"
 
-#: src/application.rs:459 src/window/mod.rs:4491 src/window/mod.rs:4621
+#: src/application.rs:459 src/window/mod.rs:4492 src/window/mod.rs:4622
 msgid "Open Folder"
 msgstr "Klasörü Aç"
 
@@ -1405,19 +1405,36 @@ msgstr ""
 msgid "MFA code for “{name}”:"
 msgstr "“{name}” için MFA kodu:"
 
-#: src/cli.rs:141
+#: src/cli.rs:56
+msgid ""
+"The key of {host} is not known yet ({fingerprint}). Open the connection once "
+"in Ferry to check and trust it."
+msgstr ""
+"{host} sunucusunun anahtarı henüz bilinmiyor ({fingerprint}). Anahtarı "
+"kontrol edip güvenmek için bağlantıyı bir kez Ferry'de açın."
+
+#: src/cli.rs:83
+msgid "“{name}” has no bucket “{bucket}”. It has: {buckets}"
+msgstr ""
+"“{name}” bağlantısında “{bucket}” adlı bir bucket yok. Olanlar: {buckets}"
+
+#: src/cli.rs:169
+msgid "Name a bucket or folder to download"
+msgstr "İndirilecek bir bucket ya da klasör belirtin"
+
+#: src/cli.rs:177
 msgid "Name an object, or use -r for a folder"
 msgstr "Bir nesne adı verin ya da klasör için -r kullanın"
 
-#: src/cli.rs:196
+#: src/cli.rs:234
 msgid "Name a bucket to upload into"
 msgstr "Yüklenecek bucket’ı belirtin"
 
-#: src/cli.rs:206
+#: src/cli.rs:243
 msgid "“{name}” is a folder; use -r to upload it"
 msgstr "“{name}” bir klasör; yüklemek için -r kullanın"
 
-#: src/cli.rs:241
+#: src/cli.rs:280
 msgid ""
 "Name an object or folder to remove; buckets are not removed from the command "
 "line"
@@ -1425,11 +1442,11 @@ msgstr ""
 "Silinecek nesneyi ya da klasörü belirtin; bucket’lar komut satırından "
 "silinmez"
 
-#: src/cli.rs:255 src/cli.rs:259
+#: src/cli.rs:293 src/cli.rs:297
 msgid "Use -r to remove a folder"
 msgstr "Klasör silmek için -r kullanın"
 
-#: src/cli.rs:264
+#: src/cli.rs:302
 msgid "{n} removed"
 msgstr "{n} silindi"
 
@@ -1545,7 +1562,7 @@ msgstr ""
 msgid "State"
 msgstr "Durum"
 
-#: src/dialogs/access.rs:260 src/dialogs/access.rs:706 src/window/mod.rs:1971
+#: src/dialogs/access.rs:260 src/dialogs/access.rs:706 src/window/mod.rs:1972
 msgid "Loading…"
 msgstr "Yükleniyor…"
 
@@ -1689,12 +1706,12 @@ msgstr "{name} İzinleri"
 msgid "Storage"
 msgstr "Depolama"
 
-#: src/dialogs/access.rs:562 src/window/mod.rs:3103
+#: src/dialogs/access.rs:562 src/window/mod.rs:3104
 msgid "Storage class"
 msgstr "Depolama sınıfı"
 
-#: src/dialogs/access.rs:566 src/dialogs/bucket.rs:274 src/window/mod.rs:3395
-#: src/window/mod.rs:3467
+#: src/dialogs/access.rs:566 src/dialogs/bucket.rs:274 src/window/mod.rs:3396
+#: src/window/mod.rs:3468
 msgid "Apply"
 msgstr "Uygula"
 
@@ -1817,7 +1834,7 @@ msgstr ""
 
 #: src/dialogs/backup.rs:63 src/dialogs/backup.rs:83 src/dialogs/backup.rs:86
 #: src/dialogs/backup.rs:370 src/dialogs/connection.rs:280
-#: src/window/vault.rs:122
+#: src/window/vault.rs:123
 msgid "Password"
 msgstr "Parola"
 
@@ -1854,7 +1871,7 @@ msgstr "İçe aktardıktan sonra yeniden girilmeleri gerekir"
 msgid "Use at least 12 characters. A forgotten password cannot be recovered."
 msgstr "En az 12 karakter kullanın. Unutulan parola kurtarılamaz."
 
-#: src/dialogs/backup.rs:87 src/window/vault.rs:124
+#: src/dialogs/backup.rs:87 src/window/vault.rs:125
 msgid "Repeat Password"
 msgstr "Parolayı Yinele"
 
@@ -1887,7 +1904,7 @@ msgstr ""
 "Dosyayı yalnızca bu anahtarın gizli kısmı açar; akıllı kartta olsa bile."
 
 #: src/dialogs/backup.rs:117 src/dialogs/bucket.rs:407
-#: src/dialogs/bucket.rs:709 src/window/mod.rs:2836 src/window/mod.rs:3084
+#: src/dialogs/bucket.rs:709 src/window/mod.rs:2837 src/window/mod.rs:3085
 msgid "Key"
 msgstr "Anahtar"
 
@@ -1939,7 +1956,7 @@ msgstr[1] ""
 msgid "Enter Backup Password"
 msgstr "Yedek Parolasını Girin"
 
-#: src/dialogs/backup.rs:373 src/window/vault.rs:131
+#: src/dialogs/backup.rs:373 src/window/vault.rs:132
 msgid "Unlock"
 msgstr "Kilidi Aç"
 
@@ -1996,7 +2013,7 @@ msgid_plural "Rename {n} Files"
 msgstr[0] "{n} Dosyayı Yeniden Adlandır"
 msgstr[1] "{n} Dosyayı Yeniden Adlandır"
 
-#: src/dialogs/batch_rename.rs:59 src/window/mod.rs:3332 src/window/mod.rs:3335
+#: src/dialogs/batch_rename.rs:59 src/window/mod.rs:3333 src/window/mod.rs:3336
 msgid "Rename"
 msgstr "Yeniden Adlandır"
 
@@ -2032,7 +2049,7 @@ msgstr "Dosya"
 msgid "First number"
 msgstr "İlk numara"
 
-#: src/dialogs/batch_rename.rs:92 src/window/mod.rs:3192
+#: src/dialogs/batch_rename.rs:92 src/window/mod.rs:3193
 msgid "Preview"
 msgstr "Önizleme"
 
@@ -2203,7 +2220,7 @@ msgstr "Sürüm silindi"
 msgid "Versioning of this bucket"
 msgstr "Bu bucket'ın sürümlemesi"
 
-#: src/dialogs/bucket.rs:648 src/window/mod.rs:3178
+#: src/dialogs/bucket.rs:648 src/window/mod.rs:3179
 msgid "HTTP Headers"
 msgstr "HTTP Başlıkları"
 
@@ -2219,7 +2236,7 @@ msgstr ""
 msgid "Headers updated"
 msgstr "Başlıklar güncellendi"
 
-#: src/dialogs/bucket.rs:702 src/window/mod.rs:3179
+#: src/dialogs/bucket.rs:702 src/window/mod.rs:3180
 msgid "Tags and Metadata"
 msgstr "Etiketler ve Meta Veriler"
 
@@ -2253,7 +2270,7 @@ msgstr "Meta veriler kaydedildi"
 msgid "Copy to Another Connection"
 msgstr "Başka Bağlantıya Kopyala"
 
-#: src/dialogs/bucket.rs:785 src/dialogs/bucket.rs:820 src/window/mod.rs:1019
+#: src/dialogs/bucket.rs:785 src/dialogs/bucket.rs:820 src/window/mod.rs:1020
 msgid "Copy"
 msgstr "Kopyala"
 
@@ -2543,7 +2560,7 @@ msgstr "Adres (https://…)"
 msgid "Server address (https://…)"
 msgstr "Sunucu adresi (https://…)"
 
-#: src/dialogs/connection.rs:405 src/window/mod.rs:3051
+#: src/dialogs/connection.rs:405 src/window/mod.rs:3052
 msgid "Key copied"
 msgstr "Anahtar kopyalandı"
 
@@ -2780,19 +2797,19 @@ msgstr[1] "{n} bağlantı içe aktarıldı"
 msgid "Previous"
 msgstr "Önceki"
 
-#: src/dialogs/preview.rs:48 src/window/vault.rs:210
+#: src/dialogs/preview.rs:48 src/window/vault.rs:211
 msgid "Next"
 msgstr "Sonraki"
 
-#: src/dialogs/preview.rs:54 src/window/mod.rs:1012 src/window/mod.rs:3033
+#: src/dialogs/preview.rs:54 src/window/mod.rs:1013 src/window/mod.rs:3034
 msgid "Open With Default Application"
 msgstr "Varsayılan Uygulamayla Aç"
 
-#: src/dialogs/preview.rs:56 src/window/mod.rs:1014 src/window/mod.rs:2854
+#: src/dialogs/preview.rs:56 src/window/mod.rs:1015 src/window/mod.rs:2855
 msgid "Download…"
 msgstr "İndir…"
 
-#: src/dialogs/preview.rs:57 src/window/mod.rs:1024 src/window/mod.rs:3035
+#: src/dialogs/preview.rs:57 src/window/mod.rs:1025 src/window/mod.rs:3036
 msgid "Share Link…"
 msgstr "Bağlantı Paylaş…"
 
@@ -2953,7 +2970,7 @@ msgstr "Komut kopyalandı"
 msgid "Storage Analyzer"
 msgstr "Depolama Analizi"
 
-#: src/pages/analyzer.rs:30 src/window/mod.rs:2075
+#: src/pages/analyzer.rs:30 src/window/mod.rs:2076
 msgid "Analyze"
 msgstr "Analiz Et"
 
@@ -2978,7 +2995,7 @@ msgstr "Özet"
 msgid "Total size"
 msgstr "Toplam boyut"
 
-#: src/pages/analyzer.rs:144 src/window/mod.rs:2828
+#: src/pages/analyzer.rs:144 src/window/mod.rs:2829
 msgid "Objects"
 msgstr "Nesneler"
 
@@ -3265,8 +3282,8 @@ msgid_plural "{n} buckets"
 msgstr[0] "{n} bucket"
 msgstr[1] "{n} bucket"
 
-#: src/pages/compatibility.rs:77 src/window/mod.rs:939 src/window/mod.rs:1351
-#: src/window/mod.rs:1614
+#: src/pages/compatibility.rs:77 src/window/mod.rs:940 src/window/mod.rs:1352
+#: src/window/mod.rs:1615
 msgid "{n} item"
 msgid_plural "{n} items"
 msgstr[0] "{n} öğe"
@@ -3292,7 +3309,7 @@ msgid_plural "{n} uploads"
 msgstr[0] "{n} yükleme"
 msgstr[1] "{n} yükleme"
 
-#: src/pages/compatibility.rs:133 src/window/mod.rs:3094
+#: src/pages/compatibility.rs:133 src/window/mod.rs:3095
 msgid "{n} byte"
 msgid_plural "{n} bytes"
 msgstr[0] "{n} bayt"
@@ -4243,7 +4260,7 @@ msgstr "Hatayı Kopyala"
 msgid "Show in Bucket"
 msgstr "Bucket’ta Göster"
 
-#: src/transfers/view.rs:737 src/window/mod.rs:2846 src/window/mod.rs:4347
+#: src/transfers/view.rs:737 src/window/mod.rs:2847 src/window/mod.rs:4348
 msgid "Open"
 msgstr "Aç"
 
@@ -4357,7 +4374,7 @@ msgid_plural "{n} objects moved"
 msgstr[0] "{n} nesne taşındı"
 msgstr[1] "{n} nesne taşındı"
 
-#: src/window/actions.rs:846 src/window/mod.rs:3354 src/window/mod.rs:3580
+#: src/window/actions.rs:846 src/window/mod.rs:3355 src/window/mod.rs:3581
 msgid "Undo"
 msgstr "Geri Al"
 
@@ -4419,11 +4436,11 @@ msgstr "1 MB – 100 MB"
 msgid "Larger than 100 MB"
 msgstr "100 MB'tan büyük"
 
-#: src/window/actions.rs:1271 src/window/mod.rs:2290
+#: src/window/actions.rs:1271 src/window/mod.rs:2291
 msgid "Empty"
 msgstr "Boşalt"
 
-#: src/window/actions.rs:1274 src/window/mod.rs:947 src/window/mod.rs:3101
+#: src/window/actions.rs:1274 src/window/mod.rs:948 src/window/mod.rs:3102
 msgid "Modified"
 msgstr "Değiştirilme"
 
@@ -4468,133 +4485,133 @@ msgstr "%-e %B %Y, %-l:%M %p"
 msgid "%-e %B %Y, %H:%M"
 msgstr "%-e %B %Y, %H:%M"
 
-#: src/window/mod.rs:1010
+#: src/window/mod.rs:1011
 msgid "Open in New Tab"
 msgstr "Yeni Sekmede Aç"
 
-#: src/window/mod.rs:1011
+#: src/window/mod.rs:1012
 msgid "Quick Preview"
 msgstr "Hızlı Önizleme"
 
-#: src/window/mod.rs:1013
+#: src/window/mod.rs:1014
 msgid "Open With…"
 msgstr "Birlikte Aç…"
 
-#: src/window/mod.rs:1018
+#: src/window/mod.rs:1019
 msgid "Cut"
 msgstr "Kes"
 
-#: src/window/mod.rs:1020 src/window/mod.rs:1041
+#: src/window/mod.rs:1021 src/window/mod.rs:1042
 msgid "Paste"
 msgstr "Yapıştır"
 
-#: src/window/mod.rs:1021
+#: src/window/mod.rs:1022
 msgid "Rename…"
 msgstr "Yeniden Adlandır…"
 
-#: src/window/mod.rs:1025
+#: src/window/mod.rs:1026
 msgid "Copy Public Address"
 msgstr "Herkese Açık Adresi Kopyala"
 
-#: src/window/mod.rs:1027
+#: src/window/mod.rs:1028
 msgid "S3 Location"
 msgstr "S3 Konumu"
 
-#: src/window/mod.rs:1028
+#: src/window/mod.rs:1029
 msgid "AWS CLI Command"
 msgstr "AWS CLI Komutu"
 
-#: src/window/mod.rs:1029
+#: src/window/mod.rs:1030
 msgid "File Contents"
 msgstr "Dosya İçeriği"
 
-#: src/window/mod.rs:1030
+#: src/window/mod.rs:1031
 msgid "Copy As"
 msgstr "Farklı Kopyala"
 
-#: src/window/mod.rs:1047 src/window/mod.rs:2077
+#: src/window/mod.rs:1048 src/window/mod.rs:2078
 msgid "Copy Location"
 msgstr "Konumu Kopyala"
 
-#: src/window/mod.rs:1244
+#: src/window/mod.rs:1245
 msgid "Only hidden files are here. Press Ctrl+H to show them."
 msgstr ""
 "Burada yalnızca gizli dosyalar var. Göstermek için Ctrl+H tuşlarına basın."
 
-#: src/window/mod.rs:1248
+#: src/window/mod.rs:1249
 msgid "No Matches"
 msgstr "Eşleşme Yok"
 
-#: src/window/mod.rs:1249
+#: src/window/mod.rs:1250
 msgid "No item in this folder matches the filter."
 msgstr "Bu klasörde süzgece uyan öğe yok."
 
-#: src/window/mod.rs:1364
+#: src/window/mod.rs:1365
 msgid "Folder"
 msgstr "Klasör"
 
-#: src/window/mod.rs:1559 src/window/mod.rs:1612
+#: src/window/mod.rs:1560 src/window/mod.rs:1613
 msgid "{n} selected"
 msgstr "{n} seçili"
 
-#: src/window/mod.rs:1872
+#: src/window/mod.rs:1873
 msgid "Edit…"
 msgstr "Düzenle…"
 
-#: src/window/mod.rs:1875
+#: src/window/mod.rs:1876
 msgid "Duplicate…"
 msgstr "Çoğalt…"
 
-#: src/window/mod.rs:1884
+#: src/window/mod.rs:1885
 msgid "Connection Menu"
 msgstr "Bağlantı Menüsü"
 
-#: src/window/mod.rs:1908
+#: src/window/mod.rs:1909
 msgid "No usable keyring was found; the access key is stored unencrypted"
 msgstr ""
 "Kullanılabilir anahtarlık bulunamadı; erişim anahtarı şifrelenmeden "
 "saklanıyor"
 
-#: src/window/mod.rs:1920
+#: src/window/mod.rs:1921
 msgid "Delete Connection?"
 msgstr "Bağlantı Silinsin mi?"
 
-#: src/window/mod.rs:1922
+#: src/window/mod.rs:1923
 msgid ""
 "“{name}” and its stored credentials will be removed. Buckets are not "
 "affected."
 msgstr ""
 "“{name}” ve kayıtlı kimlik bilgileri kaldırılacak. Bucket'lar etkilenmez."
 
-#: src/window/mod.rs:2008
+#: src/window/mod.rs:2009
 msgid "The connection was deleted"
 msgstr "Bağlantı silindi"
 
-#: src/window/mod.rs:2053
+#: src/window/mod.rs:2054
 msgid "Containers"
 msgstr "Kapsayıcılar"
 
-#: src/window/mod.rs:2084
+#: src/window/mod.rs:2085
 msgid "Empty Bucket…"
 msgstr "Bucket’ı Boşalt…"
 
-#: src/window/mod.rs:2089
+#: src/window/mod.rs:2090
 msgid "Remove from Connection"
 msgstr "Bağlantıdan Kaldır"
 
-#: src/window/mod.rs:2093
+#: src/window/mod.rs:2094
 msgid "Delete Bucket…"
 msgstr "Bucket'ı Sil…"
 
-#: src/window/mod.rs:2103
+#: src/window/mod.rs:2104
 msgid "Bucket Menu"
 msgstr "Bucket Menüsü"
 
-#: src/window/mod.rs:2115
+#: src/window/mod.rs:2116
 msgid "No buckets"
 msgstr "Bucket yok"
 
-#: src/window/mod.rs:2119
+#: src/window/mod.rs:2120
 msgid ""
 "These credentials cannot list buckets. Link a bucket you have access to by "
 "entering its name."
@@ -4602,11 +4619,11 @@ msgstr ""
 "Bu kimlik bilgileri bucket'ları listeleyemiyor. Erişiminiz olan bir bucket'ı "
 "adını girerek bağlayın."
 
-#: src/window/mod.rs:2208
+#: src/window/mod.rs:2209
 msgid "Link Bucket"
 msgstr "Bucket Bağla"
 
-#: src/window/mod.rs:2208
+#: src/window/mod.rs:2209
 msgid ""
 "Enter the name of an existing bucket you can access. Nothing is created; it "
 "is only added to this connection."
@@ -4614,24 +4631,24 @@ msgstr ""
 "Erişebildiğiniz mevcut bir bucket'ın adını girin. Hiçbir şey oluşturulmaz; "
 "yalnızca bu bağlantıya eklenir."
 
-#: src/window/mod.rs:2208
+#: src/window/mod.rs:2209
 msgid "Link"
 msgstr "Bağla"
 
-#: src/window/mod.rs:2244
+#: src/window/mod.rs:2245
 msgid "New Bucket"
 msgstr "Yeni Bucket"
 
-#: src/window/mod.rs:2244 src/window/mod.rs:2737 src/window/mod.rs:2756
-#: src/window/vault.rs:131
+#: src/window/mod.rs:2245 src/window/mod.rs:2738 src/window/mod.rs:2757
+#: src/window/vault.rs:132
 msgid "Create"
 msgstr "Oluştur"
 
-#: src/window/mod.rs:2248
+#: src/window/mod.rs:2249
 msgid "Bucket created"
 msgstr "Bucket oluşturuldu"
 
-#: src/window/mod.rs:2261
+#: src/window/mod.rs:2262
 msgid ""
 "“{name}” and all objects in it will be deleted permanently. Type the bucket "
 "name to confirm."
@@ -4639,15 +4656,15 @@ msgstr ""
 "“{name}” ve içindeki tüm nesneler kalıcı olarak silinecek. Onaylamak için "
 "bucket adını yazın."
 
-#: src/window/mod.rs:2264
+#: src/window/mod.rs:2265
 msgid "Delete Bucket?"
 msgstr "Bucket Silinsin mi?"
 
-#: src/window/mod.rs:2274
+#: src/window/mod.rs:2275
 msgid "Bucket deleted"
 msgstr "Bucket silindi"
 
-#: src/window/mod.rs:2287
+#: src/window/mod.rs:2288
 msgid ""
 "All objects in “{name}” will be deleted permanently; the bucket itself "
 "stays. Type the bucket name to confirm."
@@ -4655,262 +4672,262 @@ msgstr ""
 "“{name}” içindeki tüm nesneler kalıcı olarak silinecek; bucket’ın kendisi "
 "kalır. Onaylamak için bucket adını yazın."
 
-#: src/window/mod.rs:2290
+#: src/window/mod.rs:2291
 msgid "Empty Bucket?"
 msgstr "Bucket Boşaltılsın mı?"
 
-#: src/window/mod.rs:2298
+#: src/window/mod.rs:2299
 msgid "Empty {name}"
 msgstr "{name} boşaltılıyor"
 
-#: src/window/mod.rs:2314
+#: src/window/mod.rs:2315
 msgid "{n} object deleted"
 msgid_plural "{n} objects deleted"
 msgstr[0] "{n} nesne silindi"
 msgstr[1] "{n} nesne silindi"
 
-#: src/window/mod.rs:2460
+#: src/window/mod.rs:2461
 msgid "No Results"
 msgstr "Sonuç Yok"
 
-#: src/window/mod.rs:2710
+#: src/window/mod.rs:2711
 msgid "{n} result for “{q}”"
 msgid_plural "{n} results for “{q}”"
 msgstr[0] "“{q}” için {n} sonuç"
 msgstr[1] "“{q}” için {n} sonuç"
 
-#: src/window/mod.rs:2716
+#: src/window/mod.rs:2717
 msgid "Only the first results are shown; narrow the search."
 msgstr "Yalnızca ilk sonuçlar gösteriliyor; aramayı daraltın."
 
-#: src/window/mod.rs:2737
+#: src/window/mod.rs:2738
 msgid "New Folder"
 msgstr "Yeni Klasör"
 
-#: src/window/mod.rs:2756
+#: src/window/mod.rs:2757
 msgid "New Text File"
 msgstr "Yeni Metin Dosyası"
 
-#: src/window/mod.rs:2756
+#: src/window/mod.rs:2757
 msgid "New Document"
 msgstr "Yeni Belge"
 
-#: src/window/mod.rs:2796
+#: src/window/mod.rs:2797
 msgid "{n} item selected"
 msgid_plural "{n} items selected"
 msgstr[0] "{n} öğe seçildi"
 msgstr[1] "{n} öğe seçildi"
 
-#: src/window/mod.rs:2803
+#: src/window/mod.rs:2804
 msgid "{n} folder not counted"
 msgid_plural "{n} folders not counted"
 msgstr[0] "{n} klasör sayılmadı"
 msgstr[1] "{n} klasör sayılmadı"
 
-#: src/window/mod.rs:2826 src/window/mod.rs:2829 src/window/mod.rs:3138
+#: src/window/mod.rs:2827 src/window/mod.rs:2830 src/window/mod.rs:3139
 msgid "Calculating…"
 msgstr "Hesaplanıyor…"
 
-#: src/window/mod.rs:2942
+#: src/window/mod.rs:2943
 msgid "Details Could Not Be Loaded"
 msgstr "Ayrıntılar Yüklenemedi"
 
-#: src/window/mod.rs:3086
+#: src/window/mod.rs:3087
 msgid "Dimensions"
 msgstr "Boyutlar"
 
-#: src/window/mod.rs:3086
+#: src/window/mod.rs:3087
 msgid "{w} × {h} pixels"
 msgstr "{w} × {h} piksel"
 
-#: src/window/mod.rs:3106 src/window/mod.rs:4208
+#: src/window/mod.rs:3107 src/window/mod.rs:4209
 msgid "Version"
 msgstr "Sürüm"
 
-#: src/window/mod.rs:3111
+#: src/window/mod.rs:3112
 msgid "Original file date"
 msgstr "Özgün dosya tarihi"
 
-#: src/window/mod.rs:3120
+#: src/window/mod.rs:3121
 msgid "Not calculated"
 msgstr "Hesaplanmadı"
 
-#: src/window/mod.rs:3125
+#: src/window/mod.rs:3126
 msgid "Calculate"
 msgstr "Hesapla"
 
-#: src/window/mod.rs:3150
+#: src/window/mod.rs:3151
 msgid "SHA-256"
 msgstr "SHA-256"
 
-#: src/window/mod.rs:3177
+#: src/window/mod.rs:3178
 msgid "Versions"
 msgstr "Sürümler"
 
-#: src/window/mod.rs:3180
+#: src/window/mod.rs:3181
 msgid "Permissions and Retention"
 msgstr "İzinler ve Saklama"
 
-#: src/window/mod.rs:3210
+#: src/window/mod.rs:3211
 msgid "Edit"
 msgstr "Düzenle"
 
-#: src/window/mod.rs:3248
+#: src/window/mod.rs:3249
 msgid "Changes saved"
 msgstr "Değişiklikler kaydedildi"
 
-#: src/window/mod.rs:3333
+#: src/window/mod.rs:3334
 msgid "A name with “/” moves the file into that folder."
 msgstr "“/” içeren bir ad dosyayı o klasöre taşır."
 
-#: src/window/mod.rs:3353
+#: src/window/mod.rs:3354
 msgid "Renamed to “{name}”"
 msgstr "Yeni adı “{name}”"
 
-#: src/window/mod.rs:3386
+#: src/window/mod.rs:3387
 msgid "Change Storage Class"
 msgstr "Depolama Sınıfını Değiştir"
 
-#: src/window/mod.rs:3388
+#: src/window/mod.rs:3389
 msgid "{n} object will be copied in place into the new storage class."
 msgid_plural "{n} objects will be copied in place into the new storage class."
 msgstr[0] "{n} nesne yerinde yeni depolama sınıfına kopyalanacak."
 msgstr[1] "{n} nesne yerinde yeni depolama sınıfına kopyalanacak."
 
-#: src/window/mod.rs:3407
+#: src/window/mod.rs:3408
 msgid "Storage class of {n} object changed"
 msgid_plural "Storage class of {n} objects changed"
 msgstr[0] "{n} nesnenin depolama sınıfı değiştirildi"
 msgstr[1] "{n} nesnenin depolama sınıfı değiştirildi"
 
-#: src/window/mod.rs:3426 src/window/mod.rs:3487
+#: src/window/mod.rs:3427 src/window/mod.rs:3488
 msgid "Edit Headers"
 msgstr "Başlıkları Düzenle"
 
-#: src/window/mod.rs:3428
+#: src/window/mod.rs:3429
 msgid "Empty fields keep the current value of the object."
 msgid_plural "Empty fields keep the current value of each of the {n} objects."
 msgstr[0] "Boş alanlar nesnenin mevcut değerini korur."
 msgstr[1] "Boş alanlar, {n} nesnenin her birinin mevcut değerini korur."
 
-#: src/window/mod.rs:3446
+#: src/window/mod.rs:3447
 msgid "Common Values"
 msgstr "Yaygın Değerler"
 
-#: src/window/mod.rs:3515
+#: src/window/mod.rs:3516
 msgid "{n} objects could not be changed: {error}"
 msgstr "{n} nesne değiştirilemedi: {error}"
 
-#: src/window/mod.rs:3520
+#: src/window/mod.rs:3521
 msgid "Headers of {n} object changed"
 msgid_plural "Headers of {n} objects changed"
 msgstr[0] "{n} nesnenin başlıkları değiştirildi"
 msgstr[1] "{n} nesnenin başlıkları değiştirildi"
 
-#: src/window/mod.rs:3542
+#: src/window/mod.rs:3543
 msgid "{n} items will be deleted ({f} folders, including their contents)."
 msgstr "{n} öğe silinecek ({f} klasör, içerikleriyle birlikte)."
 
-#: src/window/mod.rs:3547
+#: src/window/mod.rs:3548
 msgid "“{name}” will be deleted permanently."
 msgstr "“{name}” kalıcı olarak silinecek."
 
-#: src/window/mod.rs:3552
+#: src/window/mod.rs:3553
 msgid "{n} item will be deleted permanently."
 msgid_plural "{n} items will be deleted permanently."
 msgstr[0] "{n} öğe kalıcı olarak silinecek."
 msgstr[1] "{n} öğe kalıcı olarak silinecek."
 
-#: src/window/mod.rs:3559
+#: src/window/mod.rs:3560
 msgid "Delete Folder?"
 msgstr "Klasör Silinsin mi?"
 
-#: src/window/mod.rs:3559
+#: src/window/mod.rs:3560
 msgid "Delete Items?"
 msgstr "Ögeler Silinsin mi?"
 
-#: src/window/mod.rs:3572
+#: src/window/mod.rs:3573
 msgid "“{name}” deleted"
 msgstr "“{name}” silindi"
 
-#: src/window/mod.rs:3576
+#: src/window/mod.rs:3577
 msgid "{n} item deleted"
 msgid_plural "{n} items deleted"
 msgstr[0] "{n} öğe silindi"
 msgstr[1] "{n} öğe silindi"
 
-#: src/window/mod.rs:3606
+#: src/window/mod.rs:3607
 msgid "Delete {n} item"
 msgid_plural "Delete {n} items"
 msgstr[0] "{n} öğeyi sil"
 msgstr[1] "{n} öğeyi sil"
 
-#: src/window/mod.rs:3640
+#: src/window/mod.rs:3641
 msgid "Select Items Matching"
 msgstr "Eşleşen Öğeleri Seç"
 
-#: src/window/mod.rs:3641
+#: src/window/mod.rs:3642
 msgid "Use * for any characters and ? for one, for example *.jpg"
 msgstr ""
 "Herhangi karakterler için *, tek karakter için ? kullanın; örneğin *.jpg"
 
-#: src/window/mod.rs:3643
+#: src/window/mod.rs:3644
 msgid "Select"
 msgstr "Seç"
 
-#: src/window/mod.rs:3662
+#: src/window/mod.rs:3663
 msgid "No item matches “{pattern}”"
 msgstr "“{pattern}” ile eşleşen öğe yok"
 
-#: src/window/mod.rs:3673
+#: src/window/mod.rs:3674
 msgid "Export List"
 msgstr "Listeyi Dışa Aktar"
 
-#: src/window/mod.rs:3679
+#: src/window/mod.rs:3680
 msgid "Listing the folder…"
 msgstr "Klasör listeleniyor…"
 
-#: src/window/mod.rs:3689
+#: src/window/mod.rs:3690
 msgid "{n} object exported"
 msgid_plural "{n} objects exported"
 msgstr[0] "{n} nesne dışa aktarıldı"
 msgstr[1] "{n} nesne dışa aktarıldı"
 
-#: src/window/mod.rs:3741
+#: src/window/mod.rs:3742
 msgid "Nothing to undo"
 msgstr "Geri alınacak bir şey yok"
 
-#: src/window/mod.rs:3876
+#: src/window/mod.rs:3877
 msgid "{n} transfer running"
 msgid_plural "{n} transfers running"
 msgstr[0] "{n} aktarım sürüyor"
 msgstr[1] "{n} aktarım sürüyor"
 
-#: src/window/mod.rs:3878
+#: src/window/mod.rs:3879
 msgid "{n} transfer failed"
 msgid_plural "{n} transfers failed"
 msgstr[0] "{n} aktarım başarısız"
 msgstr[1] "{n} aktarım başarısız"
 
-#: src/window/mod.rs:3880
+#: src/window/mod.rs:3881
 msgid "Transfers finished"
 msgstr "Aktarımlar tamamlandı"
 
-#: src/window/mod.rs:3885
+#: src/window/mod.rs:3886
 msgid "{n} transfer"
 msgid_plural "{n} transfers"
 msgstr[0] "{n} aktarım"
 msgstr[1] "{n} aktarım"
 
-#: src/window/mod.rs:3967
+#: src/window/mod.rs:3968
 msgid "Upload Folder"
 msgstr "Klasör Yükle"
 
-#: src/window/mod.rs:4101
+#: src/window/mod.rs:4102
 msgid "Replace “{name}”?"
 msgstr "“{name}” Değiştirilsin mi?"
 
-#: src/window/mod.rs:4103
+#: src/window/mod.rs:4104
 msgid ""
 "An object with this name already exists.\n"
 "\n"
@@ -4922,7 +4939,7 @@ msgstr ""
 "Bucket'taki: {old_size}, {old_date}\n"
 "Yeni dosya: {new_size}, {new_date}"
 
-#: src/window/mod.rs:4114
+#: src/window/mod.rs:4115
 msgid ""
 "Objects with the same names are already in the bucket. Replacing them "
 "overwrites their content."
@@ -4930,85 +4947,85 @@ msgstr ""
 "Aynı adlı nesneler bucket'ta zaten var. Değiştirmek içeriklerinin üzerine "
 "yazar."
 
-#: src/window/mod.rs:4118
+#: src/window/mod.rs:4119
 msgid "{n} of the files is newer than its object."
 msgid_plural "{n} of the files are newer than their objects."
 msgstr[0] "Dosyalardan {n} tanesi nesnesinden daha yeni."
 msgstr[1] "Dosyalardan {n} tanesi nesnesinden daha yeni."
 
-#: src/window/mod.rs:4123
+#: src/window/mod.rs:4124
 msgid "{n} File Already Exists"
 msgid_plural "{n} Files Already Exist"
 msgstr[0] "{n} Dosya Zaten Var"
 msgstr[1] "{n} Dosya Zaten Var"
 
-#: src/window/mod.rs:4126
+#: src/window/mod.rs:4127
 msgid "Skip"
 msgstr "Atla"
 
-#: src/window/mod.rs:4126
+#: src/window/mod.rs:4127
 msgid "Keep Both"
 msgstr "İkisini de Koru"
 
-#: src/window/mod.rs:4128
+#: src/window/mod.rs:4129
 msgid "Replace Older"
 msgstr "Eskileri Değiştir"
 
-#: src/window/mod.rs:4130
+#: src/window/mod.rs:4131
 msgid "Replace"
 msgstr "Değiştir"
 
-#: src/window/mod.rs:4152
+#: src/window/mod.rs:4153
 msgid "{n} file could not be uploaded"
 msgid_plural "{n} files could not be uploaded"
 msgstr[0] "{n} dosya yüklenemedi"
 msgstr[1] "{n} dosya yüklenemedi"
 
-#: src/window/mod.rs:4157
+#: src/window/mod.rs:4158
 msgid "{n} file uploaded"
 msgid_plural "{n} files uploaded"
 msgstr[0] "{n} dosya yüklendi"
 msgstr[1] "{n} dosya yüklendi"
 
-#: src/window/mod.rs:4159
+#: src/window/mod.rs:4160
 msgid "Upload cancelled"
 msgstr "Yükleme iptal edildi"
 
-#: src/window/mod.rs:4187
+#: src/window/mod.rs:4188
 msgid "{n} file queued for {path}"
 msgid_plural "{n} files queued for {path}"
 msgstr[0] "{n} dosya {path} için sıraya alındı"
 msgstr[1] "{n} dosya {path} için sıraya alındı"
 
-#: src/window/mod.rs:4202
+#: src/window/mod.rs:4203
 msgid "Save Version"
 msgstr "Sürümü Kaydet"
 
-#: src/window/mod.rs:4224 src/window/mod.rs:4490
+#: src/window/mod.rs:4225 src/window/mod.rs:4491
 msgid "Download finished"
 msgstr "İndirme tamamlandı"
 
-#: src/window/mod.rs:4251
+#: src/window/mod.rs:4252
 msgid "Mounted"
 msgstr "Bağlı"
 
-#: src/window/mod.rs:4271
+#: src/window/mod.rs:4272
 msgid "read only"
 msgstr "salt okunur"
 
-#: src/window/mod.rs:4276
+#: src/window/mod.rs:4277
 msgid "Unmount"
 msgstr "Ayır"
 
-#: src/window/mod.rs:4285
+#: src/window/mod.rs:4286
 msgid "Unmounted"
 msgstr "Ayrıldı"
 
-#: src/window/mod.rs:4317
+#: src/window/mod.rs:4318
 msgid "Mount as Folder"
 msgstr "Klasör Olarak Bağla"
 
-#: src/window/mod.rs:4319
+#: src/window/mod.rs:4320
 msgid ""
 "The location appears as a normal folder in GNOME Files. The mount point is "
 "created in the “Ferry” folder of your home directory."
@@ -5016,109 +5033,109 @@ msgstr ""
 "Konum, GNOME Dosyalar'da normal bir klasör olarak görünür. Bağlama noktası "
 "ev dizininizdeki “Ferry” klasöründe oluşturulur."
 
-#: src/window/mod.rs:4324
+#: src/window/mod.rs:4325
 msgid "Allow changes"
 msgstr "Değişikliklere izin ver"
 
-#: src/window/mod.rs:4325
+#: src/window/mod.rs:4326
 msgid ""
 "Saved files are uploaded when closed; deleting and renaming change the bucket"
 msgstr ""
 "Kaydedilen dosyalar kapatılınca yüklenir; silme ve yeniden adlandırma "
 "bucket'ı değiştirir"
 
-#: src/window/mod.rs:4330
+#: src/window/mod.rs:4331
 msgid "Mount"
 msgstr "Bağla"
 
-#: src/window/mod.rs:4344
+#: src/window/mod.rs:4345
 msgid "Mounted at {path}"
 msgstr "{path} konumuna bağlandı"
 
-#: src/window/mod.rs:4396
+#: src/window/mod.rs:4397
 msgid "Remove from Favorites"
 msgstr "Sık Kullanılanlardan Kaldır"
 
-#: src/window/mod.rs:4431
+#: src/window/mod.rs:4432
 msgid "Download To"
 msgstr "Şuraya İndir"
 
-#: src/window/mod.rs:4473
+#: src/window/mod.rs:4474
 msgid "{n} file could not be downloaded"
 msgid_plural "{n} files could not be downloaded"
 msgstr[0] "{n} dosya indirilemedi"
 msgstr[1] "{n} dosya indirilemedi"
 
-#: src/window/mod.rs:4480
+#: src/window/mod.rs:4481
 msgid "Download Finished"
 msgstr "İndirme Tamamlandı"
 
-#: src/window/mod.rs:4482
+#: src/window/mod.rs:4483
 msgid "{n} file downloaded"
 msgid_plural "{n} files downloaded"
 msgstr[0] "{n} dosya indirildi"
 msgstr[1] "{n} dosya indirildi"
 
-#: src/window/mod.rs:4562
+#: src/window/mod.rs:4563
 msgid "Download as Archive"
 msgstr "Arşiv Olarak İndir"
 
-#: src/window/mod.rs:4598
+#: src/window/mod.rs:4599
 msgid "There is nothing to put in the archive"
 msgstr "Arşive konacak bir şey yok"
 
-#: src/window/mod.rs:4620
+#: src/window/mod.rs:4621
 msgid "“{name}” is ready"
 msgstr "“{name}” hazır"
 
-#: src/window/mod.rs:4651
+#: src/window/mod.rs:4652
 msgid "Files are uploaded to {path}"
 msgstr "Dosyalar {path} konumuna yüklenecek"
 
-#: src/window/vault.rs:61
+#: src/window/vault.rs:62
 msgid ""
 "Cryptomator vault, unlocked. Names and files are decrypted on this computer "
 "only."
 msgstr ""
 "Cryptomator kasası açık. Adlar ve dosyalar yalnızca bu bilgisayarda çözülür."
 
-#: src/window/vault.rs:63
+#: src/window/vault.rs:64
 msgid "_Lock"
 msgstr "_Kilitle"
 
-#: src/window/vault.rs:67
+#: src/window/vault.rs:68
 msgid "This folder is a Cryptomator vault"
 msgstr "Bu klasör bir Cryptomator kasası"
 
-#: src/window/vault.rs:68
+#: src/window/vault.rs:69
 msgid "_Unlock…"
 msgstr "_Kilidi Aç…"
 
-#: src/window/vault.rs:107
+#: src/window/vault.rs:108
 msgid "Vault locked"
 msgstr "Kasa kilitlendi"
 
-#: src/window/vault.rs:177
+#: src/window/vault.rs:178
 msgid "Unlock Vault"
 msgstr "Kasanın Kilidini Aç"
 
-#: src/window/vault.rs:178
+#: src/window/vault.rs:179
 msgid "Enter the password of the vault “{name}”."
 msgstr "“{name}” kasasının parolasını girin."
 
-#: src/window/vault.rs:197
+#: src/window/vault.rs:198
 msgid "Vault unlocked"
 msgstr "Kasanın kilidi açıldı"
 
-#: src/window/vault.rs:204
+#: src/window/vault.rs:205
 msgid "A vault cannot be made inside another vault"
 msgstr "Bir kasa başka bir kasanın içinde oluşturulamaz"
 
-#: src/window/vault.rs:210
+#: src/window/vault.rs:211
 msgid "New Vault"
 msgstr "Yeni Kasa"
 
-#: src/window/vault.rs:210
+#: src/window/vault.rs:211
 msgid ""
 "A Cryptomator vault encrypts names and contents on this computer, before "
 "they are uploaded. The Cryptomator apps open it too."
@@ -5126,19 +5143,19 @@ msgstr ""
 "Cryptomator kasası, adları ve içerikleri yüklenmeden önce bu bilgisayarda "
 "şifreler. Cryptomator uygulamaları da onu açabilir."
 
-#: src/window/vault.rs:210
+#: src/window/vault.rs:211
 msgid "Vault"
 msgstr "Kasa"
 
-#: src/window/vault.rs:213
+#: src/window/vault.rs:214
 msgid "A vault name cannot contain “/”"
 msgstr "Kasa adı “/” içeremez"
 
-#: src/window/vault.rs:216
+#: src/window/vault.rs:217
 msgid "Vault Password"
 msgstr "Kasa Parolası"
 
-#: src/window/vault.rs:217
+#: src/window/vault.rs:218
 msgid ""
 "Use at least 8 characters. Nobody can open the vault without this password, "
 "and it cannot be recovered."
@@ -5146,6 +5163,6 @@ msgstr ""
 "En az 8 karakter kullanın. Bu parola olmadan kasayı kimse açamaz ve parola "
 "kurtarılamaz."
 
-#: src/window/vault.rs:228
+#: src/window/vault.rs:229
 msgid "Vault created"
 msgstr "Kasa oluşturuldu"

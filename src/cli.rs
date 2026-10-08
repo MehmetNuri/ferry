@@ -51,7 +51,38 @@ async fn connect(profile: &Profile) -> Result<S3, String> {
         let with_keys = crate::profile::with_secrets(profile.clone()).await?;
         crate::s3::connection::start_mfa_session(&with_keys, code.trim()).await?;
     }
-    crate::s3::client_for(&profile.id).await
+    crate::s3::client_for(&profile.id).await.map_err(|error| match crate::remote::sftp::UnknownHost::decode(&error) {
+        Some(host) => trf(
+            "The key of {host} is not known yet ({fingerprint}). Open the connection once in Ferry to check and trust it.",
+            &[("host", &format!("{}:{}", host.host, host.port)), ("fingerprint", &host.fingerprint)],
+        ),
+        None => error,
+    })
+}
+
+// File servers have one bucket, named after the connection, so the text after
+// the colon is a path there; a wrong bucket must not fall back to the root.
+async fn locate(place: Remote, client: &S3) -> Result<Remote, String> {
+    let Some(server) = client.remote.as_ref() else { return Ok(place) };
+    let buckets: Vec<String> = client.list_buckets().await?.buckets.into_iter().map(|b| b.name).collect();
+    if !server.has_buckets()
+        && let [only] = buckets.as_slice()
+    {
+        let key = match (place.bucket.as_str(), place.key.as_str()) {
+            (bucket, key) if bucket == only => key.to_string(),
+            ("", _) => String::new(),
+            (bucket, "") => bucket.to_string(),
+            (bucket, key) => format!("{bucket}/{key}"),
+        };
+        return Ok(Remote { bucket: only.clone(), key, ..place });
+    }
+    if place.bucket.is_empty() || buckets.contains(&place.bucket) {
+        return Ok(place);
+    }
+    Err(trf(
+        "“{name}” has no bucket “{bucket}”. It has: {buckets}",
+        &[("name", &place.profile.name), ("bucket", &place.bucket), ("buckets", &buckets.join(", "))],
+    ))
 }
 
 fn human(bytes: i64) -> String {
@@ -89,6 +120,7 @@ async fn ls(args: &[String], profiles: &[Profile]) -> Result<(), String> {
     let Some(target) = args.iter().find(|a| !a.starts_with('-')) else { return Err(usage()) };
     let place = remote(target, profiles)?;
     let client = connect(&place.profile).await?;
+    let place = locate(place, &client).await?;
     if place.bucket.is_empty() {
         for bucket in client.list_buckets().await?.buckets {
             println!("{}/", bucket.name);
@@ -132,6 +164,10 @@ async fn get(args: &[String], profiles: &[Profile]) -> Result<(), String> {
     let place = remote(source, profiles)?;
     let destination = plain.get(1).map(PathBuf::from).unwrap_or_else(|| PathBuf::from("."));
     let client = connect(&place.profile).await?;
+    let place = locate(place, &client).await?;
+    if place.bucket.is_empty() {
+        return Err(tr("Name a bucket or folder to download"));
+    }
     if !recursive {
         let name = place
             .key
@@ -192,10 +228,11 @@ async fn put(args: &[String], profiles: &[Profile]) -> Result<(), String> {
     let plain: Vec<&String> = args.iter().filter(|a| !a.starts_with('-')).collect();
     let (Some(target), true) = (plain.last(), plain.len() >= 2) else { return Err(usage()) };
     let place = remote(target, profiles)?;
+    let client = connect(&place.profile).await?;
+    let place = locate(place, &client).await?;
     if place.bucket.is_empty() {
         return Err(tr("Name a bucket to upload into"));
     }
-    let client = connect(&place.profile).await?;
     let mut prefix = place.key.clone();
     let single = plain.len() == 2 && Path::new(plain[0]).is_file();
     for local in &plain[..plain.len() - 1] {
@@ -237,10 +274,11 @@ async fn rm(args: &[String], profiles: &[Profile]) -> Result<(), String> {
     let recursive = args.iter().any(|a| a == "-r");
     let Some(target) = args.iter().find(|a| !a.starts_with('-')) else { return Err(usage()) };
     let place = remote(target, profiles)?;
-    if place.bucket.is_empty() || place.key.is_empty() {
+    let client = connect(&place.profile).await?;
+    let place = locate(place, &client).await?;
+    if place.bucket.is_empty() || place.key.trim_matches('/').is_empty() {
         return Err(tr("Name an object or folder to remove; buckets are not removed from the command line"));
     }
-    let client = connect(&place.profile).await?;
     let keys = if recursive {
         let mut prefix = place.key.clone();
         if !prefix.ends_with('/') {
@@ -269,6 +307,7 @@ async fn cat(args: &[String], profiles: &[Profile]) -> Result<(), String> {
     let Some(target) = args.first() else { return Err(usage()) };
     let place = remote(target, profiles)?;
     let client = connect(&place.profile).await?;
+    let place = locate(place, &client).await?;
     let size = client.head_object(&place.bucket, &place.key).await?.size.max(0) as u64;
     if size <= 16 * 1024 * 1024 {
         let data = client.read_bytes(&place.bucket, &place.key, size).await?;
@@ -296,6 +335,7 @@ async fn share(args: &[String], profiles: &[Profile]) -> Result<(), String> {
     }
     let place = remote(target.ok_or_else(usage)?, profiles)?;
     let client = connect(&place.profile).await?;
+    let place = locate(place, &client).await?;
     println!("{}", client.presign(&place.bucket, &place.key, seconds.clamp(1, 604_800)).await?);
     Ok(())
 }
