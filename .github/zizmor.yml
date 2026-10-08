@@ -1,0 +1,6 @@
+rules:
+  cache-poisoning:
+    ignore:
+      # The cache steps are skipped on tags and full builds (env.FULL),
+      # so released packages never restore a cache.
+      - release.yml
