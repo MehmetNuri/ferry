@@ -963,10 +963,10 @@ pub fn start(win: &Window, profile_name: String) {
                 format!("{made:?} {:?}", names(&win)),
             );
             step(
-                !win.lookup_action("copy-link")
-                    .and_downcast::<gtk::gio::SimpleAction>()
-                    .is_some_and(|a| a.is_enabled()),
-                "links are off inside a vault",
+                !["copy-link", "mount"].iter().any(|name| {
+                    win.lookup_action(name).and_downcast::<gtk::gio::SimpleAction>().is_some_and(|a| a.is_enabled())
+                }),
+                "links and mounting are off inside a vault",
                 String::new(),
             );
             shot(&win, "30-vault-unlocked").await;
