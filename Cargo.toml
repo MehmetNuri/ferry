@@ -52,7 +52,7 @@ suppaftp = { version = "12", features = ["tokio-rustls-aws-lc-rs", "deprecated"]
 tokio-rustls = "0.26"
 tokio = { version = "1.53.2", features = ["rt-multi-thread", "fs", "io-util", "sync", "time", "macros", "process"] }
 zeroize = "1"
-zip = { version = "8.6.0", default-features = false, features = ["deflate"] }
+zip = { version = "9.0.2", default-features = false, features = ["deflate"] }
 
 [build-dependencies]
 glib-build-tools = "0.22.8"
